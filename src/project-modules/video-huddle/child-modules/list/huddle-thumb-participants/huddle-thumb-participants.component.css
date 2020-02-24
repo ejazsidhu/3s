@@ -1,0 +1,14 @@
+.img_box img:hover{
+	z-index: 11;
+	transition: all 1s linear;
+}
+
+.img_box img{
+	animation-name: fadeIn 1s;
+	transition: all 1s linear;
+}
+
+.type_text{
+	color: #5f5f5f;
+	font-weight: bold;
+}

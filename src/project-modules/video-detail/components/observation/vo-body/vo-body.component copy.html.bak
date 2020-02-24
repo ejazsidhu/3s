@@ -1,0 +1,356 @@
+<div id="main" class="container box">
+    <div class="analy_b">
+        <div class="header_an">
+            <h2 *ngIf="!options.video_title" class="video-detail-animation page-title"></h2>
+            <h2 *ngIf="options.video_title">{{options.video_title}}</h2>
+        </div>
+        <div class="video_body observation_body">
+            <div *ngIf="!translationLoaded" style="display: flex">
+                <div class="video-detail-animation tab-heading1"></div>
+                <div class="video-detail-animation tab-heading2"></div>
+                <div class="video-detail-animation tab-heading2"></div>
+
+            </div>
+            <tabset #MainTabs>
+                <tab (selectTab)="OnTabSelect(0)" *ngIf="translationLoaded">
+                    <ng-template tabHeading>
+                        {{translation?.vd_notes}}
+                    </ng-template>
+                </tab>
+
+                <tab (selectTab)="OnTabSelect(1)" *ngIf="translationLoaded && permissions.rubric_check && userAccountLevelRoleId != '125'">
+                    <ng-template tabHeading>
+                        {{translation?.vd_frameworks}}
+                    </ng-template>
+                </tab>
+                <tab (selectTab)="OnTabSelect(2)" *ngIf="translationLoaded">
+                    <ng-template tabHeading>
+                        {{translation?.vd_myfile_attachments}} attachments
+                        <!-- <span class="badge badge-primary">{{staticFiles.length}}</span> -->
+
+                    </ng-template>
+                </tab>
+                <div *ngIf="!translationLoaded" class="video-detail-animation nav-back-section"></div>
+                <div *ngIf="translationLoaded" style="float: right;position: absolute;top: 94px;right: 20px;z-index: 19;">
+                    <a [routerLink]="[GetUrl()]"><svg style="right: 10px;position: relative; top: -3px;"
+              xmlns="http://www.w3.org/2000/svg" width="18.03" height="11.187" viewBox="0 0 18.03 11.187">
+              <g id="left-arrow" transform="translate(-454 88.086)">
+                <path id="Path_88" data-name="Path 88"
+                  d="M17.249,80.727H2.665l3.48-3.48a.78.78,0,0,0-1.1-1.1L.229,80.955a.78.78,0,0,0,0,1.1l4.813,4.813a.78.78,0,1,0,1.1-1.1l-3.48-3.481H17.249a.78.78,0,1,0,0-1.561Z"
+                  transform="translate(454 -164)" fill="#949494" />
+              </g>
+            </svg></a>
+                    <ng-container *ngIf="!workspace">
+                        <a style="position: relative;top: -2px;color:#757575;" [routerLink]="[GetUrl()]" class="all-observations">{{translation?.vd_back_to_all_observaton}} </a>
+                    </ng-container>
+                    <ng-container *ngIf="workspace">
+                        <a style="position: relative;top: -2px;color:#757575;" [routerLink]="[GetUrl()]" class="all-observations">{{translation?.vd_backtoworkspace}}</a>
+                    </ng-container>
+                </div>
+            </tabset>
+            <div class="tab-content">
+                <div class="div-container">
+                    <div class="row" *ngIf="CurrentTab != 2">
+                        <div class="col-sm-6">
+                            <div>
+                            </div>
+                            <div class="fake_player" *ngIf="enabledLoad && !scriptMode">
+                                <ng-container *ngIf="options?.status=='recording'">
+                                    <div class="row">
+                                        <div class="pull-left col-sm-10">
+                                            <span class="custom_tag animated fadeIn infinite" style="border-color:transparent;background-color:rgb(223, 10, 0)"></span>{{translation?.vd_live_recording}}
+                                        </div>
+                                        <div class="pull-right">
+                                            {{options?.current_time}}
+                                        </div>
+                                    </div>
+                                    <span class="player_icon animated">
+                    <span class="oi" data-glyph="video"></span>
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="options?.status=='uploading'">
+                                    <div class="uploading_wrapper" [style.width.%]="options.upload_progress">
+                                    </div>
+                                    <span>{{translation?.vd_uploading}} {{options?.upload_progress}}% </span>
+                                </ng-container>
+                                <ng-container *ngIf="options?.status=='paused'">
+                                    <div class="uploading_wrapper" [style.width.%]="options.upload_progress">
+                                    </div>
+                                    <span>
+                    <span class="oi" data-glyph="media-pause"></span>
+                                    <span class="pause_wrapper">
+                      {{translation?.vd_pause}} ({{options?.upload_progress}}%)
+                    </span>
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="options?.status=='cancelled'">
+                                    <div class="uploading_wrapper" [style.width.%]="options.upload_progress">
+                                    </div>
+                                    <span>
+                    <span class="oi" data-glyph="plus"></span>
+                                    <span class="pause_wrapper">
+                      {{translation?.vd_pause}}
+                    </span>
+                                    </span>
+                                </ng-container>
+                            </div>
+                            <div *ngIf="!enabledLoad && !scriptMode">
+
+                                <video-player (IsPlaying)="isPlaying=$event" (VideoCurrentTime)="GetTime($event)" [comments]="comments" [customMarkers]="CustomMarkers" [colors]="colorClasses" [ShowInfo]="ShowInfo" [src]="src" (ShowInfoBack)="ShowInfo=$event"></video-player>
+                            </div>
+                            <div class="script_mode" *ngIf="scriptMode">
+                                <div class="text-center" *ngIf="!options?.script_published && loaded">
+                                    <h3> {{options?.current_time}} </h3>
+                                    <button class="btn btn-success form-control" (click)="StartTimer();AddPermissions()" *ngIf="!options.timerStarted" [style.backgroundColor]="primery_button_color">
+                    {{translation?.vd_start}} </button>
+                                    <ng-container *ngIf="options.timerStarted && options.timerStatus!='stopped'">
+                                        <div class="btn-group">
+                                            <button class="btn btn-success" *ngIf="options.timerStatus=='playing'" (click)="pauseInterval(0)" [style.backgroundColor]="primery_button_color"> {{translation?.vd_pause}} </button>
+                                            <button class="btn btn-success" *ngIf="options.timerStatus=='paused'" (click)="StartTimer()">
+                        {{translation?.vd_resume}} </button>
+                                            <button class="btn btn-warning" (click)="pauseInterval(1)"> {{translation?.vd_stop}} </button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="add_comment ob_add_comment" *ngIf="!scriptMode && loaded" [style.backgroundColor]="EditMode?'#fcf9d1':'transparent'" [style.padding]="EditMode?'6px 6px 38px 6px':'0'">
+                                <div class="row comm_top ob_comment_label">
+                                    <div class="col-md-6">
+                                        <label>{{EditMode? translation?.vd_update_comments : translation?.vd_new_comments}}</label>
+                                    </div>
+                                    <div class="col-md-6 text-right" *ngIf="TempTime?.formatted">
+                                        {{translation?.vd_comment_time}}: {{TempTime.formatted}}
+                                    </div>
+                                </div>
+                                <add-comment (commentText)="EditableComment.comment=$event" (TypingStarted)="OnTypingStart()" [EditMode]="EditMode" (onEdit)="EditTextComment($event)" [presetTags]="tags" [text]="EditableComment.comment" [settings]="settings" (customTags)="tags=$event"
+                                    [rubrics]="rubrics" [selectedRubrics]="selectedRubrics" (onRubricDelete)="RemoveSelectedRubric($event)" [permissions]="permissions" (onTabSelection)="OnTabSelect($event)" (onAdd)="AddTextComment($event)">
+                                </add-comment>
+                                <div class="comm_option" *ngIf="permissions?.AllowCustomMarkers">
+                                    <ng-container *ngFor="let marker of CustomMarkers; let i = index">
+                                        <span [style.backgroundColor]="getMarkerBg(marker, i)" class="custom_tag" [style.borderColor]="[colorClasses[i]]" (click)="ChooseCustomTag(marker)"></span>
+                                        <span (click)="ChooseCustomTag(marker)"> {{marker.tag_title}} </span>
+                                    </ng-container>
+                                </div>
+                                <div class="add_comm">
+                                    <div class="btn-group" dropdown>
+                                        <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle" aria-controls="dropdown-basic">
+                                            <!-- <img src="assets/img/dots-three-horizontal.png"> -->
+                                            <img src="assets/img/dot.svg">
+                                        </div>
+                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu settingsMenu" role="menu" aria-labelledby="button-basic">
+                                            <li role="menuitem" (click)="settings.EnterToPost=!settings.EnterToPost" class="fake_link" style="width: 100%;">
+                                                <span class="dropdown-item">{{translation?.vd_press_enter}}
+                          <span *ngIf="settings.EnterToPost" class="oi pull-right" data-glyph="check" title=""
+                            aria-hidden="true"></span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <ng-template *ngIf="options.timerStarted"> -->
+                            <div class="add_comment ob_add_comment" [hidden]="options?.script_published && !EditMode" *ngIf="scriptMode && loaded" [style.backgroundColor]="EditMode?'#fcf9d1':'transparent'" [style.padding]="EditMode?'6px 6px 38px 6px':'0'">
+                                <div class="row comm_top ob_comment_label">
+                                    <div class="col-md-6">
+                                        <label>{{EditMode? translation?.vd_update_note : translation?.vd_new_notes}}</label>
+                                    </div>
+                                    <div class="col-md-6 text-right" *ngIf="TempTime?.formatted && !EditMode">
+                                        {{translation?.vd_comment_time}}: {{TempTime.formatted}}
+                                    </div>
+                                    <div class="col-md-6 text-right" *ngIf="EditMode && options?.script_published">
+                                        <div>
+                                            <input type="number" max="24" class="custom-form-control" [(ngModel)]="VideoCurrentTime[0]" (ngModelChange)="OnCommentTimeChange($event, 'h')" />
+                                            <input type="number" class="custom-form-control" [(ngModel)]="VideoCurrentTime[1]" max="59" (ngModelChange)="OnCommentTimeChange($event,'m')" />
+                                            <input type="number" class="custom-form-control" [(ngModel)]="VideoCurrentTime[2]" max="59" (ngModelChange)="OnCommentTimeChange($event, 's')" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <add-comment (commentText)="EditableComment.comment=$event" (TypingStarted)="OnTypingStart()" [EditMode]="EditMode" (onEdit)="EditTextComment($event)" [presetTags]="tags" [text]="EditableComment.comment" [settings]="settings" (customTags)="tags=$event"
+                                    [rubrics]="rubrics" [selectedRubrics]="selectedRubrics" (onRubricDelete)="RemoveSelectedRubric($event)" [permissions]="permissions" (onTabSelection)="OnTabSelect($event)" (onAdd)="AddTextComment($event)">
+                                </add-comment>
+                                <div class="comm_option" *ngIf="permissions?.AllowCustomMarkers">
+                                    <ng-container *ngFor="let marker of CustomMarkers; let i = index">
+                                        <span [style.backgroundColor]="getMarkerBg(marker, i)" class="custom_tag" [style.borderColor]="[colorClasses[i]]" (click)="ChooseCustomTag(marker)"></span>
+                                        <span (click)="ChooseCustomTag(marker)"> {{marker.tag_title}} </span>
+                                    </ng-container>
+                                </div>
+                                <div class="add_comm">
+                                    <div class="btn-group" dropdown>
+                                        <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle" aria-controls="dropdown-basic">
+                                            <!-- <img src="assets/img/dots-three-horizontal.png"> -->
+                                            <img src="assets/img/dot.svg">
+                                        </div>
+                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu settingsMenu" role="menu" aria-labelledby="button-basic">
+                                            <li role="menuitem" (click)="settings.EnterToPost=!settings.EnterToPost" class="fake_link" style="width: 100%;">
+                                                <span class="dropdown-item">{{translation?.vd_press_enter}}
+                          <span *ngIf="settings.EnterToPost" class="oi pull-right" data-glyph="check" title=""
+                            aria-hidden="true"></span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </ng-template> -->
+                        </div>
+                        <div class="col-sm-6" [ngClass]="{'col-sm-12':scriptMode&&!EditMode&&options?.script_published, 'col-sm-6':!scriptMode|| scriptMode && EditMode  ||scriptMode && !options?.script_published}" *ngIf="CurrentTab==0">
+                            <button *ngIf="showPublish" class="btn btn-success form-control btn-sco-publish" (click)="Publish()" [style.backgroundColor]="primery_button_color">{{translation?.vd_publish}}</button>
+                            <button *ngIf="options?.timerStatus=='stopped' && !options?.script_published" class="btn btn-success form-control btn-sco-publish" (click)="PublishScript(true)" [style.backgroundColor]="primery_button_color"> {{translation?.vd_publish}} </button>
+                            <search-form *ngIf="comments && comments.length>0" [permissions]="permissions" [options]="SearchFormOptions" [VideoInfo]="{}" [customMarkers]="CustomMarkers" [params]="params" (settingsChanged)="ApplySettings($event)" [classes]="colorClasses"></search-form>
+                            <div *ngIf="loaded" class="comm_outer" size="7px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000" height="600px" id="slimscroll" slimScroll>
+                                <ng-container *ngFor="let comment of comments">
+                                    <comment [VideoInfo]="VideoInfo" [permissions]="permissions" [index]="i" [from]="'vobody'" [staticFiles]="[]" [settings]="settings" (onDelete)="onCommentDelete($event)" (onEdit)="onCommentEdit($event)" [isActive]="currentComment == comment" [attr.id]="'comment_'+i"
+                                        [customMarkers]="CustomMarkers" [classes]="colorClasses" *ngIf="comment?.valid" [comment]="comment" [params]="params"> </comment>
+                                </ng-container>
+                                <div class="text-center no_comments_found animated fadeIn" *ngIf="FilteredCommentsCounts==0">
+                                    <h5> {{translation?.vd_no_comment_found}} </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="CurrentTab==1">
+
+                            <ng-container *ngIf="permissions?.framework_selected_for_video==0 && !isCreater ">
+                                <span>{{this.translation?.no_framework_defined_in_this_scripted_note}}</span>
+
+                            </ng-container>
+                            <!-- *ngIf="permissions?.framework_selected_for_video==1" -->
+                            <ng-container *ngIf="(permissions?.framework_selected_for_video==1  && !isCreater) || isCreater ">
+                                <input *ngIf="permissions?.framework_selected_for_video==1" type="text" placeholder="{{translation?.vd_search_framework}}" class="form-control" [(ngModel)]="searchTerm">
+
+                                <ng-container *ngIf="permissions?.framework_selected_for_video!=1">
+                                    <div *ngIf="getSelectFrameworkPermission()">
+                                        <div>
+                                            {{translation?.vd_choose_framework}}
+                                        </div>
+                                        <select class="form-control" [(ngModel)]="VideoHuddleFramework" (ngModelChange)="GetRubricById($event)">
+                    <option [attr.value]="VideoHuddleDefaultFramework">{{translation?.vd_select_framework}} </option>
+                    <option *ngFor="let framework of frameworks" [attr.value]="framework.account_tag_id">
+                      {{framework.tag_title}} 
+                      <!-- {{framework?.account_tag_id}} -->
+                    </option>
+                  </select>
+                                        <ng-container *ngIf="rubricPreview">
+                                            <div class="preview_container">
+                                                <!--  -->
+                                                <div *ngIf="loaded" [style.margin-top.px]="20" size="7px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000" height="385px" id="slimscroll" slimScroll>
+                                                    <rubrics [isCreater]="isCreater" [data]="rubricPreview" [previewMode]="true"></rubrics>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button class="btn btn-default" (click)="AssignFramework(confirmFrameworkSet, 0)">
+                        {{translation?.vd_cancel}} </button>
+                                                <button [disabled]="!VideoHuddleFramework" class="btn btn-success" (click)="AssignFramework(confirmFrameworkSet, 1)" [style.backgroundColor]="primery_button_color">
+                        {{translation?.vd_use_framework}} </button>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                    <div *ngIf="!getSelectFrameworkPermission()" class="text-center">
+                                        {{translation?.vd_you_must_define}}
+                                    </div>
+                                </ng-container>
+                                <rubrics [isCreater]="isCreater" *ngIf="permissions?.framework_selected_for_video==1" [data]="rubrics" [term]="searchTerm">
+                                </rubrics>
+                            </ng-container>
+
+
+
+
+                        </div>
+                    </div>
+                    <!-- commented for addeding attachments -->
+                    <!-- <div class="row" *ngIf="CurrentTab == 2">
+                        <div class="col-sm-6">
+                            <rubrics [data]="PLTabData?.standards?.data" [from]="'tab'" (RubricClicked)="OnRubricClicked($event)">
+                            </rubrics>
+                        </div>
+                        <div class="col-sm-6" *ngIf="PLcomments && SelectedPLRubric">
+                            <div class="selectedPl">
+                                <div class="flex_box_pLevel">
+                                    <span class="rub_nu flex_box_pLevel_left">{{SelectedPLRubric?.tag_code}}</span>
+                                    <span class="flex_box_pLevel_right">
+                    {{SelectedPLRubric?.tag_html}}
+                    <div class="number_tagged">
+                      {{translation?.vd_times_observed}}: <span
+                        class="badge badge-primary">{{SelectedPLRubric?.get_standard_tagged_count}}</span>
+                                </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Pldropdown" *ngIf="permissions.can_rate && PLcomments.length>0">
+                            <select class="form-control" [(ngModel)]="SelectedPLRubric.selectedRating" (ngModelChange)="RatingChanged($event)">
+                  <option value="0" selected="selected"> {{translation?.vd_select}} </option>
+                  <option *ngFor="let pl of SelectedPLRubric.selectOptions" [value]="pl.id"> {{pl.text}}
+                  </option>
+                </select>
+                        </div>
+                        <div class="comments_desc" *ngIf="PLcomments && PLcomments.length>0">
+                            <tabset class="tab_no_border">
+                                <tab>
+                                    <ng-template tabHeading>
+                                        {{translation?.vd_comments}}
+                                    </ng-template>
+                                    <div class="comm_option comm_option2 nopointer" *ngIf="PLcomments && PLcomments.length>0">
+                                        <ng-container *ngFor="let marker of CustomMarkers; let i = index">
+                                            <span class="custom_tag" [style.background]="colorClasses[i]" [style.borderColor]="[colorClasses[i]]" (click)="SelectTag(marker)"></span> {{marker.tag_title}}
+                                        </ng-container>
+                                    </div>
+                                    <comment [VideoInfo]="VideoInfo" [from]="'tab'" *ngFor="let comment of PLcomments" [staticFiles]="staticFiles" [settings]="settings" (onDelete)="onCommentDelete($event)" (onEdit)="onCommentEdit($event)" [isActive]="currentComment == comment" [customMarkers]="CustomMarkers"
+                                        [classes]="colorClasses" [comment]="comment" [params]="params" (onReplyEdit)="onReplyEdit($event)"> </comment>
+                                </tab>
+                                <tab *ngIf="getSettings('enable_performance_level')!=0">
+                                    <ng-template tabHeading>
+                                        {{translation?.vd_performance_level_desc}}
+                                    </ng-template>
+                                    <ng-container *ngIf="getSettings('enable_unique_desc')==0">
+                                        <div class="performance_level_detail" *ngFor="let settings of SelectedPLRubric?.account_framework_settings_performance_levels">
+                                            <div>
+                                                <h6> {{settings.performance_level}} </h6>
+                                            </div>
+                                            <div> {{settings.description}} </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="this.SelectedPLRubric.descriptions && this.SelectedPLRubric.descriptions.length>0">
+                                        <div *ngFor="let description of this.SelectedPLRubric.descriptions">
+                                            <div>
+                                                <h6> {{description.label}} </h6>
+                                            </div>
+                                            <div> {{description.text}} </div>
+                                        </div>
+                                    </ng-container>
+                                </tab>
+                            </tabset>
+                        </div>
+                    </div>
+                </div> -->
+                    <!-- {{CurrentTab}} -->
+                    <div class="row" *ngIf="CurrentTab == 2">
+                        <fs-uploader [label]=translation?.myfile_upload [source]="'resources'" [configuration]="videoOptions" (onUpload)="GetNewFiles($event)"></fs-uploader>
+                        attachments
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--body-->
+    </div>
+</div>
+<ng-template #confirmFrameworkSet>
+    <div class="modal-header">
+        <h6 class="modal-title pull-left">{{translation?.vd_confirm}}</h6>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="ResolveAssignFramework(0)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        {{translation?.scripted_notes_assigning_a_framework}}
+    </div>
+    <div class="modal-footer text-right">
+        <div>
+            <button class="btn btn-default" (click)="ResolveAssignFramework(0)">
+        {{translation?.vd_cancel}}
+      </button>
+            <button class="btn btn-primary" (click)="ResolveAssignFramework(1)">
+        {{translation?.vd_ok}}
+      </button>
+        </div>
+    </div>
+</ng-template>

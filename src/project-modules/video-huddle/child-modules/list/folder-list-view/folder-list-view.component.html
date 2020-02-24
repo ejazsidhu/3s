@@ -1,0 +1,54 @@
+<div class="row grid_row" [dndDraggable]="data"
+    dndEffectAllowed="move" [dndDisableIf]="block_move">
+    <div class="col-12 row" dndHandle>
+         <div class="col-3 fake_link" >
+          <a class="external_link_container" [routerLink]="['/video_huddles/list', data.folder_id]">
+           <div class="folder_grid">
+             <img  src="./assets/img/folder_gry.svg" width="23">
+           </div>
+           <div class="folder_detail">
+           <label tooltip="{{data?.title}}">{{data?.title}}</label>
+             <p>{{translation?.huddle_created_by}}: {{data?.created_by_name}}</p>
+           </div>
+         </a>
+         </div>
+         
+         <div class="col-1">
+           
+         </div>
+         <div class="col-1"></div>
+         <div class="col-1"></div>
+         <div class="col-1 lgcell">{{data?.created_date}}</div>
+         <div class="col-1 lgcell">{{data?.last_edit_date}}</div>
+         <div class="col-1">{{getHuddlesCount(data?.stats)}}</div>
+         <div class="col-1">--</div>
+         <div class="col-1 lastcell">
+         
+          <div *ngIf="data?.folder_permissions" class="hu_grid dropdown">
+       
+            <span dropdown>
+              <button dropdownToggle id="basic-link" type="button" aria-controls="basic-link-dropdown" class="noOutline">
+                  <img src="./assets/img/doted.svg" width="22">
+              </button>
+                <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="basic-link" style="width: 20px">
+                  <li>
+                    <a class="dropdown-item fake_link" (click)="EditFolder(data.folder_id)">{{translation?.huddle_edit_btn}}</a>
+                    
+                    <a class="dropdown-item fake_link"  (click)="OnDelete.emit(data)">{{translation?.huddle_delete_btn}}</a>
+                    <a *ngIf="!block_move" class="dropdown-item fake_link" (click)="OnMove.emit(data.folder_id)">{{translation?.huddle_move_btn}}</a>
+                  </li>
+                </ul>
+            </span>
+
+         <!-- <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit</a>
+    <a data-toggle="modal" class="dropdown-item" href="#move_folder">Move</a>
+    <a data-toggle="modal" class="dropdown-item" href="#delete_folder">Delete</a>
+   
+  
+</div> -->
+
+         </div>
+         </div>
+      </div>
+      </div>

@@ -1,0 +1,13 @@
+ul.disabled_ul a:not(.available){
+	color: grey;
+}
+
+.trimming{
+	background: #000 !important;
+}
+.live-time{
+    padding: 0px 4px;
+    border-radius: 3px;
+    background-color: #db2e2e;
+    font-size: 9px;
+    }

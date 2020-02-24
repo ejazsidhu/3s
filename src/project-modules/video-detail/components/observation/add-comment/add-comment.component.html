@@ -1,0 +1,239 @@
+<div *ngIf="!EditMode" class="comment_box">
+
+    <!-- [(ngModel)]="newComment.commentText" -->
+    <!-- (ngModelChange)="headerService?.localStorage(newComment.commentText,'video_play_synced_comment_'+params?.video_id)" -->
+    <textarea [(ngModel)]="commentTextForModalAdd" (keydown)="TriggerTextChange($event)" [placeholder]="translation?.vd_plcholder_add_comment" [readonly]="!!!permissions?.isEditingAllowed" [class.custom-disabled]="!!!permissions?.isEditingAllowed"></textarea>
+
+    <div *ngIf="!!!permissions?.isEditingAllowed" class="comment_tags">
+
+        <div class="tags_icons fake_link custom-disabled" style="transform: rotate(86deg);">
+            <span class="oi" data-glyph="tag"></span>
+        </div>
+        <div class="plusicon fake_link custom-disabled">
+
+            <span class="oi" data-glyph="plus"></span>
+        </div>
+        <custom-tags [predefinedTags]="presetTags" (Tags)="SetCustomTags($event)"></custom-tags>
+        <div class="clear"></div>
+    </div>
+    <div *ngIf="!!permissions?.isEditingAllowed" class="comment_tags">
+
+        <div class="tags_icons fake_link" (click)="mainService.FocusCustomTag()" style="transform: rotate(86deg);">
+            <span class="oi" data-glyph="tag"></span>
+        </div>
+        <div class="plusicon fake_link" (click)="mainService.FocusCustomTag()">
+
+            <span class="oi" data-glyph="plus"></span>
+        </div>
+        <custom-tags [predefinedTags]="presetTags" (Tags)="SetCustomTags($event)"></custom-tags>
+        <div class="clear"></div>
+    </div>
+
+    <div *ngIf="!!!permissions?.isEditingAllowed" class="comment_tags">
+        <ng-container *ngIf="permissions?.rubric_check">
+            <div class="tags_icons fake_link custom-disabled">
+                <img src="assets/img/list-2x.png">
+            </div>
+
+            <div class="plusicon fake_link custom-disabled">
+
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+        </ng-container>
+        <div class="tgright">
+            <span *ngFor="let rubric of selectedRubrics; let i=index" class="tgouter"> {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+                (click)="RemoveSelectedRubric(rubric,i)"> x </span> </span>
+
+
+        </div>
+        <div class="clear"></div>
+        <!-- <span *ngFor="let rubric of selectedRubrics; let i=index" [ngClass]="{'tag_adjusted':i>0}" class="tag_rounded full_width"> {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+        (click)="RemoveSelectedRubric(rubric,i)"> x </span> </span>
+        <div class="clear"></div> -->
+    </div>
+
+    <div *ngIf="!!permissions?.isEditingAllowed" class="comment_tags">
+        <ng-container *ngIf="permissions?.rubric_check">
+            <div class="tags_icons fake_link" (click)="ActivateTab(1)">
+                <img src="assets/img/list-2x.png">
+            </div>
+
+            <div class="plusicon fake_link" (click)="ActivateTab(1)">
+
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+        </ng-container>
+        <div class="tgright">
+            <span *ngFor="let rubric of selectedRubrics; let i=index" class="tgouter"> {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+                (click)="RemoveSelectedRubric(rubric,i)"> x </span> </span>
+
+
+        </div>
+        <div class="clear"></div>
+
+        <!-- <span *ngFor="let rubric of selectedRubrics; let i=index" [ngClass]="{'tag_adjusted':i>0}" class="tag_rounded full_width"> {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+        (click)="RemoveSelectedRubric(rubric,i)"> x </span> </span> -->
+        <!-- add files for scripted note -->
+
+
+        <div class="clear"></div>
+    </div>
+
+
+    <div *ngIf="!!permissions?.isEditingAllowed" class="comment_tags">
+        <ng-container #fileUploaderAdd>
+            <fs-uploader [label]="translation?.vd_upload" [source]="'comment'" [configuration]="videoOptions" (onUpload)="AppendNewFiles($event)"></fs-uploader>
+
+            <div class="tgright">
+                <span *ngFor="let file of newComment.files; let i=index" class="tgouter">
+                    <span>
+                        {{file.filename || file.title}}
+                    </span>
+                <span class="pull-right cross_span" (click)="RemoveFileFromComment(file, i)">
+                        x
+                    </span>
+                </span>
+            </div>
+            <div class="clear"></div>
+
+            <!-- <span *ngFor="let file of newComment.files; let i=index" [ngClass]="{'tag_adjusted':i>0}" class="tag_rounded  filname">
+                                        <span>
+                                            {{file.filename || file.title}}
+                                        </span>
+            <span class="pull-right cross_span" (click)="RemoveFileFromComment(file, i)">
+                                            x
+                                        </span>
+            </span> -->
+        </ng-container>
+    </div>
+
+    <div *ngIf="!!!permissions?.isEditingAllowed">
+        <!--for noeditPermission-->
+        <div class="tags_icons fake_link custom-disabled">
+
+
+            <div class="tags_icons">
+                <!-- <img src="assets/img/paperclip-2x.png"> -->
+                <span class="oi" data-glyph="paperclip"></span>
+            </div>
+            <div class="plusicon">
+                <!-- <img  src="assets/img/plus-2x.png"> -->
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+<div *ngIf="EditMode" class="comment_box">
+
+    <!-- [(ngModel)]="newComment.commentText" -->
+    <!-- (ngModelChange)="headerService?.localStorage(newComment.commentText,'video_play_synced_edit_comment_'+params.video_id)" -->
+    <textarea [(ngModel)]="commentTextForModal" (keydown)="TriggerTextChange($event)" [placeholder]="translation?.vd_plcholder_add_comment"></textarea>
+
+    <div class="comment_tags">
+
+        <div class="tags_icons fake_link" (click)="mainService.FocusCustomTag()" style="transform: rotate(86deg);">
+            <span class="oi" data-glyph="tag"></span>
+        </div>
+        <div class="plusicon fake_link" (click)="mainService.FocusCustomTag()">
+
+            <span class="oi" data-glyph="plus"></span>
+        </div>
+        <custom-tags [predefinedTags]="presetTags" (Tags)="SetCustomTags($event)"></custom-tags>
+        <div class="clear"></div>
+    </div>
+
+    <div class="comment_tags">
+        <ng-container *ngIf="permissions?.rubric_check">
+            <div class="tags_icons fake_link" (click)="ActivateTab(1)">
+                <img src="assets/img/list-2x.png">
+            </div>
+
+            <div class="plusicon fake_link" (click)="ActivateTab(1)">
+
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+        </ng-container>
+        <div class="tgright">
+            <span *ngFor="let rubric of selectedRubrics; let i=index" class="tgouter"> {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+        (click)="RemoveSelectedRubric(rubric,i)"> x </span> </span>
+
+
+        </div>
+        <div class="clear"></div>
+
+        <!-- for edit scripted note comments -->
+
+        <div class="clear"></div>
+    </div>
+
+    <div class="comment_tags">
+
+
+        <ng-container #fileUploaderEdit>
+            <fs-uploader [label]="translation?.vd_upload" [source]="'comment'" [configuration]="videoOptions" (onUpload)="AppendNewFiles($event)"></fs-uploader>
+            <!-- {{selectedFiles | json}} -->
+            <div class="tgright">
+                <span *ngFor="let file of selectedFiles; let i=index" class="tgouter">
+                    <span>
+                        {{file.filename || file.title}}
+                    </span>
+                <span class="pull-right cross_span" (click)="RemoveFileFromComment(file, i)">
+                        x
+                    </span>
+                </span>
+            </div>
+            <div class="clear"></div>
+            <!-- <span *ngFor="let file of selectedFiles ; let i=index" [ngClass]="{'tag_adjusted':i>0}" class="tag_rounded filname marg_top">
+                                    <span>
+                                     
+                                        {{file?.title || file?.filename }}
+                                    </span>
+
+            <span class="pull-right cross_span" (click)="RemoveFileFromComment(file, i)">
+                                        x
+                                    </span>
+            </span> -->
+        </ng-container>
+    </div>
+
+</div>
+<div class="add_comm_btn" *ngIf="!EditMode">
+    <a *ngIf="!!!permissions?.isEditingAllowed" class="fake_link btn-default custom-disabled" [style.backgroundColor]="primery_button_color">{{translation?.vd_add}}</a>
+
+    <a *ngIf="!!permissions?.isEditingAllowed" class="fake_link" (click)="AddTextComment()" [style.backgroundColor]="primery_button_color">{{translation?.vd_add}}</a>
+</div>
+
+<div class="add_comm_btn" *ngIf="EditMode">
+    <a class="simple_btn" (click)="EditTextComment(0)">{{translation?.vd_cancel}}</a>
+    <a class="fake_link" (click)="EditTextComment()" [style.backgroundColor]="primery_button_color">{{translation?.vd_update}}</a>
+</div>
+
+<div class="clear"></div>
+
+
+
+<ng-template #confirmDialog>
+    <div class="modal-header">
+        <h6 class="modal-title pull-left">{{translation?.vd_confirm}}</h6>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{translation?.vd_are_sure_that}}
+    </div>
+    <div class="modal-footer text-right">
+        <div>
+            <button class="btn btn-default" (click)="ResolveDeleteFile(0)">
+                {{translation?.vd_cancel}}
+            </button>
+            <button class="btn btn-primary" (click)="ResolveDeleteFile(1)">
+                {{translation?.vd_ok}}
+            </button>
+        </div>
+    </div>
+</ng-template>

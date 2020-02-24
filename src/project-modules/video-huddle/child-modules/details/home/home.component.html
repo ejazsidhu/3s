@@ -1,0 +1,643 @@
+<div class="">
+    <div class="row panl_heading">
+        <div class="col-11">
+            <h3 *ngIf="!artifacts_name" class="animate_me linecls"></h3>
+            <h3 class="word-break" *ngIf="artifacts_name">{{artifacts_name}}</h3>
+
+        </div>
+        <!-- *ngIf="permissionService?.getPermission(current_huddle,'delete')" -->
+        <!-- {{data |json}} -->
+        <div class="col d-flex justify-content-end hu_move" *ngIf="(viewerObj.isEvaluator || viewerObj.role_id==200) && userAccountLevelRoleId != '125'">
+            <span dropdown>
+             
+                <a href id=" basic-link " dropdownToggle (click)="false "
+                           aria-controls="basic-link-dropdown ">
+                           <img _ngcontent-xnt-c16=" " src="assets/video-huddle/img/dots_dark.svg " width="30 ">
+                        </a>
+                        <ul id="basic-link-dropdown " *dropdownMenu class="dropdown-menu "
+                            role="menu " aria-labelledby="basic-link ">
+                          <li >
+                            <a class="dropdown-item " (click)="OnHuddleEdit(huddle_id) ">{{translation?.huddle_edit_btn}}</a>
+                          </li>
+                          <li >
+                                <a class="dropdown-item " (click)="showDeleteHuddleModal(huddle_id) ">{{translation?.huddle_delete_btn}}</a>
+                              </li>
+                              <li >
+                                    <a class="dropdown-item " (click)="OnFolderMove(huddle_id) ">{{translation?.huddle_move_btn}}</a>
+                                  </li>
+                        </ul>
+                      </span>
+        </div>
+    </div>
+    <div class="tabs_bar artifact ">
+        <div class="row ">
+            <div class="col-md-6 ">
+                <ul class="nav nav-tabs ">
+
+                    <li class="nav-item ">
+                        <!-- (click)="showArtifact() " -->
+                        <a class="animate_me ar_an " *ngIf="!artifacts_name "></a>
+                        <a *ngIf="artifacts_name " [class.active]=true>{{translation.artifact_af_title}}</a>
+                    </li>
+                    <li class="nav-item itm2 " *ngIf="huddle_type!=3 ">
+                        <!-- *ngIf="huddle_type!=3 && !(viewerObj?.role_id==2 20 && viewerObj.huddle_type=='1' ) "> Removing as viewer can see discussions -->
+                        <!-- (click)="showDiscussion() " -->
+
+
+                        <a *ngIf="artifacts_name && huddle_type!=3 " [routerLink]="[ '../discussions'] ">{{translation.artifact_discussions}}</a>
+                    </li>
+                    <li class="nav-item itm2 " *ngIf="huddle_type!=3 && cirqLiveData && cirqLiveData.account_id">
+                      <a *ngIf="artifacts_name" [routerLink]="['../conferencing'] ">Conferences</a>
+                    </li>
+                    <li class="nav-item itm2 " *ngIf="!artifacts_name ">
+                        <a class="animate_me ar_dc " *ngIf="!artifacts_name "></a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-md-6 hu_ac hu_ac_v2 " *ngIf="!addBtnPermissionLoaded || !translationLoaded ">
+                <div class="hu_ac animate_me add-btn-loader "></div>
+            </div>
+            <div *ngIf="addBtnPermissionLoaded && translationLoaded" class="col-md-6 hu_ac" [ngClass]="{'hu_ac_v2': userAccountLevelRoleId !='125' && !(viewerObj?.role_id==220 && viewerObj.huddle_type=='1' )}">
+                <!--  -->
+                <a (click)="Onclickactivity() " class="sepline "> <img src="assets/video-huddle/img/activity_gry.svg "> {{translation.artifact_activity}}
+                </a>
+                <a (click)="Onclickonparticipant() " [ngClass]="{sepline: userAccountLevelRoleId !='125' && !(viewerObj?.role_id==220 && viewerObj.huddle_type=='1' )} "> <img src="assets/video-huddle/img/parti_gry.svg "> {{translation.artifact_participants}} </a>
+                <!-- {{(viewerObj?.role_id != 220 && viewerObj.huddle_type!=='1')}} -->
+                <div class="plus_hu " *ngIf="userAccountLevelRoleId !='125' && !(viewerObj?.role_id==220 && viewerObj.huddle_type=='1' ) ">
+                    <div dropdown class="dropdown ">
+                        <button type="button " dropdownToggle class="dropdown-toggle " data-toggle="dropdown ">
+                            <img src="assets/video-huddle/img/plus_white.svg ">
+                        </button>
+                        <!-- <div dropdown class="hu_op dropdown "> -->
+                        <div class="dropdown-menu " *dropdownMenu>
+                            <a class="dropdown-item " appFSUploader [selectedConfiguration]=" 'videoOptions' " [source]=" 'Upload' " (onUpload)="onMediaUpload($event) ">{{translation?.huddle_video_upload}}</a>
+                            <a class="dropdown-item " appFSUploader [selectedConfiguration]=" 'audioOptions' " [source]=" 'Upload' " (onUpload)="onMediaUpload($event) ">{{translation?.artifact_uploadaudio}}</a>
+                            <a data-toggle="modal " class="dropdown-item " appFSUploader [selectedConfiguration]=" 'cameraOptions' " [source]=" 'Record' " (onUpload)="onMediaUpload($event) ">{{translation?.artifact_recordvideo}}</a>
+                            <a *ngIf="huddle_type!=3 " data-toggle="modal " class="dropdown-item " appFSUploader [selectedConfiguration]=" 'resourceOptions' " [source]=" 'Resource' " (onUpload)="onMediaUpload($event) ">{{translation?.artifact_uploadresource}}</a>
+                            <!-- <a *ngIf="cirqLiveData && cirqLiveData.account_id"  class="dropdown-item" [routerLink]="[ '../cirqlive']" >Manage Zoom Meetings</a> -->
+                        </div>
+                      </div>
+
+
+                </div>
+                <!--sample popup-->
+                <!-- <div class="plus_hu " *ngIf="showArtifactButton ">
+      
+                  <div dropdown class="hu_op dropdown ">
+                 
+                      <button type="button " dropdownToggle  class="dropdown-toggle " data-toggle="dropdown " >
+                          <img src="assets/video-huddle/img/plus_white.svg ">
+               </button>
+                      <div class="dropdown-menu " *dropdownMenu>
+                         <a class="dropdown-item " (click)="editDiscussion_popup() ">Edit</a>
+                         <a class="dropdown-item " (click)="deleteDiscussion_popup() ">Delete</a>
+                        
+                
+               
+                     </div>
+             
+                      </div>
+               
+        
+                </div> -->
+
+                <!--sample popup end-->
+
+                <div class="plus_hu " *ngIf="showDiscussionButton ">
+                    <!--Add discussion button-->
+
+                    <button type="button " (click)="Newdiscussion() ">
+                        <img src="assets/video-huddle/img/plus_white.svg ">
+                    </button>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="tab-content ">
+
+            <ng-container #skeleton *ngIf="!artifacts_name ">
+                <div class="panl_nav ">
+                    <span class="ani_wp1 wani3 "></span>
+                    <span class="ani_wp1 wani4 "></span>
+                    <span class="ani_wp1 wani5 "></span>
+                    <div class="clear "></div>
+                </div>
+            </ng-container>
+
+            <div class="panl_nav " *ngIf="lastRoute !='discussions' && artifacts_name ">
+
+                <div class="hu_search hu_searchz">
+                    <input class="ztextSearch" type="text " autocomplete="off " id="searchString " placeholder="{{translation?.artifact_search}}.... " [(ngModel)]="SearchString " (ngModelChange)="OnSearchChange($event) " #searchString>
+                    <img *ngIf="SearchString?.length> 0" src="./assets/img/x.svg" (click)=" OnSearchChange('');SearchString='';">
+                </div>
+
+                <div class="btn-group btn-group-toggle filter_options" data-toggle="buttons">
+                    <div class="animate_me tabsloading" *ngIf="!artifacts_name">
+
+                    </div>
+                    <!-- [routerLink]="[]" [queryParams]="{filter:'all'}" -->
+                    <label *ngIf="huddle_type!=3 && artifacts_name" class="btn btn-secondary" [class.active]="resource_filter==0" [routerLink]="[]" [queryParams]="{ resource: 0}" queryParamsHandling="merge">
+                        <input type="radio" value="0" name="options" [(ngModel)]="resource_filter" id="option1"
+                            autocomplete="off" checked=""> {{translation?.artifact_all}}
+                    </label>
+
+                    <label *ngIf="artifacts_name" class="btn btn-secondary" [class.active]="resource_filter==1" [routerLink]="[]" [queryParams]="{ resource: 1}" queryParamsHandling="merge">
+                        <input type="radio" value="1" name="options" [(ngModel)]="resource_filter" id="option2"
+                            autocomplete="off">
+                        <img class="ic1" src="assets/video-huddle/img/video_gry_icon.svg">
+                        {{translation?.artifact_videos}}
+                    </label>
+                    <label *ngIf="huddle_type!=3 && artifacts_name" class="btn btn-secondary" [class.active]="resource_filter==2" [routerLink]="[]" [queryParams]="{ resource: 2}" queryParamsHandling="merge">
+                        <input type="radio" value="2" name="options" [(ngModel)]="resource_filter" id="option2"
+                            autocomplete="off">
+                        <img class="ic2" src="assets/video-huddle/img/resource_gry_icon.svg">
+                        {{translation?.artifact_recources}}
+                    </label>
+
+                    <label *ngIf="huddle_type!=3 && artifacts_name" class="btn btn-secondary" [class.active]="resource_filter==3" [routerLink]="[]" [queryParams]="{ resource: 3}" queryParamsHandling="merge">
+                        <input type="radio" value="3" name="options" [(ngModel)]="resource_filter" id="option2"
+                            autocomplete="off">
+                        <img class="ic3" src="assets/video-huddle/img/notes_gry_icon.svg">
+                        {{translation?.artifact_scripted_notes}}
+                    </label>
+
+
+                </div>
+
+                <div class="filter_cls dropdown" dropdown>
+
+
+
+
+                    <button type="button" dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/video-huddle/img/filter_icon.svg" width="25">
+                    </button>
+                    <ul class="dropdown-menu" *dropdownMenu>
+
+                        <a class="dropdown-item" (click)="sort='video_title'" [class.dropdown-acitve]="sort=='video_title'" [routerLink]="[]" [queryParams]="{ sort: 'video_title'}" queryParamsHandling="merge" href="">
+
+                            {{translation?.artifact_title}}
+
+                            <svg *ngIf="sort=='video_title'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                viewBox="0 0 8 8">
+                                <path
+                                    d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                    transform="translate(0 1)" />
+                            </svg>
+                        </a>
+                        <a class="dropdown-item" (click)="sort='uploaded_date'" [class.dropdown-acitve]="sort=='uploaded_date'" [routerLink]="[]" [queryParams]="{ sort: 'uploaded_date'}" queryParamsHandling="merge">{{translation?.artifact_upload_date}}
+                            <svg *ngIf="sort=='uploaded_date'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                viewBox="0 0 8 8">
+                                <path
+                                    d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                    transform="translate(0 1)" />
+                            </svg>
+                        </a>
+
+                        <a class="dropdown-item" (click)="sort='uploaded_by'" [class.dropdown-acitve]="sort=='uploaded_by'" [routerLink]="[]" [queryParams]="{ sort: 'uploaded_by'}" queryParamsHandling="merge">{{translation?.artifact_created_by}}
+                            <svg *ngIf="sort=='uploaded_by'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                viewBox="0 0 8 8">
+                                <path
+                                    d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                    transform="translate(0 1)" />
+                            </svg>
+                        </a>
+
+                        <a class="dropdown-item" (click)="sort='last_modified'" [class.dropdown-acitve]="sort=='last_modified'" [routerLink]="[]" [queryParams]="{ sort: 'last_modified'}" queryParamsHandling="merge">{{translation?.artifact_last_modified}}
+
+                            <svg *ngIf="sort=='last_modified'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                viewBox="0 0 8 8">
+                                <path
+                                    d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                    transform="translate(0 1)" />
+                            </svg>
+                        </a>
+
+
+                    </ul>
+
+
+
+                </div>
+
+                <div class="huddleHeaderDivider">
+
+                </div>
+
+                <div class="switch_op">
+                    <!--   -->
+                    <a [routerLink]="['grid']" (click)="ToggleStyleView='grid'" queryParamsHandling="merge" [ngClass]="{'s_current':ToggleStyleView=='grid' }"><svg xmlns="http://www.w3.org/2000/svg"
+                            id="noun_grid_887265" viewBox="0 0 16 16">
+                            <defs>
+
+                            </defs>
+                            <g id="Group">
+                                <path id="Path" class="cls-1"
+                                    d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z" />
+                                <path id="Path-2" data-name="Path" class="cls-1"
+                                    d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                    transform="translate(9)" />
+                                <path id="Path-3" data-name="Path" class="cls-1"
+                                    d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                    transform="translate(0 9)" />
+                                <path id="Path-4" data-name="Path" class="cls-1"
+                                    d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                    transform="translate(9 9)" />
+                            </g>
+                        </svg></a>
+                    <!-- (click)="ToggleStyleView='list'" -->
+                    <a [routerLink]="['list']" (click)="ToggleStyleView='list'" queryParamsHandling="merge" [ngClass]="{'s_current':ToggleStyleView=='list' }">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+                            <defs>
+
+                            </defs>
+                            <g id="noun_list_view_1544629" data-name="noun_list view_1544629"
+                                transform="translate(15) rotate(180)">
+                                <rect id="Rectangle" class="cls-1" width="12" height="3" rx="1"
+                                    transform="translate(12) rotate(180)" />
+                                <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="15" height="3" rx="1"
+                                    transform="translate(15 -6) rotate(180)" />
+                                <rect id="Rectangle-3" data-name="Rectangle" class="cls-1" width="15" height="3" rx="1"
+                                    transform="translate(15 -12) rotate(180)" />
+                            </g>
+                        </svg></a>
+
+
+                </div>
+
+
+
+                <div class="clear"></div>
+
+            </div>
+            <div class="cont_s row">
+
+                <div class="col-6" *ngIf="(artifacts.length!=0 || artifacts_name) && total_artifacts!=0">
+                    <ng-container *ngIf="resource_filter==0">{{translation?.artifact_af_title}} ({{total_artifacts}})
+                    </ng-container>
+                    <ng-container *ngIf="resource_filter==1">{{translation?.artifact_videos}} ({{total_artifacts}})
+                    </ng-container>
+                    <ng-container *ngIf="resource_filter==2">{{translation?.artifact_recources}} ({{total_artifacts}})
+                    </ng-container>
+                    <ng-container *ngIf="resource_filter==3">{{translation?.artifact_scripted_notes}} ({{total_artifacts}})
+                    </ng-container>
+                </div>
+                <div class="col-6" *ngIf="!artifacts_name || (total_artifacts==0 && Loadings.isNextPageLoading)">
+                    <div class="animate_me ar_co"></div>
+                </div>
+
+            </div>
+            <!-- {{ToggleStyleView| json}} -->
+            <router-outlet *ngIf="artifacts.length>0"></router-outlet>
+            <div class="row" *ngIf="(ToggleStyleView == 'grid') && Loadings.isNextPageLoading">
+                <artifact-thumb-loading class="col-3" *ngFor="let item of [1,2,3,4,5,6,7,8]"> </artifact-thumb-loading>
+
+            </div>
+            <div class="huddlelist_view" *ngIf="(ToggleStyleView == 'list') && Loadings.isNextPageLoading">
+
+                <artifact-list-loading class="row list_row" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                </artifact-list-loading>
+
+            </div>
+
+            <ng-container *ngIf="artifacts.length==0 && !Loadings.isNextPageLoading && noRecorFound && bysearch ">
+                <div class="no_discussions">
+                    <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+                        <path id="Path_51" data-name="Path 51"
+                            d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z"
+                            transform="translate(0)" fill="#616161" />
+                    </svg>
+                    <br>
+                    <br>
+                    <b style="font-size:18px">{{translation?.artifact_nomatching}}
+                        <ng-container *ngIf="resource_filter==0">{{translation?.artifact_artifacts_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==1">{{translation?.artifact_videos_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==2">{{translation?.artifact_resources_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==3">{{translation?.artifact_scriptednotes_s}}
+                        </ng-container> {{translation?.artifact_found}}.
+                    </b>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="artifacts.length==0 && !Loadings.isNextPageLoading && noRecorFound  && !bysearch">
+                <div class="no_discussions">
+                    <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+                        <path id="Path_51" data-name="Path 51"
+                            d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z"
+                            transform="translate(0)" fill="#616161" />
+                    </svg>
+                    <br>
+                    <br>
+                    <b style="font-size:18px">{{translation?.artifact_no}}
+                        <ng-container *ngIf="resource_filter==0">{{translation?.artifact_artifacts_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==1">{{translation?.artifact_videos_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==2">{{translation?.artifact_resources_s}}</ng-container>
+                        <ng-container *ngIf="resource_filter==3">{{translation?.artifact_scriptednotes_s}}
+                        </ng-container> {{translation?.artifact_available}}.<br>
+                        <ng-container *ngIf="resource_filter!=3 && userAccountLevelRoleId != '125'"> {{translation?.artifact_clickthegreenplusbuttontoadd}}
+                            <ng-container *ngIf="resource_filter==0"> {{translation?.artifact_an}} </ng-container>
+                            <ng-container *ngIf="resource_filter!=0"> {{translation?.artifact_a}} </ng-container>
+                            <ng-container *ngIf="resource_filter==0">{{translation?.artifact_artifacts_s}}</ng-container>
+                            <ng-container *ngIf="resource_filter==1">{{translation?.artifact_videos_s}}</ng-container>
+                            <ng-container *ngIf="resource_filter==2">{{translation?.artifact_resources_s}}</ng-container>
+                            <ng-container *ngIf="resource_filter==3">{{translation?.artifact_scriptednotes_s}}</ng-container>.
+                        </ng-container>
+                    </b>
+                </div>
+            </ng-container>
+
+
+
+
+        </div>
+    </div>
+    <!-- <shared-popup-models #popupModal></shared-popup-models> -->
+
+
+
+
+
+
+
+    <!--activity popup start-->
+    <ng-template #activity>
+
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.artifact_activity}}</h4>
+                <button type="button" class="close" (click)="ModalRefs.participentsModal.hide()">&times;</button>
+
+            </div>
+            <div class="modal-body" *ngIf="!popupIsLoading">
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+
+
+                    <div class="activity_row" *ngFor="let act of actvities">
+                        <ng-container *ngIf="translation?.current_lang=='es'">
+                            <div class="ac_1">
+                                <strong>{{timedateSpanish(act?.activityTimestamp,1)}}</strong><br> {{timedateSpanish(act?.activityTimestamp,2)}}
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="translation?.current_lang=='en'">
+                            <div class="ac_1">
+                                <b>{{headerService?.formatDate(act?.activityDate, 'MMM DD')}}</b><br> {{headerService?.formatDate(act?.activityDate, 'hh:mm a')}}
+                            </div>
+                        </ng-container>
+
+                        <div class="ac_2">
+                            <label>{{act?.activityLogs_users}} </label>
+                            <ng-container *ngIf="!act.resource_video_name">
+                                <a *ngIf="!act.resource_url" style="cursor:context-menu">:{{act.resource_name}}</a>
+                                <a href="{{act?.resource_url}}">{{act?.resource_video_name}}</a>
+
+                                <!-- <a *ngIf="act.resource_url" href="{{rootPath}}{{act?.resource_url.replace('https://q2.sibme.com//','/')}}" target="_blank">
+                    <b>:{{act.resource_name}}</b></a> -->
+                            </ng-container>
+                            <ng-container *ngIf="act.resource_video_name">
+                                {{act?.resource_name}}
+                                <a *ngIf="!act.resource_url" style="cursor:context-menu">:{{act.resource_video_name}}</a>
+                                <a href="{{act?.resource_url}}">{{act?.resource_video_name}}</a>
+
+                                <!-- <a *ngIf="act.resource_url" href="{{rootPath}}{{act?.resource_url.replace('https://q2.sibme.com//','/')}}" target="_blank">
+                    <b>:{{act.resource_video_name}}</b></a> -->
+                            </ng-container>
+
+
+
+
+                        </div>
+
+                        <div class="clear"></div>
+
+                    </div>
+                    <div class="text-center" *ngIf="actvities==''">
+                        <p style="font-weight: 800;font-size: 24px;word-spacing: 2px;margin-top:10%;color: lightgray;">
+                            {{translation?.artifact_noactivityfound}}!</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-body text-center" *ngIf="popupIsLoading">
+                <div class="activity_row" *ngFor="let arr of [1,1,1,1,1]">
+                    <div class="ac_1">
+                        <b><span class="animate_me linecls"></span></b><br>
+                        <span class="animate_me linecls"></span>
+                    </div>
+                    <div class="ac_2">
+                        <label class="animate_me linecls"></label>
+                    </div>
+
+                    <div class="clear"></div>
+
+                </div>
+            </div>
+            <div class="modal-footer hufooter">
+                <div class="col-12">
+
+                    <a class="okbtn" (click)="ModalRefs.participentsModal.hide()">{{translation?.artifact_ok}}</a>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </ng-template>
+
+    <!--activity popup end-->
+
+
+
+    <!--participant pop-up start-->
+    <ng-template #participantsModal>
+        <!-- <div id="participants_popup" class="modal fade participants_cls" role="dialog">
+      <div class="modal-dialog" style="max-width:700px;"> -->
+        <!-- Modal content-->
+        <!-- <div class="modal-content"> -->
+        <div class="modal-header">
+            <h4 class="modal-title">{{translation?.artifact_participants}}</h4>
+            <button type="button" class="close" (click)="ModalRefs.participentsModal.hide()">&times;</button>
+
+        </div>
+        <div class="modal-body" *ngIf="!popupIsLoading">
+            <div class="parti_list">
+
+
+                <div class="row par_heading">
+
+                    <div class="col-4">
+                        {{translation?.artifact_name}}
+                    </div>
+
+                    <div class="col-6">
+                        {{translation?.artifact_email}}
+                    </div>
+
+                    <div class="col-2">
+                        {{translation?.artifact_role}}
+                    </div>
+
+
+                </div>
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                    <ng-container *ngFor="let p of participents | orderBy:'user_name':false:true">
+                        <div *ngIf=" (huddle_type == '1' || huddle_type == '2' ) ||  (huddle_type == '3' && user_huddle_role == 200)  || (huddle_type == '3' && user_huddle_role == 210 && p.role_name == 'Assessor' ) " class="row par_listing">
+                            <div class="col-4">
+                                <img *ngIf="ImageUrlBuilder(p)==true" aria-hidden="true" src="assets/video-huddle/img/group.png">
+                                <img *ngIf="ImageUrlBuilder(p)!=true" src="{{ImageUrlBuilder(p)}}"> <span class="g_name">{{p.user_name}}</span>
+                            </div>
+                            <div class="col-6 par_email">
+                                <span>{{p.user_email}}</span>
+                            </div>
+
+
+                            <div class="col-2">
+                                {{p.role_name}}
+                            </div>
+                        </div>
+                    </ng-container>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-body text-center" *ngIf="popupIsLoading">
+            <div class="row par_listing anrow" *ngFor="let arr of [1,1,1,1,1]">
+                <div class="col-4">
+                    <span class="animate_me aniimg"></span> <span class="animate_me linecls"> </span>
+                </div>
+                <div class="col-6 par_email">
+                    <span class="animate_me linecls"> </span>
+                </div>
+
+
+                <div class="col-2">
+                    <span class="animate_me linecls"> </span>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="modal-footer hufooter par_foo">
+            <div class="col-12">
+                <div class="border_bottom">
+                    <a class="okbtn" (click)="ModalRefs.participentsModal.hide()">{{translation?.artifact_ok}}</a>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- </div> -->
+    </ng-template>
+
+
+    <div bsModal #deleteHuddleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.huddle_list_confirmation_required}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="hideDeleteHuddleModal()">
+         <span aria-hidden="true">&times;</span>
+       </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert_bg singleline row">
+                        <div class="col-2">
+                            <img src="./assets/img/alert_i.svg">
+                        </div>
+                        <div class="col-10">
+                            <h6>{{translation?.huddle_list_delete_alert}} {{translation.huddle}} {{artifacts_name}}</h6>
+                            <p>{{translation?.huddle_list_cnf_delete_alert}}</p>
+                        </div>
+                    </div>
+                    <div class="f_name">
+                        <p>{{translation?.huddle_resource_type}} {{Inputs.ConfirmationKey}} {{translation?.huddle_list_to_confrim}}</p>
+                        <input type="text" class="form-control" [(ngModel)]="Inputs.Confirmation" (keydown)="TriggerTextChange($event)">
+                    </div>
+                </div>
+
+                <div class="modal-footer hufooter">
+                    <div class="col-12">
+                        <a class="fake_link" (click)="hideDeleteHuddleModal()">{{translation?.huddles_details_cancel}}</a>
+                        <a class="conf_delete fake_link" (click)="ConfirmDelete()">{{translation?.huddle_delete_btn}}</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div bsModal #moveHuddleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.huddle_list_destination_folder}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="hideMoveHuddleModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <ng-container *ngIf="showMomeoptions">
+                    <div class="modal-body">
+                        <div class="move_cls">
+                            <h6>
+                                <!-- Huddles  -->
+                                <ng-container *ngIf="tree.treeModel.getActiveNode() && tree.treeModel.getActiveNode().data">
+
+                                    <ng-container *ngFor="let item of getMovePath(tree) let i=index">
+
+                                        <img *ngIf="i!=0" src="./assets/img/right_arrow.svg" width="10" /> {{item.name}}
+
+                                    </ng-container>
+
+                                </ng-container>
+
+
+                            </h6>
+                            <div class="row folder_row">
+                                <tree-root #tree [nodes]="FoldersTreeData" [options]="{animateExpand:true}" (click)="OnFolderClick($event, tree)">
+
+                                    <ng-template #treeNodeTemplate let-node let-index="index">
+                                        <span [class.align_folder]="(!node.children || node.children.length==0)">
+                                
+                              </span>
+                                        <img [hidden]="node.data.name=='Huddles1'" src="./assets/img/folder_gry.svg" width="20" />
+                                        <span>{{ node.data.name }}</span>
+
+                                    </ng-template>
+
+                                </tree-root>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer hufooter">
+                        <div class="col-12">
+                            <div class="border_bottom">
+
+                                <a class="fake_link" (click)="this.hideMoveHuddleModal()">{{translation?.huddles_details_cancel}}</a>
+                                <a class="green_btn fake_link" [style.backgroundColor]="colors?.primery_button_color" (click)="MoveItem(tree)">{{translation?.huddle_move_btn}}</a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</div>

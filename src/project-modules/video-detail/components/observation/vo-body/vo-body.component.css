@@ -1,0 +1,188 @@
+.fake_player {
+    background: black;
+    display: inline-block;
+    width: 100%;
+    color: white;
+    height: 250px;
+    position: relative;
+}
+
+.player_icon {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    font-size: 18px;
+}
+
+.uploading_wrapper {
+    background: #5db85b87;
+    height: 100%;
+    position: relative;
+}
+
+.uploading_wrapper+span {
+    position: absolute;
+    top: 40%;
+    left: 36%;
+    font-size: 13pt;
+}
+
+.comm_top.ob_comment_label {
+    padding-top: 15px;
+}
+
+.transition_on_change {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.btn-sco-publish {
+    margin-bottom: 15px;
+}
+
+a.all-observations {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.nopointer {
+    cursor: default !important;
+}
+
+.no_comments_found h5 {
+    font-size: 11pt;
+}
+
+.preview_container #slimScrollDiv {
+    padding-bottom: 20px !important;
+}
+
+.pause_wrapper {
+    bottom: 3px;
+    position: relative;
+}
+
+.oi[data-glyph=plus]:before {
+    transform: rotate(45deg);
+}
+
+.custom-form-control {
+    width: 21px;
+    padding: 2px;
+    height: 25px;
+    border-radius: 4px;
+    display: -ms-flexbox;
+    border: 1px solid rgba(0, 0, 0, .2);
+    outline: 0;
+    padding: 0px 0;
+    font-size: 12px;
+    height: 20px;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+/* Page Animation */
+
+.page-title {
+    height: 36px;
+    width: 50%;
+}
+
+.tab-heading1 {
+    width: 63px;
+    height: 37px;
+}
+
+.tab-heading2 {
+    width: 108px;
+    height: 37px;
+    margin-left: 2px;
+}
+
+.nav-back-section {
+    width: 155px;
+    height: 26px;
+    float: right;
+    position: absolute;
+    top: 94px;
+    right: 20px;
+    z-index: 19;
+}
+
+.div-container {
+    min-height: 550px;
+}
+
+.avg_performance_level{
+    display: block;
+    width: 100%;
+    font-size: 12pt;
+    text-align: center;
+}
+
+.selectedPl{
+	font-family: 'Roboto-Regular';
+    margin-bottom: 10px;
+    color: #464646;
+    font-size: 14px;
+}
+.flex_box_pLevel{
+	display: flex;
+}
+
+.flex_box_pLevel .number_tagged{
+	padding-top: 5px;
+	color: #C1C1C2;
+}
+
+.flex_box_pLevel_left{
+    padding-right: 12px;
+}
+
+.flex_box_pLevel_right{
+    width: 100%;
+}
+
+.fake_select{
+    display: inline-block;
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 0;
+    text-overflow: '';
+    margin: 0;
+    padding: 0px 0 0px 2px;
+}
+
+.no-comments{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 53px;
+    font-size: 20px;
+}
+
+.exlamation-img {
+    height: 25px;
+    margin-right: 10px;
+}
+.add_comm_btn {
+    
+    margin-bottom: 10px;
+}
+
+.fulcom .user_comment{ width: 95%; }
+.btn_resources_upload_wrapper .dropdown-menu{ min-width: 100px; }
+

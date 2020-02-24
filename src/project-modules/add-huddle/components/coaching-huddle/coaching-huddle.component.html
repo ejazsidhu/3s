@@ -1,0 +1,46 @@
+<div class="clear"></div>
+    <div class="coaching_table">
+      <table>
+        <tbody><tr class="t_heading">
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td>
+            <span>
+              
+              <span *ngIf="!user.image && user.is_user" class="oi" data-glyph="person" title="icon name" aria-hidden="true">
+              </span>
+
+              <span *ngIf="!user.image && !user.is_user" class="oi" data-glyph="people" title="Group" aria-hidden="true">
+              </span>
+
+              <img width="20" *ngIf="user.image" [attr.src]="user?.image">
+            </span>
+           {{user.first_name}} {{user.last_name}}</td>
+          <td>{{user.email}}</td>
+          <td>
+        
+
+          <div class="btn-group">
+            <label class="btn btn-light" [(ngModel)]="user.isCoachee"
+               btnRadio="cohach" tabindex="0" role="button">Coach</label>
+            <label class="btn btn-light" [(ngModel)]="user.isCoachee"
+               btnRadio="coachee" tabindex="0" role="button">Coachee</label>
+          </div>
+        </td>
+          <td class="coach_cross">
+              <img class="remove_img" src="assets/img/cross_icons.svg" (click)="removeUser(user)">
+          
+          </td>
+        </tr>
+        
+      </tbody></table>
+      
+      
+      
+    </div>
+                
+                

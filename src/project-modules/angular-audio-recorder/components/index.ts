@@ -1,0 +1,1 @@
+export * from './audio-recorder-play/audio-recorder-play.component';

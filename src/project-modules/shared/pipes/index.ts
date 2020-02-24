@@ -1,0 +1,1 @@
+export * from './sibme-slice.pipe';

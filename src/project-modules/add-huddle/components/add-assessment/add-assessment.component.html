@@ -1,0 +1,290 @@
+<div id="main" class="container box">
+
+    <div class="skicls" *ngIf="isLoading">
+        <div class="analy_b">
+            <div class="header_an">
+                <h2 class="aa_ani addani"></h2>
+            </div>
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu1 aa_ani"></label>
+                    <div class="anaddhu2 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu1 aa_ani"></label>
+                    <div class="anaddhu3 aa_ani"></div>
+                    <div class="anaddhu4 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+            <div class="new_coachingcls mbtop">
+
+                <div class="coaching_row">
+
+                    <div class="anaddhu2 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu5 aa_ani"></label>
+                    <div class="anaddhu6 aa_ani"></div>
+                    <div class="anaddhu6 aa_ani"></div>
+                    <div class="clear"> </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!--skiend--->
+
+    <div class="analy_b" *ngIf="!isLoading">
+
+        <div class="header_an">
+            <h2 *ngIf="!EditMode">{{huddle_data.title}}</h2>
+
+        </div>
+        <div class="new_huddlecls" *ngIf="huddle_data.step == 1">
+
+            <div class="row">
+
+                <!-- <huddle-type [hidden]="!isTypeAllowed(type)" (click)="selectType(type)" [isActive]="selectedType==type" class="col-md-4 huddle_type" *ngFor="let type of huddleTypes" [data]="type"></!-->
+                -->
+                <huddle-type [hidden]="!isTypeAllowed(type)" [isActive]="selectedType==type" class="col-md-4 huddle_type" *ngFor="let type of huddleTypes" [data]="type" [routerLink]="type.value"></huddle-type>
+
+            </div>
+
+        </div>
+
+        <div class="new_coachingcls" *ngIf="huddle_data.step > 1">
+
+            <div class="coaching_row">
+                <label>{{translation?.huddle_name_label}}</label>
+                <input type="text" [(ngModel)]="huddle_data.hname" class="form-control" placeholder="{{translation?.huddle_name_placeholder}}">
+            </div>
+
+            <div class="coaching_row row" *ngIf="huddle_data?.huddle_type==3">
+                <div class="col-sm-6">
+                    <label>{{translation?.huddle_submission_deadline}}</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" [(ngModel)]="huddle_data.deadline_date" placeholder="DD/MM/YYYY" (ngModelChange)="validateData(d)" bsDatepicker (bsValueChange)="validateData($event)">
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- <input type="text" class="form-control" placeholder="hh:mm am/pm" [(ngModel)]="huddle_data.deadline_time" name=""> -->
+                            <input [(ngModel)]="huddle_data.deadline_time" [typeahead]="timeVals" typeaheadOptionField="name" [typeaheadMinLength]="0" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" placeholder="hh:mm am/pm" [typeaheadOptionsLimit]="26" class="form-control">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label>{{translation?.huddle_video_submission_allowed}} </label>
+                    <select class="form-control col-sm-3" [(ngModel)]="huddle_data.submission_allowed">
+						<option [attr.value]="v" *ngFor="let v of [1,2,3,4,5]">{{v}}</option>
+					</select>
+                </div>
+
+
+            </div>
+
+            <div class="coaching_row2">
+                <label>{{translation?.huddle_participants}} </label>
+                <input [(ngModel)]="asyncSelected" #input [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="5" [typeaheadMinLength]="0" typeaheadOptionField="first" [typeaheadItemTemplate]="customItemTemplate"
+                    [placeholder]="huddle_data.huddle_type==2?translation?.huddle_search_person_name:translation?.huddle_collaboration_search_person_plcholder" class="form-control">
+
+            </div>
+
+            <ng-template #customItemTemplate let-model="item" let-index="index">
+                <!-- [style.width.px]="inputRef.nativeElement.clientWidth - 19" -->
+                <div class="row" [style.width.px]="730">
+                    <span>
+						<span *ngIf="!model?.image && model.is_user" class="oi alternate_icon" data-glyph="person"
+							title="{{translation.huddle_avatar_available}}" aria-hidden="true">
+						</span>
+
+                    <span *ngIf="!model?.image && !model.is_user" class="oi alternate_icon" data-glyph="people" title="Group" aria-hidden="true">
+						</span>
+
+                    <img width="20" *ngIf="model?.image" [attr.src]="model?.image">
+                    </span>
+                    <div class="col-sm-5" *ngIf="model.is_user"> {{model.first_name}} {{model.last_name}} </div>
+                    <div *ngIf="model.is_user" class="col-sm-5"> {{model.email}} </div>
+
+                    <div *ngIf="!model.is_user">
+                        <div class="col-sm-5"> {{model.name}}</div>
+                    </div>
+
+                </div>
+            </ng-template>
+
+            <div class="coach_or">{{translation?.huddle_or}}</div>
+
+            <new-user></new-user>
+
+            <!-- <coaching-huddle [users]="selecedusers" *ngIf="huddle_data.step == 2 && huddle_data.huddle_type==2"></coaching-huddle> -->
+
+            <div class="clear"></div>
+            <div class="coaching_table" *ngIf="huddle_data.step == 2">
+                <table>
+                    <tbody>
+                        <tr class="t_heading">
+                            <th>{{translation?.huddle_table_name}}</th>
+                            <th>{{translation?.huddle_table_email}}</th>
+                            <th style="width:145px;">{{translation?.huddle_table_role}}</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td colspan="4" *ngIf="selecedusers.length==0 || !selecedusers" class="text-center">
+
+                                <h6>{{translation?.no_user_selected}} </h6>
+
+                            </td>
+                        </tr>
+                        <tr *ngFor="let user of selecedusers; let index">
+                            <td>
+                                <span>
+									<span *ngIf="!user.image && user.is_user" class="oi" data-glyph="person"
+										title="{{translation?.user}}" aria-hidden="true">
+									</span>
+
+                                <span *ngIf="!user.image && !user.is_user" class="oi" data-glyph="people" title="{{translation?.group}}" aria-hidden="true">
+									</span>
+
+                                <img width="20" *ngIf="user.image" [attr.src]="user?.image">
+                                </span>
+                                <span *ngIf="user.is_user"> {{user.first_name}} {{user.last_name}} </span>
+                                <span class="fake_link" *ngIf="!user.is_user" (click)="GetGroupDetails(template, user.id)"> {{user.name}} </span>
+                            </td>
+                            <td>
+                                {{user.email ||'n/a'}}
+                            </td>
+                            <td>
+                                <!-- <div class="role_coach">
+            <span class="coach_cl coach_active">coach</span>
+            <span class="coachee_cl">coachee</span>
+          </div> -->
+
+
+
+                                <div class="btn-group role_group" *ngIf="huddle_data.huddle_type==3 && !EditMode">
+
+                                    <ng-container *ngIf="user.is_user">
+                                        <ng-container *ngIf="currentUser.id != user.id">
+                                            <label class="btn btn-light" [(ngModel)]="user.isAssessor" btnRadio="true" tabindex="0" role="button">{{translation?.huddle_assessment_role_assesment}}</label>
+                                            <label class="btn btn-light" [(ngModel)]="user.isAssessor" btnRadio="false" tabindex="0" role="button">{{translation?.huddle_assessment_role_assesses}}</label>
+                                        </ng-container>
+                                        <ng-container *ngIf="currentUser.id == user.id">
+
+                                            <div class="text-center">
+                                                {{translation?.huddle_assessment_role_assesment}}
+                                            </div>
+
+                                        </ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="!user.is_user">
+                                        {{translation?.huddle_assessment_role_assesses}}
+                                    </ng-container>
+                                </div>
+
+
+                            </td>
+                            <td class="coach_cross">
+                                <img [hidden]="!IsEligible(user) || isCreator(user)" class="remove_img" src="assets/img/cross_icons.svg" (click)="DeleteUser(user)">
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+
+
+
+
+            <div class="more_huddlecls">
+                <more-settings [enable_framework_standard]="enable_framework_standard" [EditMode]="EditMode" [huddle_type]="huddle_data.huddle_type" [HuddleSettings]="moreSettingsToPublish"></more-settings>
+                <button class="hu_done" (click)="submitHuddle()" [style.backgroundColor]="primery_button_color">{{translation?.huddle_done_btn}}</button>
+                <button class="hu_cancel" (click)="cancel()">{{translation?.huddle_cancel_btn}}</button>
+                <div class="clear"></div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">{{GroupDetails.name}}</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+    </div>
+    <div class="modal-body">
+
+        <table class="table modal_table">
+
+            <thead>
+                <tr>
+                    <td><label>{{translation?.huddle_table_name}}</label> </td>
+                    <td> <label>{{translation?.huddle_table_email}}</label></td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let user of GroupDetails.users">
+
+                    <td>
+                        <span *ngIf="!user.image && user.is_user" class="oi" data-glyph="person" title="{{translation?.user}}" aria-hidden="true">
+						</span>
+
+                        <span *ngIf="!user.image && !user.is_user" class="oi" data-glyph="people" title="{{translation?.group}}" aria-hidden="true">
+						</span>
+
+                        <img width="20" *ngIf="user.image" [attr.src]="user?.image"> {{user.first_name}} {{user.last_name}}
+                    </td>
+
+                    <td> {{user.email}} </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="row text-right">
+
+            <button (click)="modalRef.hide()" class="hu_primary">{{translation?.ok}}</button>
+
+        </div>
+
+    </div>
+</ng-template>

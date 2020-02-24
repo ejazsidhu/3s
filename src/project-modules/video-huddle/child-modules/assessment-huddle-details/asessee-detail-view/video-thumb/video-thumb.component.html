@@ -1,0 +1,58 @@
+<div class="inner_h">
+  <div class="thumb_hu" [class.processing]="artifact.published==0" (click)="goToDetailPage(artifact)">
+    <ng-container *ngIf="artifact.published==1">
+      <img [src]="artifact?.thubnail_url" width="200" height="150">
+      <span class="play_icon"> <img src="assets/details-module/img/video_ply.svg"> </span>
+    </ng-container>
+    <ng-container *ngIf="artifact.published==0">
+      <p>
+        {{translation?.artifacts_video_currently_processing}} <br />
+        <img class="loader" height="70" src="assets/details-module/img/spinner.svg">
+      </p>
+    </ng-container>
+    <span class="video_time">{{detailsService?.FormatSeconds(artifact?.video_duration)}}</span>
+  </div>
+  <div class="huddle_detail">
+    <div class="hu_video">
+      <label style="cursor:pointer" tooltip="{{artifact.title}}"
+        (click)="goToDetailPage(artifact)">{{artifact.title | slice:0:20}} <span
+          *ngIf="artifact.title.length>18">...</span></label>
+    </div>
+    <ng-container *ngIf="artifact?.video_duration!=0">
+      <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen) ">
+        <button type="button">
+          <img src="assets/details-module/img/dots_dark.svg" width="30">
+        </button>
+      </div>
+      <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+        <span (isOpenChange)="isOpen($event)" dropdown>
+          <button type="button" id="button-basic" dropdownToggle>
+            <img src="assets/details-module/img/dots_dark.svg" width="30">
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+            [class.disabled_ul]="artifact.published==0">
+            <ng-container *ngIf="artifact.published==1">
+              <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.artifact_rename}}</a>
+              <a class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.artifact_download}}</a>
+              <a class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+            </ng-container>
+            <ng-container *ngIf="artifact.published==0">
+              <a class="dropdown-item navailable">{{translation?.artifact_rename}}</a>
+              <a class="dropdown-item navailable">{{translation?.artifact_download}}</a>
+              <a class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+            </ng-container>
+          </ul>
+        </span>
+      </div>
+    </ng-container>
+    <div class="clear"></div>
+    <p class="h_by">{{translation?.artifacts_by}}: <b>{{artifact?.first_name}} {{ artifact?.last_name}}</b></p>
+    <p class="h_date">{{translation?.artifact_upload}} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+    <div class="huddle_option">
+      <a class="chat_cls" tooltip="Comments"> <img src="assets/details-module/img/comm_icon.svg">
+        {{artifact?.total_comments}}</a>
+      <a class="h_att" tooltip="Attachments"> <img src="assets/details-module/img/attachment_icon.svg">
+        {{artifact?.total_attachment}}</a>
+    </div>
+  </div>
+</div>

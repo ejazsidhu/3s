@@ -1,0 +1,204 @@
+<img [hidden]="true" src="assets/video-huddle/img/c1.png" />  <!-- This to preload dummy user image incase any data (discussion, comment, reply) try again functionality -->
+<ng-container *ngIf="!Loadings.isNextPageLoading && discussions.length == 0 && !bysearch">
+  <no-discussion></no-discussion>
+</ng-container>
+<ng-container *ngIf="discussions.length > 0 || bysearch">
+<div class="discuss_counts">
+  <ng-container *ngIf="total_discussions >= 0"> {{translation?.discussion_huddle_discussions}} ({{ total_discussions }}) </ng-container>
+  <ng-container  *ngIf="total_discussions < 0"> <div class="animate_me ar_co"></div> </ng-container>
+</div>
+
+<div class="hu_search">
+  <input
+    type="text"
+    autocomplete="off"
+    id="searchString"
+    placeholder="{{translation?.artifacts_search}}"
+    [(ngModel)]="SearchString"
+    (ngModelChange)="OnSearchChange($event)"
+    #searchString
+  />
+  <img *ngIf="SearchString?.length> 0" src="./assets/img/x.svg" (click)=" OnSearchChange('');SearchString='';">
+</div>
+
+<div class="filter_cls dropdown" dropdown>
+  <button
+    type="button"
+    dropdownToggle
+    class="dropdown-toggle"
+    data-toggle="dropdown"
+  >
+    <img src="assets/img/dots_dark.svg" width="30" />
+  </button>
+  <ul class="dropdown-menu sort2" *dropdownMenu>
+    <!-- <a class="dropdown-item active" >Sort</a> -->
+    <a
+      class="dropdown-item"
+      [class.active]="selectedSort == filterOptions.topic"
+      (click)="setQueryparams('topic', filterOptions.topic)"
+      >{{translation?.discussion_topic}}
+      <img
+        src="assets/video-huddle/img/check.svg"
+        *ngIf="selectedSort == filterOptions.topic"
+    /></a>
+
+    <a
+      class="dropdown-item"
+      [class.active]="selectedSort == filterOptions.date_created"
+      (click)="setQueryparams('date_created', filterOptions.date_created)"
+      >{{translation?.discussion_date_created}}
+      <img
+        src="assets/video-huddle/img/check.svg"
+        *ngIf="selectedSort == filterOptions.date_created"
+    /></a>
+
+    <a
+      class="dropdown-item"
+      [class.active]="selectedSort == filterOptions.last_modified"
+      (click)="setQueryparams('last_modified', filterOptions.last_modified)"
+      >{{translation?.artifact_last_modified}}
+      <img
+        src="assets/video-huddle/img/check.svg"
+        *ngIf="selectedSort == filterOptions.last_modified"
+    /></a>
+
+    <a
+      class="dropdown-item"
+      [class.active]="selectedSort == filterOptions.created_by"
+      (click)="setQueryparams('created_by', filterOptions.created_by)"
+      >{{translation?.artifact_created_by}}
+      <img
+        src="assets/video-huddle/img/check.svg"
+        *ngIf="selectedSort == filterOptions.created_by"
+    /></a>
+
+    <a
+      class="dropdown-item"
+      [class.active]="selectedSort == filterOptions.unread"
+      (click)="setQueryparams('unread', filterOptions.unread)"
+      >{{translation?.discussion_unread}}
+      <img
+        src="assets/video-huddle/img/check.svg"
+        *ngIf="selectedSort == filterOptions.unread"
+    /></a>
+
+    <!-- <a class="dropdown-item active">Export</a>
+                <a class="dropdown-item" (click)="exportDiscussion()">Word</a>
+                <a class="dropdown-item" >Email</a> -->
+  </ul>
+</div>
+<div class="clear"></div>
+<div class="row huddle_dis_heading">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">{{translation?.discussion_topic}}</div>
+  <div class="col-md-2">{{translation?.discussion_created}}</div>
+  <div class="col-md-2 list_center po_sp">{{translation?.discussion_posts}}</div>
+  <div class="col-md-2 list_center un_sp">{{translation?.discussion_unread}}</div>
+  <div class="col-md-1"></div>
+</div>
+</ng-container>
+<ng-container *ngFor="let item of discussions | orderBy:sort:isReverse:true">
+  <single-discussion
+    [discussion]="item"
+    [params]="params"
+    class="row huddle_dis_row"
+    style="cursor: pointer;"
+    (onDelete)="onDiscussionDelete($event)"
+  ></single-discussion>
+
+  <!-- <div class="col-md-1 hu_dis_img">
+<div class="row huddle_dis_row fake_link" *ngFor="let item of discussions">
+  <div class="col-md-1 hu_dis_img">
+    <img src="{{ detailService.ImageUrlBuilder(item) }}" />
+  </div>
+  <div class="col-md-4">
+    <h4>
+      <a [routerLink]="['../details', item?.id]"> {{ item?.title }} </a>
+    </h4>
+    <label>by: {{ item?.first_name }} {{ item?.last_name }}</label>
+    <p>{{ item?.comment | slice: 0:150 }}</p>
+  </div>
+  <div class="col-md-2">{{ item?.created_date | date: "MM/dd/yyyy" }}</div>
+  <div class="col-md-2">{{ item?.reply_count }}</div>
+  <div class="col-md-2 dis_count"><span>3</span></div>
+  <div class="col-md-1 list_opt">
+    <div dropdown class="hu_op dropdown">
+      <button
+        type="button"
+        dropdownToggle
+        class="dropdown-toggle"
+        data-toggle="dropdown"
+      >
+        <img src="assets/video-huddle/img/dots_dark.svg" width="30" />
+      </button>
+      <div class="dropdown-menu" *dropdownMenu>
+        <a class="dropdown-item" (click)="editDiscussion_popup(item)">Edit</a>
+        <a class="dropdown-item" (click)="deleteDiscussion_popup(item)"
+          >Delete</a
+        >
+      </div>
+    </div>
+  </div> -->
+</ng-container>
+<ng-container *ngIf="Loadings.isNextPageLoading">
+  <discussion-loading
+    *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    class="row huddle_dis_row"
+  >
+  </discussion-loading>
+</ng-container>
+
+<ng-container *ngIf="!Loadings.isNextPageLoading && discussions.length == 0 && bysearch">
+  <no-discussion></no-discussion>
+</ng-container>
+<!--delete modal start-->
+<ng-template #deleteTemplate>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{translation?.huddle_list_confirmation_required}}</h4>
+      <button
+        type="button"
+        class="close"
+        (click)="ModalRefs.deletableDiscussion.hide()"
+      >
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert_bg row">
+        <div class="col-2">
+          <img src="assets/video-huddle/img/alert_i.svg" />
+        </div>
+        <div class="col-10">
+          <h6>
+            {{translation?.discussion_you_are_about_to_delete_discussion}}:
+            {{ deletableDiscussion?.title }}
+          </h6>
+          <!-- <p>Once you confirm, all of your data will be permanently deleted.</p> -->
+        </div>
+      </div>
+      <!-- <div class="f_name">
+        <p>Type DELETE to confirm</p>
+        <input
+          type="text"
+          class="form-control"
+          name="confirmDeleteString"
+          [(ngModel)]="confirmDeleteString"
+          (keydown)="TriggerTextChange($event)"
+        />
+      </div> -->
+    </div>
+    <div class="modal-footer hufooter">
+      <div class="col-12">
+        <a (click)="ModalRefs.deletableDiscussion.hide()">{{translation?.discussion_cancel}}</a>
+        <a class="conf_delete" (click)="ConfirmDelete()">{{translation?.discussion_delete}}</a>
+      </div>
+
+      <!-- <label>Description</label>
+                  <quill-editor [style]="{height: '250px'}" name="d-description" [(ngModel)]="editDiscData.comment"></quill-editor> -->
+      <!-- <div [froalaEditor]="editoroptions" name="d-description" [(froalaModel)]="editDiscData.comment"></div> -->
+    </div>
+  </div>
+</ng-template>
+
+<!--delete modal end-->

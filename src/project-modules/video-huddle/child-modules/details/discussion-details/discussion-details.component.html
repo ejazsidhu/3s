@@ -1,0 +1,434 @@
+<img [hidden]="true" src="assets/video-huddle/img/c1.png" />  <!-- This to preload dummy user image incase any data (discussion, comment, reply) try again functionality -->
+<div class="discuss_counts">
+  <ng-container>
+    <a [routerLink]="['../../list']" (click)="discussionService.dDemit.emit(false)"> <img
+        src="assets/video-huddle/img/ar_left.svg" />{{translation?.discussion_see_all_discussion}}</a>
+  </ng-container>
+</div>
+
+<div class="hu_search">
+  <input type="text" autocomplete="off" id="searchString" placeholder="{{translation?.artifacts_search}}"
+    [(ngModel)]="SearchString" />
+  <img *ngIf="SearchString?.length> 0" src="./assets/img/x.svg" (click)="SearchString='';">
+</div>
+<div class="filter_cls dropdown" dropdown>
+  <button type="button" dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+    <img src="assets/img/dots_dark.svg" width="30" />
+  </button>
+  <ul class="dropdown-menu sort2" *dropdownMenu>
+    <a class="dropdown-item active">{{translation?.discussion_sort}}</a>
+    <a class="dropdown-item" [class.selected]="selectedSort == filterOptions.newest"
+      (click)="setQueryparams('newest')">{{translation?.discussion_newest}} <span
+        *ngIf="selectedSort == filterOptions.newest"><img src="assets/video-huddle/img/check.svg"></span></a>
+    <a class="dropdown-item" [class.selected]="selectedSort == filterOptions.oldest"
+      (click)="setQueryparams('oldest')">{{translation?.discussion_oldest}} <span
+        *ngIf="selectedSort == filterOptions.oldest"><img src="assets/video-huddle/img/check.svg"></span></a>
+    <a class="dropdown-item active">{{translation?.discussion_export}}</a>
+    <a class="dropdown-item" (click)="exportDiscussion()">{{translation?.discussion_word}}</a>
+    <a class="dropdown-item" (click)="onEmialClick()">{{translation?.discussion_email}}</a>
+  </ul>
+</div>
+<div class="clear"></div>
+
+<div class="row huddle_dis_heading2"></div>
+<ng-container *ngIf="isLoading">
+  <!-- <discussion-loading
+    *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    class="row huddle_dis_row"
+  >
+  </discussion-loading> -->
+  <div class="row  hu_detailcls editdis_row_">
+
+    <div class="col-md-1 hu_dis_img">
+      <div class="animation_cls imgani"></div>
+    </div>
+    <div class="col-md-11">
+      <h4 class="animation_cls anh"></h4>
+      <p class="animation_cls anp"> </p>
+      <p class="animation_cls anp"> </p>
+      <p class="animation_cls anp"> </p>
+      <p class="animation_cls anp"> </p>
+      <span class="animation_cls acc"> </span> <span class="animation_cls acc"> </span> <span class="animation_cls acc">
+      </span>
+    </div>
+  </div>
+  <ng-container *ngFor="let x of [1,2,3,4,5,6,7,8]">
+    <div class="row  hu_detailcls discussion_cls">
+      <div class="col-md-1 hu_dis_img">
+        <div class="animation_cls imgani"></div>
+      </div>
+      <div class="col-md-11">
+        <h4 class="animation_cls anh"></h4>
+        <p class="animation_cls anp"> </p>
+        <p class="animation_cls anp"> </p>
+        <div class="discussion_options">
+          <span class="animation_cls acc"> </span>
+          <span class="animation_cls acc"> </span>
+          <span class="animation_cls acc"> </span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="!isLoading">
+  <div class="row  hu_detailcls editdis_row_ detail_edit">
+    <div class="col-md-1 hu_dis_img">
+      <img class="user_thumb" [src]="DiscussionDetails.discussion.thumb_image"
+        *ngIf="DiscussionDetails?.discussion.thumb_image" />
+    </div>
+    <div class="col-md-11">
+      <h4>
+        {{
+          DiscussionDetails?.discussion.first_name +
+            " " +
+            DiscussionDetails?.discussion.last_name
+        }}
+        <span> {{ DiscussionDetails?.discussion.created_date_str }} </span>
+      </h4>
+      <div class="row">
+        <div class="col-12 text-left">
+          <label>{{ DiscussionDetails?.discussion.title }}</label>
+        </div>
+
+      </div>
+
+      <!-- <p class="dis_text" innerHtml="{{DiscussionDetails?.discussion.comment}}"></p> -->
+      <!-- <p class="dis_text 123" [innerHtml]="DiscussionDetails?.discussion.comment  | htmlSenitization"></p> -->
+      <p class="dis_text" [innerHtml]="DiscussionDetails?.discussion.comment  | safeHtml"></p>
+      <div *ngIf="DiscussionDetails?.discussion?.tryAgain" class="try-again-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16.329" height="15.374" viewBox="0 0 16.329 15.374">
+          <g id="Group_351" data-name="Group 351" transform="translate(-270.467 -1166.164)">
+              <path id="Path_52" data-name="Path 52" d="M20.256,22.985a1.562,1.562,0,0,1,2.75,0l6.6,12.25a1.562,1.562,0,0,1-1.375,2.3h-13.2a1.562,1.562,0,0,1-1.375-2.3Z" transform="translate(257 1144)" fill="#c10f12"/>
+              <path id="Union_1" data-name="Union 1" d="M.253,5.369h0V5.337L.006,1.079A.952.952,0,0,1,0,.97.985.985,0,0,1,1,0,.985.985,0,0,1,2,.97a.947.947,0,0,1-.01.136l-.3,4.221A.709.709,0,0,1,.969,6,.711.711,0,0,1,.253,5.369Z" transform="translate(277.7 1170)" fill="#fff"/>
+              <circle id="Ellipse_9" data-name="Ellipse 9" cx="1" cy="1" r="1" transform="translate(277.7 1177)" fill="#fff"/>
+          </g>
+        </svg>
+        <span class="try-again-message">{{translation?.discussion_not_saved}} </span>
+        <span class="try-again-btn" (click)="editDiscussionTryAgain(DiscussionDetails?.discussion)">{{translation?.try_again}}</span>
+      </div>
+      <div *ngIf="DiscussionDetails?.discussion.attachments?.length > 0" class="attachment_cls">
+        <img src="assets/video-huddle/img/attachmenticon.svg" />
+        <span class="fake_link" (click)="DownloadFile(attachment)"
+          *ngFor="let attachment of DiscussionDetails?.discussion.attachments">
+          {{ attachment.original_file_name }}
+        </span>
+        <!-- <span> Students with bad attitudes.pdf </span> -->
+        <div class="clear"></div>
+      </div>
+
+      <div *ngIf="permisionService.getdiscussionPermissions(DiscussionDetails?.discussion.created_by) && userAccountLevelRoleId != '125'"
+        class="master_edit" (click)="OnDiscussionEdit()">
+        <img _ngcontent-c12="" src="assets/video-huddle/img/edit_icon.svg">
+        <span class="fake_link"> {{translation?.discussion_edit}} </span>
+      </div>
+
+    </div>
+
+  </div>
+  <discussion-comment *ngFor="
+      let comment of (DiscussionDetails?.replys) | search: SearchString:'first_name,last_name,comment':dirty"
+    [comment]="comment" [params]="params" [users]="DiscussionDetails.adminUsers" (delete_emitter)=deleteComment($event)
+    (state_emitter)=editorStateListner($event) [comment_status]="commentStatus"
+     (comment_emitter)="saveCommentAgain($event)" (edit_comment_emitter)="unSavedEditedCommentAgain($event)" (edit_comment_after_save_emitter_1)="unsavedEditedCommentRemove($event)"></discussion-comment>
+  <p *ngIf="(DiscussionDetails?.replys
+  | search: SearchString:'comment':selectedSort:-1)?.length==0 && SearchString!=''">
+    {{translation?.discussion_no_comments_found}}</p>
+  <!--add comment start-->
+
+    <div class="editorcls editorbottom" *ngIf="userAccountLevelRoleId != '125'">
+
+    <form #f="ngForm" (ngSubmit)="AddDiscussionSubmit()">
+      <!-- <div class="modal-body sendmail">-->
+
+      <!-- <input hidden type="file" #uploader id="uploader" (change)="onUpload($event)"/> -->
+      <!-- <quill-editor [style]="{height: '250px'}" [modules]="editorOptions?.modules" name="d-description" [(ngModel)]="addDiscData.comment"> -->
+      <!-- <quill-editor
+      [style]="{ height: '100px' }"
+      [modules]="editorOptions?.modules"
+      name="d-description"
+    >
+    </quill-editor> -->
+
+      <input type="file" id="uploader" (change)="onUpload($event, true)" style="visibility:hidden;"
+        accept="image/*,application/*,text/*" />
+      <div class="row  hu_detailcls discussion_cls editor_eidt">
+        <div class="col-md-1 hu_dis_img">
+          <img class="user_thumb" [src]="sessionData.avatar_path" *ngIf="sessionData.avatar_path" />
+        </div>
+        <div class="col-md-11">
+          <quill-editor #q [placeholder]="translation?.artifact_insert_text" [style]="{ height: '250px' }"
+            [modules]="discussionService?.GetEditorOptions()?.modules" name="d-description"
+            [(ngModel)]="newComment.comment">
+          </quill-editor>
+          <div class="row">
+            <div class="col-12">
+              <div class="custom_files" *ngFor="let file of replyFiles; let i=index">
+
+                {{file.name |slice:0:30}} <span style="margin-left:0" *ngIf="file?.name.length>30">...</span>
+                <span class="fake_link" (click)="replyFiles.splice(i, 1)"> <svg xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                    <defs>
+                      <clipPath id="clip-path">
+                        <path id="Path_29" data-name="Path 29"
+                          d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z"
+                          transform="translate(0 11)" fill="#919191" />
+                      </clipPath>
+                      <clipPath id="clip-path-2">
+                        <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z"
+                          transform="translate(1057 483)" fill="#919191" />
+                      </clipPath>
+                    </defs>
+                    <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                      <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)"
+                        clip-path="url(#clip-path-2)">
+                        <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z"
+                          transform="translate(674.455 313.182)" fill="#919191" />
+                      </g>
+                    </g>
+                  </svg> </span>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row editor_btn">
+            <div class="col-6">
+              <label class="checkboxcls">{{translation?.discussion_email_all_participants}}
+                <input type="checkbox" [(ngModel)]="emailAll" name="emailAll">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="col-6 share_btn">
+              <button type="button" class="btn btn-default" (click)="onCancelReply()">
+                {{translation?.discussion_cancel}}
+              </button>
+              <button [disabled]="comment_flag==1" (click)="SubmitReply()" type="submit"
+                class="btn btn-success">{{translation?.discussion_post}}</button>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+
+
+
+    </form>
+  </div>
+  <!--add comment end-->
+</ng-container>
+<!--email discussion start-->
+
+<!-- Modal content-->
+<ng-template #email_discussion>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{translation?.discussion_send_email}}</h4>
+      <button type="button" class="close" data-dismiss="modal"
+        (click)="ModalRefs.emailModal.hide(); emptyEmailFields()">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body sendmail">
+      <label>{{translation?.discussion_subject}}:</label>
+      <input type="text" class="form-control" [(ngModel)]="discussion_title" />
+
+      <label>{{translation?.discussion_to}}:</label>
+      <input type="email" class="form-control" [(ngModel)]="user_email" />
+      <div class="attachment_popup">
+        <img src="assets/video-huddle/img/attachmenticon.svg" />
+        <span> {{email_attachment_name}}</span>
+        <!-- <span
+          *ngFor="let attachment of DiscussionDetails?.discussion_attachment"
+        >
+          {{ attachment.original_file_name }}
+        </span> -->
+        <div class="clear"></div>
+      </div>
+      <label>{{translation?.discussion_enter_a_message}}</label>
+      <textarea class="form-control" [(ngModel)]="email_message"></textarea>
+    </div>
+    <div class="modal-footer sharefooter">
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-12 share_btn">
+          <button type="button" class="btn btn-default" data-dismiss="modal"
+            (click)="ModalRefs.emailModal.hide(); emptyEmailFields()">
+            {{translation?.discussion_cancel}}
+          </button>
+          <button type="button" class="btn btn-success" (click)="emailDiscussion()">
+            {{translation?.discussion_send}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!--emial discussion end-->
+<!--edit modal start-->
+<ng-template #editDiscussion>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{translation?.discussion_edit_discussion}} </h4>
+      <button type="button" class="close" (click)="cancelEditDiscussionModal()">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body sendmail">
+      <label>{{translation?.artifact_discussion_topic}}</label>
+      <input name="d-topic" [(ngModel)]="editDiscData.title" type="text" class="form-control" />
+
+      <label>{{translation?.artifact_discription}}</label>
+      <span class="upload-custom-wrapper fake_link" (click)="TriggerUpload()">
+      </span>
+      <input type="file" id="discussion_editor_files" (change)="onUpload($event)" style="display: none;"
+        accept="image/*,application/*,text/*" />
+      <quill-editor [placeholder]="translation?.artifact_insert_text"
+        [modules]="discussionService?.GetEditorOptions()?.modules" [style]="{ height: '250px' }" toolbar=""
+        name="d-description" [(ngModel)]="editDiscData.comment" 
+      >
+      </quill-editor>
+      <!-- (ngModelChange)="headerService?.localStorage(editDiscData.comment,'edit_discussion_discription'+editDiscData.id)"> -->
+
+      <ng-container>
+        <div class="row">
+          <div class="col-12">
+            <ng-container *ngIf="Files.length > 0">
+              <div class="custom_files" *ngFor="let file of Files; let i = index">
+                {{file.name |slice:0:30}} <span style="margin-left:0" *ngIf="file?.name.length>30">...</span>
+                <span class="fake_link" (click)="Files.splice(index, 1)"> <svg xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                    <defs>
+                      <clipPath id="clip-path">
+                        <path id="Path_29" data-name="Path 29"
+                          d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z"
+                          transform="translate(0 11)" fill="#919191" />
+                      </clipPath>
+                      <clipPath id="clip-path-2">
+                        <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z"
+                          transform="translate(1057 483)" fill="#919191" />
+                      </clipPath>
+                    </defs>
+                    <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                      <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)"
+                        clip-path="url(#clip-path-2)">
+                        <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z"
+                          transform="translate(674.455 313.182)" fill="#919191" />
+                      </g>
+                    </g>
+                  </svg> </span>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="stockFiles?.length > 0">
+              <ng-container *ngFor="let file of stockFiles; let i = index">
+                <div class="custom_files" *ngIf="!file.isDeleted">
+
+                  <ng-container>{{ file.original_file_name |slice:0:30 }} <span style="margin-left:0"
+                      *ngIf="file?.original_file_name.length>30">...</span> </ng-container>
+                  <span class="fake_link" *ngIf="!file.isDeleted" (click)="stockFiles[i].isDeleted = true">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7"
+                      height="7" viewBox="0 0 7 7">
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path id="Path_29" data-name="Path 29"
+                            d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z"
+                            transform="translate(0 11)" fill="#919191" />
+                        </clipPath>
+                        <clipPath id="clip-path-2">
+                          <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z"
+                            transform="translate(1057 483)" fill="#919191" />
+                        </clipPath>
+                      </defs>
+                      <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                        <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)"
+                          clip-path="url(#clip-path-2)">
+                          <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z"
+                            transform="translate(674.455 313.182)" fill="#919191" />
+                        </g>
+                      </g>
+                    </svg>
+                  </span>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div class="row">
+
+        </div>
+      </ng-container>
+
+      <!-- <div [froalaEditor]="editoroptions" name="d-description" [(froalaModel)]="addDiscData.comment"></div> -->
+    </div>
+    <div class="modal-footer sharefooter discu_footer">
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-12 share_btn">
+          <button type="button" class="btn btn-default" (click)="cancelEditDiscussionModal()">
+            {{translation?.discussion_cancel}}
+          </button>
+          <button type="button" class="btn btn-success" (click)="onEditSubmission()">
+            {{translation?.discussion_update}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!--edit modal end-->
+
+<!--delete modal start-->
+
+<ng-template #deleteTemplate>
+
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{translation?.huddle_list_confirmation_required}}</h4>
+      <button type="button" class="close" (click)="deSelectDeleteField()">&times;</button>
+
+    </div>
+    <div class="modal-body">
+      <div class="alert_bg row bgone">
+        <div class="col-2">
+          <img src="assets/video-huddle/img/alert_i.svg">
+        </div>
+        <div class="col-10">
+          <h6>{{translation?.discussion_you_are_about_to_delete}}</h6>
+          <!-- <p>Once you confirm,the comment will be permanently
+                                     deleted.</p> -->
+        </div>
+      </div>
+      <!-- <div class="f_name">
+                       <p>Type DELETE to confirm</p>
+                       <input type="text" class="form-control" name="confirmDeleteString"
+                              [(ngModel)]="confirmDeleteString" (keyup.enter)="TriggerTextChange($event)">
+                </div> -->
+
+    </div>
+    <div class="modal-footer hufooter">
+      <div class="col-12">
+        <a (click)="deSelectDeleteField()">{{translation?.discussion_cancel}}</a>
+        <a class="conf_delete" (click)="confirmDelete();">{{translation?.discussion_delete}}</a>
+
+      </div>
+
+      <!-- <label>Description</label>
+                <quill-editor [style]="{height: '250px'}" name="d-description" [(ngModel)]="editDiscData.comment"></quill-editor> -->
+      <!-- <div [froalaEditor]="editoroptions" name="d-description" [(froalaModel)]="editDiscData.comment"></div> -->
+
+    </div>
+  </div>
+
+
+
+</ng-template>
+
+<!--delete modal end-->

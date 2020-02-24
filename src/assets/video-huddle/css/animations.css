@@ -1,0 +1,345 @@
+    @-webkit-keyframes placeHolderShimmer {
+        0% {
+            background-position: -468px 0;
+        }
+        100% {
+            background-position: 468px 0;
+        }
+    }
+
+    @keyframes placeHolderShimmer {
+        0% {
+            background-position: -468px 0;
+        }
+        100% {
+            background-position: 468px 0;
+        }
+    }
+
+    .huddlelist_view .animate_me {
+        -webkit-animation-duration: 1.25s;
+        animation-duration: 1.25s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #F6F6F6;
+        background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+        background-size: 800px 104px;
+        position: relative;
+    }
+
+    .animate_me {
+        -webkit-animation-duration: 1.25s;
+        animation-duration: 1.25s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #F6F6F6;
+        background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+        background-size: 800px 104px;
+        position: relative;
+    }
+
+    .animate_box_1 {
+        height: 60px;
+        margin-bottom: 5px;
+    }
+
+    .animate_box_2 {
+        display: inline-block;
+        width: 13%;
+        height: 40px;
+        margin-bottom: 2px;
+        margin-right: 5px;
+    }
+
+    .animate_box_3 {
+        height: 400px;
+        margin-bottom: 5px;
+    }
+
+    .animate_box_4 {
+        height: 250px;
+        margin-bottom: 5px;
+    }
+
+    .animate_box_5 {
+        height: 50px;
+        margin-bottom: 5px;
+    }
+
+    .animate_pic {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin: 0px 5px 0px 0px;
+    }
+
+    .animate_pic_text {
+        display: inline-block;
+        height: 20px;
+        width: 83%;
+        margin-bottom: 5px;
+    }
+
+    .animation_container_left, .animation_container_right {
+        display: inline-block;
+        width: 49.8%;
+        vertical-align: top;
+    }
+
+    .animate_box_6 {
+        height: 50px;
+        margin-bottom: 5px;
+        width: 30%;
+        display: inline-block;
+    }
+
+    .animate_box_7 {
+        height: 50px;
+        margin-bottom: 5px;
+        width: 64.9%;
+        display: inline-block;
+    }
+
+    .animate_box_8 {
+        height: 50px;
+        margin-bottom: 5px;
+        width: 4.2%;
+        display: inline-block;
+    }
+
+    .animate_box_9 {
+        margin-bottom: 5px;
+        width: 28%;
+        display: inline-block;
+        border: solid 1px #e7e7e7;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 12px;
+        margin-top: 20px;
+        margin-right: 32px;
+    }
+
+    .animate_box_10 {
+        height: 40px;
+        width: 40px;
+        margin: 10px 0px;
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+    .animate_box_11 {
+        height: 15px;
+        width: 73%;
+        margin: 10px 0px;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 24px;
+    }
+
+    .animate_box_12 {
+        height: 36px;
+        width: 52px;
+        display: inline-block;
+        margin: 5px 12px 0px 0px;
+    }
+
+    .animate_box_13 {
+        height: 10px;
+        width: 96%;
+        margin-top: 5px;
+        display: inline-block;
+    }
+
+    .floatLeft_box {
+        float: left;
+    }
+
+    .floatRight_box {
+        float: right;
+        width: 200px;
+    }
+
+    .animate_box_14 {
+        height: 15px;
+        width: 17px;
+        display: inline-block;
+        margin: 5px;
+        vertical-align: top;
+        margin-top: 24px;
+    }
+
+    .animate_box_15 {
+        height: 40px;
+        width: 40px;
+        margin: 10px 0px;
+        display: inline-block;
+        border-radius: 50%;
+        border: solid 5px #fff;
+        margin-left: -13px;
+    }
+
+    .box_footer {
+        text-align: right;
+    }
+
+    .box_footer .animate_box_11 {
+        margin: 0px 12px 0px 0px;
+        width: 50px;
+    }
+
+    .box_footer .animate_box_10 {
+        width: 30px;
+        height: 30px;
+        margin: 0px;
+        vertical-align: top;
+        margin-top: -6px;
+    }
+
+    .box_filter {
+        text-align: right;
+    }
+
+    .animate_box_16 {
+        height: 40px;
+        margin-bottom: 5px;
+        width: 250px;
+        display: inline-block;
+    }
+
+    .animate_box_17 {
+        height: 40px;
+        margin-bottom: 5px;
+        width: 220px;
+        display: inline-block;
+    }
+
+    .animate_box_18 {
+        height: 40px;
+        margin-bottom: 5px;
+        width: 60px;
+        display: inline-block;
+    }
+
+    .folder_row_box {
+        border-top: solid 1px #f0f0f0;
+        padding: 12px 0px;
+    }
+
+    .simple_row_box {
+        border-top: solid 1px #f0f0f0;
+        padding: 12px 0px;
+    }
+
+    .animate_box_19 {
+        height: 40px;
+        width: 5%;
+        display: inline-block;
+    }
+
+    .animate_box_20 {
+        height: 40px;
+        width: 62.8%;
+        display: inline-block;
+    }
+
+    .animate_box_21 {
+        height: 40px;
+        width: 15%;
+        display: inline-block;
+    }
+
+    .animate_box_22 {
+        height: 40px;
+        width: 5%;
+        display: inline-block;
+    }
+
+    .animate_box_23 {
+        height: 40px;
+        width: 5%;
+        display: inline-block;
+    }
+
+    .animate_box_24 {
+        height: 40px;
+        width: 5%;
+        display: inline-block;
+    }
+
+    .animate_box_25 {
+        height: 40px;
+        width: 7%;
+        display: inline-block;
+    }
+
+    .animate_box_26 {
+        height: 40px;
+        width: 34.6%;
+        display: inline-block;
+    }
+
+    .lineane {
+        height: 12px;
+        margin-bottom: 10px !important;
+    }
+
+    .dot_ani {
+        display: inline-block;
+        width: 15px;
+        height: 10px;
+        position: relative;
+        top: -3px;
+    }
+
+    .dot_ani2 {
+        display: inline-block;
+        width: 92px;
+        height: 10px;
+        position: relative;
+        top: 0px;
+    }
+
+    .animate_a a {
+        width: 25px;
+        border-radius: 0;
+        border: 0 !important;
+    }
+
+    .over_hidden {
+        overflow: hidden;
+    }
+
+    .huddlelist_view .ani_2 span {
+        width: 25px;
+        height: 25px;
+        display: inline-block !important;
+    }
+
+    .aniimg {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .dot_ani3 {
+        float: right;
+    }
+
+    .dot_ani4 {
+        display: inline-block;
+        width: 120px;
+        margin-bottom: 4px !important;
+    }

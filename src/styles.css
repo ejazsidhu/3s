@@ -1,0 +1,414 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    color: #757575 !important;
+    font-size: 90% !important;
+    font-weight: normal;
+    font-family: 'Roboto' !important;
+    background: #f3f2ea !important;
+}
+
+div.clear {
+    clear: both;
+}
+
+.container {
+    max-width: 1027px !important;
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.sibme-animation {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #F6F6F6;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 800px 104px;
+    position: relative;
+}
+
+.box_outer {
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 15px !important;
+    max-width: 1024px !important;
+    margin-bottom: 20px !important;
+    /* border: 1px solid #dad6ce;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+    box-shadow: 0 0 5px rgba(0,0,0,.1); */
+    /* padding: 10px 20px 20px; */
+}
+
+.bred_an {
+    font-size: 13px;
+    position: relative;
+    top: 18px;
+    color: #4d504d;
+    padding: 0 0 17px !important;
+}
+
+.bred_an img {
+    margin: 0 15px;
+}
+
+.bred_an a {
+    color: #838383!important;
+    font-weight: 400;
+}
+
+.btn.active {
+    z-index: 0 !important;
+}
+
+.language_sp #header div.user_newDropDown ol {
+    width: 143px !important;
+    min-height: 104px !important;
+    padding-left: 8px !important;
+    margin-left: 0 !important;
+}
+
+.language_sp .model-copy .nav-tabs a {
+    padding: 6px 8px !important;
+    font-size: 13px !important;
+}
+
+.word-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.word-break {
+    word-break: break-all;
+}
+
+#loading-bar .bar {
+    background: #33ba3a;
+    height: 4px;
+}
+
+#loading-bar-spinner .spinner-icon {
+    width: 18px;
+    height: 18px;
+    border: solid 4px transparent;
+    border-top-color: #cadd22;
+    border-left-color: #cadd22;
+    border-radius: 10px;
+}
+
+.coach_bx2 .owl-nav .owl-prev {
+    background: 0 !important;
+    color: darkgray !important;
+    padding: 0 !important;
+    position: absolute;
+    left: -40px;
+    top: -1px;
+}
+
+.coach_bx2 .owl-nav .owl-next {
+    background: 0 !important;
+    color: darkgray !important;
+    padding: 0 !important;
+    position: absolute;
+    right: -40px;
+    top: -1px;
+}
+
+.coach_bx2 .owl-nav [class*=owl-]:hover {
+    background: none;
+    color: #000;
+    text-decoration: none;
+    outline: 0;
+}
+
+.coach_bx2 .owl-nav [class*=owl-] {
+    font-size: 34px !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-previous {
+    opacity: 1 !important;
+    top: auto !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+app-assessment-main pagination-controls {
+    width: 100%;
+    text-align: center;
+}
+
+app-assessment-main .ngx-pagination .pagination-previous a::before,
+.ngx-pagination .pagination-previous.disabled::before {
+    content: '' !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-next a::after,
+.ngx-pagination .pagination-next.disabled::after {
+    content: '' !important;
+}
+
+app-assessment-main .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+    background: none !important;
+    text-decoration: none;
+    outline: none;
+}
+
+app-assessment-main .ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: none;
+    color: #2199e8;
+    cursor: default;
+}
+
+app-coaching-detail .ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: none;
+    color: #2199e8;
+    cursor: default;
+}
+
+app-assessment-main .ngx-pagination .pagination-previous.disabled {
+    opacity: 1 !important;
+    top: auto !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-previous a,
+.pagination-previous span {
+    display: inherit !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-next {
+    opacity: 1 !important;
+    top: auto !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-next.disabled {
+    opacity: 1 !important;
+    top: auto !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+app-assessment-main .ngx-pagination .pagination-next a,
+.pagination-next span {
+    display: inherit !important;
+}
+
+.tip_font {
+    font-size: 11.5px !important;
+}
+
+.owl-carousel.owl-drag .owl-item {
+    max-width: 162px;
+}
+
+.video-js .vjs-picture-in-picture-control {
+    display: none !important;
+}
+
+#mainVideo .vjs-fullscreen-control {
+    display: none !important;
+}
+
+#mainVideo .vjs-control-bar .vjs-fullscreen-control {
+    display: block !important;
+}
+
+.try-again-container {
+    display: flex;
+    align-items: center;
+    font-family: Roboto !important;
+    font-weight: 500;
+    color: #c12112;
+}
+
+.try-again-message {
+    margin-left: 8px;
+}
+
+.try-again-btn {
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.disable-container {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+/* filestack upload icon issue resolved */
+
+.fsp-navbar--video {
+    background-repeat: no-repeat !important;
+}
+
+audio {
+    height: 30px;
+    width: 400px;
+}
+
+.auto-play-on-off-container {
+    padding: 4px 7px 2px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    float: right;
+    border: 1px solid #dddddd;
+    margin-right: 5px;
+}
+
+.video-must-longer-tooltip {
+    visibility: hidden; 
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    bottom: 6px;
+    right: 132px;
+}
+
+.fake-player-btn {
+    width: 22px;
+    cursor: default;
+}
+
+.transcode-audio-message {
+    font-style: italic;
+    font-family: 'Roboto-Regular';
+    color: #313131;
+    background-color: #ececec;
+    height: 25px;
+    text-align: center;
+    border-radius: 25px;
+    padding-top: 3px;
+}
+
+.video-js .btn-large { font-size: 15px; }
+.video-js span.hide-media-forward-button-tooltip, span.hide-media-backward-button-tooltip { display: none; }
+.video-js span.media-forward-button-tooltip {
+    position: absolute;
+    left: 4px;
+    font-size: 12px;
+    background-color: rgb(15, 15, 15);
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 97px;
+    bottom: 26px;
+}
+
+.video-js span.media-backward-button-tooltip {
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+    background-color: rgb(15, 15, 15);
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 97px;
+    bottom: 26px;
+}
+
+.video-js span.media-forward-button-tooltip::after, span.media-backward-button-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.video-js span.media-backward-button-tooltip::after {
+    left: 40% !important;
+}
+
+.modal .comment-end-time-popup { max-width: 560px; }
+.modal .comment-end-time-popup .modal-header { border-bottom: none; padding: 1rem 1rem 0 1rem; }
+.modal .comment-end-time-popup .modal-body { padding: 1rem 1rem 2rem 1rem; }
+.modal .comment-end-time-popup .info-red-svg { margin-right: 10px; }
+
+.stop-upload-tooltip {
+    width: 120px;
+    margin-bottom: 3px !important;
+}
+.audio-record-tooltip {
+    width: 170px !important;
+}
+
+
+
+/*Toaster styling for live streaming alert*/
+
+
+.live_re_msg p{
+font-weight:normal;
+}
+.notification_cross{
+position:absolute;
+right:8px;
+top:5px;
+font-weight:normal;
+z-index: 15;
+}
+.icon_box_notification{
+    margin: -16px 0px 0 -50px;
+    padding: 22px 13px 13px 13px;
+    background: #DD554B;
+    float: left;
+    width: 30%;
+    text-align: center;
+    height: 113px;
+    margin-bottom: -64px;
+}
+
+
+.noteificationRight {       float: right;
+    width: 72%;
+    margin: -11px 16px -18px 0;}
+
+    .noteificationRight p{font-size: 13px;
+        margin: 8px 0 0 0;
+        height: 39px;
+        overflow: hidden;}

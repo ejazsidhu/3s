@@ -1,0 +1,45 @@
+
+.ani_wp1{
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+.wani1{ display: inline-block; width: 80px; height:20px;    margin-top: 10px; }
+.wani2{ display: inline-block; width: 150px; height:38px; float: right;     margin-bottom: 5px;}
+
+.wani3{  float:left; width: 25%; height:38px;         margin-right: 2%;}
+.wani4{ float:left; width: 57%; height:38px;         margin-right: 2%;}
+.wani5{float:left; width: 13%; height:38px;     }
+
+
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+

@@ -1,0 +1,127 @@
+<!-- <div class="inner_h">
+        <div class="thumb_hu">
+          <div class="icontype">
+            <img src="assets/video-huddle/img/pdf_gry_icon.svg">
+          </div>
+        </div>
+      
+      
+        <div class="huddle_detail">
+      
+          <div class="hu_video">
+            <label>{{artifact.title}}</label>
+          </div>
+      
+       
+          <div class="hu_op dropdown" dropdown>
+            <button type="button" id="button-basic" dropdownToggle>
+              <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+      
+              <a class="dropdown-item" (click)="popup_display('rename')">Rename</a>
+              <a class="dropdown-item" (click)="popup_display('crope')">Crope</a>
+              <a class="dropdown-item" (click)="popup_display('email')">Email</a>
+              <a class="dropdown-item" href="#">Duplicate</a>
+              <a class="dropdown-item" href="#">Download</a>
+              <a class="dropdown-item" (click)="popup_display('Delete')">Delete</a>
+      
+      
+            </ul>
+          </div>
+      
+          <div class="clear"></div>
+          <p class="h_by">by: {{artifact.first_name}} {{ artifact.last_name}}</p>
+          <p class="h_date">Uploaded {{headerService?.formatDate(artifact.created_date,"MMM DD, YYYY")}} 
+            <img src="assets/video-huddle/img/attachment_icon.svg"> 3 </p>
+      
+          <a class="arrow_cls" href="#"> <img src="assets/video-huddle/img/icon_arrow.svg"> </a>
+      
+        </div>
+      
+      
+      </div> -->
+
+
+<div class="inner_h">
+  <a target="_blank" href="{{openResourceHref(artifact)}}">
+  <div class="thumb_hu" (click)="openResource(artifact)" style="cursor:pointer">
+    <div class="icontype">
+      <img [src]="artifact?.thubnail_url">
+    </div>
+  </div>
+  </a>
+
+  <div class="huddle_detail">
+
+    <div class="hu_video" >
+      <label (click)="openResource(artifact)" style="cursor:pointer" tooltip="{{artifact.title}}"  >{{artifact.title | slice:0:20}} <span *ngIf="artifact.title.length>18">...</span></label>
+      
+    
+    </div>
+
+   <ng-container *ngIf="permissionService?.getOnwerShip(artifact?.created_by) && userAccountLevelRoleId != '125'">
+    <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+      <button type="button">
+        <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+      </button>
+    </div>
+    <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+      <span (isOpenChange)="isOpen($event)" dropdown>
+        <button type="button" id="button-basic" dropdownToggle>
+          <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+
+          <a *ngIf="permissionService?.getPermission(artifact, 'rename')" class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.artifact_rename}}</a>
+          <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'crop');" >Crop</a>/ -->
+
+          <!-- <a class="dropdown-item" (click)="DuplicateResource(artifact)">Duplicate</a> -->
+          <a *ngIf="permissionService?.getPermission(artifact,'download')" class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.artifact_download}}</a>
+          <!-- <a *ngIf="permissionService?.getPermission(artifact)" class="dropdown-item" (click)="OpenModel(artifact,'delete')">Delete</a> -->
+          <a *ngIf="!detailsService?.artifactObj.submission_date_passed && permissionService?.getPermission(artifact,'delete') || permissionService?.CanDelete(artifact)" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+
+
+
+        </ul>
+      </span>
+    </div>
+   </ng-container>
+   
+
+    <!-- <div class="hu_op dropdown">
+        
+          <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+    <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+   </button>
+          <div class="dropdown-menu">
+             <a class="dropdown-item" href="#">Rename</a>
+             <a class="dropdown-item" href="#">Crope</a>
+             <a class="dropdown-item" href="#">Duplicate</a>
+             <a class="dropdown-item" href="#">Download</a>
+             <a class="dropdown-item" href="#">Delete</a>
+    
+   
+         </div>
+ 
+          </div> -->
+    <div class="clear"></div>
+    <p class="h_by">by: <b>{{artifact.first_name}} {{ artifact.last_name}}</b></p>
+    <p class="h_date">{{translation?.artifact_upload}} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+
+    <div class="huddle_option">
+      <!-- <a class="chat_cls" > <img src="assets/video-huddle/img/comm_icon.svg"> {{artifact?.total_comments}}</a> -->
+      <!-- <a class="h_att" > <img src="assets/video-huddle/img/attachment_icon.svg"> {{artifact?.total_attachment}}</a> -->
+
+      <a tooltip="Share" *ngIf="permissionService?.getPermission(artifact,'copy')" class="arrow_cls" (click)="OpenModel(artifact,'shareResource')"> <img
+          src="assets/video-huddle/img/icon_arrow.svg"> </a>
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+<!-- <shared-popup-models #popUp [artifact]="currentArtifact"></shared-popup-models> -->

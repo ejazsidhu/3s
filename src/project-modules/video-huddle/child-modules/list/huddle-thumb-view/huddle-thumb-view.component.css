@@ -1,0 +1,10 @@
+.dropdown-menu{
+	left: inherit!important;
+      min-width: 85px !important;
+	  right:0 !important;
+}
+.dropdown-item.active, .dropdown-item:active {
+       color: #16181b !important;
+    text-decoration: none;
+       background: #f8f9fa !important;
+}

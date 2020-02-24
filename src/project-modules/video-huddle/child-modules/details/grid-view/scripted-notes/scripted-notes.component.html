@@ -1,0 +1,82 @@
+<div class="inner_h">
+    <!-- <a href="{{HrefLink(artifact)}}"> -->
+    <a [routerLink]="['/video_details/scripted_observations/', artifact.account_folder_id, artifact.doc_id]">
+        <div class="thumb_hu">
+            <div class="icontype">
+                <img src="assets/video-huddle/img/nots_gry_con.svg">
+            </div>
+        </div>
+    </a>
+
+    <div class="huddle_detail">
+
+        <div class="hu_video">
+            <label style="cursor:pointer" tooltip="{{artifact.title}}" (click)="goToDetailPage(artifact)">{{artifact.title | slice:0:20}} <span *ngIf="artifact.title.length>18">...</span></label>
+        </div>
+
+        <ng-container *ngIf="permissionService?.getPermission(artifact,'delete')">
+            <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+                <button type="button">
+              <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+            </button>
+            </div>
+            <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+                <span (isOpenChange)="isOpen($event)" dropdown>
+                  <button type="button" id="button-basic" dropdownToggle>
+                    <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            
+                      
+                          <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.artifact_rename}}</a>
+                          <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'crop');" >Crop</a>     -->
+                          <!-- <a *ngIf="permissionService?.getPermission(artifact,'duplicate')" class="dropdown-item"  (click)="DuplicateResource(artifact)">{{translation?.artifact_duplicate}}</a> -->
+                          <!-- <a class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.artifact_download}}</a> -->
+                          <!-- <a *ngIf="permissionService?.getPermission(artifact)" class="dropdown-item" (click)="OpenModel(artifact,'delete')">Delete</a> -->
+                          <a *ngIf="!detailsService?.artifactObj.submission_date_passed && permissionService?.getPermission(artifact,'delete')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+                         
+        
+        
+            
+            
+                  </ul>
+                </span>
+            </div>
+        </ng-container>
+
+
+        <!-- <div class="hu_op dropdown">
+      
+        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+  <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+ </button>
+        <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">Rename</a>
+           <a class="dropdown-item" href="#">Crope</a>
+           <a class="dropdown-item" href="#">Duplicate</a>
+           <a class="dropdown-item" href="#">Download</a>
+           <a class="dropdown-item" href="#">Delete</a>
+  
+ 
+       </div>
+
+        </div> -->
+        <div class="clear"></div>
+        <p class="h_by">{{translation?.artifacts_by}}: <b>{{artifact.first_name}} {{ artifact.last_name}}</b></p>
+        <p class="h_date">{{translation?.artifact_upload}} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+
+        <div class="huddle_option">
+            <a class="chat_cls" tooltip="{{translation?.artifact_comments}}"> <img src="assets/video-huddle/img/comm_icon.svg"> {{artifact?.total_comments}}</a>
+            <a class="h_att" tooltip="{{translation?.artifact_attachments}}"> <img src="assets/video-huddle/img/attachment_icon.svg"> {{artifact?.total_attachment}} </a>
+
+            <a *ngIf="userAccountLevelRoleId != '125'" tooltip="{{translation?.artifact_share}}" class="arrow_cls" (click)="OpenModel(artifact,'shareNotes')"> <img src="assets/video-huddle/img/icon_arrow.svg"> </a>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<!-- <shared-popup-models #popUp [artifact]="currentArtifact"></shared-popup-models> -->

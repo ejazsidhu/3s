@@ -1,0 +1,489 @@
+<img [hidden]="true" src="assets/video-huddle/img/c1.png" />  <!-- This to preload dummy user image incase any data (discussion, comment, reply) try again functionality -->
+<div class="row  hu_detailcls discussion_cls">
+    <div class="col-md-1 hu_dis_img" *ngIf="comment?.tryAgain!=true && comment?.editTryAgain!=true">
+        <img class="thumb_img" [src]="comment.thumb_image" />
+    </div>
+    <div class="col-md-11">
+        <h4>
+            {{ comment?.first_name + " " + comment?.last_name }}
+            <span>{{ comment?.created_date_str }}</span>
+
+        </h4>
+
+        <!-- <p [innerHtml]="comment?.comment"></p>   -->
+        <div *ngIf="comment_less">
+            <p class="dis_text" [innerHtml]="comment?.comment | slice:0:2000   | safeHtml"></p>
+            <span class="moreless" *ngIf="findLength()>2000" (click)="commentMoreShow()">{{translation?.discussion_more}} + </span>
+            <!-- {{comment?.comment}} -->
+        </div>
+        <div *ngIf="comment_complete">
+            <p id="comment_content_{{comment?.id}}" innerHtml="{{comment?.comment}}" style="word-break:break-all"></p>
+            <span class="moreless" id="show_less_{{comment?.id}}" (click)="commentLessShow()">{{translation?.discussion_less}} - </span>
+
+        </div>
+        <!-- <div [innerHTML]="comment?.comment"></div>
+    <div innerHTML="{{comment?.comment slice: 0|180}}"></div> -->
+
+        <div *ngIf="comment?.attachments?.length > 0" class="attachment_cls">
+            <img src="assets/video-huddle/img/attachmenticon.svg" />
+            <span class="fake_link" (click)="DownloadFile(attachment)" *ngFor="let attachment of comment?.attachments">
+        {{ attachment.original_file_name |slice :0:50 }} 
+      </span>
+            <!-- <span> Students with bad attitudes.pdf </span> -->
+            <div class="clear"></div>
+        </div>
+
+        <div class="discussion_options" *ngIf="!comment?.tryAgain && userAccountLevelRoleId != '125' && !!comment.created_by;else pending">
+            <!-- <span (click)="add_reply()"> <img src="assets/details-module/img/reply_icon.svg">Reply </span> -->
+            <span [class.disabled]="reply_btn ? true : null" class="fake_link" (click)="ActivateMode(more_mode.reply);click_reply()">
+        <!-- mode_flag = more_mode.reply -->
+        <img src="assets/video-huddle/img/reply_icon.svg" />{{translation?.discussion_reply}}
+      </span>
+            <!-- <span (click)="edit_reply()"> <img src="assets/video-huddle/img/edit_icon.svg">Edit </span> -->
+            <span [class.disabled]="edit_btn ? true : null" *ngIf="permissionService?.getdiscussionPermissions(comment?.created_by)" class="fake_link" (click)="ActivateMode(more_mode.edit);click_edit()">
+        <img src="assets/video-huddle/img/edit_icon.svg" />{{translation?.discussion_edit}}
+      </span>
+            <span [class.disabled]="delete_btn ? true : null" *ngIf="permissionService?.getdiscussionPermissions(comment?.created_by)" (click)="deleteComment()">
+        <a> <img src="assets/video-huddle/img/delete_icon.svg" />{{translation?.discussion_delete}} </a>
+      </span>
+        </div>
+
+        <ng-template #pending>
+          <p *ngIf="!comment?.tryAgain">{{translation?.myfile_posting}}</p>
+        </ng-template>
+        
+        <div *ngIf="comment?.tryAgain && !comment?.editTryAgain" class="try-again-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16.329" height="15.374" viewBox="0 0 16.329 15.374">
+            <g id="Group_351" data-name="Group 351" transform="translate(-270.467 -1166.164)">
+                <path id="Path_52" data-name="Path 52" d="M20.256,22.985a1.562,1.562,0,0,1,2.75,0l6.6,12.25a1.562,1.562,0,0,1-1.375,2.3h-13.2a1.562,1.562,0,0,1-1.375-2.3Z" transform="translate(257 1144)" fill="#c10f12"/>
+                <path id="Union_1" data-name="Union 1" d="M.253,5.369h0V5.337L.006,1.079A.952.952,0,0,1,0,.97.985.985,0,0,1,1,0,.985.985,0,0,1,2,.97a.947.947,0,0,1-.01.136l-.3,4.221A.709.709,0,0,1,.969,6,.711.711,0,0,1,.253,5.369Z" transform="translate(277.7 1170)" fill="#fff"/>
+                <circle id="Ellipse_9" data-name="Ellipse 9" cx="1" cy="1" r="1" transform="translate(277.7 1177)" fill="#fff"/>
+            </g>
+          </svg>
+          <span class="try-again-message">{{translation?.comment_not_saved}} </span>
+          <span class="try-again-btn" (click)="saveCommentAgainEmit(comment)">{{translation?.try_again}}</span>
+        </div>
+        <div *ngIf="comment?.editTryAgain" class="try-again-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16.329" height="15.374" viewBox="0 0 16.329 15.374">
+            <g id="Group_351" data-name="Group 351" transform="translate(-270.467 -1166.164)">
+                <path id="Path_52" data-name="Path 52" d="M20.256,22.985a1.562,1.562,0,0,1,2.75,0l6.6,12.25a1.562,1.562,0,0,1-1.375,2.3h-13.2a1.562,1.562,0,0,1-1.375-2.3Z" transform="translate(257 1144)" fill="#c10f12"/>
+                <path id="Union_1" data-name="Union 1" d="M.253,5.369h0V5.337L.006,1.079A.952.952,0,0,1,0,.97.985.985,0,0,1,1,0,.985.985,0,0,1,2,.97a.947.947,0,0,1-.01.136l-.3,4.221A.709.709,0,0,1,.969,6,.711.711,0,0,1,.253,5.369Z" transform="translate(277.7 1170)" fill="#fff"/>
+                <circle id="Ellipse_9" data-name="Ellipse 9" cx="1" cy="1" r="1" transform="translate(277.7 1177)" fill="#fff"/>
+            </g>
+          </svg>
+          <span class="try-again-message">{{translation?.comment_not_updated}} </span>
+          <span class="try-again-btn" (click)="editCommentSaveAgain(comment)">{{translation?.try_again}}</span>
+        </div>
+    </div>
+  </div>
+
+    <!--reply comment start-->
+
+
+    <div class="w100" *ngIf="mode_flag == more_mode.reply">
+  <div class="border0 w100">
+      <div class="editorcls reply_editor">
+
+    <form #f="ngForm">
+      <!-- <div class="modal-body sendmail">-->
+
+      <!-- <input hidden type="file" #uploader id="uploader" (change)="onUpload($event)"/> -->
+      <!-- <quill-editor [style]="{height: '250px'}" [modules]="editorOptions?.modules" name="d-description" [(ngModel)]="addDiscData.comment"> -->
+        <input
+        hidden
+        type="file"
+        #uploader
+        id="uploaderx_{{comment.id}}"
+        (change)="onUpload($event)"
+        accept="image/*,application/*,text/*"
+      />
+       <div class="row  hu_detailcls discussion_cls editor_eidt">
+            
+                  <div class="col-md-12 reply_edi">
+        <quill-editor
+        [placeholder]="translation?.artifact_insert_text"
+        [style]="{ height: '100px' }"
+        [modules]="discussionService?.GetEditorOptionsCom(comment.id).modules"
+        name="d-description"
+        [(ngModel)]="editablereply"
+        (ngModelChange)="headerService?.localStorage(editablereply,'comment_'+comment.id)"
+      >
+      </quill-editor>
+     
+          <div class="custom_files" *ngFor="let file of Files; let i=index">
+            {{file.name |slice:0:30}} <span style="margin-left:0" *ngIf="file?.name.length>30">...</span>
+            <span class="fake_link" (click)="Files.splice(i,1)">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path id="Path_29" data-name="Path 29" d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z" transform="translate(0 11)" fill="#919191"/>
+                    </clipPath>
+                    <clipPath id="clip-path-2">
+                      <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z" transform="translate(1057 483)" fill="#919191"/>
+                    </clipPath>
+                  </defs>
+                  <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                    <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)" clip-path="url(#clip-path-2)">
+                      <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z" transform="translate(674.455 313.182)" fill="#919191"/>
+                    </g>
+                  </g>
+                 </svg>
+            </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row" *ngFor="let file of DiscussionFiles; let i=index">
+                              <div class="col-2"></div>
+                              <div class="col-8">
+                                      {{file.name}}
+                              </div>
+                              <div class="col-2">
+                                      <span class="fake_link" (click)="DiscussionFiles.splice(i,1)"> x </span>
+                              </div>
+                        </div> -->
+
+                    <!-- </div> -->
+
+
+                    <div class="row editor_btn">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6 share_btn">
+                          <button
+              type="button"
+              class="btn btn-default"
+              (click)="mode_flag = 0;click_cancle_reply();headerService?.localStorage(null,'comment_'+comment.id);"
+            >
+            {{translation?.discussion_cancel}}
+            </button>
+                            <button (click)="AddReply();click_cancle_reply()" type="submit" class="btn btn-success reply_ad">{{translation?.discussion_add}}</button>
+                        </div>
+                    </div>
+
+
+
+
+
+
+     
+    </form>
+  </div>
+  </div>
+</div>
+<!--reply comment end-->
+
+<div class="w100" *ngIf="mode_flag == more_mode.edit">
+  <div class="border0 w100">
+      <div class="editorcls reply_editor">
+    <form #f1="ngForm" class="{{comment.id}}">
+      <!-- <div class="modal-body sendmail">-->
+
+      <input
+        hidden
+        type="file"
+        #uploader
+        id="uploaderx_{{comment.id}}"
+        (change)="onUpload($event)"
+        accept="image/*,application/*,text/*"
+      />
+      <!-- <quill-editor [style]="{height: '250px'}" [modules]="editorOptions?.modules" name="d-description" [(ngModel)]="addDiscData.comment"> -->
+          <div class="row  hu_detailcls discussion_cls editor_eidt">
+            
+                  <div class="col-md-12 reply_edi">
+      <quill-editor
+      [placeholder]="translation?.artifact_insert_text"
+        [style]="{ height: '100px' }"
+        [modules]="discussionService?.GetEditorOptionsCom(comment.id).modules"
+        name="d-description"
+        [(ngModel)]="editableComment.comment"
+        (ngModelChange)="headerService?.localStorage(editableComment.comment, 'discussionEditCommentLSKey_'+comment.id+user_id)"
+      >
+      </quill-editor>
+      <div class="row" >
+          <div class="col-12">
+      <div class="custom_files" *ngFor="let file of Files; let i=index">
+        {{file.name |slice:0:30}} <span style="margin-left:0" *ngIf="file?.name.length>30">...</span>
+          <span class="fake_link" (click)="Files.splice(i,1)">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_29" data-name="Path 29" d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z" transform="translate(0 11)" fill="#919191"/>
+                  </clipPath>
+                  <clipPath id="clip-path-2">
+                    <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z" transform="translate(1057 483)" fill="#919191"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                  <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)" clip-path="url(#clip-path-2)">
+                    <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z" transform="translate(674.455 313.182)" fill="#919191"/>
+                  </g>
+                </g>
+               </svg>
+          </span>
+
+                                    </div>
+                                    <ng-container *ngFor="let file of stockFiles">
+                                        <div class="custom_files" *ngIf="!file.isDeleted">
+                                            <ng-container>
+                                                {{file.original_file_name |slice:0:50}}
+
+                                            </ng-container> <span *ngIf="!file.isDeleted" class="fake_link" (click)="file.isDeleted=true">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_29" data-name="Path 29" d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z" transform="translate(0 11)" fill="#919191"/>
+                  </clipPath>
+                  <clipPath id="clip-path-2">
+                    <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z" transform="translate(1057 483)" fill="#919191"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                  <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)" clip-path="url(#clip-path-2)">
+                    <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z" transform="translate(674.455 313.182)" fill="#919191"/>
+                  </g>
+                </g>
+               </svg>
+          </span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="row editor_btn">
+                                <div class="col-6">
+                                    <label class="checkboxcls">{{translation?.discussion_email_all_participants}}
+                             <input type="checkbox" [(ngModel)]="emailAll" name="emailAll">
+                                  <span class="checkmark"></span>
+                                </label>
+                        </div>
+                        <div class="col-6 share_btn">
+                           <button
+              type="button"
+              class="btn btn-default"
+              (click)="ActivateMode(more_mode.default);click_cancle_edit();headerService?.localStorage(null, 'discussionEditCommentLSKey_'+comment.id+user_id);"
+            >
+            {{translation?.discussion_cancel}}
+            </button>
+                                    <button (click)="onUpdate();click_cancle_edit()" type="submit" class="btn btn-success">{{translation?.discussion_update}}</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+</div>
+
+
+
+<!--edit discussion start-->
+
+<!--edit discussion end-->
+<ng-container *ngFor="let replies of comment.replies">
+    <div class="row hu_detailcls discussion_cls" style="padding-left: 6.6%;">
+        <div class="col-md-1 hu_dis_img" *ngIf="replies?.tryAgain!=true && replies?.editTryAgain!=true">
+            <img class="thumb_img" [src]="ImageBuilder(replies)" />
+        </div>
+        <div class="col-md-11">
+            <h4>
+                {{ replies?.first_name + " " + replies?.last_name }}
+                <label class="reply_owner"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="10.5" viewBox="0 0 12 10.5">
+        <path id="share" d="M7.5,0V3C1.5,3,0,6.075,0,10.5A5.752,5.752,0,0,1,6,6H7.5V9L12,4.26Z" fill="#919191"/>
+      </svg> {{comment?.first_name + " " + comment?.last_name}} 
+       </label>
+                <span>{{ replies?.created_date_str }}</span>
+
+            </h4>
+
+            <!-- <p [innerHtml]="comment?.comment"></p>   -->
+            <ng-template #replyless>
+                <div>
+                    <p class="dis_text" [innerHtml]="replies?.comment | slice:0:2000 | safeHtml"></p>
+                    <span class="moreless" *ngIf="replies?.comment.length>2000" (click)="replyMoreShow(replies.id)">{{translation?.discussion_more}} + </span>
+                </div>
+            </ng-template>
+            <div *ngIf="reply_complete && currentreplyid==replies.id else replyless">
+                <p id="comment_content_{{replies?.id}}" class="dis_text" innerHtml="{{replies?.comment}}"></p>
+                <span class="moreless" id="show_less_{{replies?.id}}" (click)="replyLessShow(replies.id)">{{translation?.discussion_less}} - </span>
+
+            </div>
+
+            <!-- <div [innerHTML]="comment?.comment"></div>
+    <div innerHTML="{{comment?.comment slice: 0|180}}"></div> -->
+
+            <div *ngIf="replies?.attachments?.length > 0" class="attachment_cls">
+                <img src="assets/video-huddle/img/attachmenticon.svg" />
+                <span class="fake_link" (click)="DownloadFile(attachment)" *ngFor="let attachment of replies?.attachments">
+        {{ attachment.original_file_name |slice:0:50 }}
+      </span>
+                <!-- <span> Students with bad attitudes.pdf </span> -->
+                <div class="clear"></div>
+            </div>
+
+            <div *ngIf="!replies?.tryAgain && !!replies.created_by;else pending1" class="discussion_options">
+                <!-- <span (click)="add_reply()"> <img src="assets/video-huddle/img/reply_icon.svg">Reply </span> -->
+                <!-- <span (click)="edit_reply()"> <img src="assets/video-huddle/img/edit_icon.svg">Edit </span> -->
+                <span [class.disabled]="edit_btn ? true : null" *ngIf="permissionService?.getdiscussionPermissions(replies?.created_by)" class="fake_link" (click)="ActivateMode(more_mode.replyedit,replies);click_edit_reply();">
+        <img src="assets/video-huddle/img/edit_icon.svg" />{{translation?.discussion_edit}}
+      </span>
+                <span *ngIf="permissionService?.getdiscussionPermissions(replies?.created_by)" (click)="deletereply(replies)">
+        <a> <img src="assets/video-huddle/img/delete_icon.svg" />{{translation?.discussion_delete}} </a>
+      </span>
+            </div>
+
+            <ng-template #pending1>
+              <p *ngIf="!replies?.tryAgain">{{translation?.myfile_posting}}</p>
+            </ng-template>
+            <div *ngIf="replies?.tryAgain && !replies?.editTryAgain" class="try-again-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16.329" height="15.374" viewBox="0 0 16.329 15.374">
+                <g id="Group_351" data-name="Group 351" transform="translate(-270.467 -1166.164)">
+                    <path id="Path_52" data-name="Path 52" d="M20.256,22.985a1.562,1.562,0,0,1,2.75,0l6.6,12.25a1.562,1.562,0,0,1-1.375,2.3h-13.2a1.562,1.562,0,0,1-1.375-2.3Z" transform="translate(257 1144)" fill="#c10f12"/>
+                    <path id="Union_1" data-name="Union 1" d="M.253,5.369h0V5.337L.006,1.079A.952.952,0,0,1,0,.97.985.985,0,0,1,1,0,.985.985,0,0,1,2,.97a.947.947,0,0,1-.01.136l-.3,4.221A.709.709,0,0,1,.969,6,.711.711,0,0,1,.253,5.369Z" transform="translate(277.7 1170)" fill="#fff"/>
+                    <circle id="Ellipse_9" data-name="Ellipse 9" cx="1" cy="1" r="1" transform="translate(277.7 1177)" fill="#fff"/>
+                </g>
+              </svg>
+              <span class="try-again-message">{{translation?.reply_not_saved}} </span>
+              <span class="try-again-btn" (click)="saveReplyAgain(replies)">{{translation?.try_again}}</span>
+            </div>
+            <div *ngIf="replies?.editTryAgain" class="try-again-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16.329" height="15.374" viewBox="0 0 16.329 15.374">
+                <g id="Group_351" data-name="Group 351" transform="translate(-270.467 -1166.164)">
+                    <path id="Path_52" data-name="Path 52" d="M20.256,22.985a1.562,1.562,0,0,1,2.75,0l6.6,12.25a1.562,1.562,0,0,1-1.375,2.3h-13.2a1.562,1.562,0,0,1-1.375-2.3Z" transform="translate(257 1144)" fill="#c10f12"/>
+                    <path id="Union_1" data-name="Union 1" d="M.253,5.369h0V5.337L.006,1.079A.952.952,0,0,1,0,.97.985.985,0,0,1,1,0,.985.985,0,0,1,2,.97a.947.947,0,0,1-.01.136l-.3,4.221A.709.709,0,0,1,.969,6,.711.711,0,0,1,.253,5.369Z" transform="translate(277.7 1170)" fill="#fff"/>
+                    <circle id="Ellipse_9" data-name="Ellipse 9" cx="1" cy="1" r="1" transform="translate(277.7 1177)" fill="#fff"/>
+                </g>
+              </svg>
+              <span class="try-again-message">{{translation?.reply_not_updated}} </span>
+              <span class="try-again-btn" (click)="editReplyAgain(replies)">{{translation?.try_again}}</span>
+            </div>
+        </div>
+    </div>
+    <!-- <p *ngIf="replies?.unsavedreply_Id<0" (click)="saveReplyAgain(replies)">reply not saved please try again</p>
+    <p *ngIf="replies?.editReplyNegativeId<0" (click)="editReplyAgain(replies)">Edited reply not saved please try again</p> -->
+<div class="w100" *ngIf="mode_flag == more_mode.replyedit && replies.id == currentreplyid">
+  <div class="border0 w100" style="padding-left: 13.6%;">
+      <div class="editorcls reply_editor">
+    <form #f1="ngForm" class="{{replies.id}}">
+      <!-- <div class="modal-body sendmail">-->
+
+      <input
+        hidden
+        type="file"
+        #uploader
+        id="uploaderx_{{replies.id}}"
+        (change)="onUpload($event)"
+      />
+      <!-- <quill-editor [style]="{height: '250px'}" [modules]="editorOptions?.modules" name="d-description" [(ngModel)]="addDiscData.comment"> -->
+          <div class="row  hu_detailcls discussion_cls editor_eidt">
+            
+                  <div class="col-md-12 reply_edi">
+      <quill-editor
+      [placeholder]="translation?.artifact_insert_text"
+        [style]="{ height: '100px' }"
+        [modules]="discussionService?.GetEditorOptionsCom(replies.id).modules"
+        name="d-description"
+        [(ngModel)]="editablereply"
+        (ngModelChange)="headerService?.localStorage(editablereply,replies.id)"
+      >
+      </quill-editor>
+      <div class="row" >
+          <div class="col-12">
+      <div class="custom_files" *ngFor="let file of Files; let i=index">
+        {{file.name |slice:0:30}} <span style="margin-left:0" *ngIf="file?.name.length>30">...</span>
+          <span class="fake_link" (click)="Files.splice(i,1)">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_29" data-name="Path 29" d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z" transform="translate(0 11)" fill="#919191"/>
+                  </clipPath>
+                  <clipPath id="clip-path-2">
+                    <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z" transform="translate(1057 483)" fill="#919191"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                  <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)" clip-path="url(#clip-path-2)">
+                    <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z" transform="translate(674.455 313.182)" fill="#919191"/>
+                  </g>
+                </g>
+               </svg>
+          </span>
+
+                                    </div>
+                                    <ng-container *ngFor="let file of stockFiles">
+                                        <div class="custom_files" *ngIf="!file.isDeleted">
+                                            <ng-container>{{ file.original_file_name |slice :0:30 }}
+                                                <span style="margin-left:0" *ngIf="file.original_file_name.length>30">...</span>
+
+                                            </ng-container> <span *ngIf="!file.isDeleted" class="fake_link" (click)="file.isDeleted=true">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="7" viewBox="0 0 7 7">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_29" data-name="Path 29" d="M7-5.367a.545.545,0,0,1-.165.4l-.8.8a.545.545,0,0,1-.4.165.546.546,0,0,1-.4-.165L3.5-5.9,1.768-4.165a.545.545,0,0,1-.4.165.545.545,0,0,1-.4-.165l-.8-.8A.545.545,0,0,1,0-5.367a.545.545,0,0,1,.165-.4L1.9-7.5.165-9.232A.546.546,0,0,1,0-9.633a.545.545,0,0,1,.165-.4l.8-.8a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165L3.5-9.1l1.732-1.732a.545.545,0,0,1,.4-.165.545.545,0,0,1,.4.165l.8.8a.545.545,0,0,1,.165.4.545.545,0,0,1-.165.4L5.1-7.5,6.835-5.768A.545.545,0,0,1,7-5.367Z" transform="translate(0 11)" fill="#919191"/>
+                  </clipPath>
+                  <clipPath id="clip-path-2">
+                    <path id="Path_28" data-name="Path 28" d="M-1057,89.727h763.636V-483H-1057Z" transform="translate(1057 483)" fill="#919191"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_26" data-name="Group 26" clip-path="url(#clip-path)">
+                  <g id="Group_25" data-name="Group 25" transform="translate(-672.636 -300.364)" clip-path="url(#clip-path-2)">
+                    <path id="Path_27" data-name="Path 27" d="M-5-2.636H8.364V-16H-5Z" transform="translate(674.455 313.182)" fill="#919191"/>
+                  </g>
+                </g>
+               </svg>
+          </span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="row editor_btn">
+                                <div class="col-6">
+                                    <label class="checkboxcls">{{translation?.discussion_email_all_participants}}
+                                  <input type="checkbox" [(ngModel)]="emailAll" name="emailAll">
+                                  <span class="checkmark"></span>
+                                </label>
+                        </div>
+                        <div class="col-6 share_btn">
+                           <button
+              type="button"
+              class="btn btn-default"
+              (click)="ActivateMode(more_mode.default);click_cancl_edit_reply();headerService?.localStorage(null,replies.id);"
+            >
+            {{translation?.discussion_cancel}}
+            </button>
+                                    <button (click)="onReplyUpdate(replies)" type="submit" class="btn btn-success">{{translation?.discussion_update}}</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-container>

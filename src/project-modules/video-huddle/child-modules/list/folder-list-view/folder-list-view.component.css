@@ -1,0 +1,15 @@
+div.dndDraggingSource{
+	background: #cccbcb !important;
+    /* border-radius: 7px; */
+    padding-left: 6px;
+}
+
+.dndDraggingSource > div{
+    background: #cccbcb !important;
+    border-radius: 0 !important;
+}
+
+div[dndHandle]{
+	padding-left: 0;
+    left: 15px;
+}

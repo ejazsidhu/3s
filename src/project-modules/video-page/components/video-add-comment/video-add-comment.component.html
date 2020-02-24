@@ -1,0 +1,262 @@
+<div *ngIf="!isVideoProcessing && (VideoInfo.video_is_saved !=0 || EditMode) && permissions.can_comment && userAccountLevelRoleId != '125'"
+    class="add_comment" [style.backgroundColor]="EditMode?'#fcf9d1':'transparent'" [style.padding]="EditMode?'6px':'0'">
+    <div class="row comm_top">
+        <div *ngIf="!EditMode" class="col-md-6">
+            <label>{{translation?.vd_new_comments}}</label>
+        </div>
+        <div [class.col-md-6]="!EditMode" [class.flat]="EditMode" class="comm_time">
+            <span class="switch_container">
+                <ui-switch (click)="closeInfo();" [disabled]="EditMode" defaultBgColor="#a3a3a3"
+                    [(ngModel)]="newComment.timeEnabled">
+                </ui-switch>
+            </span>
+            <!-- TimeEnabled: {{newComment.timeEnabled|json}} -->
+            <span class="time_com">{{translation?.video_comment_time}} - <span class="video_time_cls">
+                    <div *ngIf="newComment.timeEnabled && EditMode">
+                        <!-- NewEditComment : 01 start -->
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-hours">
+                                {{VideoCurrentTime[0] | DoubleDigit}}
+                            </button>
+                            <ul id="start-hours" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-hours" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableHours"
+                                        (click)="updateVideoCurrentTime(0, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-minutes">
+                                {{VideoCurrentTime[1] | DoubleDigit}}
+                            </button>
+                            <ul id="start-minutes" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-minutes" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableMntsNScnds"
+                                        (click)="updateVideoCurrentTime(1, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-seconds">
+                                {{VideoCurrentTime[2] | DoubleDigit}}
+                            </button>
+                            <ul id="start-seconds" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-seconds" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableMntsNScnds"
+                                        (click)="updateVideoCurrentTime(2, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <span style="margin: 0 5px;">-</span>
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-hours">
+                                {{commentEndTime[0] | DoubleDigit}}
+                            </button>
+                            <ul id="start-hours" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-hours" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableHours"
+                                        (click)="updateCommentEndTime(0, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+
+                        </div>
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-minutes">
+                                {{commentEndTime[1] | DoubleDigit}}
+                            </button>
+                            <ul id="start-minutes" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-minutes" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableMntsNScnds"
+                                        (click)="updateCommentEndTime(1, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="btn-group" dropdown>
+                            <button type="button" dropdownToggle class="comm_options dropdown-toggle"
+                                aria-controls="start-seconds">
+                                {{commentEndTime[2] | DoubleDigit}}
+                            </button>
+                            <ul id="start-seconds" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="start-seconds" style="min-width: 0rem;">
+                                <div size="5px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000"
+                                    height="120px" id="slimscroll-sh" slimScroll>
+                                    <li role="menuitem" class="fake_link" *ngFor="let value of availableMntsNScnds"
+                                        (click)="updateCommentEndTime(2, value)">
+                                        <span class="dropdown-item">{{value | DoubleDigit}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <!-- NewEditComment : 01 end -->
+                        <!-- Old number input logic for comment edit time start -->
+                        <!-- <div>
+                            <input type="number" max="24" class="custom-form-control"
+                                [(ngModel)]="VideoCurrentTime[0]"
+                                (ngModelChange)="OnCommentTimeChange($event, 'h')" />
+                            <input type="number" class="custom-form-control"
+                                [(ngModel)]="VideoCurrentTime[1]" max="59"
+                                (ngModelChange)="OnCommentTimeChange($event,'m')" />
+                            <input type="number" class="custom-form-control"
+                                [(ngModel)]="VideoCurrentTime[2]" max="59"
+                                (ngModelChange)="OnCommentTimeChange($event, 's')" />
+                        </div> -->
+                        <!-- Old number input logic for comment edit time end -->
+                    </div>
+                    <span *ngIf="newComment.timeEnabled && !EditMode">
+                        {{formattedVideoCurrentTime}}
+                    </span>
+                    <span [hidden]="newComment.timeEnabled">{{translation?.vd_all_videos}}</span>
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="comment_box">
+        <audio-recorder-play
+            *ngIf="(!newComment.commentText || (newComment.commentText && newComment.ref_type==6)) && (!EditMode || (EditMode && newComment.ref_type!=6))"
+            [localAudioData]="localAudioData" [autoSaveAudio]="autoSaveAudio" (currentState)="currentState($event)"
+            (audioPath)="audioPath($event)"></audio-recorder-play>
+        <textarea *ngIf="!EditMode && (audioRecorderState === 'comfortZone' || audioRecorderState === 'recording')"
+            [(ngModel)]="newComment.commentText" (keydown)="TriggerTextChange($event)"
+            placeholder="{{translation?.vd_plcholder_add_comment}}" onfocus="" (click)="closeInfo(1,0,2)"></textarea>
+        <textarea
+            *ngIf="EditMode && newComment.ref_type!=6 && (audioRecorderState === 'comfortZone' || audioRecorderState === 'recording')"
+            [(ngModel)]="newComment.commentText" (keydown)="TriggerTextChange($event)"
+            placeholder="{{translation?.vd_plcholder_add_comment}}" onfocus="" (click)="closeInfo(1,0,2)"></textarea>
+        <div *ngIf="EditMode && newComment.ref_type==6" class="audio-recorder-play-wrapper">
+            <div class="audio-container">
+                <audio controls #audioPlayer>
+                    <source [src]="newComment.audioUrl != '' ? newComment.audioUrl : newComment.commentText">
+                    {{translation?.vd_your_browser_does_not}}
+                </audio>
+                <div class="cancel-audio" (click)="cancel()">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        id="Capa_2" x="0px" y="0px" width="15px" height="15px" viewBox="0 0 47.971 47.971"
+                        style="enable-background:new 0 0 47.971 47.971;" xml:space="preserve" fill="#757474">
+                        <g>
+                            <path
+                                d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88   c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242   C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879   s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="comment_tags">
+
+            <div class="tags_icons fake_link"
+                (click)="playerService.ModifyPlayingState('pause');mainService.FocusCustomTag();closeInfo(1,0,2);"
+                style="transform: rotate(86deg);">
+                <span class="oi" data-glyph="tag"></span>
+            </div>
+            <div class="plusicon fake_link"
+                (click)="playerService.ModifyPlayingState('pause');mainService.FocusCustomTag();closeInfo();">
+
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+            <custom-tags [predefinedTags]="tags" (Tags)="SetCustomTags($event)">
+            </custom-tags>
+            <div class="clear"></div>
+        </div>
+        <div class="comment_tags" *ngIf="permissions?.rubric_check">
+            <div class="tags_icons fake_link"
+                (click)="playerService.ModifyPlayingState('pause');updateCurrentTab(2);closeInfo();">
+                <img src="assets/img/list-2x.png">
+            </div>
+            <div class="plusicon fake_link"
+                (click)="playerService.ModifyPlayingState('pause');updateCurrentTab(2);closeInfo();">
+
+                <span class="oi" data-glyph="plus"></span>
+            </div>
+            <span *ngFor="let rubric of selectedRubrics; let i=index" [ngClass]="{'tag_adjusted':i>0}"
+                class="tag_rounded full_width">
+                {{rubric.tag_code}} {{rubric.tag_html}}<span class="pull-right cross_span"
+                    (click)="playerService.ModifyPlayingState('pause');closeInfo();RemoveSelectedRubric(rubric,i)"> x
+                </span>
+            </span>
+            <div class="clear"></div>
+        </div>
+
+        <fs-uploader (click)="playerService.ModifyPlayingState('pause');closeInfo(1,0,2);"
+            [label]="translation?.vd_upload" [source]="'comment'" [configuration]="videoOptions"
+            (onUpload)="AppendNewFiles($event)"></fs-uploader>
+
+        <div class="tgright">
+            <span *ngFor="let file of newComment.files; let i=index" class="tgouter">
+                <span>
+                    {{file.filename || file.title}}
+                </span>
+                <span class="pull-right cross_span" (click)="closeInfo();RemoveFileFromComment(file, i)">
+                    x
+                </span>
+            </span>
+        </div>
+        <div class="clear"></div>
+
+    </div>
+    <div class="comm_option" *ngIf="permissions?.AllowCustomMarkers">
+        <ng-container *ngFor="let marker of CustomMarkers; let i = index">
+            <span [style.backgroundColor]="getMarkerBg(marker, i)" class="custom_tag"
+                [style.borderColor]="[markerColors[i]]" (click)="playerService.ModifyPlayingState('pause');ChooseCustomTag(marker)"></span>
+            <span (click)="playerService.ModifyPlayingState('pause');ChooseCustomTag(marker)"> {{marker.tag_title}}
+            </span>
+        </ng-container>
+    </div>
+    <div class="add_comm">
+        <div class="btn-group" dropdown>
+            <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle" aria-controls="dropdown-basic"
+                (click)="closeInfo();">
+
+                <img src="assets/img/dot.svg">
+            </div>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu settingsMenu" role="menu"
+                aria-labelledby="button-basic">
+                <li role="menuitem" (click)="ToggleEnterPost()" class="fake_link" style="width: 100%;">
+                    <span class="dropdown-item">{{translation?.vd_press_enter}}
+                        <span *ngIf="settings.EnterToPost" class="oi pull-right" data-glyph="check" title=""
+                            aria-hidden="true">
+                        </span>
+                    </span>
+                </li>
+                <li role="menuitem" (click)="TogglePause()" class="fake_link" style="width: 100%;">
+                    <span class="dropdown-item">{{translation?.vd_pause_while}} <span *ngIf="settings.PauseWhileTyping"
+                            class="oi pull-right" data-glyph="check" title="" aria-hidden="true">
+                        </span> </span>
+                </li>
+            </ul>
+        </div>
+        <div class="add_comm_btn" *ngIf="!EditMode">
+            <a class="fake_link" [class.disable-container]="audioRecorderState === 'uploading'"
+                (click)="AddTextComment()" [style.backgroundColor]="primery_button_color">{{translation?.vd_add}}</a>
+        </div>
+        <div class="add_comm_btn" *ngIf="EditMode">
+            <a class="simple_btn" (click)="EditTextComment(0)">{{translation?.vd_cancel}}</a>
+            <a class="fake_link" (click)="EditTextComment(1)"
+                [style.backgroundColor]="primery_button_color">{{translation?.vd_update}}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

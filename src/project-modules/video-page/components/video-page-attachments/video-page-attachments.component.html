@@ -1,0 +1,73 @@
+<div class="row btn_resources_upload_wrapper">
+    <div class="add_comm_btn col-sm-12" *ngIf="userAccountLevelRoleId != '125'">
+        <fs-uploader [label]="translation?.vd_upload" [source]="'resources'" [configuration]="videoOptions" (onUpload)="GetNewFiles($event)"></fs-uploader>
+    </div>
+</div>
+<table class="table table-hover resources" *ngIf="staticFiles.length>0">
+    <thead>
+        <tr>
+            <th>
+                {{translation?.vd_time}}
+            </th>
+            <th>
+                {{translation?.vd_file}}
+            </th>
+            <th class="text-right">
+                {{translation?.vd_action}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let file of staticFiles">
+            <td class="clickable" style="width: 90px;" (click)="Seek(file.time)">
+                <span> {{file.time  || translation?.vd_all_videos}} </span>
+            </td>
+            <td class="clickable" (click)="FileClicked('td', file)">
+                <span class="oi file_icon" data-glyph="file"></span> <span class="file_name" title="{{file?.title}}">{{file?.title}}</span>
+            </td>
+            <td *ngIf="file.id && userAccountLevelRoleId != '125'">
+                <div class="video_options btn-group" dropdown>
+                    <!-- (click)="closeInfo();" -->
+                    <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle" aria-controls="dropdown-basic" >
+
+                        <img src="assets/img/dot.svg">
+                    </div>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                        <li role="menuitem" class="fake_link" *ngIf="currnetUser.id == file.created_by">
+                            <span class="dropdown-item" (click)="InitiateDeleteResource(confirmDialog, file)">{{translation?.vd_delete}}</span>
+                        </li>
+                        <li role="menuitem" class="fake_link" (click)="FileClicked('li', file)">
+                            <span class="dropdown-item">{{translation?.vd_download}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td *ngIf="!file.id">
+                {{translation?.vd_uploading}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<ng-template #confirmDialog>
+    <div class="modal-header">
+        <h6 class="modal-title pull-left">{{translation?.vd_confirm}}</h6>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{translation?.vd_are_sure_that}}
+    </div>
+    <div class="modal-footer text-right">
+        <div>
+            <button class="btn btn-default" (click)="ResolveDeleteFile(0)">
+                {{translation?.vd_cancel}}
+            </button>
+            <button class="btn btn-primary" (click)="ResolveDeleteFile(1)">
+                {{translation?.vd_ok}}
+            </button>
+        </div>
+    </div>
+</ng-template>

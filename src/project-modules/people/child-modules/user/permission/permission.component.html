@@ -1,0 +1,1425 @@
+<div class="row pan_heading">
+    <div class="col-12">
+        <h3>{{translation?.people_people_section}}</h3>
+
+
+
+    </div>
+
+</div>
+
+<div class="backto" style="cursor: inherit;">
+    <div class="backtoC" style="display:inline-block;cursor: pointer;" [routerLink]="['/people/home/people']">
+        <img src="assets/img/left-arrow.svg"> {{translation?.poeple_back_to_people}}
+    </div>
+</div>
+<ng-container *ngIf="!skeletonLoading">
+    <div class="row people_sec perm_top">
+
+        <div class="per1">
+
+            <div class="p_img3">
+                <img *ngIf="current_user?.type=='Active'" [src]="ImageUrlBuilder(current_user)">
+
+                <div *ngIf="current_user?.type!='Active'" class="p_img2 non-active-user">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                            <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                    <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                        fill="#fff" />
+                                    <path id="Path_8" data-name="Path 8"
+                                        d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                        transform="translate(0 -44.656)" fill="#fff" />
+                                </g>
+                            </g>
+                        </svg>
+                </div>
+            </div>
+            <div class="p_detail3">
+                <h5><b>{{current_user?.first_name + ' ' + current_user?.last_name | slice:0:20}}<ng-container
+                            *ngIf="(current_user?.first_name + ' ' + current_user?.last_name).length>20">...
+                        </ng-container> </b> <span>/ {{current_user?.name}}</span> </h5>
+                <p>{{current_user?.email}}</p>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="per2" id="refreshTrigger">
+            <ng-container *ngIf="role_id!=100">
+                <h5>{{translation?.role}} <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('accountinfo_role')"></h5>
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <label id="roleId110" class="btn btn-secondary s1" [ngClass]="{'active-radio': role_id==110}">
+                        <input type="radio" name="options" id="option1" (click)="change_permission(110)">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.super_admin_people_section_single}}
+                    </label>
+                    <label id="roleId115" class="btn btn-secondary s2" [ngClass]="{'active-radio': role_id==115}">
+                        <input type="radio" name="options" id="option2" (click)="change_permission(115)">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.admin_people_section_single}}
+                    </label>
+                    <label id="roleId120" class="btn btn-secondary s3" [ngClass]="{'active-radio': role_id==120}">
+                        <input type="radio" name="options" id="option3" (click)="change_permission(120)">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.user_people_section_single}}
+                    </label>
+
+                    <label id="roleId125" class="btn btn-secondary s4" [ngClass]="{'active-radio': role_id==125}">
+                        <input type="radio" name="options" id="option4" (click)="change_permission(125)">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.viewer_people_section_single}}
+                    </label>
+
+
+                </div>
+
+            </ng-container>
+        </div>
+
+        <div class="per3">
+            <h5>{{translation?.poeple_privileges}}</h5>
+            <a style="cursor: pointer;" (click)="showModal('priv')">{{translation?.poeple_see_all}}</a>
+        </div>
+
+
+        <div class="clear"></div>
+    </div>
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5>{{translation?.poeple_collab_huddles_permissions}}</h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl" style="cursor: pointer;" (click)="showModal('addhuddle',1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10.908" height="10.908" viewBox="0 0 10.908 10.908">
+                        <g id="Group_2" data-name="Group 2" transform="translate(-4.825 -5.701)">
+                            <path id="Rectangle_3" data-name="Rectangle 3"
+                                d="M4.362,10.908V6.544H0V4.362H4.362V0H6.544V4.362h4.364V6.544H6.544v4.364Z"
+                                transform="translate(4.827 5.701)" fill="#646464" />
+                        </g>
+                    </svg>
+                    {{translation?.poeple_add_huddles}}
+                </span>
+
+                <span class="expcls" style="cursor: pointer;" (click)="collabtoggle=!collabtoggle">
+                    <img *ngIf="collabtoggle==true" src="assets/img/arrow_up.svg" width="20">
+                    <img *ngIf="collabtoggle==false" src="assets/img/arrowndown.svg" width="20">
+                </span>
+
+
+            </div>
+
+
+        </div>
+        <ng-container *ngIf="collabtoggle">
+            <ng-container *ngFor="let collabhuddle of collab_data | paginate: { itemsPerPage: 6, currentPage: pC, id: 'collab' }">
+                <div class="prem_row row" *ngIf="collabhuddle?.meta_data_value==1">
+                    <div class="col-md-7">
+                        <b (click)="getParticipants(collabhuddle.account_folder_id,1)" style="cursor: pointer;">{{collabhuddle.name}}</b>
+                    </div>
+                    <div class="col-md-4 role_iner">
+                        <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                            <label class="btn btn-secondary" [ngClass]="{'active-radio': collabhuddle?.role_id==200}" (click)="collabhuddle.role_id=200">
+                                <input type="radio" name="options" id="option1" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg">
+                                Admin
+                            </label>
+                            <label class="btn btn-secondary" [ngClass]="{'active-radio': collabhuddle?.role_id==210}" (click)="collabhuddle.role_id=210">
+                                <input type="radio" name="options" id="option2" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg">
+                                Member
+                            </label>
+
+
+                            <label class="btn btn-secondary" [ngClass]="{'active-radio': collabhuddle?.role_id==220}" (click)="collabhuddle.role_id=220">
+                                <input type="radio" name="options" id="option2" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg">
+                                Viewer
+                            </label>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-1 pre_crs" (click)="deleteHuddle(1,collabhuddle.account_folder_id,collabhuddle)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14.129" viewBox="0 0 14 14.129">
+                            <path id="Path"
+                                d="M7.334,6.5l5.5-5.478a.562.562,0,0,0,0-.795h0a.568.568,0,0,0-.8,0l-5.5,5.475L.964.164a.568.568,0,0,0-.8,0,.562.562,0,0,0,0,.795L5.733,6.5.168,12.041a.562.562,0,0,0,0,.795h0a.568.568,0,0,0,.8,0L6.532,7.3l5.5,5.472a.568.568,0,0,0,.8,0,.562.562,0,0,0,0-.795Z"
+                                transform="translate(0.5 0.564)" stroke="#616161" stroke-miterlimit="10"
+                                stroke-width="1"></path>
+                        </svg>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="prem_row row" *ngIf="collab_data?.length==0">
+
+                <div class="p_nouser2 col-12">
+
+                    <p> <img src="assets/img/no_info.svg">{{translation?.poeple_this_user_is_collaboration}}.</p>
+
+                </div>
+
+            </div>
+            <div class="p_page" *ngIf="collab_data?.length>6">
+                <pagination-controls id="collab" previousLabel="<" nextLabel=">" (pageChange)="pC = $event">
+                </pagination-controls>
+            </div>
+
+
+            <div class="per_save" *ngIf="collab_data?.length!=0 || cross_clicked">
+
+                <button type="button" class="btn btn-default" (click)="cancelChanges(1)">{{translation?.vd_cancel}}</button>
+                <button type="button" class="btn btn-success" (click)="saveChanges(1)">{{translation?.save_changes_people_section}}</button>
+
+
+            </div>
+        </ng-container>
+
+    </div>
+
+
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5>{{translation?.poeple_huddle_permission}}</h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl" style="cursor: pointer;" (click)="showModal('addhuddle',2)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10.908" height="10.908" viewBox="0 0 10.908 10.908">
+                        <g id="Group_2" data-name="Group 2" transform="translate(-4.825 -5.701)">
+                            <path id="Rectangle_3" data-name="Rectangle 3"
+                                d="M4.362,10.908V6.544H0V4.362H4.362V0H6.544V4.362h4.364V6.544H6.544v4.364Z"
+                                transform="translate(4.827 5.701)" fill="#646464" />
+                        </g>
+                    </svg>
+                    {{translation?.poeple_add_huddles}}
+                </span>
+
+                <span class="expcls" style="cursor: pointer;" (click)="coachtoggle=!coachtoggle">
+                    <img *ngIf="coachtoggle==true" src="assets/img/arrow_up.svg" width="20">
+                    <img *ngIf="coachtoggle==false" src="assets/img/arrowndown.svg" width="20">
+                </span>
+
+
+            </div>
+
+
+        </div>
+        <ng-container *ngIf="coachtoggle">
+            <ng-container *ngFor="let coachuddle of coach_data | paginate: { itemsPerPage: 6, currentPage: pCa, id: 'coach' }">
+                <div class="prem_row row" *ngIf="coachuddle?.meta_data_value==2">
+                    <div class="col-md-7">
+                        <b (click)="getParticipants(coachuddle.account_folder_id,2)" style="cursor: pointer;">{{coachuddle.name}}</b>
+                    </div>
+                    <div class="col-md-4 role_iner2">
+                        <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                            <label class="btn btn-secondary coa1" [ngClass]="{'active-radio': coachuddle?.role_id==200}" (click)="coachuddle.role_id=200">
+                                <input type="radio" name="options" id="option1" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg">
+                                Coach
+                            </label>
+                            <label class="btn btn-secondary coa2" [ngClass]="{'active-radio': coachuddle?.role_id==210}" (click)="coachuddle.role_id=210">
+                                <input type="radio" name="options" id="option2" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg">
+                                Coachee
+                            </label>
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-1 pre_crs" (click)="deleteHuddle(2,coachuddle.account_folder_id,coachuddle)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14.129" viewBox="0 0 14 14.129">
+                            <path id="Path"
+                                d="M7.334,6.5l5.5-5.478a.562.562,0,0,0,0-.795h0a.568.568,0,0,0-.8,0l-5.5,5.475L.964.164a.568.568,0,0,0-.8,0,.562.562,0,0,0,0,.795L5.733,6.5.168,12.041a.562.562,0,0,0,0,.795h0a.568.568,0,0,0,.8,0L6.532,7.3l5.5,5.472a.568.568,0,0,0,.8,0,.562.562,0,0,0,0-.795Z"
+                                transform="translate(0.5 0.564)" stroke="#616161" stroke-miterlimit="10"
+                                stroke-width="1"></path>
+                        </svg>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="prem_row row" *ngIf="coach_data?.length==0">
+
+                <div class="p_nouser2 col-12">
+
+                    <p> <img src="assets/img/no_info.svg">{{translation?.poeple_user_is_coaching_huddles}}.</p>
+
+                </div>
+
+            </div>
+            <div class="p_page" *ngIf="coach_data?.length>6">
+                <pagination-controls id="coach" previousLabel="<" nextLabel=">" (pageChange)="pCa = $event">
+                </pagination-controls>
+            </div>
+
+
+            <div class="per_save" *ngIf="coach_data?.length!=0 || cross_clicked">
+
+                <button type="button" class="btn btn-default" (click)="cancelChanges(2)">{{translation?.vd_cancel}}</button>
+                <button type="button" class="btn btn-success" (click)='saveChanges(2)'>{{translation?.save_changes_people_section}}</button>
+
+
+            </div>
+        </ng-container>
+
+    </div>
+
+
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5>{{translation?.poeple_assessment_huddles}}</h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl" style="cursor: pointer;" (click)="showModal('addhuddle',3)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10.908" height="10.908" viewBox="0 0 10.908 10.908">
+                        <g id="Group_2" data-name="Group 2" transform="translate(-4.825 -5.701)">
+                            <path id="Rectangle_3" data-name="Rectangle 3"
+                                d="M4.362,10.908V6.544H0V4.362H4.362V0H6.544V4.362h4.364V6.544H6.544v4.364Z"
+                                transform="translate(4.827 5.701)" fill="#646464" />
+                        </g>
+                    </svg>
+                    {{translation?.poeple_add_huddles}}
+                </span>
+
+                <span class="expcls" style="cursor: pointer;" (click)="assestoggle=!assestoggle">
+                    <img *ngIf="assestoggle==true" src="assets/img/arrow_up.svg" width="20">
+                    <img *ngIf="assestoggle==false" src="assets/img/arrowndown.svg" width="20">
+                </span>
+
+
+            </div>
+
+
+        </div>
+        <ng-container *ngIf="assestoggle">
+            <ng-container *ngFor="let assesthuddle of assest_data | paginate: { itemsPerPage: 6, currentPage: pA, id: 'assest' }">
+                <div class="prem_row row" *ngIf="assesthuddle?.meta_data_value==3;">
+                    <div class="col-md-7">
+                        <b (click)="getParticipants(assesthuddle.account_folder_id,3)" style="cursor: pointer;">{{assesthuddle.name}}</b>
+                    </div>
+                    <div class="col-md-4 role_iner2">
+                        <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                            <div class="btn btn-secondary coa3" [ngClass]="{'active-radio': assesthuddle?.role_id==200}" (click)="checkAssesseeSubmissions(assesthuddle)">
+                                <input type="radio" name="options" id="option1" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg"> {{translation?.assessor_people_section}}
+                            </div>
+                            <div class="btn btn-secondary coa4" [ngClass]="{'active-radio': assesthuddle?.role_id==210}" (click)="assesthuddle.role_id=210">
+                                <input type="radio" name="options" id="option2" autocomplete="off">
+                                <img class="rck" src="assets/img/radiock.svg">
+                                <img class="run" src="assets/img/radio.svg"> {{translation?.assessed_participant_people_section}}
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-1 pre_crs" (click)="deleteHuddle(3,assesthuddle.account_folder_id,assesthuddle)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14.129" viewBox="0 0 14 14.129">
+                            <path id="Path"
+                                d="M7.334,6.5l5.5-5.478a.562.562,0,0,0,0-.795h0a.568.568,0,0,0-.8,0l-5.5,5.475L.964.164a.568.568,0,0,0-.8,0,.562.562,0,0,0,0,.795L5.733,6.5.168,12.041a.562.562,0,0,0,0,.795h0a.568.568,0,0,0,.8,0L6.532,7.3l5.5,5.472a.568.568,0,0,0,.8,0,.562.562,0,0,0,0-.795Z"
+                                transform="translate(0.5 0.564)" stroke="#616161" stroke-miterlimit="10"
+                                stroke-width="1"></path>
+                        </svg>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="prem_row row" *ngIf="assest_data?.length==0">
+
+                <div class="p_nouser2 col-12">
+
+                    <p> <img src="assets/img/no_info.svg">{{translation?.poeple_user_is_not_participant}}.</p>
+
+                </div>
+
+            </div>
+            <div class="p_page" *ngIf="assest_data?.length>6">
+                <pagination-controls id="assest" previousLabel="<" nextLabel=">" (pageChange)="pA = $event">
+                </pagination-controls>
+            </div>
+
+
+            <div class="per_save" *ngIf="assest_data?.length!=0 || cross_clicked">
+
+                <button type="button" class="btn btn-default" (click)="cancelChanges(3)">{{translation?.vd_cancel}}</button>
+                <button type="button" class="btn btn-success" (click)="saveChanges(3)">{{translation?.save_changes_people_section}}</button>
+
+
+            </div>
+        </ng-container>
+
+    </div>
+</ng-container>
+<!-- Skeleton Loading Start -->
+<ng-container *ngIf="skeletonLoading">
+    <div class="row people_sec perm_top">
+
+        <div class="per1">
+
+            <div class="p_img3">
+                <span class="p_ani ppani1"> </span>
+            </div>
+            <div class="p_detail3">
+                <h5 class="p_ani ppani2"></h5>
+                <p class="p_ani ppani3"> </p>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="per2">
+            <h5 class="p_ani ppani4"> </h5>
+
+            <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+
+                <div class="p_ani ppani5"> </div>
+
+            </div>
+
+        </div>
+
+        <div class="per3">
+            <h5 class="p_ani ppani4"> </h5>
+            <span class="p_ani ppani6"></span>
+        </div>
+
+
+        <div class="clear"></div>
+    </div>
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5 class="p_ani ppani7"></h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl p_ani ppani8">
+
+                </span>
+
+
+
+
+            </div>
+
+
+        </div>
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+        <div class="prem_row row">
+            <div class="col-md-7">
+                <b class="p_ani ppani9"></b>
+            </div>
+            <div class="col-md-4 role_iner">
+
+                <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                    <div class="p_ani ppani10"></div>
+
+
+                </div>
+            </div>
+            <div class="col-md-1 pre_crs">
+                <div class="p_ani ppani11"></div>
+            </div>
+        </div>
+
+
+        <div class="p_page">
+
+            <span class="p_ani ppani12"></span>
+            <span class="p_ani ppani12"></span>
+            <span class="p_ani ppani12"></span>
+            <span class="p_ani ppani12"></span>
+            <span class="p_ani ppani12"></span>
+
+        </div>
+
+
+        <div class="per_save">
+
+            <span class="p_ani ppani13"></span>
+            <span class="p_ani ppani13"></span>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5 class="p_ani ppani7"></h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl p_ani ppani8">
+
+                </span>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="pre_box">
+        <div class="row pre_title">
+            <div class="col-md-6">
+                <h5 class="p_ani ppani7"></h5>
+            </div>
+
+            <div class="col-md-6 p_huex">
+                <span class="add_hucl p_ani ppani8">
+
+                </span>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</ng-container>
+<!-- Skeleton Loading End -->
+<div bsModal #addhuddle="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addhuddle">
+    <div class="modal-dialog" style="max-width:600px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{modalDatatitle}} {{translation?.poeple_huddle_label}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('addhuddle')">&times;</button>
+
+            </div>
+
+            <div class="modal-body add_people_pop">
+
+                <div class="row">
+
+                    <div class="col-12 pe_search">
+
+                        <input type="text" placeholder="{{translation?.search_huddles_people_section}}" name="addhuddleSearch" [(ngModel)]="addhuddleSearch">
+
+                    </div>
+                </div>
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                    <ng-container *ngFor="let item of modalDataArray | search:addhuddleSearch:'name':false">
+                        <div class="row  add_hpop" *ngIf="item.meta_data_value == addhuddletype">
+                            <div class="col-md-12">
+                                <label class="checkboxcls">
+                                    <ng-container *ngIf="item.name!=''">{{item.name}}</ng-container>
+                                    <ng-container *ngIf="item.name==''">NO HUDDLE NAME</ng-container>
+                                    <input class="addhuddle_checkbox" type="checkbox"
+                                        (click)="addHuddleData(checked,item)" #checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="(modalDataArray | search:addhuddleSearch:'name':false)?.length==0">
+                        <p class="not_found">{{translation?.poeple_no_huddle_found}}</p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('addhuddle')">{{translation?.vd_cancel}}</button>
+                        <button type="button" class="btn btn-success" (click)='addhuddleAdd()'>{{translation?.poeple_add}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #account_owner_priv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="account_owner_priv">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_account_owner_privileges}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('priv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body viewer_pri">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_manage_account_billing}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_edit_site_logo}} </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_private_workspace}}
+                        </p>
+
+
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_upload_videos_and_resources}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_synced_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_scripted_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_create_and_manage_collab_huddles}}
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_create_and_manage_huddles_folders}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_video_library}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_upload_videos_resources}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_personal_analytices}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_manage_user_account}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_account_wide_analytics}}
+                        </p>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('priv')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="hideModal('priv')">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #superadmin_priv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="superadmin_priv">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_super_admin_privilges}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('priv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body viewer_pri">
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_account_billing}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_edit_site_logo}} </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_private_workspace}}
+                        </p>
+
+
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_upload_videos_resources_to_private_workspace}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_synced_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_scripted_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_create_and_manage_collab_huddles}}
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_create_and_manage_huddles_folders}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_video_library}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_upload_videos_resources}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_personal_analytices}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_manage_user_account}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_account_wide_analytics}}
+                        </p>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('priv')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="hideModal('priv')">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #admin_priv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="admin_priv">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_admin_privileges}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('priv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body viewer_pri">
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_account_billing}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_edit_site_logo}} </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_private_workspace}}
+                        </p>
+
+
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_upload_video_resources_for_admin}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_synced_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_record_scripted_notes}}
+                        </p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_create_and_manage_collab_huddles}}
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.folders_check">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_create_and_manage_huddles_folders}}</p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_video_library}}
+                        </p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_video_library_upload">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_upload_videos_resources}}</p>
+                        <p><span class="left_bx"><img
+                                    src="assets/img/checkmarck.svg"></span>{{translation?.poeple_view_personal_analytices}}
+                        </p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox"
+                                        [(ngModel)]="current_user.permission_administrator_user_new_role">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_manage_user_account}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox"
+                                        [(ngModel)]="current_user.permission_view_analytics">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_view_account_wide_analytics}}</p>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('priv')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="donePriv()">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #user_priv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="user_priv">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_user_privileges}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('priv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body viewer_pri">
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_account_billing}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_edit_site_logo}} </p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.parmission_access_my_workspace">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_view_private_workspace}}</p>
+
+
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_video_workspace_upload">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_upload_videos_and_resources}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_start_synced">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_record_synced_notes}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_scripted_notes">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_record_scripted_notes}} </p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.manage_collab_huddles">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_create_and_manage_collab_huddles}}</p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.folders_check">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_create_and_manage_huddles_folders}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_access_video_library">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_view_video_library}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_video_library_upload">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_upload_videos_resources}}</p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [(ngModel)]="current_user.permission_view_analytics">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_view_personal_analytices}}</p>
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_user_account}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_view_account_wide_analytics}}
+                        </p>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('priv')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="donePriv()">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #viewer_priv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="viewer_priv">
+    <div class="modal-dialog" style="max-width:876px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_viewer_privileges}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('priv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body viewer_pri">
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_account_billing}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_edit_site_logo}} </p>
+                        <p><span class="left_bx"><label class="checkboxcls">
+                                    <input type="checkbox" [checked]="current_user.parmission_access_my_workspace" (change)="current_user.parmission_access_my_workspace = !current_user.parmission_access_my_workspace">
+                                    <span class="checkmark"></span>
+                            </label>
+                            </span>{{translation?.poeple_view_private_workspace}}</p>
+
+
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_upload_videos_and_resources}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_record_synced_notes}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_record_scripted_notes}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_create_and_manage_collab_huddles}}
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_create_and_manage_huddles_folders}}
+                        </p>
+                        <p class="no_access"><span class="left_bx">
+                            <!-- <label class="checkboxcls">
+                                <input type="checkbox" [checked]="current_user.permission_access_video_library" (change)="current_user.permission_access_video_library = !current_user.permission_access_video_library">
+                                <span class="checkmark"></span>
+                            </label> -->
+                            <img src="assets/img/checkmarck.svg">
+                            </span>{{translation?.poeple_view_video_library}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_upload_videos_resources}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_view_personal_analytices}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.poeple_manage_user_account}}
+                        </p>
+                        <p class="no_access"><span class="left_bx"><img class="c_icons"
+                                    src="assets/img/cross_icn.svg"></span>{{translation?.can_view_account_wide_analytics_people_section}}
+                        </p>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('priv')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="donePriv()">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #participant_popup="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="participant_popup">
+    <div class="modal-dialog" style="max-width:700px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_participants}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('activity')">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="parti_list">
+
+
+                    <div class="row par_titles">
+
+                        <div class="col-4">
+                            {{translation?.name_simple_people_section}}
+                        </div>
+
+                        <div class="col-6">
+                            {{translation?.poeple_email}}
+                        </div>
+
+                        <div class="col-2">
+                            {{translation?.role}}
+                        </div>
+
+
+                    </div>
+
+                    <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+
+                        <div *ngFor="let participant of participants" class="row par_rwcls">
+                            <div class="col-4">
+                                <img [src]="ImageUrlBuilder(participant)"> <span>{{participant?.user_name}}</span>
+                            </div>
+                            <div class="col-6 par_email">
+                                {{participant?.user_email}}
+                            </div>
+
+
+                            <div class="col-2">
+                                <ng-container *ngIf="addhuddletype == 1 && participant?.role_id == 200">
+                                    {{translation?.admin_people_section}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 1 && participant?.role_id == 210">
+                                    {{translation?.poeple_memeber}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 1 && participant?.role_id == 220">
+                                    {{translation?.viewer_people_section}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 2 && participant?.role_id == 200">
+                                    {{translation?.coach_people_section}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 2 && participant?.role_id == 210">
+                                    {{translation?.coachee_people_section}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 3 && participant?.role_id == 200">
+                                    {{translation?.assessor_people_section}}
+                                </ng-container>
+                                <ng-container *ngIf="addhuddletype == 3 && participant?.role_id == 210">
+                                    {{translation?.assessed_participant_people_section}}
+                                </ng-container>
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- Skeleton Loading <div class="row par_rwcls">
+           <div class="col-4">
+            <span class="p_ani pani1"></span>
+            <span class="p_ani pani2"></span>
+           </div>
+           <div class="col-6 par_email">
+             <div class="p_ani pani3"> </div>
+           </div>
+           
+           
+           <div class="col-2">
+              <div class="p_ani pani4"> </div>
+           </div>
+           
+           
+           
+           
+         </div> Skeleton Loading   -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+
+
+
+
+                    <div class="col-12 tright pr0">
+
+                        <button type="button" class="btn btn-success" (click)="hideModal('activity')">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #errorRemove="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="errorRemove">
+    <div class="modal-dialog" style="max-width:600px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('errorRemove')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p *ngIf="addhuddletype==1 && !errorPrem">{{translation?.poeple_you_cannot_remove_all_admins}}.</p>
+                <p *ngIf="addhuddletype==2 && huddle_role == 210 && !errorPrem">{{translation?.poeple_you_cannot_remove_all_coaches}}.</p>
+                <p *ngIf="addhuddletype==2 && huddle_role == 200 && !errorPrem">{{translation?.poeple_you_cannot_remove_all_coach}}.</p>
+                <p *ngIf="addhuddletype==3 && !errorPrem">{{translation?.poeple_you_cannot_remove_all_assessors}}.</p>
+                <p *ngIf="errorPrem" [innerHTML]="errorPremMsg"></p>
+            </div>
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('errorRemove')">{{translation?.vd_cancel}}</button> -->
+                        <button type="button" class="btn btn-success" (click)="hideModal('errorRemove')">{{translation?.poeple_done_btn}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #accountinfo_role="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountinfo_role">
+    <div class="modal-dialog" style="max-width:1010px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.role}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('accountinfo_role')">&times;</button>
+
+            </div>
+            <div class="modal-body acinfo">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3>{{translation?.super_admin_people_section_single}}</h3>
+                        <p>{{translation?.poeple_you_cannot_remove_all_super_admins}}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h3>{{translation?.admin_people_section}}</h3>
+                        <p>{{translation?.poeple_you_cannot_remove_all_admins_can_access}}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h3>{{translation?.user_people_section_single}}</h3>
+                        <p>{{translation?.poeple_you_cannot_remove_all_users_can_access}}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h3>{{translation?.viewers_people_section}}</h3>
+                        <p>{{translation?.poeple_you_cannot_remove_all_viewer_can_access}}</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- modal for change role to viewer -->
+<div bsModal #roleChange="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">Warning</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideRoleChange()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You are about to switch this user to a Viewer. This will change their Huddle permissions for all Huddles they are currently participating in to Viewer. Viewers who are changed to User, Admin or Super Admin will remain Viewers in their Huddles until their
+                    individual Huddle permissions are changed after changing their user-role.
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!--  -->
+                <button class="btn btn-default" (click)="onCancelHideRoleChange()">cancel</button><button class="btn btn-primary" (click)="changeRole(currentUrl,curentPayload)">ok</button>
+            </div>
+        </div>
+    </div>
+</div>

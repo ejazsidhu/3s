@@ -1,0 +1,198 @@
+.aw-wizard-navigation-bar.horizontal.small 
+ul.steps-indicator li.done:after{background: #067eff;}
+.screen1 h3{font-size: 27px;
+    color: #384e6c;
+    font-weight: 600;
+    text-align: center;
+    margin: 25px 0;}
+
+    .screen1 label{ color: #3a3a3a;
+    margin: 35px 0 15px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    font-weight: 500;}
+   
+   
+
+   .horizontal.small ul.steps-indicator li.current:afte {
+    background-color: #067eff !important;
+}
+
+/*screen2*/
+.why_sign p{  margin: 10px 0 0 0; }
+.why_sign p input[type=checkbox]{display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    top: 1px;}
+
+       .why_sign label.heading{ color: #3a3a3a;
+    margin: 35px 0 15px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    font-weight: 500;}
+   
+
+  
+
+  .why_sign input[type=text] {display: block;
+   
+margin-top: 30px;
+}
+
+/*screen3*/
+.sure_you  label{ color: #3a3a3a;
+    margin: 35px 0 15px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    font-weight: 500;}
+
+    .sure_you p{color: #8d929d; text-align: center;      margin: 20px 0; font-size: 15px;}
+    
+    .sure_you .alredy{ margin: 45px 0 0 0; }
+    .sure_you .logincls { background:#067eff;    margin-top: 11px;
+    margin-bottom: 0; }
+
+
+    .screen_4 h3{
+        color: #868484;
+        margin: 20px 0 15px 0;
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        font-weight: 500;
+}
+   
+
+
+.minchar {
+    color: rgb(116, 116, 117);
+    text-align: right;
+    max-width: 70%;
+    margin-left: 15%;
+    font-size: 14px; 
+}
+
+    .checkboxrow {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+        line-height: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxrow input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkboxrow {
+    
+   line-height: 20px;
+    margin: 0;
+
+    font-size: 14px;
+    text-indent: -30px;
+    padding-left: 30px;    margin-bottom: 8px;
+}
+.checkboxrow:before{     height: 18px;
+    width: 19px;
+    content: "";
+    background: #fff;
+    border: 1px solid #ddd;
+    display: inline-block;
+margin-right: 10px;     position: relative;
+    top: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxrow:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxrow input:checked ~ .checkmark {
+          background-color: #339933;
+    width: 19px;
+    height: 18px;
+   
+    position: absolute;
+    left: 0;
+    top: 4px;
+
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxrow input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxrow .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.checkbox_element { position: relative;    min-height: 36px; }
+.insted_use h4{    color: #6d6d6d;
+    margin: 35px 0 25px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    font-weight: 500;}
+.ckall{    cursor: pointer;
+    color: #067eff;
+    font-size: 14px;}
+
+   
+
+
+.back_btn{
+
+    color: #676767 !important;
+    text-decoration: underline;
+}
+
+
+
+
+.who_invite h4{    color: #6d6d6d;
+    margin: 35px 0 25px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+}
+
+.final_step .oi{
+
+    font-size: 80px;
+    color: #339933;
+
+}
+
+.agreement_checkbox label{
+    display: inline-block !important;
+}

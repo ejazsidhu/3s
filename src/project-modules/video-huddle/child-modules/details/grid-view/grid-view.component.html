@@ -1,0 +1,42 @@
+<!--*ngIf="showpopUp" -->
+<shared-popup-models #popUp [artifact]="artifact"></shared-popup-models>
+<!-- <ng-container *ngIf="!Loadings.IsLoadingArtifacts && artifacts.length==0  && noRecorFound">
+    <div class="no_discussions">
+      <img src="assets/img/noun_discussion_icon.svg">
+      <p>No Artifact available. Click the green plus button above to get started.</p>
+    </div>
+  </ng-container> -->
+<div class="row huddlebox new_huddlebox" *ngIf="artifacts.length!=0">
+    <ng-container *ngFor="let art of artifacts | orderBy:sort:isReverse:true ">
+      <!-- {{art}} *ngFor="let item of list" -->
+      <ng-container *ngIf="art?.doc_type == 1 && (resource == 0 || resource == '1')" >
+        <video-thumb   class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></video-thumb>
+      </ng-container>
+      <ng-container *ngIf="art?.doc_type == 4 && (resource == 0 || resource == '1')" >
+        <video-thumb   class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></video-thumb>
+      </ng-container>
+
+        <ng-container *ngIf="art?.doc_type == 2 && (resource == 0 || resource == '2')">
+            <resources-thumb class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></resources-thumb>
+
+        </ng-container>
+        <ng-container *ngIf="art?.doc_type == 3 && (resource == 0 || resource == '3')">
+            <scripted-notes class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></scripted-notes>
+        </ng-container>
+    </ng-container>
+
+    <!-- <app-artifact-thumb-loading class="col-md-3" *ngFor="let c of preLoaderLoop"></app-artifact-thumb-loading> -->
+
+    <ng-container *ngIf="Loadings.IsLoadingArtifacts">
+        <artifact-thumb-loading class="col-3" *ngFor="let item of [1,2,3,4,5,6,7,8]"> </artifact-thumb-loading>
+    </ng-container>
+
+</div>
+
+<!--  -->
+
+<!-- <ng-container *ngIf="Loadings?.isNextPageLoading">
+    <div class="row huddlebox">
+      <app-artifact-thumb-loading class="col-md-3" *ngFor="let c of preLoaderLoop"></app-artifact-thumb-loading>
+    </div>
+  </ng-container> -->

@@ -1,0 +1,79 @@
+<div class="tags_andiv">
+  <div class="row">
+
+    <div class="col-md-6 animated fadeIn" *ngIf="current_chart_tab==1">
+      <h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+      <h4 *ngIf="translationLoaded">{{translation?.analytics_top_five_tagged_standard}}</h4> <span class="dot_m">
+      </span>
+      <div class="clear"></div>
+      <div *ngIf="!topContainerLoaded" class="gbox topChart">
+        <div class="analytics-animation gan2">
+        </div>
+      </div>
+      <div *ngIf="topContainerLoaded" class="gbox">
+        <div class="text-center chart-not-found" *ngIf="!top_charts.top_available"> <label>
+            {{translation?.analytics_no_top_tagged_standard}}. </label> </div>
+        <div id="TopContainer" [style.height.px]="300"> </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6 animated fadeIn" *ngIf="current_chart_tab==1">
+      <h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+      <h4 *ngIf="translationLoaded">{{translation?.analytics_least_five_tagged_standard}}</h4> <span class="dot_m">
+      </span>
+      <div class="clear"></div>
+      <div *ngIf="!leastContainerLoaded" class="gbox topChart">
+        <div class="analytics-animation gan2">
+        </div>
+      </div>
+      <div *ngIf="leastContainerLoaded" class="gbox">
+        <div class="text-center chart-not-found" *ngIf="!top_charts.least_available"> <label>
+            {{translation?.analytics_no_least_tagged_standard}}. </label> </div>
+        <div id="LeastContainer" [style.height.px]="300"> </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 animated fadeIn" *ngIf="current_chart_tab==2">
+      <h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+      <h4 *ngIf="translationLoaded">{{translation?.analytics_custom_markers_tags}}</h4> <span class="dot_m">
+      </span>
+      <div class="clear"></div>
+      <div *ngIf="!pieContainerLoaded" class="gbox topChart">
+        <div class="analytics-animation gan2">
+        </div>
+      </div>
+      <div *ngIf="pieContainerLoaded" class="gbox">
+        <div class="text-center chart-not-found" *ngIf="!top_charts.pie_available"> <label>
+            {{translation?.analytics_no_custom_markers_tags}}. </label> </div>
+        <div id="PieContainer" [style.height.px]="400"> </div>
+      </div>
+    </div>
+
+    <div class="text-center pills" [style.width.%]="100">
+      <a (click)="activate_chart_tab(1)"><span [class.activer]="current_chart_tab==1" class="round"> </span></a>
+      <a (click)="activate_chart_tab(2)"><span [class.activer]="current_chart_tab==2" class="round"> </span></a>
+    </div>
+
+    <div class="col-md-12"
+      *ngFor="let chart of serialCharts | paginate: { itemsPerPage: 5, currentPage: p, totalItems: serialChartCount }; let i=index">
+      <h4>{{chart.title}}</h4>
+      <span class="dot_m">
+      </span>
+      <div class="clear"></div>
+      <div class="gbox serialbox">
+        <div [attr.id]="'serial_'+i" [style.height.px]="350"> </div>
+      </div>
+    </div>
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    <div class="col-md-12" *ngIf="false">
+      <h4>{{translation?.analytics_standard_and_alignment}}</h4> <span class="dot_m"><img
+          src="assets/img/dots.svg"></span>
+      <div class="clear"></div>
+      <div class="gbox">
+        <img src="assets/img/g4.jpg">
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="inner_h">
+  <div class="thumb_hu" (click)="openResource(artifact)" style="cursor:pointer">
+    <div class="icontype">
+      <img [src]="artifact?.thubnail_url">
+    </div>
+  </div>
+  <div class="huddle_detail">
+    <div class="hu_video" >
+      <label (click)="openResource(artifact)" style="cursor:pointer" tooltip="{{artifact.title}}"  >{{artifact.title | slice:0:20}} <span *ngIf="artifact.title.length>18">...</span></label>
+    </div>
+   <ng-container>
+    <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+      <button type="button">
+        <img src="assets/details-module/img/dots_dark.svg" width="30">
+      </button>
+    </div>
+    <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+      <span (isOpenChange)="isOpen($event)" dropdown>
+        <button type="button" id="button-basic" dropdownToggle>
+          <img src="assets/details-module/img/dots_dark.svg" width="30">
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.artifact_rename}}</a>
+          <a class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.artifact_download}}</a>
+          <a class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+        </ul>
+      </span>
+    </div>
+   </ng-container>
+    <div class="clear"></div>
+    <p class="h_by">{{translation?.artifacts_by}}: <b>{{artifact.first_name}} {{ artifact.last_name}}</b></p>
+    <p class="h_date">{{translation?.artifact_upload}} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+  </div>
+</div>

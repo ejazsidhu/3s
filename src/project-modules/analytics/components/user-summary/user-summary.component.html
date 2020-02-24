@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-6">
+
+    <input class="us_searchcls" type="text" placeholder="{{translation?.analytics_globel_search}}" [(ngModel)]="gb"
+      (keyup)="serverPaginate($event)">
+
+  </div>
+  <div class="col-md-6 dropdown_row">
+    <div dropdown>
+      <a id="tagged" dropdownToggle aria-controls="dropdown-basic">
+
+        <img class="dd_toggle" src="assets/img/dots.svg" />
+      </a>
+      <ul id="tagged" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+        aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="ExportExcel()">{{translation?.analytics_export}}</a></li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+<p-dataTable #pUsertable emptyMessage="{{translation?.analytics_no_record_found}}" [value]="users?.rows" [rows]="10"
+  [paginator]="true" [totalRecords]="users?.records" [lazy]="true" (onLazyLoad)="paginate($event)" [loading]="isLoading"
+  [rowStyleClass]="isRowSelected">
+  <p-column [style]="{'width':'300px'}" class="sticky" field="account_name" [header]="translation?.analytics_name"
+    frozen="true">
+    <ng-template let-col let-user="rowData" pTemplate="body">
+      <div (click)="selectRow(user)" class="top_container">
+
+        <span> <a
+            [routerLink]="['../playcard',user.account_id,user.user_id,users.start_date,users.end_date,users.folder_type ]">{{user?.account_name}}</a>
+        </span>
+
+
+      </div>
+    </ng-template>
+  </p-column>
+
+  <p-column *ngFor="let col of cols; let i = index" [field]="col.field"
+    [style]="{'width':(i==0 ||i==1)?'220px':'150px','word-wrap': 'break-word'}" [header]="col.header">
+    <ng-template let-col let-user="rowData" pTemplate="body">
+      <div class="top_container" (click)="selectRow(user)">
+
+        <a *ngIf="user[col.field+'_link']" [innerHtml]="user[col.field]" [routerLink]="user[col.field+'_link']"> </a>
+
+        <span *ngIf="!user[col.field+'_link']" [innerHtml]="user[col.field]">
+        </span>
+      </div>
+
+    </ng-template>
+  </p-column>
+
+</p-dataTable>

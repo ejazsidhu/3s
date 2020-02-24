@@ -1,0 +1,251 @@
+<div class="coach_inercls">
+    <div class="innerheading">
+        <div class="coacheecls">
+            {{translation?.coachee_coaching_tracker_new}}
+        </div>
+        <div class="feedback_cls">
+            <span class="fed1" style="cursor: pointer;" (click)="feedback_Search('no')"><i
+                    [ngStyle]="{'background-color': feedbacksearch=='no_feedback'?'#FF6969':''}"></i>{{translation?.no_feedback_coaching_tracker_new}}</span>
+            <span class="fed2" style="cursor: pointer;" (click)="feedback_Search('late')"><i
+                    [ngStyle]="{'background-color': feedbacksearch=='late_feedback'?'#FFD169':''}"></i>{{translation?.late_feedback_coaching_tracker_new}}</span>
+            <span class="fed3" style="cursor: pointer;" (click)="feedback_Search('ontime')"><i
+                    [ngStyle]="{'background-color': feedbacksearch=='ontime_feedback'?'#28A745':''}"></i>{{translation?.on_time_feedback_coaching_tracker_new}}</span>
+        </div>
+        <div class="coachee_search">
+            <input type="text" placeholder="{{translation?.search_coachee_coaching_tracker_new}}"
+                [(ngModel)]="coacheeSearch" (ngModelChange)="data.page = 1;">
+            <img class="x_hu_cross" *ngIf="coacheeSearch?.length>0" src="./assets/img/x.svg"
+                (click)="coacheeSearch=''; data.page = 1;">
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="innerbodycls">
+        <div class="row coachingopt_row no_coaching" *ngIf="data.length==0 && coacheeSearch==''">
+            <div class="col-12">
+                <img src="/home/assets/img/no-found.svg">
+                {{translation?.coaching_tracker_no_coachee_are_being_tracked_at_this_time}}
+            </div>
+        </div>
+        <div class="row coachingopt_row no_coaching"
+            *ngIf="(data | search:coacheeSearch:'full_name,first_name,last_name,email':false).length==0 && coacheeSearch!=''">
+            <div class="col-12">
+                <img src="/home/assets/img/no-found.svg"> {{translation?.coaching_tracker_no_coachee_were_found}}
+            </div>
+        </div>
+        <div class="coaching_rw"
+            *ngFor="let item of data | search:coacheeSearch:'full_name,first_name,last_name,email':false | orderBy:'full_name':false:true | paginate: { itemsPerPage: 10, currentPage: data.page, id: data.page_id }">
+            <div class="coach_bx1">
+                <div dropdown class="co_1 dropdown">
+                    <button type="button" class="dropdown-toggle" dropdownToggle data-toggle="dropdown">
+                        <img src="assets/img/dots3.svg">
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu>
+                        <!-- <a class="dropdown-item" href="#">Go to huddle</a> -->
+                        <a class="dropdown-item" href="{{item?.analytic_url}}"
+                            target="_blank">{{translation?.coachee_analytics_coaching_tracker_new}}</a>
+                        <!-- <a class="dropdown-item" (click)="exportApi('pdf',item)">{{translation?.export_to_pdf_coaching_tracker_new}}</a> -->
+                        <a class="dropdown-item"
+                            (click)="exportApi('xlsx',item)">{{translation?.export_to_excel_coaching_tracker_new}}</a>
+                    </div>
+                </div>
+                <div class="co_2">
+                    <img [src]="ImageUrlBuilder(item)">
+                </div>
+                <div class="co_3">
+                    <label>{{item.first_name}} {{item.last_name}}</label>
+                    <p>{{item.email}}</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <owl-carousel-o class="coach_bx2" [options]="owlOptions" (dragging)="isDragging = $event.dragging">
+                <ng-container *ngFor="let vitem of item.Videos | search:feedbacksearch:'color_status':false">
+                    <ng-template carouselSlide>
+                        <div class="cobox"
+                            [ngClass]="{'bo_org': vitem.color_status=='late_feedback', 'bo_gre':vitem.color_status=='ontime_feedback', 'bo_red':vitem.color_status=='no_feedback'}"
+                            (click)="modalData(vitem,item);showModal('coachingpopup');">
+                            <p>{{vitem.video_date}}
+                                <!-- image added -->
+                                <img class="image-icon-video" *ngIf="vitem.doc_type==1"
+                                    src="assets/video-huddle/img/video_ply.svg">
+                                <img class="image-icon-script" *ngIf="vitem.doc_type==3"
+                                    src="assets/video-huddle/img/nots_gry_con.svg">
+                            </p>
+                            <span class="cls1" tooltip="{{translation?.coach_comments_coaching_tracker_new}}"
+                                placement="right" containerClass="tip_font"> <img src="assets/img/ciconw.svg">
+                                {{vitem.coach_comment_count}}
+                            </span>
+                            <span class="cls2" tooltip="{{translation?.coachee_comments_coaching_tracker_new}}"
+                                placement="top" containerClass="tip_font"> <img src="assets/img/cicong.svg">
+                                {{vitem.coachee_comment_count}} </span>
+                            <span class="cls3" tooltip="{{translation?.attachments_coaching_tracker_new}}"
+                                placement="left" containerClass="tip_font"> <img src="assets/img/ficong.svg">
+                                {{vitem.attachment_count}} </span>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+            <div class="clear"></div>
+        </div>
+        <div style="text-align: center;">
+            <pagination-controls
+                *ngIf="(data | search:coacheeSearch:'full_name,first_name,last_name,email':false)?.length>10"
+                previousLabel="<" nextLabel=">" (pageChange)="changePage($event)" id="{{data.page_id}}">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+<div bsModal #coachingpopup="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="coachingpopup">
+    <div class="modal-dialog" style="max-width:900px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.video_session_details_coaching_tracker_new}}</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                    (click)="hideModal('coachingpopup');">&times;</button>
+            </div>
+            <div class="modal-body" [ngStyle]="{'display': popupskeleton?'none':'block'}">
+                <div class="coleft">
+                    <!-- sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id -->
+                    <div class="scripted-note-box" *ngIf="popupData?.data?.document?.doc_type==3">
+                        <a [href]="getScriptedNoteLink(popupData?.data?.document)" target="_blank"
+                           [ngClass]="{'disabled': sessionData?.user_current_account?.User?.id != popupData?.CoacheData?.coach_id}"
+                        >
+                            <div class="snb-title">{{popupData?.CoacheData?.first_name}}'s {{translation?.coaching_session}}</div>
+                            <div class="snb-desc"
+                                 *ngIf="sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id"
+                            >
+                                <img class="" src="assets/video-huddle/img/nots_gry_con.svg">
+                                <span>{{translation?.coaching_go_to_this}} {{translation?.artifacts_scripted_notes}}</span>
+                                <i class="oi" data-glyph="external-link" title="" aria-hidden="true"> </i>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id -->
+                    <div class="co_video" *ngIf=" popupData?.data?.document?.doc_type==1">
+                        <a [href]="[getUrl(popupData?.data)]" target="_blank"
+                            [ngClass]="{'disabled': sessionData.user_current_account.User.id != popupData.CoacheData.coach_id}">
+                            <img [src]="popupData?.data?.document?.thumbnail_url">
+                            <div class="co_video-desc-box">
+                                <div class="co_video-title">{{popupData?.CoacheData?.first_name}}'s {{translation?.coaching_session}}
+                                </div>
+                                <div class="co_video-desc"
+                                    *ngIf="sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id">
+                                    <img src="assets/img/videoicon.svg">
+                                    <span>{{translation?.coaching_go_to_this}} video</span>
+                                    <i class="oi" data-glyph="external-link" title="" aria-hidden="true"> </i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="tooltip_container">
+                        <span class="hidden custom_tooltip" id="tooltip_{{item.account_tag_id}}"
+                            *ngFor="let item of full_text_video_tags">
+                            {{item.tag_title}}
+                        </span>
+                    </div>
+                    <!-- <ng-container *ngIf="popupData?.data?.video_tags==''">
+              <h5>{{translation?.coaching_tracker_no_chart_data_found}}</h5>
+            </ng-container> -->
+                    <!-- {{popupData?.data?.coaching_perfomance_level}} -->
+                    <div class="grpdiv" style="height: 450px;overflow-y:scroll;" slimScroll [options]="opts"
+                        [scrollEvents]="scrollEvents" [hidden]="popupData?.data?.video_tags==''">
+                        <ng-container>
+                            <h5
+                                *ngIf="popupData?.data?.video_tags!='' && popupData?.data?.coaching_perfomance_level==1">
+                                <span class="sr-label">{{translation?.coaching_tracker_average_performance_level}}: </span>
+                                {{summary_rating}}
+                                <span *ngIf="summary_rating==undefined">{{translation?.no_rating}}</span></h5>
+                            <div [ngStyle]="{'display': popupData?.data?.video_tags==''?'none':'block'}"
+                                id="chartContainer" [style.height.px]="getHeight()" [style.width.%]="100"></div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="coright">
+                    <h4>{{translation?.session_summary_coaching_tracker_new}}</h4>
+                    <ng-container *ngIf="!editmode">
+                        <p (click)="checkPermission()">{{summaryEditText}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="editmode">
+                        <textarea style="width: 100%;height: 520px;" [(ngModel)]="summaryEditText"></textarea>
+                    </ng-container>
+                    <ng-container *ngIf="(summaryEditText==undefined || summaryEditText=='') && !editmode">
+                        {{translation?.coaching_tracker_no_feedback_found}}
+                    </ng-container>
+                    <div class="edit_pen"
+                        *ngIf="!editmode && sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id">
+                        <a (click)="editmode=true;"><img src="assets/img/edit_pencil.svg">
+                            {{translation?.edit_coaching_tracker_new}}
+                        </a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-body" [ngStyle]="{'display': popupskeleton?'block':'none'}">
+                <div class="coleft">
+                    <div class="pop_an1 p_ani">
+                    </div>
+                    <div class="pop_an2 p_ani">
+                    </div>
+                </div>
+                <div class="coright">
+                    <div class="pop_an3 p_ani">
+                    </div>
+                    <div class="pop_an3 p_ani">
+                    </div>
+                    <div class="pop_an3 p_ani">
+                    </div>
+                    <div class="pop_an3 p_ani">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer coachp_footer">
+                <div class="col-6">
+                    <button *ngIf="sessionData?.user_current_account?.User?.id == popupData?.CoacheData?.coach_id"
+                        type="button" class="btn btn-default"
+                        (click)="hideModal('coachingpopup');showModal('confirm')">{{translation?.remove_from_tracker_coaching_tracker_new}}</button>
+                </div>
+                <div class="col-6 rightcl">
+                    <button type="button" class="btn" *ngIf="editmode"
+                        (click)="cancelSummary()">{{translation?.cancel_coaching_tracker_new}}</button>
+                    <button type="button" class="btn btn-default" *ngIf="editmode"
+                        (click)="saveSummary()">{{translation?.save_coaching_tracker_new}}</button>
+                    <button type="button" class="btn btn-success"
+                        (click)="hideModal('coachingpopup');">{{translation?.done_coaching_tracker_new}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #confirmationPopup="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="confirmationPopup">
+    <div class="modal-dialog" style="max-width:480px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">
+                    {{translation?.remove_from_tracker_coaching_tracker_new}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('confirm')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert_bg singleline row">
+                    <div class="col-2 ">
+                        <img src="assets/img/alert_i.svg">
+                    </div>
+                    <div class="col-10">
+                        {{translation?.coaching_tracker_remove_session_from_tracker}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer hufooter de_footer">
+                <div class="col-12">
+                    <button type="button" class="btn"
+                        (click)="hideModal('confirm')">{{translation?.cancel_coaching_tracker_new}}</button>
+                    <button type="button" class="btn conf_delete"
+                        (click)="removeTracker()">{{translation?.done_coaching_tracker_new}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

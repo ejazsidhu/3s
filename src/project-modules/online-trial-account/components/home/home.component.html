@@ -1,0 +1,23 @@
+<ng-container *ngIf="!isProcessStarted">
+<div class="home_screen">
+<h3><!-- A new &amp; better way to improve performance-based skills. -->
+	{{translations?.signup_title}}
+</h3>
+
+<p><!-- Sibme helps your school, institution, or education-related organization use video and data to improve professional practice at scale. -->{{translations?.signup_description}}</p>
+
+<label>{{translations?.signup_label}}</label>
+
+<input type="email" [(ngModel)]="userInfo.email" name="" class="form-control" placeholder="{{translations?.signup_placeholder}}">
+
+<button class="green_btn" (click)="GetStarted()"> {{translations?.signup_get_started}} <i class="fa fa-angle-right"></i> </button>
+
+<p class="free_d">{{translations?.signup_free_trial_text}}</p>
+</div>
+</ng-container>
+
+<ng-container *ngIf="isProcessStarted">
+
+  <signup-wizard [userInfo]="userInfo"></signup-wizard>
+
+</ng-container>

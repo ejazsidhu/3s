@@ -1,0 +1,76 @@
+<ng-container *ngIf="data.type=='coaching'">
+
+            <p class="type_text">{{translation?.huddle_list_coach}}</p>
+           <div class="img_box">
+
+             <span class="fake_link" *ngFor="let participent of data?.participants?.coach | slice:0:6">
+              <img tooltip="{{participent?.user_name}}" [src]="getImgSrc(participent)" (click)="RequestParticipentsDetails($event)">
+             </span>
+
+             <span class="limt_over" (click)="RequestParticipentsDetails($event)" *ngIf="data?.participants?.coach?.length>7">
+              <a class="fake_link">{{data?.participants?.coach?.length-7}}+</a>
+            </span>
+          
+           </div>
+           
+           <p class="type_text">{{translation?.huddle_coachee}}</p>
+           <div class="img_box">
+
+             <span class="fake_link" *ngFor="let participent of data?.participants?.coachee | slice:0:6" (click)="RequestParticipentsDetails($event)">
+              <img tooltip="{{participent?.user_name}}" [src]="getImgSrc(participent)">
+             </span>
+
+             <span class="limt_over" (click)="RequestParticipentsDetails($event)" *ngIf="data?.participants?.coach?.length>7">
+              <a class="fake_link">{{data?.participants?.coachee?.length-7}}+</a>
+            </span>
+      
+           </div>
+
+           </ng-container>
+
+           <ng-container *ngIf="data.type=='collaboration'">
+
+            <p class="type_text">{{translation?.huddle_list_participants_in_huddle}}</p>
+           <div class="img_box">
+
+             <span class="fake_link" *ngFor="let participent of data?.participants?.collaboration_participants | slice:0:6; let i=index" (click)="RequestParticipentsDetails($event)">
+              <img tooltip="{{participent?.user_name}}" [src]="getImgSrc(participent)">
+             </span>
+             <span class="limt_over" (click)="RequestParticipentsDetails($event)" *ngIf="data?.participants?.collaboration_participants?.length>7">
+              <a class="fake_link">{{data?.participants?.collaboration_participants?.length-7}}+</a>
+            </span>
+           </div>
+
+           </ng-container>
+
+           <ng-container *ngIf="data.type=='assessment'">
+
+              <p class="type_text">{{translation?.huddle_list_assessors}}</p>
+           <div class="img_box">
+
+             <span class="fake_link" *ngFor="let participent of data?.participants?.assessor | slice:0:6">
+              <img tooltip="{{participent?.user_name}}" [src]="getImgSrc(participent)" (click)="RequestParticipentsDetails($event)">
+             </span>
+
+             <span class="limt_over" (click)="RequestParticipentsDetails($event)" *ngIf="data?.participants?.coach?.length>7">
+              <a class="fake_link">{{data?.participants?.assessor?.length-7}}+</a>
+            </span>
+           
+      
+           </div>
+           <ng-container *ngIf="data?.role_id==200">
+           <p class="type_text">{{translation?.huddle_list_assessees}}</p>
+           <div class="img_box">
+             
+             <span class="fake_link" *ngFor="let participent of data?.participants?.assessed_participants | slice:0:6" (click)="RequestParticipentsDetails($event)">
+              <img tooltip="{{participent?.user_name}}" [src]="getImgSrc(participent)">
+             </span>
+
+             <span class="limt_over" (click)="RequestParticipentsDetails($event)" *ngIf="data?.participants?.coach?.length>7">
+              <a class="fake_link">{{data?.participants?.assessed_participants?.length-7}}+</a>
+            </span>
+    
+           </div>
+         </ng-container>
+
+           </ng-container>

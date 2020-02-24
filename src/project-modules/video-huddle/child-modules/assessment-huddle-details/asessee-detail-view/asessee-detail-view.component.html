@@ -1,0 +1,443 @@
+<shared-popup-models #popUp [artifact]="artifact"></shared-popup-models>
+
+<div class="container box_outer p0">
+
+    <ng-container #skeltonSubmittedData *ngIf="!isDataAvailable">
+        <div class="row asses_detail d2">
+            <div class="col-6 asse_profile">
+                <span class="ani imgcircle"></span>
+                <span class="ani imgtitle"></span>
+            </div>
+            <div class="col-6 submitcls">
+                <!-- <a href="#"> Submit assessment </a> -->
+            </div>
+            <ng-container *ngFor="let item of [1,1,1,1,1,1,1,1]">
+                <div class="col-md-3 mt-3">
+                    <div class="assessor_inner">
+                        <div class="assessor_hu ani">
+                            <div class="assessor_thumb ">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="assessor_detail">
+
+                            <div class="asse_video">
+                                <label class="ani stitle"></label>
+                            </div>
+                            <div class="asse_op dropdown">
+
+
+                                <label class="ani sopt"></label>
+
+                            </div>
+                            <div class="clear"></div>
+                            <p class="ani sby"></p>
+                            <p class="ani sdate"></p>
+
+                            <div class="asse_option">
+                                <span class="ani scountcls"></span>
+                                <span class="ani scountcls"></span>
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </ng-container>
+
+        </div>
+
+    </ng-container>
+
+    <ng-container #realsubmittedData *ngIf="isDataAvailable">
+        <div class="row asses_detail d2">
+
+            <div class="col-6 asse_profile">
+                <img [src]="sessionData?.avatar_path">
+                <span>{{sessionData?.user_current_account?.User?.first_name}}
+               {{sessionData?.user_current_account?.User?.last_name}}</span>
+            </div>
+            <div class="col-6 submitcls">
+                <a *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'" (click)="submitAssignment()">{{translation?.artifacts_submit_assessment   }} </a>
+                <p *ngIf="!isSubmissionValid" style="color:red;"> {{translation?.submission_date_passed}}</p>
+            </div>
+
+        </div>
+
+        <div class="row assessor_box a2">
+
+            <ng-container *ngFor="let item of assignmentVideos;let i=index">
+                <ng-container *ngIf="!item.is_dummy" #realData>
+                    <ng-container *ngIf="item?.doc_type==1">
+                        <div class="col-md-3">
+                            <div class="assessor_inner">
+                                <div class="assessor_hu" (click)="goToDetailPage(item)">
+                                    <div class="assessor_thumb">
+                                        <img [src]="item?.thubnail_url">
+                                    </div>
+                                    <span class="asse_icon"> <img src="assets/img/video_ply.svg"> </span>
+                                    <span class="asse_time">{{detailsService?.FormatSeconds(item?.video_duration)}}</span>
+                                </div>
+
+                                <div class="assessor_detail">
+
+                                    <div class="asse_video">
+                                        <label tooltip="{{item.title}}" (click)="goToDetailPage(item)">{{item.title}}</label>
+                                    </div>
+                                    <div *ngIf="isAssessorOrCreator" dropdown class="asse_op dropdown">
+
+                                        <button dropdownToggle type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                 <img src="assets/img/dots_dark.svg" width="30">
+                              </button>
+                                        <ul *dropdownMenu class="dropdown-menu">
+                                            <a *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'" class="dropdown-item" (click)="OpenModel(item, 'rename')">{{translation?.artifact_rename  }}</a>
+                                            <a class="dropdown-item" (click)="OpenModel(item, 'download')">{{translation?.artifact_download   }}</a>
+                                            <a *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'" class="dropdown-item" (click)="OpenModel(item,'delete')">{{translation?.artifact_delete   }}</a>
+                                        </ul>
+                                    </div>
+                                    <div class="clear"></div>
+
+                                    <p class="asse_by">{{translation?.artifacts_by }} : <b>{{item?.first_name}} {{ item?.last_name}}</b></p>
+                                    <p class="asse_date">{{translation?.artifact_upload }} {{headerService?.formatDate(item.created_date, "MMM DD, YYYY")}}</p>
+
+                                    <div class="asse_option">
+                                        <a class="asse_comm"> <img src="assets/img/comm_icon.svg"> {{item?.total_comments}}
+                                        </a>
+                                        <a class="asse_att"> <img src="assets/img/attachment_icon.svg"> {{item?.total_attachment}}
+                                        </a>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </ng-container>
+
+
+
+
+                </ng-container>
+
+
+                <ng-container *ngIf="item?.is_dummy" #placehoard>
+                    <ng-container *ngIf="item?.doc_type==1">
+                        <div class="col-md-3">
+
+                            <div class="doucment_blank">
+                                <label>{{translation?.artifacts_video}} {{i+1}}</label>
+                                <div class="blank_img">
+                                    <img src="assets/img/video_icon_b.svg">
+                                </div>
+                                <!--  -->
+                                <div class="add_green" (click)="showChildModal(i)" *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'">
+
+                                    <button [tooltip]="translation?.artifacts_upload_from_workspace" type="button"> <img src="assets/img/plus_white.svg"></button>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </ng-container>
+
+                </ng-container>
+            </ng-container>
+
+            <!-- for resooures -->
+            <ng-container *ngFor="let item of assignmentResources ;let j=index">
+                <ng-container *ngIf="!item.is_dummy" #realData>
+                    <ng-container *ngIf="item?.doc_type==2">
+                        <div class="col-md-3">
+                            <div class="assessor_inner">
+                                <div class="assessor_hu" (click)="openResource(item)" style="cursor:pointer">
+                                    <div class="doc_icon">
+                                        <img [src]="item?.thubnail_url">
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="assessor_detail">
+
+                                    <div class="asse_video">
+                                        <label (click)="openResource(item)" style="cursor:pointer" tooltip="{{item.title}}">{{item.title}}</label>
+
+                                    </div>
+                                    <div *ngIf="isAssessorOrCreator" dropdown class="asse_op dropdown">
+
+                                        <button dropdownToggle type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                 <img src="assets/img/dots_dark.svg" width="30">
+                              </button>
+                                        <ul *dropdownMenu class="dropdown-menu">
+                                            <a *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'" class="dropdown-item" (click)="OpenModel(item, 'rename')">{{translation?.artifact_rename  }}</a>
+                                            <a class="dropdown-item" (click)="OpenModel(item, 'download')">{{translation?.artifact_download  }}</a>
+                                            <a *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'" class="dropdown-item" (click)="OpenModel(item,'delete')">{{translation?.artifact_delete   }} </a>
+                                        </ul>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <p class="asse_by">{{translation?.artifacts_by }}: <b>{{item?.first_name}} {{ item?.last_name}}</b></p>
+                                    <p class="asse_date">{{translation?.artifact_upload }} {{headerService?.formatDate(item.created_date, "MMM DD, YYYY")}}</p>
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </ng-container>
+
+
+
+                </ng-container>
+
+
+                <ng-container *ngIf="item?.is_dummy" #placehoard>
+
+                    <ng-container *ngIf="item?.doc_type==2">
+                        <div class="col-md-3">
+
+                            <div class="doucment_blank">
+                                <label>{{translation?.artifacts_resource}} {{j+1}}</label>
+                                <div class="blank_img">
+                                    <img src="assets/img/document_blank.svg">
+                                </div>
+                                <div class="add_green" *ngIf="isSubmissionValid && !!!is_submitted && userAccountLevelRoleId != '125'">
+
+                                    <button [tooltip]="translation?.artifacts_upload_from_filestack" type="button" (click)="getId(j)" appFSUploader [resourceAllowed]="resource_submission_allowed" [selectedConfiguration]="'resourceOptions'" [source]="'Resource'" (onUpload)="onMediaUpload($event)"> <img src="assets/img/plus_white.svg"></button>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </ng-container>
+
+
+
+
+
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <div bsModal #childModal="bs-modal" [config]="{backdrop:'static',keyboard:false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+        <div class="modal-dialog " style="max-width:600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{translation?.artifacts_workspace_videos }}</h4>
+                    <button type="button" class="close" (click)="hideChildModal();SearchString='';">&times;</button>
+
+                </div>
+                <div class="modal-body add_wps">
+
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="addvideo">
+                                <input type="text" [placeholder]="translation?.artifacts_search_workspace_videos" [(ngModel)]="SearchString" (keyup)="OnSearchChange(SearchString)" (ngModelChange)="OnSearchChange($event)" #searchString>
+                                <img *ngIf="SearchString?.length> 0" src="./assets/img/x.svg" (click)=" resetItems();">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="videoList?.length > 0" class="row video_heading">
+                        <div class="col-7">{{translation?.artifact_name }}</div>
+                        <div class="col-3">{{translation?.artifact_upload }}</div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div *ngIf="videoList.length == 0 && !workspaceVideoLoading" class="row pop_nofound">{{translation?.no_videos_found}}.</div>
+                    <ng-container *ngIf="workspaceVideoLoading">
+                        <div class="row video_list video_anicls" *ngFor="let item of [1,2,3,4,5]">
+                            <div class="col-7">
+                                <div class=" video_thumbnail ani anith">
+
+                                </div>
+
+
+                                <div class="title_cls an_ti">
+                                    <p class=" ani line_v"></p>
+                                    <p class=" ani line_v"></p>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-3">
+                                <p class="ani line_v"></p>
+                            </div>
+                            <div class="col-2">
+                                <p class="ani line_btn"></p>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <div *ngIf="!workspaceVideoLoading" class="popup_scroll" (scroll)="onScroll($event)" #popup_scroll slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+
+                        <ng-container *ngFor="let item of videoList">
+                            <div class="row video_list" [ngClass]="{'errorButton': item?.encoder_status=='Error', 'disableButton': item?.published==0}">
+                                <!-- <div class="col-7">
+                                    <div class="video_thumbnail">
+                                        <div class="thumb_outer"><img [src]="item.thubnail_url"></div>
+                                        <span class="play_icon_ass"> <img src="assets/img/play_gry-sml.svg"> </span>
+                                        <span class="time_cls">{{detailsService?.FormatSeconds(item?.video_duration)}}</span>
+                                    </div>
+                                    <div class="title_cls">
+                                        <p>{{item.title}}</p>
+                                    </div>
+                                </div> -->
+                                <div class="col-7">
+                                    <div class="video_thumbnail" *ngIf="item?.published==1 && item?.thubnail_url !=null  && item?.video_duration > 0 && (item?.transcoding_status!=5 && item?.encoder_status!='Error')">
+
+                                        <div *ngIf=" (item?.transcoding_status!=5 || item?.encoder_status!='Error')" class="thumb_outer"><img [src]="item.thubnail_url"></div>
+                                        <span class="play_icon_ass"> <img src="assets/img/play_gry-sml.svg"> </span>
+                                        <span class="time_cls ">{{detailsService?.FormatSeconds(item?.video_duration)}}</span>
+                                    </div>
+                                    <div class="video_thumbnail" *ngIf="item?.published==1 && item?.thubnail_url !=null  && item?.video_duration == 0 && (item?.transcoding_status!=5 && item?.encoder_status!='Error')">
+
+                                        <div *ngIf=" (item?.transcoding_status!=5 || item?.encoder_status!='Error')" class="thumb_outer"><img [src]="item.thubnail_url"></div>
+                                        <span class="play_icon_ass"> <img src="assets/img/play_gry-sml.svg"> </span>
+                                        <span class="time_cls ">{{detailsService?.FormatSeconds(item?.video_duration)}}</span>
+                                    </div>
+                                    <div class="video_thumbnail" *ngIf="item?.published==1 && item?.thubnail_url !=null  && item?.video_duration ==-1 && (item?.transcoding_status!=5 && item?.encoder_status!='Error')">
+
+                                        <div *ngIf=" (item?.transcoding_status!=5 || item?.encoder_status!='Error')" class="thumb_outer"><img [src]="item.thubnail_url"></div>
+                                        <span class="play_icon_ass"> <img src="assets/img/play_gry-sml.svg"> </span>
+                                        <span class="time_cls ">{{detailsService?.FormatSeconds(item?.video_duration)}}</span>
+                                    </div>
+                                    <div class="video_thumbnail" *ngIf="(item?.published==0  || item?.thubnail_url ==null) && (item?.transcoding_status!=5 && item?.encoder_status!='Error')">
+                                        <ng-container>
+                                            <div class="video_crope thumbnail_text">
+                                                <p *ngIf="(item?.transcoding_status!=5 || item?.encoder_status!='Error') && !this.headerService.isAValidAudio(item?.file_type)">
+                                                    {{translation?.artifacts_video_currently_processing}}
+
+                                                </p>
+                                                <p *ngIf="(item?.transcoding_status!=5 || item?.encoder_status!='Error') && this.headerService.isAValidAudio(item?.file_type)">
+                                                    {{translation?.artifacts_audio_currently_processing}}
+
+                                                </p>
+                                            </div>
+
+                                        </ng-container>
+                                        <!-- <div *ngIf=" (item?.transcoding_status!=5 || item?.encoder_status!='Error')" class="thumb_outer"><img [src]="item.thubnail_url"></div>
+                                            <span class="play_icon_ass"> <img src="assets/img/play_gry-sml.svg"> </span>
+                                            <span class="time_cls ">{{detailsService?.FormatSeconds(item?.video_duration)}}</span> -->
+                                    </div>
+
+                                    <div class="video_thumbnail" *ngIf=" (item?.transcoding_status==5 || item?.encoder_status=='Error')">
+                                        <div class="video_crope thumbnail_text">
+                                            {{translation?.video_not_processed}}<a class="btn btn-link">support@sibme.com</a>
+                                        </div>
+
+                                    </div>
+                                    <div class="title_cls mptext textd">
+                                        <p>{{item.title | slice: 0:50}}<span *ngIf="item.title.length>=50">...</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-3">{{item.created_date | date}}</div>
+                                <div class="col-2">
+                                    <!-- <input type="radio" name="select" ng-control="select" value="{{item?.id}}" (change)="addVideo(item)" [(ngModel)]=item.selected> -->
+
+                                    <ng-container *ngIf="item.selected then addedBtn else addBtn"></ng-container>
+
+                                    <ng-template #addBtn>
+                                        <a class="video_addbtn" (click)="toggleSelectedVide(item)" *ngIf="item?.published==1 && item?.encoder_status!='Error'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                                    <path id="Rectangle_3" data-name="Rectangle 3" d="M4,10V6H0V4H4V0H6V4h4V6H6v4Z"
+                                       transform="translate(0)" fill="#616161" />
+                                 </svg>
+                                            <span>{{translation?.artifacts_add_video }}</span>
+
+                                        </a>
+
+                                        <a class="video_addbtn" *ngIf="item?.published==0 || item?.encoder_status=='Error'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                                    <path id="Rectangle_3" data-name="Rectangle 3" d="M4,10V6H0V4H4V0H6V4h4V6H6v4Z"
+                                       transform="translate(0)" fill="#616161" />
+                                 </svg>
+                                            <span>{{translation?.artifacts_add_video }}</span>
+
+                                        </a>
+                                    </ng-template>
+                                    <ng-template #addedBtn>
+                                        <a class="added_btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10.744" viewBox="0 0 12 10.744">
+                                    <g id="noun_Check_1486480" transform="translate(-235.46 -92.797)">
+                                       <g id="Group_474" data-name="Group 474" transform="translate(221 74.73)">
+                                          <path id="Path_87" data-name="Path 87"
+                                             d="M24.539,18.529q-2.713,3.98-5.662,7.808c-.879-.761-1.775-1.521-2.653-2.282-.98-.845-2.417.575-1.437,1.437,1.166,1.014,2.332,2.011,3.515,3.025a1.031,1.031,0,0,0,1.437,0c2.282-2.907,4.479-5.9,6.54-8.957C27.023,18.461,25.266,17.447,24.539,18.529Z"
+                                             transform="translate(0)" fill="#fff" />
+                                       </g>
+                                    </g>
+                                 </svg>
+                                            <span>{{translation?.artifacts_video_added}}</span>
+                                        </a>
+                                    </ng-template>
+
+
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="modal-footer addv_footer">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label *ngIf="videoList.length > 0" class="checkboxcls">{{translation?.artifacts_copy_video_notes }}
+                        <input type="checkbox" [(ngModel)]="copyVideoNotes">
+                        <span class="checkmark"></span>
+                     </label>
+                        </div>
+                        <div class="col-2 fa_center">
+                            <i [ngClass]="{'fa fa-spinner fa-spin': workspaceVideoLoading}"></i>
+                        </div>
+                        <div class="col-6 modal_btn">
+                            <button type="button" class="btn btn-default" (click)="hideChildModal();" data-dismiss="modal">{{translation?.artifact_cancle }} </button>
+                            <button [disabled]='VideoForm' *ngIf="videoList.length > 0" type="button" class="btn btn-success" (click)="submitForm()">{{translation?.artifacts_done }}</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

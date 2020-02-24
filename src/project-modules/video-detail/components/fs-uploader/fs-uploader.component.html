@@ -1,0 +1,19 @@
+
+<a *ngIf="source!='comment'" class="fake_link" (click)="StartUpload()" [style.backgroundColor]="primery_button_color">{{label||'Uploads'}}</a>
+
+<div class="comment_tags cedit0 fake_link uploader_adjs" *ngIf="source=='comment'" (click)="StartUpload()">
+        <div class="tags_icons">
+        <!-- <img src="assets/img/paperclip-2x.png"> -->
+        <span class="oi" data-glyph="paperclip"></span>
+    </div>
+        <div class="plusicon">
+        	<!-- <img  src="assets/img/plus-2x.png"> -->
+        	<span class="oi" data-glyph="plus"></span>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+<!-- <a  class="fake_link" >{{label||'Uploads'}}</a> -->
+
+
+    

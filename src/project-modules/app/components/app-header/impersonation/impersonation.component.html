@@ -1,0 +1,6 @@
+<div *ngIf="details?.is_impersonate==1" class="impersonation" (click)="exitImpersonation()">
+	<a [attr.href]="details.base_url+'/app/impersonate_back/'+details?.last_login_id"> 
+		<!-- href="/app/impersonate_back/" -->
+	{{translation?.huddle_list_exit_impersonation}}
+	</a>
+</div>

@@ -1,0 +1,36 @@
+<div class="clear"></div>
+<div class="container bred_an" *ngIf="breadcrubms">
+  <a [routerLink]="['/']">{{translation?.huddle_breadcrumb_home}}</a>
+
+  <ng-container *ngIf="breadcrubms && breadcrubms?.length > 0">
+    <img src="assets/img/breadcrumarrow.svg" />
+    <a [routerLink]="['/video_huddles/list']" (click)="discussionService.dDemit.emit(false)">
+      {{translation?.huddle_breadcrumb_huddle}}
+    </a>
+    <ng-container *ngFor="let bc of breadcrubms; let last = last">
+      <img src="assets/img/breadcrumarrow.svg" />
+
+      <a *ngIf="!bc.isCustom && !bc.location" [routerLink]="['/video_huddles/list/', bc.folder_id]"
+        [class.disabled]="last" (click)="discussionService.dDemit.emit(false)">
+        {{ bc?.folder_name }}
+      </a>
+      <a *ngIf="!bc.isCustom && bc.location=='Huddle'" [routerLink]="['/video_huddles/huddle/details/', bc.folder_id]"
+        [class.disabled]="last" [title]="bc?.folder_name" (click)="discussionService.dDemit.emit(false)">
+        {{ bc?.folder_name | sibmeSlice }}
+      </a>
+      <!--Todo: medium, have to check if the base url is needed to be added in router link here-->
+      <a *ngIf="bc.isCustom" [routerLink]="['/video_huddles/huddle/details', bc.folder_id, 'discussions', 'list']"
+        [queryParams]="{sort: 'topic'}" [class.disabled]="last" (click)="discussionService.dDemit.emit(false)">
+        {{ bc?.folder_name || 'Discussions' | sibmeSlice }}
+      </a>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="breadcrubms?.length == 0">
+    <img src="assets/img/breadcrumarrow.svg" /> {{translation?.huddle_breadcrumb_huddle}}
+  </ng-container>
+</div>
+<div class="container bred_an" *ngIf="!breadcrubms">
+  <div class="animate_me br_an"></div>
+</div>
+<div class="clear"></div>

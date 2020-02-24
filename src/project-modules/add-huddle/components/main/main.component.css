@@ -1,0 +1,180 @@
+#main {
+    width: 100%;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    position: relative;
+    margin: 32px auto 88px;
+    overflow: hidden;
+}
+
+/* .container {
+    float: none !important;
+} */
+
+.box {
+    -moz-box-sizing: border-box;
+    background-color: #FFF;
+    border: 1px
+ solid #DAD6CE;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    float: left;
+    min-height: 371px;
+    overflow: hidden;
+    padding: 10px
+ 20px 20px;
+    width: 328px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.header_an {
+    background-color: #f9f9f9;
+    margin: -10px -20px 0px -20px;
+    padding: 9px 20px;
+    border-bottom: 1px solid #e1e2e2;
+}
+
+.header_an h2 {
+    font-size: 30px;
+    font-family: Conv_Roboto-Light;
+    padding-left: 3px;
+    margin: 10px 0;
+    color: #414141;
+}
+
+.header_an h2>small{
+    font-size: 50%;
+}
+
+.new_huddlecls {
+    padding: 90px 0 51px 0;
+    max-width: 867px;
+    margin: 0 auto;
+}
+.new_huddlecls .col-md-4{flex: 0 0 33.31% !important; max-width: 33.31%!important;}
+
+.huddle_type{
+    width: 33.33%;
+    float: left;
+}
+
+ .btn-group.role_group .disabled_btns label.active{
+    background: transparent !important;
+    border: none !important;
+    font-size: 10pt;
+    cursor: default;
+}
+
+ .btn-group.role_group .disabled_btns label.active:focus{
+    box-shadow: none;
+}
+
+ .btn-group.role_group .disabled_btns label:not(.active){
+    display: none !important;
+}
+
+
+.aa_ani{
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+.skicls { padding-bottom: 60px; }
+.addani{ height:36px; width: 100%; display: block;}
+.addani2 { height:90px; width: 100%; display: block; margin-bottom: 15px;}
+.addani3 { height:10px; width: 100%; display: block; margin-bottom: 5px;}
+.addani4 { height:10px; width: 30%; display: block; margin-bottom: 5px;}
+
+
+
+
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+.addani{ height:36px; width: 100%; display: block;}
+.mbtop { margin-top: 40px; }
+.skicls { padding-bottom: 60px; }
+.anaddhu1{ height:20px; width: 20%; display: block; margin-bottom: 10px;}
+.anaddhu2{ height:38px; width: 100%; display: block;}
+
+.anaddhu3{ height:38px; width: 80%; display: inline-block; float: left;;}
+
+.anaddhu4{ height:38px; width: 15%; display: inline-block; float: right;;}
+
+
+.anaddhu5{ height:38px; width: 150px; display: inline-block; float: left;;}
+.anaddhu6{ height:30px; width: 100px; display: inline-block; float:  right; margin-left: 20px;}
+.overcls .col-sm-5 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+
+.coadd_0 {
+  width: 400px;
+}
+
+.coadd_1 {
+  display: inline-block;
+  width: 25px;
+}
+
+.coadd_2 {
+  display: inline-block;
+  width: 223px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.coadd_3 {
+  display: inline-block;
+  width: 223px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

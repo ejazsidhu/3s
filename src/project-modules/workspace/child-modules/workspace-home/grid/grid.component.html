@@ -1,0 +1,26 @@
+<div class="row huddlebox new_huddlebox">
+    <!-- <ng-container *ngFor="let arr of [1,1,1,1,1,1,1,1,1,1,1,1]">    
+            <app-pre-loading-grid class="col-md-3" *ngIf="Loadings.IsLoadingArtifacts && artifacts.length==0"></app-pre-loading-grid>
+    </ng-container> -->
+    <!--  -->
+    <ng-container *ngFor="let art of artifacts | orderBy:sort:isReverse:true ">
+        <ng-container *ngIf="(art?.doc_type == 1 || (art?.doc_type == 3 && (art.is_processed == 4 || art.is_processed == 5))) && (resource == 0 || resource == '1')">
+            <app-video-grid class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></app-video-grid>
+        </ng-container>
+        <ng-container *ngIf="(art?.doc_type == 2) && (resource == 0 || resource == '2')">
+            <app-resurce-grid class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></app-resurce-grid>
+        </ng-container>
+        <ng-container *ngIf="(art?.doc_type == 3 && (art.is_processed < 4)) && (resource == 0 || resource == '3')">
+            <app-scripted-notes-grid class="col-md-3" [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)">
+            </app-scripted-notes-grid>
+        </ng-container>
+    </ng-container>
+    <!-- && art.is_processed == 0 && art.current_duration == NULL && art.scripted_current_duration  >= 0 -->
+    <ng-container *ngIf="Loadings.IsLoadingArtifacts">
+        <ng-container *ngFor="let arr of [1,1,1,1,1,1]">
+            <app-pre-loading-grid class="col-md-3"></app-pre-loading-grid>
+        </ng-container>
+    </ng-container>
+</div>
+
+<sharepopup #share [artifact]="artifact"></sharepopup>

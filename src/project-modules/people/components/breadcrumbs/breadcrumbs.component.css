@@ -1,0 +1,27 @@
+.bred_an {
+        position: relative;
+    top: 18px;
+    color: #4d504d;
+    padding-bottom: 25px;
+    font-family: Roboto;
+    padding: 0px 0px 16px 0px;
+}
+.bred_an img{ margin:0 15px;}
+
+.bred_an a{ 
+    color: #838383 !important;
+    font-weight: 400;
+    font-family: Roboto;
+}
+/*.bred_an {
+    position: relative;
+    top: 24px;
+    color: #4d504d;
+    font-family: 'Roboto';
+}*/
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+.br_an{    background: #615959 !important; background: linear-gradient(to right, #f1f1f1 8%, #e7e7e7 18%, #dfdfdf 33%) !important;}

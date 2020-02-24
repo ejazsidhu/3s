@@ -1,0 +1,66 @@
+<div class="video_box">
+    <video [hidden]="VideoInfo.video_is_saved ==0" width="508" height="400" class="vjs-matrix video-js"
+        [ngClass]="{hide_time :isLive}" id="mainVideo" #vidoeTag>
+    </video>
+    <div *ngIf="VideoInfo.video_is_saved ==0" class="vjs-matrix video-js for-fake_player video-not-saved">
+        <div class="live-recorded">
+            {{translation?.video_live_recorded}}
+        </div>
+        <div class="video-not-saved-text">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32px"
+                id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px"
+                xml:space="preserve">
+                <path
+                    d="M28.516,14L6,2.75C5.344,2.453,4.672,2,4,2C2.922,2,2,2.906,2,4v24c0,1.094,0.922,2,2,2c0.672,0,1.344-0.453,2-0.75  L28.516,18C29.063,17.734,30,17.188,30,16S29.063,14.266,28.516,14z M6,24.778V7.222L23.568,16L6,24.778z" />
+            </svg>
+            <p>{{translation?.video_not_saved_message}}</p>
+        </div>
+    </div>
+    <span>
+    </span>
+    <div id="overlay" class="animated slideInUp" [@enterAnimation] *ngIf="ShowInfo">
+        <div class="info_container">
+            <div class="row info_container_row">
+                <h6 class="col-md-11 pull-left">{{translation?.vd_video_info}} </h6>
+                <div class="col-md-1 pull-right fake_link" (click)="ShowInfo=false;ShowInfoBack.emit(false)">
+                    <div style="transform: rotate(135deg);">
+                        <span class="oi" data-glyph="plus"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-sm-4 pull-left">
+                    <label class="info_title">{{translation?.vd_genral_info}}</label>
+                    <label class="info"> {{translation?.vd_huddle_type}}:{{VideoInfo.huddle_type}} </label>
+                    <label class="info">{{translation?.vd_session_date}}:{{VideoInfo.recorded_date}} </label>
+                    <label *ngIf="!isLive && VideoInfo.video_is_saved !=0"
+                        class="info">{{translation?.vd_time_played}}:{{VideoInfo.view_count}} </label>
+                </div>
+                <div class="col-sm-8 pull-right" *ngIf="VideoInfo.h_type!=1">
+                    <label class="info_title"> {{translation?.vd_participants}} </label>
+                    <ng-container *ngIf="VideoInfo.h_type==2">
+                        <label class="info">
+                            {{translation?.vd_coach}}: <span *ngFor="let coach of VideoInfo.coaches_name">
+                                {{coach.user_name+" - "+coach.email}} </span>
+                        </label>
+                        <label class="info">
+                            {{translation?.vd_coachee}}: <span *ngFor="let coachee of VideoInfo.coachee_name">
+                                {{coachee.user_name+" - "+coachee.email}} </span>
+                        </label>
+                    </ng-container>
+                    <ng-container *ngIf="VideoInfo.h_type==3">
+                        <label class="info">
+                            {{translation?.vd_assessors}}: <span *ngFor="let assessor of VideoInfo.assessor_names">
+                                {{assessor.user_name+" - "+assessor.email}} </span>
+                        </label>
+                        <label class="info">
+                            {{translation?.vd_assessee}}: <span
+                                *ngFor="let assessee of VideoInfo.eval_participant_names">
+                                {{assessee.user_name+" - "+assessee.email}} </span>
+                        </label>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

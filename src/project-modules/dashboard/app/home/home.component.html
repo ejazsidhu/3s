@@ -1,0 +1,620 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+   
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   
+ 
+    <title>Sibme</title>
+  </head>
+  <body> -->
+
+
+
+<div class="dashboard-root container box_outer">
+
+    <ng-container #skeleton ng *ngIf="isLoading">
+        <div class="row pan_heading home_heading">
+            <div class="col-12">
+                <h3 class="ski1 home_ski"></h3>
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="row homebody">
+
+            <div class="col-7 bodyleft">
+                <h3> <span class="ski2 home_ski"></span></h3>
+
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+                <div class="ac_rowcls row">
+                    <div class="col-3">
+                        <strong><span class="ski3 home_ski"></span></strong>
+                        <span class="ski4 home_ski"></span>
+                    </div>
+                    <div class="col-9">
+                        <span class="ski5 home_ski"></span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-5 bodyright">
+                <h3 class=""> <span class="ski2 home_ski"></span></h3>
+
+                <div class="settingleft">
+                    <p><span class="ski6 home_ski"></span> </p>
+                    <p><span class="ski6 home_ski"></span> </p>
+                </div>
+                <div class="settingright">
+
+                    <p><span class="ski6 home_ski"></span> </p>
+                    <p><span class="ski6 home_ski"></span> </p>
+
+                </div>
+                <div class="clear"></div>
+
+                <h3> <span class="ski2 home_ski"></span></h3>
+
+
+                <div class="insite_left">
+                    <span class="ski7 home_ski"></span>
+
+                </div>
+
+
+
+                <div class="insite_right">
+
+                    <span class="ski7 home_ski"></span>
+
+                </div>
+
+
+                <div class="clear"></div>
+
+                <h3> <span class="ski2 home_ski"></span></h3>
+                <div *ngIf="site_id == '1'" class="intdiv">
+                    <span class="ski8 home_ski"></span>
+                    <span class="ski8 home_ski"></span>
+                </div>
+
+                <h3> <span class="ski2 home_ski"></span></h3>
+
+                <div class="gomobile">
+                    <span class="ski9 home_ski"></span>
+                    <span class="ski9 home_ski"></span>
+                </div>
+
+            </div>
+
+        </div>
+    </ng-container>
+
+
+    <ng-container #realData *ngIf="!isLoading">
+        <div class="row pan_heading home_heading">
+            <div class="col-12">
+                <h3>{{translations.welcome}}, {{first_name}} {{last_name}}</h3>
+            </div>
+
+        </div>
+
+        <div class="row homebody">
+
+            <div class="col-7 bodyleft">
+                <h3>{{translations.recent_activity}}</h3>
+                <span *ngIf="recent_activities && recent_activities.length == 0" class="no_recent_activity"><svg _ngcontent-c8="" data-name="Group 332" height="90.7" id="Group_332" viewBox="0 0 90.7 90.7" width="90.7" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c8="" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" data-name="Path 51" fill="#616161" id="Path_51" transform="translate(0)"></path></svg>
+           <br><br>No recent activity found.</span>
+
+                <div *ngIf="recent_activities && recent_activities.length > 0">
+                    <div class="ac_rowcls row" *ngFor="let activity of recent_activities">
+                        <div class="col-3">
+                            <strong>{{activity.activityTimestampDate}}</strong> {{activity.activityTimestampTime}}
+                        </div>
+
+                        <div class="col-9" *ngIf = "!activity.activity_type" >
+                            {{activity.activityLogs_users}} {{activity.resource_name}} <a href="#" [attr.href]="activity.resource_url">{{activity?.resource_video_name | slice:0:100}}...</a>
+                            <span *ngIf="activity.live_recording_check && activity.live_recording_check == '1' "> &nbsp; <img src = "assets/dashboard/assets/img/recording_img.png"> {{translations.live_recording_dashboard}}</span>
+                        </div>
+
+                        <div class="col-9" *ngIf = "activity.activity_type">
+                            {{activity.activityLogs_users}} {{activity.resource_name}} <a href="#" [attr.href]="activity.resource_url">{{activity.resource_video_name| slice:0:100}}...</a> {{translations.into_translation}} <a href="#" [attr.href]="activity.huddle_url">{{activity.huddle_name| slice:0:100}}...</a> {{activity.sample_data| slice:0:100}}...
+                            <span *ngIf="activity.live_recording_check && activity.live_recording_check == '1' "> &nbsp; <img src = "assets/dashboard/assets/img/recording_img.png"> {{translations.live_recording_dashboard}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5 bodyright">
+                <h3>{{translations.settings_and_assistance}}</h3>
+
+                <div class="settingleft">
+                    <p><span><img src="assets/dashboard/assets/img/ac_icon.svg"></span> <a *ngIf="user_role == 100" [attr.href]="session_detail?.base_url+'/accounts/account_settings_all/' + account_id + '/1' " href="#">{{translations.customize_your_account}}</a>                        <a *ngIf="user_role > 100" [attr.href]="session_detail?.base_url+'/Users/editUser/' + user_id  " href="#">{{translations.your_user_settings}}</a> </p>
+                    <p><span><img src="assets/dashboard/assets/img/resource_icon.svg"></span> <a target="_blank" style="cursor:pointer;" (click)="RedirectToLearningCenterOrCreateUser()">{{translations.resource_center_dashboard}}</a></p>
+                </div>
+                <div class="settingright">
+
+                    <p><span><img src="assets/dashboard/assets/img/helpicon.svg"></span> <a target="_blank" href="https://help.sibme.com">{{translations.help_center}}</a></p>
+
+                    <p><span><img src="assets/dashboard/assets/img/flags-crossedicon.svg"></span> <a [routerLink]="" (click)="showGettingStartedModal()"> {{translations.getting_started}}</a></p>
+
+                </div>
+                <div class="clear"></div>
+
+                <h3>{{translations.application_insight}}</h3>
+
+                <a *ngIf="(user_role == 100 || user_role == 110 || user_role == 115) && (enable_coaching_tracker == 1 || enable_assessment_tracker == 1)" [routerLink]="['/trackers/coaching']">
+                    <div class="insite_left">
+                        <span> <img src="assets/dashboard/assets/img/noun_check list_1197924.svg"> </span> {{translations.huddle_tracker_dashboard}}
+
+                    </div>
+                </a>
+
+                <!-- <a *ngIf = "(user_role == 100 || user_role == 110 || user_role == 115) && enable_coaching_tracker == 1 && enable_tracking == 1" [attr.href]="session_detail?.base_url+'/Dashboard/coach_tracker'" href="#>">
+                    <div [ngStyle]="{'min-height':lang == 'es' ? '132px' : '' }" class="insite_left">
+                    <span> <img src="assets/dashboard/assets/img/noun_check list_1197924.svg"> </span>
+                    {{translations.coaching_tracker}}
+           
+                    </div>
+                </a> -->
+
+                <!-- <a *ngIf = "(user_role == 100 || user_role == 110 || user_role == 115) && enable_assessment_tracker == 1 && enable_tracking == 1 && assessment_huddle_active == 1 " [attr.href]="session_detail?.base_url+'/Dashboard/assessment_tracker'" href="#>">
+                    <div [ngStyle]="{'min-height':lang == 'es' ? '132px' : '' }" class="insite_left">
+                    <span> <img src="assets/dashboard/assets/img/noun_check list_1197924.svg"> </span>
+                    {{translations.assessment_tracker}}
+           
+                    </div>
+                </a> -->
+
+                <a *ngIf="analytics_permissions" [routerLink]="['/analytics_angular/home']">
+                    <div [ngStyle]="{'min-height':lang == 'es' ? '132px' : '' }" class="insite_left">
+
+                        <span> <img src="assets/dashboard/assets/img/ana_icon.svg"> </span> {{translations.hp_analytics}}
+
+                    </div>
+                </a>
+
+                <div class="clear"></div>
+
+                <h3 *ngIf="site_id == '1'">{{translations.integrations}}</h3>
+                <div *ngIf="site_id == '1'" class="intdiv">
+                    <a *ngIf="enable_edtpa == '1' " [attr.href]="session_detail?.base_url+'/Edtpa/edtpa/'" href="#"><img src="assets/dashboard/assets/img/edtpaicon.svg"></a>
+                    <a *ngIf="enable_lti_permission == '1'" target="_blank" href="https://www.eduappcenter.com/apps/1087?filter_text=sibme#.XRpvBdP0l25"><img class="can1" src="assets/dashboard/assets/img/can1.svg"> <img src="assets/dashboard/assets/img/can2.svg"></a>
+                </div>
+
+                <h3>{{translations.go_mobile}}</h3>
+
+                <div class="gomobile">
+                    <a target="_blank" *ngIf="site_id == '1'" href="https://apps.apple.com/us/app/sibme/id629939151"><img *ngIf="lang == 'en'" src="assets/dashboard/assets/img/appstore.svg"><img *ngIf="lang == 'es'" src="assets/dashboard/assets/img/apple_store_es.png"></a>
+                    <a target="_blank" *ngIf="site_id == '1'" href="https://play.google.com/store/apps/details?id=com.sibme.mobileapp"><img *ngIf="lang == 'en'" src="assets/dashboard/assets/img/playgoogle.svg"><img *ngIf="lang == 'es'" src="assets/dashboard/assets/img/google_store_es.png"></a>
+
+                    <a target="_blank" *ngIf="site_id == '2'" href="https://itunes.apple.com/us/app/hmh-coaching-studio/id1447107504?"><img *ngIf="lang == 'en'" src="assets/dashboard/assets/img/appstore.svg"><img *ngIf="lang == 'es'" src="assets/dashboard/assets/img/apple_store_es.png"></a>
+                    <a target="_blank" *ngIf="site_id == '2'" href="https://play.google.com/store/apps/details?id=com.hmh.mobileapp"><img *ngIf="lang == 'en'" src="assets/dashboard/assets/img/playgoogle.svg"><img *ngIf="lang == 'es'" src="assets/dashboard/assets/img/google_store_es.png"></a>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> -->
+
+
+
+
+
+
+
+<div id="getstarted" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="max-width:700px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translations.getting_started}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="get_text">To get started with Sibme, choose one of the tasks listed below. Selecting any of these will take you to that area of the Sibme platform. If you’d like to learn about these in more detail, go to <a href="#">help.sibme.com</a></div>
+
+                <div class="gets_rowcls row">
+                    <div class="col-2">
+                        <img src="assets/dashboard/assets/img/wiconss.svg">
+                    </div>
+                    <div class="col-10">
+                        <h4>My Workspace</h4>
+                        <p>Your private space to upload and store videos to reflect on professional practice.</p>
+                    </div>
+                </div>
+
+
+                <div class="gets_rowcls row">
+                    <div class="col-2">
+                        <img src="assets/dashboard/assets/img/hiconss.svg">
+                    </div>
+                    <div class="col-10">
+                        <h4>Huddles</h4>
+                        <p>A shared space to coach and/or collaborate to improve professional practice.</p>
+                    </div>
+                </div>
+
+
+                <div class="gets_rowcls row">
+                    <div class="col-2">
+                        <img src="assets/dashboard/assets/img/wiconss.svg">
+                    </div>
+                    <div class="col-10">
+                        <h4>Invite people into your account</h4>
+                        <p>Invite people from your team, class, school, or other organizations to improve professional practice.</p>
+                    </div>
+                </div>
+
+                <div class="gets_rowcls row">
+                    <div class="col-2">
+                        <img src="assets/dashboard/assets/img/vicons.svg">
+                    </div>
+                    <div class="col-10">
+                        <h4>Account Video Library</h4>
+                        <p>Create a best practices video library to be tagged, searched, and viewed by people in your account.</p>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="modal-footer get_sfooter">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <label class="checkboxcls">Don't show this again
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+
+                        <button type="button" class="btn btn-success">Done</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!---->
+
+
+
+
+
+
+
+
+
+<!-- </body>
+</html> -->
+
+
+
+<div bsModal #gettingStartedModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header geheadercl">
+                <h4 class="modal-title">{{translations.getting_started}}</h4>
+                <button (click)="hideGettingStartedModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="get_text">{{translations.to_get_started_dashboard}} <a href="https://help.sibme.com">help.sibme.com</a></div>
+
+                <a *ngIf="site_id == '1'" target="_blank" style="cursor:pointer;" (click)="RedirectToLearningCenterOrCreateUser()" class="linksallcls">
+                    <div class="gets_rowcls row">
+                        <div class="col-2">
+                            <img src="assets/dashboard/assets/img/resource_icon.svg" style="width: 42px;">
+                        </div>
+                        <div class="col-10">
+                            <h4>{{translations?.resource_center_getting_started_heading}}</h4>
+                            <p>{{translations?.resource_center_getting_started_text}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a [routerLink]="['/workspace/workspace/home']" *ngIf="user_role == 100 || user_role == 110 || user_role == 115 || (user_role == 120 && permission_access_my_workspace == '1' ) " class="linksallcls" >
+                    <div class="gets_rowcls row">
+                        <div class="col-2">
+                            <img src="assets/dashboard/assets/img/wiconss.svg">
+                        </div>
+                        <div class="col-10">
+                            <h4>{{translations.my_workspace}}</h4>
+                            <p>{{translations.my_workspace_desc}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="linksallcls" [routerLink]="['/video_huddles/list']">
+                    <div class="gets_rowcls row">
+                        <div class="col-2">
+                            <img src="assets/dashboard/assets/img/hiconss.svg">
+                        </div>
+                        <div class="col-10">
+                            <h4>{{translations.huddles}}</h4>
+                            <p>{{translations.huddles_desc}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a *ngIf="user_role == 100 || user_role == 110 || user_role == 115" class="linksallcls" [routerLink]="['/people/home/people']">
+                    <div class="gets_rowcls row">
+                        <div class="col-2">
+                            <img src="assets/dashboard/assets/img/piconss.svg">
+                        </div>
+                        <div class="col-10">
+                            <h4>{{translations.invite_people}}</h4>
+                            <p>{{translations.invite_people_desc}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a *ngIf="library_permission == '1'" class="linksallcls" [attr.href]="session_detail?.base_url + '/VideoLibrary/' ">
+                    <div class="gets_rowcls row">
+                        <div class="col-2">
+                            <img src="assets/dashboard/assets/img/vicons.svg">
+                        </div>
+                        <div class="col-10">
+                            <h4>{{translations.account_video_library}}</h4>
+                            <p>{{translations.account_video_library_desc}}</p>
+                        </div>
+                    </div>
+                </a>
+
+
+
+
+            </div>
+
+            <div class="modal-footer get_sfooter">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <label *ngIf="getting_started_box == 1" class="checkboxcls">{{translations.dont_show_this_again_dashboard}}
+                           <input name = "dont_show_box" [(ngModel)] = "dont_show_box" type="checkbox">
+                           <span class="checkmark"></span>
+                         </label>
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+
+                        <button (click)="hideGettingStartedModalDone()" type="button" class="btn btn-success">Done</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div bsModal #createNewLearningCenterUser="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">{{translations?.resource_center_dashboard}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <ng-container *ngIf="show_question">
+        <div class="modal-body">
+            {{translations?.resource_center_signup_alert}} learn.sibme.com?
+        </div>
+    
+          <div class="modal-footer sharefooter">
+            <div class="clear"></div>
+            <div class="row">
+              <div class="col-12 share_btn">
+                <button type="button" class="btn btn-default"
+                  (click)="createUser(0)">{{translations?.no}}</button>
+                <button type="button" class="btn btn-success"
+                  (click)="createUser(1)">{{translations?.yes}}</button>
+              </div>
+            </div>
+          </div>
+      </ng-container>
+
+      <ng-container *ngIf="!show_question">
+        <div class="modal-body">
+            <div class="forget_container">
+
+            
+                <div class="f_box" >
+            
+                
+            
+                    <h4>{{translations?.resource_center_popup_signup}}</h4>
+                    <div class="f_field">
+                        <input type="{{showPassword}}" placeholder="{{translations?.new_password}}" name="password" [(ngModel)]="model.password">
+                        <svg (click)="toggleNewPassword()" *ngIf="!showPasswordFlag" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-eye fa-w-18 fa-9x"><path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z" class=""></path></svg>
+                        <svg (click)="toggleNewPassword()" *ngIf="showPasswordFlag" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eye-slash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-eye-slash fa-w-20 fa-9x"><path fill="currentColor" d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z" class=""></path></svg>
+                    </div>
+            
+                    <label>{{translations?.minimum_six_char_cp}}</label>
+                    <div class="f_field">
+                        <input type="{{showConfirmPassword}}" placeholder="{{translations?.retype_password}}" name="confirm_password" [(ngModel)]="model.confirm_password">
+                        <svg (click)="toggleConfirmPassword()" *ngIf="!showConfirmPasswordFlag" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-eye fa-w-18 fa-9x"><path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z" class=""></path></svg>
+                        <svg (click)="toggleConfirmPassword()" *ngIf="showConfirmPasswordFlag" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eye-slash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-eye-slash fa-w-20 fa-9x"><path fill="currentColor" d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z" class=""></path></svg>
+                    </div>
+                    <button [style.background]="color" (click)="OpenModalcreateNewLearningCenterUser()">{{translations?.save_changes_cp}}</button>
+
+                </div>
+            
+            
+            </div>
+        </div>
+
+      </ng-container>
+
+
+    </div>
+  </div>
+</div>

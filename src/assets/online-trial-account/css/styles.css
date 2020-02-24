@@ -1,0 +1,123 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* body{
+	font-family: 'Roboto' !important;
+	background: #f3f5f7 !important;
+} */
+
+.trial_box{
+    background: #FFF;
+        padding: 20px 100px !important;
+    max-width: 666px !important;
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: 80px;     border-radius: 5px;
+    border: 1px solid #e4e4e4;
+}
+.applogo { text-align: center;    padding: 25px 0 45px 0; }
+.applogo img {    max-width: 120px;}
+
+
+.green_btn .fa{margin-left: 10px;}
+.trial_box input[type=text], .trial_box input[type=password], .trial_box input[type=email]{font-size: 14px;
+
+ display: block;
+    width: 70%;
+    border: 1px solid #ddd;
+    height: 40px;
+    padding: 4px 11px;
+    margin: 15px 0 0 15%;
+}
+
+
+.trial_box select {display: block;
+    width: 70%;
+    border: 1px solid #ddd;
+    height: 40px;
+    padding: 4px 11px;     margin-left: 15%;}
+
+.trial_box button.green_btn {cursor: pointer;
+       border-radius: 4px;
+    background: #27a745;
+    display: block;
+    width: 70%;
+    margin: 29px 0px;
+    border: 0;
+    padding: 10px 2px; color: #fff;     margin-left: 15%;}
+
+
+    .trial_box button.logincls {cursor: pointer;
+       border-radius: 4px;
+    background: #27a745;
+    display: block;
+    width: 70%;
+    margin: 29px 0px;
+    border: 0;
+    padding: 10px 2px; color: #fff;     margin-left: 15%; background: #067eff;
+    margin-top: 11px;}
+    .thanks h4{font-size: 27px;
+    color: #384e6c;
+    font-weight: 600;
+    text-align: center;
+    margin: 25px 0;}
+    aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li.current:after
+    {background: #067eff !important;}
+    aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li.done:after
+    {background: #067eff !important;}
+    .tabs_stp li{ float: left; width: 20%;position: relative; }
+    .tabs_stp li:last-child{width: 0;}
+    .tabs_stp li .circle{    position: absolute;
+    left: 0;
+    top: 9px;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;     background: #e6e6e6;}
+
+   .tabs_stp li .line{    background: #e6e6e6 !important;
+    display: inline-block;
+    height: 2px;
+    width: 100%;}
+    .tabs_stp li .done{background: #067eff !important;}
+   .clearfix { clear:both; }
+   .tabs_stp { padding: 0;
+    list-style: none;
+    width: 112%;
+    margin-left: 14px;
+}
+   .tabs_stp li .circle i{    display: none;}
+   .tabs_stp li .done i{    border: 2px solid #fff;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    position: relative;
+    left: 2px;
+    display: inline-block;
+    top: -6px;}
+
+ul.steps-indicator{
+    display: none !important;
+}
+
+
+#loading-bar .bar {
+  background: #33ba3a;
+  height: 4px;
+  }
+
+  #loading-bar-spinner .spinner-icon {
+    width: 18px !important;
+    height: 18px !important;
+    border: solid 4px transparent !important;
+    border-top-color: #cadd22 !important;
+    border-left-color: #cadd22 !important;
+    border-radius: 10px !important;
+  }
+
+.checkbox_element label{    display: contents!important;font-size: 11pt;}
+
+button.green_btn[disabled]{
+
+        transition: background 0.4s linear;
+        background: #a5a5a5;
+}

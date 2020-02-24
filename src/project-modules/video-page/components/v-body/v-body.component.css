@@ -1,0 +1,560 @@
+.modal-md {
+    max-width: 600px;
+}
+
+.selectedPl {
+    font-family: 'Roboto-Regular';
+    margin-bottom: 10px;
+    color: #464646;
+    font-size: 14px;
+}
+
+.Pldropdown {
+    margin: 10px 0 20px 0;
+}
+
+.btn_resources_upload_wrapper {
+    margin-bottom: 10px;
+}
+
+.table.resources td,
+.table th {
+    border-top: 2px solid #dee2e6;
+}
+
+.video_options ul.dropdown-menu li {
+    width: 100%;
+}
+
+.table.resources td,
+.table.resources th {
+    color: #808080;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.file_icon {
+    font-size: 13px;
+    color: #6D6D6D;
+    top: -2px;
+    position: relative;
+}
+
+.flex_box_pLevel {
+    display: flex;
+}
+
+.flex_box_pLevel_right {
+    width: 100%;
+}
+
+.flex_box_pLevel_left {
+    padding-right: 12px;
+}
+
+.flex_box_pLevel .number_tagged {
+    padding-top: 5px;
+    color: #C1C1C2;
+}
+
+.performance_level_detail h6 {
+    margin-bottom: 0px;
+}
+
+.performance_level_detail {
+    margin-bottom: 8px;
+}
+
+.no-comment-found {
+    font-size: 13px;
+    font-family: 'Roboto-light';
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.nopointer {
+    cursor: default !important;
+}
+
+.video_time_cls {
+    display: inline-block;
+    /*width: 50px;*/
+}
+
+.model-btns a.blue,
+.model-btns a.green {
+    cursor: pointer;
+    color: #fff !important;
+    display: inline-block;
+    padding: 5px 22px;
+    border-radius: 4px;
+    font-family: 'Roboto-Light';
+    text-decoration: none;
+}
+
+.model-btns a.green {
+    background: #5db85b;
+}
+
+.model-btns a.blue {
+    background: #337ab7;
+    margin: 0 6px;
+}
+
+.model-btns a.simple_btn {
+    cursor: pointer;
+    padding: 5px 22px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.copy_comments label {
+    margin-bottom: 0;
+}
+
+.copy_comments input[type=checkbox] {
+    position: relative;
+    top: 2px;
+    margin-right: 3px;
+}
+
+.pull-from-top {
+    margin-top: 10px;
+}
+
+.file_name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 275px;
+    display: inline-block;
+    position: relative;
+    /*top: 4px;*/
+}
+
+.fake_player {
+    width: 484px;
+    height: 350px;
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.fake_player h6 {
+    position: absolute;
+    margin-top: 31%;
+    margin-left: 0;
+    text-align: center;
+    display: block;
+    width: 95%;
+}
+
+.fake_player h6 a {
+    color: #007bff;
+}
+
+.custom-form-control {
+    width: 19px;
+    padding: 2px;
+    height: 25px;
+    border-radius: 4px;
+    display: -ms-flexbox;
+    -ms-flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, .2);
+    outline: 0;
+    padding: 0px 0;
+    font-size: 12px;
+    height: 20px;
+}
+
+.avg_performance_level {
+    display: block;
+    width: 100%;
+    font-size: 12pt;
+    text-align: center;
+}
+
+.fake_select {
+    display: inline-block;
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 0;
+    text-overflow: '';
+    margin: 0;
+    padding: 0px 0 0px 2px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.de_ani {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+    background-size: 800px 104px;
+    position: relative;
+}
+
+.header {
+    height: 36px
+}
+
+.anc a {
+    height: 20px;
+    width: 120px;
+}
+
+.anc li {
+    padding: 0 5px 0px 0 !important;
+}
+
+.tab-nav-el {
+    min-width: 130px
+}
+
+.loader-video-container {
+    width: 100%;
+    height: 380px;
+}
+
+.loader-search-container {
+    height: 31px;
+    margin-bottom: 14px;
+}
+
+.loader-search-container2 {
+    width: 88%;
+    min-height: 2%;
+    float: left;
+    height: 31px;
+}
+
+.loader-search-container3 {
+    width: 8%;
+    height: 31px;
+    float: right;
+}
+
+.an_icon {
+    height: 20px;
+}
+
+.an_para {
+    height: 20px;
+}
+
+.an_fak {
+    height: 20px;
+    width: 150px;
+}
+
+.anc .de_ani {
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    position: relative;
+    top: 2px;
+}
+
+.anc li:last-child a {
+    border-color: #eeeeee!important;
+}
+
+.an {
+    margin-bottom: 7px;
+}
+
+.gmore {
+    width: 15%;
+    float: left;
+    height: 15px;
+    margin-right: 2%;
+    margin-top: 10px;
+}
+
+.user_img {
+    margin-right: 12px;
+    float: left;
+}
+
+.comments_boxanc {
+    border-top: 1px solid #ddd;
+    padding-bottom: 23px;
+    margin-top: 11px;
+}
+
+.user_comment {
+    float: left;
+    width: 85%;
+    font-family: Roboto-Light;
+}
+
+.anc1 {
+    height: 15px;
+    width: 93px;
+    display: inline-block;
+    margin: 7px 3px 9px 0px;
+}
+
+.pleft30 {
+    padding-left: 20px;
+}
+
+.anc2 {
+    width: 35px;
+    height: 35px;
+}
+
+.anc3 {
+    height: 15px;
+    width: 93px;
+    display: inline-block;
+}
+
+.anc4 {
+    height: 15px;
+    width: 150px;
+    display: inline-block;
+}
+
+.anc5 {
+    height: 15px;
+    width: 100%;
+    display: block;
+    margin-bottom: 6px !important;
+}
+
+.anc6 {
+    height: 30px;
+    width: 40px;
+    float: right;
+    margin: 8px 0 10px 17px;
+}
+
+.anc7 {
+    float: left;
+    height: 15px;
+    width: 20%;
+    display: inline-block;
+}
+
+.anc8 {
+    float: right;
+    height: 15px;
+    width: 40%;
+    display: inline-block;
+}
+
+.anc9 {
+    float: right;
+    height: 200px;
+    width: 100%;
+    display: inline-block;
+    margin: 15px 0 0 0;
+}
+
+.anc10 {
+    height: 30px;
+    width: 40px;
+    float: left;
+    margin: 8px 0 10px 0px;
+}
+
+.anc11 {
+    height: 30px;
+    width: 40px;
+    float: right;
+    margin: 8px 0 10px 0px;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.box {
+    padding: 10px 15px 20px 15px !important;
+}
+
+.headindfix h2 {
+    font-family: 'Roboto', sans-serif;
+    margin: 9px 0 9px -7px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+    color: #484848;
+}
+
+.tgright {
+    float: right;
+    width: 411px;
+    padding-right: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+.tgouter {
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    padding: 2px 12px 1px 5px;
+    margin-left: 6px;
+    vertical-align: top;
+    margin-bottom: 4px;
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+}
+
+.updateLable {
+    float: left;
+}
+
+.updateLable label {
+    display: inline-block;
+    color: #010101;
+    font-family: 'Roboto-Regular';
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.disable-comment-play {
+    pointer-events: none;
+    opacity: 0.4;
+}
+.flat { margin-left: 26px; }
+.audio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e4e4e4;
+    margin: -10px -10px 12px -10px;
+    padding: 10px;
+}
+
+.cancel-audio {
+    position: absolute;
+    right: 28px;
+    cursor: pointer;
+    top: 505px;
+}
+
+.checkboxcls {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin: 3px 0;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #616161;
+}
+/* Hide the browser's default checkbox */
+
+.checkboxcls input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #B4BAC3;
+    border-radius: 3px;
+}
+/* On mouse-over, add a grey background color */
+
+.checkboxcls:hover input~.checkmark {
+    background-color: #fff;
+}
+/* When the checkbox is checked, add a blue background */
+
+.checkboxcls input:checked~.checkmark {
+    background-color: #fff;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+
+.checkboxcls input:checked~.checkmark:after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+
+.checkboxcls .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid #B4BAC3;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    transform: rotate(40deg);
+}
+
+.modal-footer>*{
+    margin:0;
+    padding-left:4px
+}
+
+.hu_search input[type=text] {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 35px 10px 30px;
+    background: url('../../../../assets/img/search_icon.svg') center left/18px 18px no-repeat;
+    background-position-x: 8px;
+}

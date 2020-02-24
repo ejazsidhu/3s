@@ -1,0 +1,39 @@
+<div class="huddlelist_view">
+    <div class="row list_heading">
+        <div class="col-md-5">
+            <label>{{translation?.workspace_name}}</label>
+        </div>
+        <div class="col-md-2">
+            <label>{{translation?.workspace_createdby}}</label>
+        </div>
+        <div class="col-md-2">
+            <label>{{translation?.workspace_uploaded}}</label>
+        </div>
+        <div class="col-md-3">
+            <label>{{translation?.workspace_action}}</label>
+        </div>
+    </div>
+    <!-- <ng-container *ngFor="let arr of [1,1,1,1,1,1,1,1,1,1,1,1]">
+        <app-pre-loading-list *ngIf="Loadings.IsLoadingArtifacts && artifacts.length==0"></app-pre-loading-list>
+</ng-container> -->
+    <!-- || (art.doc_type == 3 && art.scripted_current_duration==null) -->
+    <ng-container *ngFor="let art of artifacts | orderBy:sort:isReverse:true">
+        <ng-container *ngIf="(art?.doc_type == 1 || (art?.doc_type == 3 && (art.is_processed == 4 || art.is_processed == 5)) ) && (resource == 0 || resource == '1')">
+            <app-video-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></app-video-list>
+        </ng-container>
+        <ng-container *ngIf="(art?.doc_type == 2 ) && (resource == 0 || resource == '2')">
+            <app-resurce-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></app-resurce-list>
+        </ng-container>
+        <ng-container *ngIf="(art?.doc_type == 3 && (art.is_processed < 4)) && (resource == 0 || resource == '3')">
+            <app-scripted-notes-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></app-scripted-notes-list>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="Loadings.IsLoadingArtifacts">
+        <ng-container *ngFor="let arr of [1,1,1,1,1,1]">
+            <app-pre-loading-list></app-pre-loading-list>
+        </ng-container>
+    </ng-container>
+
+</div>
+
+<sharepopup #share [artifact]="artifact"></sharepopup>

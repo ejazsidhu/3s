@@ -1,0 +1,40 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@src/*": ["src/*"],
+      "@environments/*": ["src/environments/*"],
+      "@constants/*": ["src/constants/*"],
+      "@projectModules/*": ["src/project-modules/*"],
+      "@app/*": ["src/project-modules/app/*"],
+      "@shared/*": ["src/project-modules/shared/*"],
+      "@videoHuddle/*": ["src/project-modules/video-huddle/*"],
+      "@videoDetail/*": ["src/project-modules/video-detail/*"],
+      "@addHuddle/*": ["src/project-modules/add-huddle/*"],
+      "@workspace/*": ["src/project-modules/workspace/*"],
+      "@workspaceVideoPage/*": ["src/project-modules/workspace-video-page/*"],
+      "@analytics/*": ["src/project-modules/analytics/*"],
+      "@onlineTrialAccount/*": ["src/project-modules/online-trial-account/*"],
+      "@people/*": ["src/project-modules/people/*"],
+      "@angular-audio-recorder/*": ["src/project-modules/angular-audio-recorder/*"],
+      "@videoPage/*": ["src/project-modules/video-page/*"],
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "module": "es2015",
+    "target": "es5",
+    "lib": ["ES6", "ES5", "dom", "ScriptHost"],
+    "typeRoots": [
+      "node_modules/@types",
+      "typings.d.ts"
+    ]
+  }
+}

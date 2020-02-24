@@ -1,0 +1,33 @@
+.h_option{
+	/*top: -60px;*/
+}
+
+.dropdown-menu{
+	left: inherit!important;
+      min-width: 85px !important;
+	  right:0 !important;
+}
+
+.folder_container{
+	transition: height 0.5s linear;
+}
+
+
+.dropdown-item.active, .dropdown-item:active {
+       color: #16181b !important;
+    text-decoration: none;
+       background: #f8f9fa !important;
+}
+
+@keyframes expandAnimation {
+  0% {
+    padding-top: 100px;
+  }
+  100% {
+    padding-top: 0px;
+  } 
+}
+
+.folder_expand_animate{
+	animation: expandAnimation 1s;
+}

@@ -1,0 +1,55 @@
+<ng-container *ngIf="!onlineTrialAccountLayout then mainLayout else onlineTrialAccountTemplate"></ng-container>
+
+<ng-template #mainLayout>
+  <app-header></app-header>
+  <div *ngIf="isLoggedIn">
+    <router-outlet></router-outlet>
+  </div>
+  <ngx-loading-bar [color]="colors?.loading_bar_color||'transparent'"></ngx-loading-bar>
+</ng-template>
+
+<ng-template #onlineTrialAccountTemplate>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<!-- modal for change role to viewer -->
+<div bsModal #accountChange="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">{{account_switch_title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideAccountChange()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          {{account_switch_message}} {{changed_account_name}}.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <!--  -->
+        <button class="btn btn-primary" (click)="hideAccountChange()">{{ok_text}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wowza Notification Popup Model  START -->
+<div bsModal #wowzaNotification="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="wowzaNotification" [config]="{'backdrop':false}">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="wowzaNotification" class="modal-title pull-left">Live Streaming</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="wowzaNotification.hide();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Click here to watch Live Streaming!
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Wowza Notification Popup Model End -->

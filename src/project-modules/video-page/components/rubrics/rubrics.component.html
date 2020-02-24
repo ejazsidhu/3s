@@ -1,0 +1,31 @@
+<h6 [hidden]="previewMode"> {{rubrics?.account_framework_settings?.framework_name}} </h6>
+<h6 *ngIf="previewMode && rubrics.account_tag_type_0"> {{translation?.vd_framework_preview}} </h6>
+
+<div class="animated fadeIn text-center nothing_found" *ngIf="(rubrics?.account_tag_type_0|search:term:'tag_html,tag_code') && (rubrics?.account_tag_type_0|search:term:'tag_html,tag_code').length==0">
+    {{translation?.vd_search_result}} </div>
+<div *ngFor="let rubric of rubrics?.account_tag_type_0 | search:term:'tag_html,tag_code'" [attr.class]="getClass(rubric)" (click)="BroadcastClick(rubric)">
+    <table class="rubric_table">
+        <tr>
+            <td class="first-td">
+                <ng-container *ngIf="!previewMode">
+                    <!-- *ngIf="rubric.tag_code" -->
+                    <span class="info_holder">
+                        <!--resolving SW-2053 (if always true)-->
+                        <!--{{rubric.tag_code}}-->
+                        <input
+                            *ngIf="rubric.standard_level==rubrics.account_framework_settings.checkbox_level && from!='tab' && isCreater"
+                            type="checkbox" [(ngModel)]="rubric.selected" (ngModelChange)="RubricChecked(rubric)">
+                        <span class="rub_nu" [innerHTML]="rubric.tag_code"></span>
+                    </span>
+                    <span *ngIf="rubric.standard_level==rubrics.account_framework_settings.checkbox_level && from=='tab'" class="badge badge-primary">{{rubric.get_standard_tagged_count}}</span>
+                </ng-container>
+
+                <span *ngIf="previewMode" class="rub_nu">{{rubric.tag_code}}</span>
+            </td>
+
+            <td>
+                <span [innerHTML]="rubric.tag_html"> </span>
+            </td>
+        </tr>
+    </table>
+</div>

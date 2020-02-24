@@ -1,0 +1,73 @@
+<div class="row list_row">
+    <div class="col-md-5">
+        <!-- <a href="{{goToDetailPageHref(artifact)}}" > -->
+        <a [routerLink]="['/video_details/scripted_observations', artifact.account_folder_id, artifact.doc_id]" [queryParams]="{ workspace: 'true'}">
+            <!-- <div class="thumblist" (click)="goToDetailPage(artifact)"> -->
+            <div class="thumblist">
+                <div class="icontype">
+                    <img src="{{artifact.thubnail_url}}">
+                </div>
+                <!-- <span class="list_play"> <img class="w13" src="assets/img/speaker_gry_icon.svg"> </span> -->
+                <!-- <span class="video_time">{{artifact.video_duration}}</span> -->
+            </div>
+        </a>
+        <div class="detail_list">
+            <a [routerLink]="['/video_details/scripted_observations', artifact.account_folder_id, artifact.doc_id]" [queryParams]="{ workspace: 'true'}">
+                <!-- <p (click)="goToDetailPage(artifact)"> -->
+                <p>
+                    <span tooltip="{{artifact.title}}">{{artifact.title}}</span>
+                </p>
+            </a>
+            <div class="huddle_option">
+                <a tooltip="{{translation?.workspace_notes}}" class="chat_cls"> <img src="assets/img/comm_icon.svg"> {{artifact.total_comments}}</a>
+                <a tooltip="{{translation?.workspace_attachments}}" class="h_att"> <img src="assets/img/attachment_icon.svg"> {{artifact.total_attachment}} </a>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <label>{{artifact.first_name}} {{artifact.last_name}}</label>
+    </div>
+    <div class="col-md-2">
+        <label>{{headerService?.formateDate(artifact.created_date,"MMM DD, YYYY")}}</label>
+    </div>
+    <div class="col-md-3 list_share">
+
+        <a *ngIf="userAccountLevelRoleId != '125'" class="share_icon" data-toggle="modal" (click)="OpenModel(artifact,'share');"> <img src="assets/img/icon_arrow.svg"> {{translation?.workspace_share}} </a>
+        <ng-container *ngIf="userAccountLevelRoleId != '125'">
+            <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+                <button type="button">
+                          <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+            </div>
+            <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+                <span (isOpenChange)="isOpen($event)" dropdown>
+                        <button type="button" id="button-basic" dropdownToggle>
+                          <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" >
+                          
+                      
+                          <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.workspace_rename}}</a>
+                          <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'crop');">Crop</a> -->
+                          <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'email');">Email</a> -->
+                     
+                          <!-- <a class="dropdown-item" (click)="DuplicateResource(artifact)">{{translation?.workspace_duplicate}}</a> -->
+                          <!-- <a class="dropdown-item" (click)="DownloadResource(artifact)">Download</a> -->
+                          <a class="dropdown-item" (click)="OpenModel(artifact,'delete');">{{translation?.workspace_delete}}</a>
+                        
+        
+                        
+        
+                  
+                        </ul>
+                    </span>
+            </div>
+        </ng-container>
+
+    </div>
+</div>

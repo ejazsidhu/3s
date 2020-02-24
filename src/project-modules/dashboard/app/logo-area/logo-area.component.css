@@ -1,0 +1,26 @@
+#logo{
+	display: block;
+    position: absolute;
+    top: 0;
+    text-indent: 100%;
+    overflow: hidden;
+    font-size: 0;
+    width: 175px;
+    height: 64px;
+    background: #fff;
+    box-shadow: 0px 2px 7px rgba(0,0,0,0.3);
+}
+
+#logo a {
+    width: 150px;
+    height: 63px;
+    margin: 0 auto;
+    /*background: url(/../../../../assets/dashboard/assets/img/new/logo-3.png) no-repeat center center;*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+    top: 0;
+    background-size: 107px;
+    position: relative;
+    left: -1px;
+}

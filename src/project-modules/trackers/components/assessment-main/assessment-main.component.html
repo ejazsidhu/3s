@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+ 
+  
+    <title>Sibme</title>
+  </head>
+  <body>
+  
+    <!-- Breadcrumb Start -->
+    <div class="clear"></div>
+    <!-- *ngIf="breadcrubms" -->
+    <div *ngIf="isLoadingBread" class="container bred_an">
+      <a [routerLink]="['/dashboard_angular/home']">{{translations.home_tracker_ng}}</a>
+      <img src="assets/img/breadcrumarrow.svg"> {{translations.assessment_tracker_ng}}
+    </div>
+    <div *ngIf="!isLoadingBread" class="container bred_an">
+      <div class="animate_me br_an"></div>
+    </div>
+    <div class="clear"></div>
+    <!-- Breadcrumb End  -->
+
+
+    
+   
+  <div *ngIf = "!isLoading"  class="container box_outer" #realData>
+   
+   <div class="row pan_heading">
+       <div class="col-6">
+         <h3>{{translations.huddle_tracker}}</h3>
+         
+         
+          
+       </div>
+       
+   </div>
+   
+   <div class="tabs_barcls">
+   <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+                <li *ngIf = "enable_coaching_tracker == '1' " class="nav-item">
+                
+                    <a  data-toggle="tab"  [routerLink]="['/trackers/coaching']"  role="tab">{{translations.coaching_tracker_ng}}</a>
+                </li>
+                <li *ngIf = "enable_assessment_tracker == '1' " class="nav-item itm2">
+                    <a class="active"  data-toggle="tab"role="tab">{{translations.assessment_tracker_ng}}</a>
+                </li>
+                <div class="clear"></div>
+                
+            </ul>
+            <div class="clear"></div>
+    </div>
+    
+    
+    
+    
+    
+             
+   </div>
+   
+
+   
+   
+    
+    
+    
+               
+   
+   </div>
+   <div class="clear"></div>
+   <div class="row tracker_as">
+   
+     <div class="col-6 tracker_serch">
+        <input (ngModelChange)="OnSearchChange($event)" [(ngModel)]="search_field_value" type="text" placeholder="{{translations.search_assessment_ng}}">
+        <img class="x_hu_cross" *ngIf="search_field_value?.length>0" src="./assets/img/x.svg" (click)="page=1;search_field_value='';getAssessmentHuddles(false)">
+     </div>
+     <div class="col-6">
+     
+      <div class="tracker_opt dropdown" dropdown>
+                       
+                         <button type="button" dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                   <img src="assets/trackers/img/menuicon.svg">
+                  </button>
+                         <div *dropdownMenu class="dropdown-menu">
+                      
+                            <a [ngClass]="huddle_sort==1 ? 'activecls' : ''" class="dropdown-item" (click)="assessment_list_check = false;lazy_loading_process=true;page=1;huddle_sort=1;getAssessmentHuddles(false);">{{translations.date_published_ng}} <svg _ngcontent-c9="" *ngIf = "huddle_sort==1" height="8" viewBox="0 0 8 8" width="8" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c9="" d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)"></path></svg></a>
+                            
+                            <a [ngClass]="huddle_sort==2 ? 'activecls' : ''" class="dropdown-item" (click)="assessment_list_check = false;lazy_loading_process=true;page=1;huddle_sort=2;getAssessmentHuddles(false);">{{translations.due_date_ng}} <svg _ngcontent-c9="" *ngIf = "huddle_sort==2" height="8" viewBox="0 0 8 8" width="8" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c9="" d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)"></path></svg></a>
+                            
+                            <a [ngClass]="huddle_sort==3 ? 'activecls' : ''" class="dropdown-item" (click)="assessment_list_check = false;lazy_loading_process=true;page=1;huddle_sort=3;getAssessmentHuddles(false);">{{translations.my_assessments_ng}} <svg _ngcontent-c9="" *ngIf = "huddle_sort==3" height="8" viewBox="0 0 8 8" width="8" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c9="" d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)"></path></svg></a>
+                   
+                  
+                        </div>
+                
+                         </div>
+     </div>
+     <div class="col-12 onlyborder"></div>
+   </div>
+  
+   
+
+   <div *ngIf = "assessments_list && assessments_list.length == 0" class = "no_recent_activity">
+   
+    <div *ngIf = "!search_bool" style = "height: 400px;"><svg _ngcontent-c8="" data-name="Group 332" height="90.7" id="Group_332" viewBox="0 0 90.7 90.7" width="90.7" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c8="" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" data-name="Path 51" fill="#616161" id="Path_51" transform="translate(0)"></path></svg> {{translations.no_assessments_ng}}</div>
+    <div *ngIf = "search_bool" style = "height: 400px;"> <svg _ngcontent-c8="" data-name="Group 332" height="90.7" id="Group_332" viewBox="0 0 90.7 90.7" width="90.7" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-c8="" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" data-name="Path 51" fill="#616161" id="Path_51" transform="translate(0)"></path></svg> {{translations.no_result_found_ng}}</div></div>
+   
+  <ng-container *ngIf = "assessment_list_check">
+   <div *ngFor = "let list of assessments_list" class="row trc_row">
+      <div style = "cursor: pointer;" class="col-8" (click)='list.isOpen == true ? list.isOpen = false : list.isOpen = true'>
+        <h3 *ngIf ="list.name.length > 40">{{list.name | slice:0:40}}...</h3> <h3 *ngIf ="list.name.length <= 40">{{list.name}}</h3>
+        <p><span>{{translations.assessors_ng_colon}}</span> {{list.assessors_name}} <a [routerLink]="" routerLinkActive="router-link-active"  (click)="showFullAssessorList(list,$event)" *ngIf = "list.assessor_count && list.assessor_count > 3">+{{ list.assessor_count - 3 }} more</a></p>
+      </div>
+      <!-- <div class="col-1">
+        <span *ngIf = "huddle_sort == 1 || huddle_sort == 3">
+          Date Published : {{list.published_date}}
+        </span>
+
+        <span *ngIf = "huddle_sort == 2">
+            Due Date : {{list.due_date}}
+        </span>
+      </div> -->
+      
+       <div style = "cursor: pointer;" class="col-4 due_pub_date" (click)='list.isOpen == true ? list.isOpen = false : list.isOpen = true' > <span *ngIf = "publish_date_check">{{translations.published_date_ng}} <b>{{list.assessment_huddle_essentials.published_date}}</b></span><span *ngIf = "due_date_check">{{translations.due_date_ng_colon}} <b>{{list.assessment_huddle_essentials.submission_deadline_date}}</b></span>
+          <img style="cursor:pointer;" *ngIf = "!list.isOpen" src="assets/trackers/img/arrowndown.svg" width="20">
+          <img style="cursor:pointer;" *ngIf = "list.isOpen" src="assets/trackers/img/arrow_up.svg" width="20">
+       </div>
+
+      
+       <app-assessment-detail *ngIf = "list.isOpen" [base_url] = "session_detail.base_url" [list] = "list" [session_detail] = "session_detail.user_current_account" [translations] = "translations"></app-assessment-detail>
+       
+       
+       
+   </div>
+  </ng-container>
+  
+
+  <ng-container *ngIf = "lazy_loading_process">
+      <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+       <div class="row trc_row">
+          <div class="col-11">
+            <h3 class="tran trac1"></h3>
+            <p class="tran trac2"> </p>
+          </div>
+          
+           <div class="col-1">
+              <div class="tran trac3"></div>
+           </div>
+           
+           
+           
+           
+       </div>
+  </ng-container>
+  
+
+   
+  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+     
+   
+   
+     
+     
+   
+   
+
+     
+    
+     
+     
+     
+     
+   </div>
+
+
+   <div *ngIf = "isLoading" class="container box_outer" #skeleton>
+   
+    <div class="row pan_heading">
+        <div class="col-6">
+          <h3>{{translations.huddle_tracker}}</h3>
+          
+          
+           
+        </div>
+        
+    </div>
+    
+    <div class="tabs_barcls">
+    <div class="row">
+     <div class="col-md-12">
+       <ul class="nav nav-tabs">
+                 <li class="nav-item">
+                 
+                     <a class="trac4 tran"></a>
+                 </li>
+                 <li class="nav-item itm2">
+                     <a class="trac4 tran"></a>
+                 </li>
+                 <div class="clear"></div>
+                 
+             </ul>
+             <div class="clear"></div>
+     </div>
+     
+     
+     
+     
+     
+              
+    </div>
+    
+ 
+    
+    
+     
+     
+     
+                
+    
+    </div>
+    <div class="clear"></div>
+    <div class="row tracker_as">
+      
+      <div class="col-6 tracker_serch">
+         <div class="trac5 tran"></div>
+      </div>
+      <div class="col-6">
+      
+       <div class="tracker_opt dropdown">
+                        
+                          <div class="tran trac6"></div>
+                 
+                          </div>
+      </div>
+      
+    </div>
+
+  
+  
+    
+    
+      <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="row trc_row">
+       <div class="col-11">
+         <h3 class="tran trac1"></h3>
+         <p class="tran trac2"> </p>
+       </div>
+       
+        <div class="col-1">
+           <div class="tran trac3"></div>
+        </div>
+        
+        
+        
+        
+    </div>
+   
+  
+
+  </div>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    
+    
+    
+
+   
+    <div bsModal #assessor_list_popup="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="assessor_list_popup">
+      <div class="modal-dialog" style="max-width:700px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+           <h4 class="modal-title">{{translations.assessor_ng}}</h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="assessor_list_popup.hide();">&times;</button>
+           
+          </div>
+          
+          <div class="modal-body">
+  
+           <div class="parti_list">
+           
+            
+             <div class="row par_titles">
+             
+                <div class="col-6">
+                  {{translations.name_ng}}
+                </div>
+                
+                <div class="col-6">
+                  {{translations.email_ng}}
+                </div>
+                
+               
+                </div>
+             
+           <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+           
+           <div class="row par_rwcls" *ngFor="let assessor of assessors_list">
+             <div class="col-6">
+             <img [src]="ImageUrlBuilder(assessor)"> <span>{{assessor.user_name}}</span>
+             </div>
+             <div class="col-6 par_email">
+                {{assessor.user_email}}
+             </div>           
+           </div>
+           
+           
+           
+           
+           
+           
+           
+           </div>
+           </div>
+          </div>
+          <div class="modal-footer footer_modal mb">
+          <div class="clear"></div>
+              <div class="row">
+              
+              
+              
+              
+                
+                <div class="col-12 tright pr0">
+                
+                     <button type="button" class="btn btn-success" (click)="assessor_list_popup.hide();">{{translations.done_ng}}</button>
+                </div>
+              </div>
+           
+           
+          </div>
+          
+          
+          
+          
+          
+        
+          
+          
+        </div>
+    
+      </div>
+    </div>
+<div id="ownerrole" class="modal fade owner_popup" role="dialog">
+  <div class="modal-dialog" style="max-width:530px;">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <h4 class="modal-title">Account Owner Role</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+       
+      </div>
+      <div class="modal-body">
+      
+       There can only be one (1) Account Owner per account. Account Owners have the sole ability
+        to access, manage, and change all account settings. They can access and export account-wide 
+        analytics, manage user roles and permissions, curate the account video library, enable additional
+         features in the account, author and manage custom frameworks/rubrics, manage plans and billing, 
+         and update colors and logos. Account Owners also have the ability to cancel the account.
+         
+
+
+         
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

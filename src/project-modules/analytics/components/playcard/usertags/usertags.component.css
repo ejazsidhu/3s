@@ -1,0 +1,51 @@
+.tags_andiv span.dot_m {
+    float: right;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+}
+.tags_andiv h4 {
+    max-width: 90%;
+    display: inline-block;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    color: #616161;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.tags_andiv span.dot_m {
+    float: right;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+}
+
+.tags_andiv .gbox {
+    background-color: #FFF;
+    border: 1px solid #DAD6CE;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    margin: 9px 0 40px 0;
+}
+
+
+.round{ width: 12px;height: 12px; background: #ddd; border-radius: 50%; display: inline-block;    cursor: pointer;
+    margin: 3px 1px;
+}
+.activer {    background: #389aef;}
+
+.chart-not-found{
+
+    margin-top: 30px;
+
+}
+.pills{
+    margin-top: -25px;
+    margin-bottom: 2px;
+    z-index: 9;
+}
+
+.serialbox{
+    padding-bottom: 14px;
+}

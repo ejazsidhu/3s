@@ -1,0 +1,94 @@
+<div class="container">
+	
+
+<div class="row animated fadeIn" [hidden]="chartPage==2">
+	<div class="col-sm-6">
+		<!-- <amCharts id="chartdiv" [options]="options" [style.width.%]="100" [style.height.px]="500">
+		</amCharts> -->
+		<div class="row">
+			<div class="col-sm-6">{{translation?.analytics_top_five_tagged_standard}} </div>
+			<div class="col-sm-6 text-right">
+
+			 <div dropdown>
+			  <a id="tagged" dropdownToggle aria-controls="dropdown-basic">
+			     <span class="fa fa-ellipsis-h"> </span>
+			  </a>
+			  <ul id="tagged" *dropdownMenu class="dropdown-menu dropdown-menu-right animated flipInY"
+			      role="menu" aria-labelledby="button-basic">
+			    <li role="menuitem"><a class="dropdown-item" href="#">{{translation?.analytics_action}}</a></li>
+			    
+			  </ul>
+			</div> 
+
+			</div>
+		</div>
+		<div id="chartContainer" [style.height.px]="400"></div>
+	</div>
+	<div class="col-sm-6">
+		<!-- <amCharts id="chartdiv2" [options]="optionslive" [style.width.%]="100" [style.height.px]="500">
+		</amCharts> -->
+		<div class="row">
+		<div class="col-sm-6"> {{translation?.analytics_custom_markers_tags}} </div>
+		<div class="col-sm-6 text-right">
+			
+			<div dropdown>
+			  <a id="button-basic" dropdownToggle aria-controls="dropdown-basic">
+			     <span class="fa fa-ellipsis-h"> </span>
+			  </a>
+			  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right animated flipInY"
+			      role="menu" aria-labelledby="button-basic">
+			    <li role="menuitem"><a class="dropdown-item" href="#">{{translation?.analytics_action}}</a></li>
+			    
+			  </ul>
+			</div>
+
+			
+			
+		</div>
+		</div>
+		<div id="pieContainer" [style.height.px]="400" [style.width.%]="110"> </div>
+	</div>
+</div>
+<div style="clear:both;">
+	
+</div>
+
+<div class="row animated fadeIn" [hidden]="chartPage==1">
+	<div class="row">
+		<div class="col-sm-6"> {{translation?.analytics_overview}} </div>
+		<div class="col-sm-6 text-right">
+			
+			<div dropdown>
+			  <a id="overview" dropdownToggle aria-controls="dropdown-basic">
+			     <span class="fa fa-ellipsis-h"> </span>
+			  </a>
+			  <ul id="overview" *dropdownMenu class="dropdown-menu dropdown-menu-right animated flipInY"
+			      role="menu" aria-labelledby="button-basic">
+			    <li role="menuitem"><a class="dropdown-item" href="#">{{translation?.analytics_action}}</a></li>
+			    
+			  </ul>
+			</div>
+
+			
+			
+		</div>
+		</div>
+<div class="col-sm-8 offset-md-1">
+		
+		<div id="pieContainer2" [style.height.px]="450" [style.width.%]="100"> </div>
+</div>	
+</div>
+	<div class="row text-center">
+		<button class="btn btn-secondary" (click)="chartPage=chartPage==1?2:1">{{translation?.analytics_next_chart}}</button>
+	</div>
+	
+
+</div>
+<!-- <amCharts id="chartdiv" [options]="options" [style.width.%]="100" [style.height.px]="500">
+	
+</amCharts> -->
+<input #gb type="text" placeholder="{{translation?.analytics_globel_search}}">
+<p-dataTable emptyMessage="{{translation?.analytics_no_record_found}}" [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb">
+    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+    <p-paginator [rows]="10" totalRecords="100" (onPageChange)="paginate($event)"></p-paginator>
+</p-dataTable>

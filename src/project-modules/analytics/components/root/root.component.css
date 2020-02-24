@@ -1,0 +1,144 @@
+.analytics-animation {
+        -webkit-animation-duration: 1.25s;
+        animation-duration: 1.25s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #F6F6F6;
+        background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+        background-size: 800px 104px;
+        /* height: 96px;
+    position: relative;
+    margin-right: 5px; */
+}
+
+.ana_cl {
+        -webkit-animation-duration: 1.25s;
+        animation-duration: 1.25s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #F6F6F6;
+        background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+        background-size: 800px 104px;
+}
+
+.ani_brcls {
+        -webkit-animation-duration: 1.25s;
+        animation-duration: 1.25s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #d9d9d9;
+        background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+        background-size: 800px 104px;
+        position: relative;
+}
+
+.bre_ani {
+        padding: 2px !important;
+        height: 24px;
+        margin-bottom: 26px !important;
+        position: relative;
+        top: 15px;
+}
+
+.an_ah1 {
+        height: 36px;
+}
+
+.an_ah2 {
+        height: 36px;
+        border: 0 !important;
+}
+
+.an_ah3 {
+        height: 20px;
+        border: 0 !important;
+        width: 106px;
+        display: inline-block;
+        margin-right: 26px;
+}
+
+.an_ah4 {
+        height: 116px;
+        border: 0 !important;
+        width: 100%;
+        display: inline-block;
+        margin-top: -20px;
+        margin-bottom: 1px;
+}
+
+.an_ah5 {
+        height: 31px;
+        border: 0 !important;
+        width: 100%;
+        display: block;
+}
+
+.an_ah2c1 {
+        height: 36px;
+        border: 0 !important;
+}
+
+.an_ah2c2 {
+        height: 36px;
+        border: 0 !important;
+}
+
+.an_ah2c3 {
+        height: 36px;
+        border: 0 !important;
+}
+
+.an_ah2c4 {
+        height: 36px;
+        border: 0 !important;
+        border-right: 20px solid #fff !important;
+}
+
+.an_ah2c5 {
+        height: 36px;
+        border: 0 !important;
+        border-right: 20px solid #fff !important;
+}
+
+.an_ah2c6 {
+        height: 36px;
+        border: 0 !important;
+        border-right: 20px solid #fff !important;
+}
+
+.an_ah2c7 {
+        height: 36px;
+        border: 0 !important;
+        border-right: 50px solid #fff !important;
+}
+
+.gan1 {
+        height: 30px;
+        margin: 0 0 15px 0 !important;
+        display: block;
+        width: 60%;
+}
+
+.gan2 {
+        height: 300px;
+        margin: 0 0 -20px 0 !important;
+        display: block;
+}

@@ -1,0 +1,128 @@
+.header_container{
+	/*background: #3D6A98;*/
+    background: #004061;
+    width: 100%;
+    color: #FFF;
+    height: 64px;
+}
+body{
+	color: #757575;
+    font-size: 90%;
+    font-weight: normal;
+    font-family: "Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+.container{
+	max-width: 1053px !important;
+}
+
+p{
+	margin-bottom: 0; 
+}
+
+/* Skeleton CSS start */
+
+.header_loader{
+    background-color: #fff;
+    border: 1px solid #dad6ce;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1);
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    padding: 0px;
+    margin-bottom: 30px;
+}
+
+.header_body{
+    max-width: 1053px !important;
+    padding-right: 15px;
+    padding-left: 15px;
+	margin: 0 auto;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+  
+  @keyframes placeHolderShimmer {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+.animate_header{
+    -webkit-animation-duration: 1.25s;
+            animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+            animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+    background: #F6F6F6;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 800px 104px;
+    height: 96px;
+    position: relative;
+  }
+
+  .animate_box_27{
+    width: 175px;
+    height: 62px;
+    display: inline-block;
+    text-align: center;
+    padding-top: 0px;   
+}
+.animate_box_28{
+    width:90px; 
+    height:30px;	  
+    display: inline-block;
+    vertical-align: top;
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+    font-size: 13px;
+    color: #b0b0b0;
+    text-align: center;
+    padding: 5px;
+}
+.animate_box_29{
+    width: 89px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 16px;
+}
+.animate_box_30{
+    width:30px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.animate_box_31{
+    width: 60px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 16px;
+}
+
+.animate_box_32{
+    width: 180px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 16px;
+}
+
+/* Skeleton CSS end */
+

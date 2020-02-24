@@ -1,0 +1,97 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{translation?.assessment_more_settings}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body moresetting">
+    <form #moreSettingForm="ngForm">
+        <label class="field_title">{{translation?.huddle_other_settings }}</label>
+        <div>
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-sm-5">
+                    <span class="switch_container">
+						<ui-switch defaultBgColor="#a3a3a3" name="video_marker"
+							[(ngModel)]="HuddleSettings.video_marker" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+						</ui-switch>
+					</span>
+                    <span class="switch_text">
+						{{translation?.huddle_custom_video_markers }}
+					</span>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <div class="col-sm-7">
+
+
+                    <span class="switch_container">
+                        <ui-switch defaultBgColor="#a3a3a3" name="coachee_can_view_summary"
+							[(ngModel)]="HuddleSettings.coachee_can_view_summary" labelOn="{{translation?.huddle_on_check_btn }}" labelOff="{{translation?.huddle_off_check_btn}}">
+						</ui-switch>
+					</span>
+                    <span class="switch_text">
+						{{translation?.huddle_assessee_can_view_summary }}
+					</span>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5" *ngIf="enable_framework_standard!=0">
+                    <span class="switch_container">
+						<ui-switch defaultBgColor="#a3a3a3" name="frameworks" [(ngModel)]="HuddleSettings.frameworks"
+						labelOn="{{translation?.huddle_on_check_btn }}" labelOff="{{translation?.huddle_off_check_btn}}">
+						</ui-switch>
+					</span>
+                    <span class="switch_text">
+						<ng-container>{{translation?.huddle_rubric }}</ng-container>
+					</span>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <span class="switch_container">
+						<ui-switch defaultBgColor="#a3a3a3" name="can_comment_reply"
+							[(ngModel)]="HuddleSettings.can_comment_reply" labelOn="{{translation?.huddle_on_check_btn }}" labelOff="{{translation?.huddle_off_check_btn}}">
+						</ui-switch>
+					</span>
+                    <span class="switch_text">
+						<ng-container>
+							{{translation?.huddle_allow_assessees_to_comment_reply }}
+						</ng-container>
+					</span>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+            <div class="row settings_container" [style.marginTop.px]="20" *ngIf="HuddleSettings.frameworks">
+            </div>
+        </div>
+        <div class="rubric_cl">
+            <alert type="warning" dismissible="true" *ngIf="!frameworks || frameworks?.length<1 && enable_framework_standard!=0">
+                <!-- You must define a framework before frameworks can be enabled here. Please contact your account owner to enable frameworks. -->
+                {{translation?.huddle_no_rubrics_framework_published }}
+            </alert>
+            <ng-container *ngIf="HuddleSettings.frameworks && frameworks?.length>0 && enable_framework_standard==1">
+                <label>{{translation?.huddle_rubric}}</label>
+                <select name="selected_framework" [(ngModel)]="HuddleSettings.selected_framework" class="form-control">
+					<option value="0" selected="selected">
+						<ng-container>{{translation?.artifacts_select }}</ng-container>
+					</option>
+					<option *ngFor="let framework of frameworks" [attr.value]="framework.account_tag_id">
+						{{framework.tag_title}} </option>
+				</select>
+            </ng-container>
+        </div>
+        <div class="setting_area">
+            <label class="field_title">{{translation?.huddle_message_to_invite_participant }}</label>
+            <textarea name="invite_message" [(ngModel)]="HuddleSettings.invite_message" class="form-control"> </textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer setting_footer">
+    <div class="row text-right">
+        <button (click)="modalRef.hide()" class="hu_cancel">{{translation?.artifact_cancle }}</button>
+        <button (click)="resolve_settings()" class="hu_primary">{{translation?.artifacts_done}}</button>
+    </div>
+</div>

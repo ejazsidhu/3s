@@ -1,0 +1,41 @@
+<div class="logocenter" *ngIf="isLoading">
+    <img *ngIf="showSibmeLogo" src="assets/img/logo-dark.svg" alt="Sibme" />
+    <img *ngIf="!showSibmeLogo" src="assets/img/logohmh.png" alt="HMH" />
+</div>
+<ng-container *ngIf="loaded then headerSection else headerLoaderSection"></ng-container>
+<ng-template #headerLoaderSection>
+    <header class="header_loader">
+        <div class="header_body">
+            <div class="animate_box_27 animate_header">
+                <img *ngIf="showSibmeLogo" src="assets/img/logo-dark.png" style="position: relative;top:4px;" alt="Sibme" />
+                <img *ngIf="!showSibmeLogo" src="assets/img/hmh-logo-dark.png" style="position: relative;top:4px;" alt="HMH" />
+            </div>
+            <div class="animate_box_28 animate_header">
+                Loading
+                <img src="assets/img/switch.png" alt="" />
+            </div>
+            <div class="animate_box_32"></div>
+            <div class="animate_box_29 animate_header" style="width: 75px;"></div>
+            <div class="animate_box_29 animate_header" style="width: 75px;"></div>
+            <div class="animate_box_29 animate_header" style="width: 75px;"></div>
+            <div class="animate_box_29 animate_header" style="width: 73px;"></div>
+            <div class="animate_box_29 animate_header" style="width: 70px;"></div>
+            <div class="animate_box_29 animate_header" style="width: 70px;"></div>
+            <div class="animate_box_30 animate_header"><img src="assets/img/user_img.png" style="position: relative;top: 5px;width: 15px;" alt="" /></div>
+            <div class="animate_box_31 animate_header"></div>
+        </div>
+    </header>
+</ng-template>
+<ng-template #headerSection>
+    <div class="sibme_header">
+        <impersonation [details]="headerdetails"></impersonation>
+        <header id="header" class="header_container" [style.backgroundColor]="get_header_bg(headerdetails)">
+            <div class="container">
+                <logo-area [details]="headerdetails"></logo-area>
+                <account-information [details]="headerdetails"> </account-information>
+                <user [details]="headerdetails"></user>
+                <navigation [details]="headerdetails"></navigation>
+            </div>
+        </header>
+    </div>
+</ng-template>

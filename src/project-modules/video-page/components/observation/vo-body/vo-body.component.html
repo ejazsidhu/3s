@@ -1,0 +1,372 @@
+<div id="main" class="container box">
+
+  <div class="analy_b">
+    <div class="header_an">
+      <h2>{{options?.video_title}}</h2>
+    </div>
+
+    <div class="video_body">
+
+      <tabset #MainTabs>
+        <tab (selectTab)="OnTabSelect(0)" *ngIf="true">
+          <ng-template tabHeading>
+            {{translation?.myfile_notes}} <span class="badge badge-primary">{{comments.length}}</span>
+          </ng-template>
+        </tab>
+        <tab (selectTab)="OnTabSelect(1)" *ngIf="true">
+          <ng-template tabHeading>
+            {{translation?.myfile_attachments}} <span class="badge badge-primary">{{staticFiles.length}}</span>
+          </ng-template>
+        </tab>
+        <tab (selectTab)="OnTabSelect(2)" *ngIf="true">
+          <ng-template tabHeading>
+            {{translation?.vd_frameworks}}
+          </ng-template>
+
+        </tab>
+      </tabset>
+
+      <div class="tab-content">
+        <!-- *ngIf="CurrentTab != 2" -->
+        <div class="row">
+
+          <div class="col-sm-6">
+            <a *ngIf="CurrentTab == 0" [attr.href]="GetUrl()"
+              class="all-observations">{{translation?.myfile_back_to_videos}}</a>
+            <div>
+
+              <!-- <small class="observation_name"> {{options?.video_title}} </small> -->
+
+            </div>
+
+            <div class="fake_player" *ngIf="enabledLoad && !scriptMode">
+
+              <ng-container *ngIf="options?.status=='recording'">
+
+
+                <div class="row">
+
+                  <div class="pull-left col-sm-10">
+                    <span class="custom_tag animated fadeIn infinite"
+                      style="border-color:transparent;background-color:rgb(223, 10, 0)"></span>{{translation?.myfile_live_recording}}
+                  </div>
+                  <div class="pull-right">
+                    {{options?.current_time}}
+                  </div>
+
+                </div>
+
+                <span class="player_icon animated">
+                  <span class="oi" data-glyph="video"></span>
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="options?.status=='uploading'">
+
+
+
+                <div class="uploading_wrapper" [style.width.%]="options.upload_progress">
+
+                </div>
+                <span> {{translation?.myfile_uploading}} {{options?.upload_progress}}% </span>
+              </ng-container>
+
+            </div>
+            <div *ngIf="!enabledLoad && !scriptMode">
+              <!-- <video id="temp_video" width="508" class="vjs-matrix video-js"> </video> -->
+              <video-player (IsPlaying)="isPlaying=$event" (VideoCurrentTime)="GetTime($event)" [comments]="comments"
+                [customMarkers]="CustomMarkers" [colors]="colorClasses" [ShowInfo]="ShowInfo" [src]="src"
+                (ShowInfoBack)="ShowInfo=$event"></video-player>
+
+            </div>
+
+            <div class="script_mode" *ngIf="scriptMode">
+
+              <div class="text-center" *ngIf="!options?.script_published">
+                <h3> {{options?.current_time}} </h3>
+
+                <button class="btn btn-success form-control" (click)="StartTimer()" *ngIf="!options.timerStarted">
+                  {{translation?.myfile_start}} </button>
+                <ng-container *ngIf="options.timerStarted && options.timerStatus!='stopped'">
+                  <div class="btn-group">
+                    <button class="btn btn-success" *ngIf="options.timerStatus=='playing'" (click)="pauseInterval(0)">
+                      {{translation?.myfile_pause}} </button>
+
+                    <button class="btn btn-success" *ngIf="options.timerStatus=='paused'" (click)="StartTimer()">
+                      {{translation?.myfile_resume}} </button>
+
+                    <button class="btn btn-warning" (click)="pauseInterval(1)"> {{translation?.myfile_stop}} </button>
+                  </div>
+
+                </ng-container>
+
+
+
+              </div>
+
+
+            </div>
+
+            <div class="add_comment ob_add_comment" [style.backgroundColor]="EditMode?'#fcf9d1':'transparent'"
+              [style.padding]="EditMode?'6px 6px 75px 6px':'0'">
+              <div class="row comm_top ob_comment_label">
+                <div class="col-md-6">
+                  <label>{{EditMode? translation?.myfile_update_note :  translation?.myfile_new_note}}</label>
+                </div>
+                <div class="col-md-6 text-right" *ngIf="TempTime?.formatted">
+                  {{translation?.myfile_note_time}}: {{TempTime.formatted}}
+                </div>
+              </div>
+              <add-comment [files]="EditableComment.files" (commentText)="EditableComment.comment=$event"
+                (TypingStarted)="OnTypingStart()" [EditMode]="EditMode" (onEdit)="EditTextComment($event)"
+                [presetTags]="tags" [text]="EditableComment.comment" [settings]="settings" (customTags)="tags=$event"
+                [permissions]="permissions" (onTabSelection)="OnTabSelect($event)" (onAdd)="AddTextComment($event)">
+              </add-comment>
+              <div class="add_comm">
+
+                <div class="btn-group" dropdown>
+                  <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    <!-- <img src="assets/img/dots-three-horizontal.png"> -->
+                    <img src="assets/img/dot.svg">
+                  </div>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu settingsMenu" role="menu"
+                    aria-labelledby="button-basic">
+                    <li role="menuitem" (click)="settings.EnterToPost=!settings.EnterToPost" class="fake_link"
+                      style="width: 100%;">
+                      <span class="dropdown-item">press enter to post
+                        <span *ngIf="settings.EnterToPost" class="oi pull-right" data-glyph="check" title=""
+                          aria-hidden="true">
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="col-sm-6"
+            [ngClass]="{'col-sm-12':scriptMode&&!EditMode&&options?.script_published, 'col-sm-6':!scriptMode|| scriptMode && EditMode  ||scriptMode && !options?.script_published}"
+            *ngIf="CurrentTab==0">
+            <button *ngIf="showPublish" class="btn btn-success form-control btn-sco-publish" (click)="Publish()">
+              {{translation?.myfile_publish}}</button>
+
+            <button *ngIf="options?.timerStatus=='stopped' && !options?.script_published"
+              class="btn btn-success form-control btn-sco-publish" (click)="PublishScript()">
+              {{translation?.myfile_publish}} </button>
+
+            <search-form *ngIf="comments && comments.length>0" [options]="SearchFormOptions" [VideoInfo]="{}"
+              [customMarkers]="CustomMarkers" [params]="params" (settingsChanged)="ApplySettings($event)"
+              [classes]="colorClasses"></search-form>
+
+            <div style="margin-top: 10px;" class="comm_outer" size="7px" transition="0.2" railVisible="true"
+              railOpacity="0.2" railColor="#000" height="600px" id="slimscroll" slimScroll>
+
+              <ng-container *ngFor="let comment of comments">
+                <comment [permissions]="permissions" [index]="i" [from]="'vobody'" [staticFiles]="staticFiles"
+                  [settings]="settings" (onDelete)="onCommentDelete($event)" (onEdit)="onCommentEdit($event)"
+                  [isActive]="currentComment == comment" [attr.id]="'comment_'+i" [customMarkers]="CustomMarkers"
+                  [classes]="colorClasses" *ngIf="comment?.valid" [comment]="comment" [params]="params"> </comment>
+              </ng-container>
+
+              <div class="text-center no_comments_found animated fadeIn" *ngIf="FilteredCommentsCounts==0">
+
+                <h5>{{translation?.myfile_no_notes_found}}. </h5>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- <div class="col-sm-6" *ngIf="CurrentTab==2">
+
+
+            <div class="row btn_resources_upload_wrapper">
+              <div class="add_comm_btn col-sm-12">
+
+                <fs-uploader [label]="'Upload'" [source]="'resources'" [configuration]="videoOptions"
+                  (onUpload)="GetNewFiles($event)"></fs-uploader>
+
+              </div>
+            </div>
+
+            <table class="table table-hover resources" *ngIf="staticFiles.length>0">
+              <thead>
+                <tr>
+                  <th>
+                    {{translation?.myfile_time}}
+                  </th>
+                  <th>
+                    {{translation?.myfile_file}}
+                  </th>
+                  <th class="text-right">
+                    {{translation?.myfile_actions}}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let file of staticFiles">
+
+                  <td class="clickable" style="width: 90px;" (click)="Seek(file.time)">
+                    <span *ngIf="file?.time!=0"> {{getFileTime(file)}} </span>
+                    <span *ngIf="file?.time<=0 || !file?.time"> {{translation?.myfile_all_video}} </span>
+                  </td>
+                  <td class="clickable" (click)="FileClicked('td', file)">
+                    <span class="oi file_icon" data-glyph="file"></span> {{file?.title}}
+                  </td>
+
+                  <td *ngIf="file.id">
+
+                    <div class="video_options btn-group" dropdown>
+
+                      <div id="button-basic" dropdownToggle class="comm_options dropdown-toggle"
+                        aria-controls="dropdown-basic" (click)="closeInfo();">
+                      
+                        <img src="assets/img/dot.svg">
+                      </div>
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                        aria-labelledby="button-basic">
+
+                        <li role="menuitem" class="fake_link" *ngIf="currnetUser.id == file.created_by">
+                          <span class="dropdown-item"
+                            (click)="InitiateDeleteResource(confirmDialogDel, file)">{{translation?.myfile_delete}}</span>
+                        </li>
+                        <li role="menuitem" class="fake_link" (click)="FileClicked('li', file)">
+                          <span class="dropdown-item">{{translation?.myfile_download}}</span>
+                        </li>
+
+                      </ul>
+
+
+                    </div>
+
+                  </td>
+                  <td *ngIf="!file.id">
+                    {{translation?.myfile_uploading}}...
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+
+          <div class="col-sm-6" *ngIf="CurrentTab==2">
+            <!--  -->
+            <!-- {{searchTerm |json}} -->
+
+            <input *ngIf="isframeworkselected" type="text" placeholder="{{translation?.vd_search_framework}}"
+              class="form-control" [(ngModel)]="searchTerm">
+            <!-- *ngIf="permissions?.framework_selected_for_video!=1" -->
+            <ng-container *ngIf="!isframeworkselected">
+              <!-- *ngIf="getSelectFrameworkPermission()" -->
+              <div>
+                <div *ngIf="!isframeworkselected">
+                  {{translation?.vd_choose_framework}}
+                </div>
+                <select class="form-control" [(ngModel)]="VideoHuddleFramework" (ngModelChange)="GetRubricById($event)">
+                  <option value="">{{translation?.vd_select_framework}} </option>
+                  <option *ngFor="let framework of frameworks" [attr.value]="framework.account_tag_id">
+                    {{framework.tag_title}}
+                  </option>
+                </select>
+                <!--  -->
+                <ng-container *ngIf="rubricPreview">
+                  <div class="preview_container">
+                    <div [style.margin-top.px]="20" size="7px" transition="0.2" railVisible="true" railOpacity="0.2"
+                      railColor="#000" height="385px" id="slimscroll" slimScroll>
+                      <rubrics [data]="rubricPreview" [previewMode]="true"></rubrics>
+                    </div>
+                  </div>
+
+
+                  <div class="text-right">
+
+                    <button class="btn btn-default" (click)="AssignFramework(confirmFrameworkSet, 0)">
+                      {{translation?.vd_cancel}} </button>
+                    <button [disabled]="!VideoHuddleFramework" class="btn btn-success"
+                      (click)="AssignFramework(confirmFrameworkSet, 1)" [style.backgroundColor]="primery_button_color">
+                      {{translation?.vd_use_framework}} </button>
+                  </div>
+
+                </ng-container>
+              </div>
+              <!-- *ngIf="!getSelectFrameworkPermission()" -->
+              <div class="text-center">
+                {{translation?.vd_you_must_define}}
+              </div>
+            </ng-container>
+
+            <!-- *ngIf="permissions?.framework_selected_for_video==1" -->
+            <rubrics *ngIf="isframeworkselected" [data]="rubrics" [term]="searchTerm">
+            </rubrics>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <!--body-->
+
+
+
+  </div>
+
+</div>
+
+
+<ng-template #confirmDialogDel>
+  <div class="modal-header">
+    <h6 class="modal-title pull-left">{{translation?.myfile_confirm}}</h6>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefDel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{translation?.myfile_are_you_sure_to_delete}}
+  </div>
+  <div class="modal-footer text-right">
+
+    <div>
+      <button class="btn btn-default" (click)="ResolveDeleteFile(0)">
+        {{translation?.myfile_cancle}}
+      </button>
+      <button class="btn btn-primary" (click)="ResolveDeleteFile(1)">
+        {{translation?.myfile_ok}}
+      </button>
+    </div>
+
+  </div>
+</ng-template>
+
+
+<ng-template #confirmFrameworkSet>
+  <div class="modal-header">
+    <h6 class="modal-title pull-left">{{translation?.vd_confirm}}</h6>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="ResolveAssignFramework(0)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{translation?.scripted_notes_assigning_a_framework}}
+  </div>
+  <div class="modal-footer text-right">
+
+    <div>
+      <button class="btn btn-default" (click)="ResolveAssignFramework(0)">
+        {{translation?.vd_cancel}}
+      </button>
+      <button class="btn btn-primary" (click)="ResolveAssignFramework(1)">
+        {{translation?.vd_ok}}
+      </button>
+    </div>
+
+  </div>
+</ng-template>

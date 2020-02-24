@@ -1,0 +1,14 @@
+<div class="clear"></div>
+<div class="container bred_an" *ngIf="HuddleInfo">
+
+  <a [routerLink]="['/']">{{translation?.myfile_home}}</a>
+
+  <img src="assets/img/breadcrumarrow.svg">
+
+  <a [routerLink]="['/workspace']">{{translation?.myfile_workspace}}</a>
+
+  <img src="assets/img/breadcrumarrow.svg">
+
+  <span>{{HuddleInfo?.huddle_title}}</span>
+
+</div>

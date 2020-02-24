@@ -1,0 +1,32 @@
+<div class="video_box">
+    <video width="508" height="400" class="vjs-matrix video-js" id="mainVideo" #vidoeTag>
+	  
+	</video>
+
+    <span>
+	</span>
+
+
+
+    <div id="overlay" class="animated slideInUp" [@enterAnimation] *ngIf="ShowInfo">
+
+        <div class="info_container">
+
+            <h6 class="col-md-11 pull-left">{{translation?.myfile_video_info}} </h6>
+            <div class="col-md-1 pull-right cross_btn fake_link" (click)="ShowInfo=false;ShowInfoBack.emit(false)" style="transform: rotate(135deg);"> <span class="oi" data-glyph="plus"></span> </div>
+
+            <div>
+                <div class="col-sm-8 pull-left">
+
+                    <label class="info_title"> {{translation?.myfile_genral_info}} </label>
+
+                    <label class="info"> {{translation?.myfile_session_date}}: {{VideoInfo.recorded_date}} </label>
+                    <label class="info"> {{translation?.myfile_times_played}}: {{VideoInfo.view_count}} </label>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

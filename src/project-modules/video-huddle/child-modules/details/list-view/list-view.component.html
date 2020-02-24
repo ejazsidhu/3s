@@ -1,0 +1,59 @@
+<shared-popup-models #popUp [artifact]="artifact"></shared-popup-models>
+<!-- <ng-container *ngIf="!Loadings.IsLoadingArtifacts && artifacts.length==0 && noRecorFound">
+    <div class="no_discussions">
+      <img src="assets/img/noun_discussion_icon.svg">
+      <p>No Artifact available. Click the green plus button above to get started.</p>
+    </div>
+  </ng-container> -->
+<div *ngIf="artifacts.length!=0">
+    <div class="huddlelist_view">
+        <div class="row list_heading">
+            <div class="col-md-5">
+                <label>{{translation?.artifact_name}}</label>
+            </div>
+            <div class="col-md-2">
+                <label>{{translation?.artifact_created_by}}</label>
+            </div>
+            <div class="col-md-2">
+                <label>{{translation?.artifact_upload}}</label>
+            </div>
+            <div class="col-md-3">
+                <label>{{translation?.artifact_action}}</label>
+            </div>
+        </div>
+        <div *ngFor="let art of artifacts | orderBy:sort:isReverse:true">
+            <!-- {{ToggleView}} -->
+            <ng-container *ngIf="art?.doc_type == 1 && (resource == 0 || resource == '1')">
+                <!-- <div class="huddlelist_view"> -->
+                <video-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></video-list>
+                <!-- </div> -->
+            </ng-container>
+
+      <ng-container *ngIf="art?.doc_type == 2 && (resource == 0 || resource == '2')">
+        <!-- <div class="huddlelist_view"> -->
+        <resources-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></resources-list>
+        <!-- </div> -->
+      </ng-container>
+      <ng-container *ngIf="art?.doc_type == 3 && (resource == 0 || resource == '3')">
+        <!-- <div class="huddlelist_view"> -->
+        <scripted-notes-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></scripted-notes-list>
+        <!-- </div> -->
+      </ng-container>
+      <ng-container *ngIf="art?.doc_type == 4 && (resource == 0 || resource == '1')">
+        <!-- <div class="huddlelist_view"> -->
+        <video-list [artifact]="art" (mouseenter)="art.mouseEntered=true" (mouseleave)="art.mouseEntered=false" (selectedArtifict)="getSelectedArtifact($event)"></video-list>
+        <!-- </div> -->
+      </ng-container>
+    </div>
+
+        <!-- <video-list *ngIf="ToggleView=='videos'"></video-list> -->
+
+        <!-- <video-list *ngIf="ToggleView=='videos'"></video-list>
+      <resources-list *ngIf="ToggleView=='resources'"></resources-list>
+      <scripted-notes *ngIf="ToggleView=='scripted'"></scripted-notes>  -->
+        <ng-container *ngIf="Loadings.IsLoadingArtifacts">
+            <artifact-list-loading class="row list_row" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+            </artifact-list-loading>
+        </ng-container>
+    </div>
+</div>

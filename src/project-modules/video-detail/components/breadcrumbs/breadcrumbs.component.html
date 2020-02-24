@@ -1,0 +1,45 @@
+<div class="clear"></div>
+<div class="container bred_an" *ngIf="HuddleInfo">
+  <ng-container *ngIf="!workspace">
+    <a [routerLink]="['/']">{{translation?.vd_home}}</a>
+
+    <img src="assets/img/breadcrumarrow.svg">
+
+    <a [routerLink]="[urls?.huddlesUrl]">{{translation?.vd_huddle}}</a>
+
+    <img src="assets/img/breadcrumarrow.svg">
+
+    <ng-container *ngIf="folders?.length>0">
+
+      <ng-container *ngFor="let folder of folders">
+
+        <a [routerLink]="[GetFolderUrl(folder)]">{{folder.folder_name}}</a>
+
+        <img src="assets/img/breadcrumarrow.svg">
+
+      </ng-container>
+    </ng-container>
+
+    <a [routerLink]="[getHuddleUrl()]">{{HuddleInfo?.name}}</a>
+
+    <img src="assets/img/breadcrumarrow.svg">
+
+    <span>{{HuddleInfo?.huddle_title}}</span>
+  </ng-container>
+  <ng-container *ngIf="workspace">
+    <a [routerLink]="['/']">{{translation?.vd_home}}</a>
+
+    <img src="assets/img/breadcrumarrow.svg">
+
+
+    <a [routerLink]="[getHuddleUrl()]">{{translation?.vd_workspace}}</a>
+
+    <img src="assets/img/breadcrumarrow.svg">
+
+    <span>{{HuddleInfo?.huddle_title}}</span>
+  </ng-container>
+</div>
+<div class="container bred_an" *ngIf="folders?.length == 0 || !HuddleInfo">
+  <div class="breadcrumb-animate"></div>
+</div>
+<div class="clear"></div>

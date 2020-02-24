@@ -1,0 +1,100 @@
+
+<div class="folder_container" [dndDraggable]="data"
+    dndEffectAllowed="move">
+       
+       <div class="inner_h" dndHandle>
+       <div class="top_hu">
+        
+         <div class="foldercls">
+            <a class="external_link_container">
+              <img  src="./assets/img/folder_gry.svg" width="23"> 
+            </a>
+            
+         </div>
+
+         
+         <div class="hu_title">
+          <a class="fake_link external_link_container" [routerLink]="['/video_huddles/list', data.folder_id]">
+          <label tooltip="{{data?.title}}">{{data.title}}</label>
+          <p>{{translation?.huddle_created_by}}: {{data.created_by_name}}</p>
+           <span>{{data.created_on}}</span>
+          </a>
+         </div> 
+       
+         <ng-container *ngIf="data?.folder_permissions">
+         <div *ngIf="!(data?.mouseEntered || isDropdownOpen)" class="h_option">
+           <a (click)="false"><img src="./assets/img/doted.svg" width="30" style="padding-top: 10px;padding-bottom: 10px"></a>
+         </div>
+          <div class="h_option" *ngIf="data?.mouseEntered || isDropdownOpen">
+          <!-- <img src="./assets/img/doted.svg" width="30"> -->
+          <span (isOpenChange)="isOpen($event)" dropdown>
+            <a href id="basic-link" dropdownToggle (click)="false"
+               aria-controls="basic-link-dropdown">
+               <img src="./assets/img/doted.svg" width="30" style="padding-top: 10px;padding-bottom: 10px"></a>
+            <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="basic-link">
+              <li> <a class="dropdown-item fake_link" (click)="EditFolder(data.folder_id)">  {{translation?.huddle_edit_btn}} </a> </li>
+              <li> <a class="dropdown-item fake_link" (click)="OnDelete.emit(data)">  {{translation?.huddle_delete_btn}} </a> </li>
+              <li *ngIf="!block_move"> <a class="dropdown-item fake_link" (click)="OnMove.emit(data.folder_id)">  {{translation?.huddle_move_btn}} </a> </li>
+            </ul>
+          </span>
+         </div> 
+       </ng-container>
+       <ng-container *ngIf="!data?.folder_permissions">
+        <div class="h_option">
+          <a>
+            <img _ngcontent-c11="" src="./assets/img/doted.svg" width="30" [style.opacity]="0">
+          </a>
+        </div>
+       </ng-container>
+         <!-- <div class="hu_op">
+             <img src="./assets/img/doted.svg" width="30">
+         </div> -->
+        <div class="clear"></div>
+        </div>
+       <div class="bottom_hu " *ngIf="isExpanded">
+           <div class="h_row">
+             <div class="h_icon">
+               <span class="coa_icon"> <img src="./assets/img/coaching_icon.svg" width="25"> </span>
+             </div>
+             <div class="h_text">
+               {{translation?.header_list_caochaing_huddle}}
+             </div>
+             <div class="h_count">
+               {{data?.stats?.coaching}}
+             </div>
+             <div class="clear"></div>
+           </div>
+           
+           <div class="h_row">
+             <div class="h_icon">
+               <span class="col_icon"> <img src="./assets/img/collaboration_icon.svg" width="25"> </span>
+             </div>
+             <div class="h_text">
+              {{translation?.header_list_collaboration_huddle}}
+               
+             </div>
+             <div class="h_count">
+               {{data?.stats?.collaboration}}
+             </div>
+             <div class="clear"></div>
+           </div>
+           
+           <div class="h_row">
+             <div class="h_icon">
+               <span class="ass_icon"> <img src="./assets/img/assessment_icon.svg" width="25"> </span>
+             </div>
+             <div class="h_text">
+               {{translation?.header_list_assessment_huddle}}
+             </div>
+             <div class="h_count">
+              {{data?.stats?.assessment}}
+             </div>
+             <div class="clear"></div>
+           </div>
+       </div>
+       </div>
+        
+        
+         
+     </div>

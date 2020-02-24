@@ -1,0 +1,30 @@
+.vertical{
+	background: grey;
+    width: 3px;
+    height: 30px;
+    top: -20px;
+    left: 35px;
+    position: absolute;
+}
+
+.horizontal{
+	background: grey;
+    width: 40px;
+    height: 3px;
+    top: 9px;
+    left: 35px;
+    position: absolute;
+}
+
+.settings_container{
+	position: relative;
+}
+
+.adjusted_text{
+	margin-top: -6px;
+}
+/*
+.question_cls {    cursor: pointer;
+    width: 17px;
+}
+*/

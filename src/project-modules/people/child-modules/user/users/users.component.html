@@ -1,0 +1,1429 @@
+<div class="row pan_heading">
+    <div class="col-12">
+        <h3>{{translation?.people_people_section}}</h3>
+
+
+
+    </div>
+
+</div>
+<!-- <a (click)="goTo('adduser')">Go TO DIV</a> -->
+
+<div class="tabs_barcls">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+
+                    <a class="active" data-toggle="tab" role="tab">{{translation?.people_people_section}}</a>
+                </li>
+                <li class="nav-item itm2">
+                    <a data-toggle="tab" [routerLink]="['/people/home/groups']" role="tab">{{translation?.poeple_group}}</a>
+                </li>
+                <div class="clear"></div>
+
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+<div class="clear"></div>
+<div class="row people_sec">
+    <ng-container *ngIf="!skeletonLoading">
+        <div class="col-md-6 p_owner">
+            <h4>{{translation?.account_owner_people_section}} <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',100)"></h4>
+
+            <div class="p_img">
+                <img src="{{ImageUrlBuilder(accountOwner)}}">
+            </div>
+            <div class="p_detail">
+                <label>{{accountOwner?.first_name}} {{accountOwner?.last_name}}</label>
+                <p><a href="mailto:{{accountOwner?.email}}">{{accountOwner?.email}}</a></p>
+                <div class="p_options">
+                    <a *ngIf="accountOwnerAccess" class="p_icon1" [routerLink]="['permission/',accountOwner?.account_id,accountOwner?.id,accountOwner?.role]"> <svg xmlns="http://www.w3.org/2000/svg" width="10.494" height="12.752" viewBox="0 0 10.494 12.752">
+ <g id="noun_Shield_2057393" transform="translate(1.46 3.496)" opacity="0.52">
+   <g id="Group_443" data-name="Group 443" transform="translate(0 -0.25)">
+     <path id="Path_1" data-name="Path 1" d="M4.989-.153A11.259,11.259,0,0,1,.473,1.223.559.559,0,0,0,0,1.782V6.169c0,3.613,2.408,4.559,4.946,6.236a.517.517,0,0,0,.6,0c2.537-1.677,4.946-2.624,4.946-6.236V1.782a.559.559,0,0,0-.473-.559A11.259,11.259,0,0,1,5.505-.153.392.392,0,0,0,4.989-.153Zm-.645,7.1L6.924,4.32a.487.487,0,1,1,.688.688L4.688,7.932A.483.483,0,0,1,4,7.975L2.882,6.857a.487.487,0,0,1,.688-.688Z" transform="translate(-1.459 -2.996)" fill-rule="evenodd"/>
+   </g>
+ </g>
+</svg> {{translation?.poeple_access}} </a>
+                    <a *ngIf="accountOwnerPassword" class="p_icon2" (click)="showModal('changepassword');modalData(accountOwner);"><svg xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026" viewBox="0 0 20.027 20.026">
+ <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+   <g id="Group_444" data-name="Group deactivateSearch444" transform="translate(8 8)">
+     <path id="Path_2" data-name="Path 2" d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z" transform="translate(-8.088 -13.415) rotate(45)"/>
+   </g>
+ </g>
+</svg>{{translation?.poeple_password}} </a>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div *ngIf="AddMultiPeoplePrem" class="col-md-6 p_add">
+            <label>{{translation?.poeple_add_multiple_people}}</label>
+            <a (click)="showModal('multipeople')" style="color:white;cursor: pointer;"><img src="assets/img/pluswicon.svg"> {{translation?.poeple_add}}</a>
+        </div>
+    </ng-container>
+    <!-- Skeleton Loading Start -->
+    <ng-container *ngIf="skeletonLoading">
+        <div class="col-md-6 p_owner">
+            <h4 class="sm_headig p_ani"></h4>
+
+            <div class="p_img">
+                <span class="pimg p_ani"></span>
+            </div>
+            <div class="p_detail">
+                <label class="p_ani ptext"> </label>
+                <p class="p_ani ptext2"> </p>
+                <div class="p_options">
+                    <a class="p_icon1" href="#"><span class="ptext3 p_ani"></span></a>
+                    <a class="p_icon2" href="#"> <span class="ptext3 p_ani"></span></a>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="col-md-6 p_add">
+            <label class="p_ani2 ptext4"></label>
+
+            <label class="p_ani2 ptext5"></label>
+        </div>
+    </ng-container>
+    <!-- Skeletron Loading End  -->
+</div>
+
+<!-- Sections Views Start -->
+<ng-container *ngIf="!skeletonLoading">
+    <!-- Super Admin Section Start -->
+    <div class="people_box">
+        <div class="row">
+            <div class="col-md-5 p_hading">
+                <h4>{{translation?.super_admins_people_section}} ({{(supperAdmins | search:superAdminSearch:'full_name,first_name,last_name,email':false)?.length}}) <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',110)"></h4>
+
+            </div>
+
+            <div class="col-md-7 p_search">
+                <a *ngIf="superAdminAdd" (click)="addusr_roleid=110;showModal('newsuper');" style="color:white;cursor: pointer;"><img src="assets/img/pluswicon.svg"> {{translation?.people_add_super_admin }}</a>
+                <span class="pserch_field">
+                   <form autocomplete="off"><input type="text" placeholder='{{translation?.search_super_admins_people_section}}' name="superAdminSearch" [(ngModel)]="superAdminSearch" (ngModelChange)="pS=1;" autocomplete="off"></form>
+                <img  *ngIf="superAdminSearch?.length>0"  src="assets/img/x.svg" (click)="superAdminSearch=''">
+                </span>
+                <div class="clear"></div>
+
+            </div>
+            <ng-container *ngIf="supperAdmins.length!=[]">
+                <div *ngFor="let sadmin of supperAdmins | uniqueUser | search:superAdminSearch:'full_name,first_name,last_name,email':false | orderBy:'first_name' | paginate: { itemsPerPage: 12, currentPage: pS, id: 'sadmins' }" class="col-md-4">
+
+                    <div *ngIf="sadmin.type=='Active'" class="p_img2">
+                        <img src="{{ImageUrlBuilder(sadmin)}}">
+                    </div>
+                    <div *ngIf="sadmin.type!='Active'" (click)="modalData(sadmin);showModal('resend_inv');" style="cursor: pointer;" class="p_img2 non-active-user" (mouseenter)="sadmin.mouseenter=true" (mouseleave)="sadmin.mouseenter=false">
+                        <svg *ngIf="!sadmin.mouseenter" xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                            <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                    <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                        fill="#fff" />
+                                    <path id="Path_8" data-name="Path 8"
+                                        d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                        transform="translate(0 -44.656)" fill="#fff" />
+                                </g>
+                            </g>
+                        </svg>
+                        <svg *ngIf="sadmin.mouseenter" class="env-svg" xmlns="http://www.w3.org/2000/svg" width="22.725" height="17.855" viewBox="0 0 22.725 17.855">
+                            <path id="envelope-o"
+                                d="M21.1,271.826v-9.739a7.431,7.431,0,0,1-.875.837q-3.4,2.612-5.4,4.286-.647.545-1.053.85a5.858,5.858,0,0,1-1.1.615,3.181,3.181,0,0,1-1.3.311H11.35a3.181,3.181,0,0,1-1.3-.311,5.858,5.858,0,0,1-1.1-.615q-.406-.3-1.053-.85-2-1.674-5.4-4.286a7.431,7.431,0,0,1-.875-.837v9.739a.411.411,0,0,0,.406.406H20.7a.411.411,0,0,0,.406-.406Zm0-13.328v-.311l-.006-.165-.038-.159-.07-.114-.114-.1-.178-.032H2.029a.411.411,0,0,0-.406.406,4.439,4.439,0,0,0,1.864,3.6q2.447,1.928,5.085,4.02l.444.374q.368.311.583.476t.564.4a3.379,3.379,0,0,0,.64.349,1.5,1.5,0,0,0,.545.114h.025a1.5,1.5,0,0,0,.545-.114,3.379,3.379,0,0,0,.64-.349q.349-.235.564-.4t.583-.476l.444-.374q2.638-2.092,5.085-4.02a5.961,5.961,0,0,0,1.274-1.465A3.167,3.167,0,0,0,21.1,258.5Zm1.623-.469v13.8a2.035,2.035,0,0,1-2.029,2.029H2.029a1.954,1.954,0,0,1-1.433-.6,1.954,1.954,0,0,1-.6-1.433v-13.8A1.954,1.954,0,0,1,.6,256.6a1.954,1.954,0,0,1,1.433-.6H20.7a2.035,2.035,0,0,1,2.029,2.029Z"
+                                transform="translate(0 -256)" fill="#fff" />
+                        </svg>
+                    </div>
+                    <div class="p_detail2">
+                        <label *ngIf="sadmin?.title != null"><span [tooltip]='sadmin?.title'>{{sadmin?.first_name}} {{sadmin?.last_name}}</span></label>
+                        <label *ngIf="sadmin?.title == null">{{sadmin?.first_name}} {{sadmin?.last_name}}</label>
+                        <p><a href="mailto:{{sadmin?.email}}">{{sadmin?.email}}</a></p>
+                        <div class="p_options">
+                            <a *ngIf="superadminAccess" class="p_icon1" [routerLink]="['permission/',sadmin?.account_id,sadmin?.id,sadmin?.role]"> <svg xmlns="http://www.w3.org/2000/svg" width="10.494" height="12.752" viewBox="0 0 10.494 12.752">
+                  <g id="noun_Shield_2057393" transform="translate(1.46 3.496)" opacity="0.52">
+                    <g id="Group_443" data-name="Group 443" transform="translate(0 -0.25)">
+                      <path id="Path_1" data-name="Path 1"
+                        d="M4.989-.153A11.259,11.259,0,0,1,.473,1.223.559.559,0,0,0,0,1.782V6.169c0,3.613,2.408,4.559,4.946,6.236a.517.517,0,0,0,.6,0c2.537-1.677,4.946-2.624,4.946-6.236V1.782a.559.559,0,0,0-.473-.559A11.259,11.259,0,0,1,5.505-.153.392.392,0,0,0,4.989-.153Zm-.645,7.1L6.924,4.32a.487.487,0,1,1,.688.688L4.688,7.932A.483.483,0,0,1,4,7.975L2.882,6.857a.487.487,0,0,1,.688-.688Z"
+                        transform="translate(-1.459 -2.996)" fill-rule="evenodd" />
+                    </g>
+                  </g>
+                </svg> {{translation?.poeple_access}} </a>
+                            <a *ngIf="superadminAccess && passwordChange" class="p_icon2" (click)="showModal('changepassword');modalData(sadmin);"><svg xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026"
+                  viewBox="0 0 20.027 20.026">
+                  <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+                    <g id="Group_444" data-name="Group 444" transform="translate(8 8)">
+                      <path id="Path_2" data-name="Path 2"
+                        d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z"
+                        transform="translate(-8.088 -13.415) rotate(45)" />
+                    </g>
+                  </g>
+                </svg>{{translation?.poeple_password}} </a>
+                            <a *ngIf="superadminAccess && deActive" (click)="showModal('deactiveDelete');modalData(sadmin);" class="p_icon3"><svg xmlns="http://www.w3.org/2000/svg" width="10.172" height="10.714"
+                  viewBox="0 0 10.172 10.714">
+                  <g id="Group_681" data-name="Group 681" transform="translate(0)">
+                    <g id="Group_680" data-name="Group 680" transform="translate(0)">
+                      <g id="Group_679" data-name="Group 679" transform="translate(0 1.742)">
+                        <path id="Path_9" data-name="Path 9"
+                          d="M7.156,20.151a5.086,5.086,0,0,1-3.476-8.8.644.644,0,1,1,.88.939,3.762,3.762,0,0,0-1.2,2.774A3.8,3.8,0,1,0,9.8,12.334a.644.644,0,0,1,.895-.925,5.086,5.086,0,0,1-3.535,8.742Z"
+                          transform="translate(-2.07 -11.178)" fill="#797979" />
+                      </g>
+                      <path id="Path_10" data-name="Path 10"
+                        d="M31.224,5.5a.643.643,0,0,1-.643-.643V.643a.643.643,0,0,1,1.287,0V4.86A.643.643,0,0,1,31.224,5.5Z"
+                        transform="translate(-26.138)" fill="#797979" />
+                    </g>
+                  </g>
+                </svg> {{translation?.deactivate_people_section}} </a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="p_nouser" *ngIf="supperAdmins.length==0 && superAdminSearch==''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_super_admins}}</p>
+
+            </div>
+            <div class="p_nouser" *ngIf="(supperAdmins | search:superAdminSearch:'full_name,first_name,last_name,email':false)?.length==0 && superAdminSearch!=''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_super_admin_found}}</p>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="p_page" *ngIf="(supperAdmins | search:superAdminSearch:'full_name,first_name,last_name,email':false)?.length>12">
+            <pagination-controls id="sadmins" previousLabel="<" nextLabel=">" (pageChange)="pS = $event"></pagination-controls>
+        </div>
+    </div>
+    <!--d-->
+    <!-- Super Admin Section End -->
+    <div class="people_box">
+        <div class="row">
+            <div class="col-md-5 p_hading">
+                <h4>{{translation?.admins_people_section}} ({{(admins | search:adminSearch:'full_name,first_name,last_name,email':false)?.length}}) <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',115)"></h4>
+
+            </div>
+
+            <div class="col-md-7 p_search">
+                <a (click)="addusr_roleid=115;showModal('newsuper');" style="color:white;cursor: pointer;"><img src="assets/img/pluswicon.svg"> {{translation?.people_add_admin}}</a>
+                <span class="pserch_field">
+                    <form autocomplete="off"><input type="text" placeholder="{{translation?.search_admins_people_section}}" name="adminSearch" [(ngModel)]="adminSearch" (ngModelChange)="pA=1;" autocomplete="off"></form>
+                <img  *ngIf="adminSearch?.length>0"  src="assets/img/x.svg" (click)="adminSearch=''">
+            </span>
+                <div class="clear"></div>
+
+            </div>
+            <ng-container *ngIf="admins!=[]">
+                <div *ngFor="let admin of admins | uniqueUser | search:adminSearch:'full_name,first_name,last_name,email':false | orderBy:'first_name' | paginate: { itemsPerPage: 12, currentPage: pA, id: 'admins' }" class="col-md-4">
+                    <div *ngIf="admin.type=='Active'" class="p_img2">
+                        <img src="{{ImageUrlBuilder(admin)}}">
+                    </div>
+                    <div *ngIf="admin.type!='Active'" (click)="modalData(admin);showModal('resend_inv');" style="cursor: pointer;" class="p_img2 non-active-user" (mouseenter)="admin.mouseenter=true" (mouseleave)="admin.mouseenter=false">
+                        <svg *ngIf="!admin.mouseenter" xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                    <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                        <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                            fill="#fff" />
+                                        <path id="Path_8" data-name="Path 8"
+                                            d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                            transform="translate(0 -44.656)" fill="#fff" />
+                                    </g>
+                                </g>
+                            </svg>
+                        <svg *ngIf="admin.mouseenter" class="env-svg" xmlns="http://www.w3.org/2000/svg" width="22.725" height="17.855" viewBox="0 0 22.725 17.855">
+                                <path id="envelope-o"
+                                    d="M21.1,271.826v-9.739a7.431,7.431,0,0,1-.875.837q-3.4,2.612-5.4,4.286-.647.545-1.053.85a5.858,5.858,0,0,1-1.1.615,3.181,3.181,0,0,1-1.3.311H11.35a3.181,3.181,0,0,1-1.3-.311,5.858,5.858,0,0,1-1.1-.615q-.406-.3-1.053-.85-2-1.674-5.4-4.286a7.431,7.431,0,0,1-.875-.837v9.739a.411.411,0,0,0,.406.406H20.7a.411.411,0,0,0,.406-.406Zm0-13.328v-.311l-.006-.165-.038-.159-.07-.114-.114-.1-.178-.032H2.029a.411.411,0,0,0-.406.406,4.439,4.439,0,0,0,1.864,3.6q2.447,1.928,5.085,4.02l.444.374q.368.311.583.476t.564.4a3.379,3.379,0,0,0,.64.349,1.5,1.5,0,0,0,.545.114h.025a1.5,1.5,0,0,0,.545-.114,3.379,3.379,0,0,0,.64-.349q.349-.235.564-.4t.583-.476l.444-.374q2.638-2.092,5.085-4.02a5.961,5.961,0,0,0,1.274-1.465A3.167,3.167,0,0,0,21.1,258.5Zm1.623-.469v13.8a2.035,2.035,0,0,1-2.029,2.029H2.029a1.954,1.954,0,0,1-1.433-.6,1.954,1.954,0,0,1-.6-1.433v-13.8A1.954,1.954,0,0,1,.6,256.6a1.954,1.954,0,0,1,1.433-.6H20.7a2.035,2.035,0,0,1,2.029,2.029Z"
+                                    transform="translate(0 -256)" fill="#fff" />
+                            </svg>
+                    </div>
+                    <div class="p_detail2">
+                        <label *ngIf="admin?.title != null"><span [tooltip]='admin?.title'>{{admin?.first_name}} {{admin?.last_name}}</span></label>
+                        <label *ngIf="admin?.title == null">{{admin?.first_name}} {{admin?.last_name}}</label>
+                        <p><a href="mailto:{{admin?.email}}">{{admin?.email}}</a></p>
+                        <div class="p_options">
+                            <a *ngIf="adminAccess" class="p_icon1" [routerLink]="['permission/',admin?.account_id,admin?.id,admin?.role]"> <svg xmlns="http://www.w3.org/2000/svg" width="10.494" height="12.752" viewBox="0 0 10.494 12.752">
+                  <g id="noun_Shield_2057393" transform="translate(1.46 3.496)" opacity="0.52">
+                    <g id="Group_443" data-name="Group 443" transform="translate(0 -0.25)">
+                      <path id="Path_1" data-name="Path 1"
+                        d="M4.989-.153A11.259,11.259,0,0,1,.473,1.223.559.559,0,0,0,0,1.782V6.169c0,3.613,2.408,4.559,4.946,6.236a.517.517,0,0,0,.6,0c2.537-1.677,4.946-2.624,4.946-6.236V1.782a.559.559,0,0,0-.473-.559A11.259,11.259,0,0,1,5.505-.153.392.392,0,0,0,4.989-.153Zm-.645,7.1L6.924,4.32a.487.487,0,1,1,.688.688L4.688,7.932A.483.483,0,0,1,4,7.975L2.882,6.857a.487.487,0,0,1,.688-.688Z"
+                        transform="translate(-1.459 -2.996)" fill-rule="evenodd" />
+                    </g>
+                  </g>
+                </svg> {{translation?.poeple_access}} </a>
+                            <a *ngIf="adminAccess && passwordChange" class="p_icon2" (click)="showModal('changepassword');modalData(admin);"><svg xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026"
+                  viewBox="0 0 20.027 20.026">
+                  <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+                    <g id="Group_444" data-name="Group 444" transform="translate(8 8)">
+                      <path id="Path_2" data-name="Path 2"
+                        d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z"
+                        transform="translate(-8.088 -13.415) rotate(45)" />
+                    </g>
+                  </g>
+                </svg>{{translation?.poeple_password}} </a>
+                            <a *ngIf="adminAccess && deActive" (click)="showModal('deactiveDelete');modalData(admin);" class="p_icon3"><svg xmlns="http://www.w3.org/2000/svg" width="10.172" height="10.714"
+                  viewBox="0 0 10.172 10.714">
+                  <g id="Group_681" data-name="Group 681" transform="translate(0)">
+                    <g id="Group_680" data-name="Group 680" transform="translate(0)">
+                      <g id="Group_679" data-name="Group 679" transform="translate(0 1.742)">
+                        <path id="Path_9" data-name="Path 9"
+                          d="M7.156,20.151a5.086,5.086,0,0,1-3.476-8.8.644.644,0,1,1,.88.939,3.762,3.762,0,0,0-1.2,2.774A3.8,3.8,0,1,0,9.8,12.334a.644.644,0,0,1,.895-.925,5.086,5.086,0,0,1-3.535,8.742Z"
+                          transform="translate(-2.07 -11.178)" fill="#797979" />
+                      </g>
+                      <path id="Path_10" data-name="Path 10"
+                        d="M31.224,5.5a.643.643,0,0,1-.643-.643V.643a.643.643,0,0,1,1.287,0V4.86A.643.643,0,0,1,31.224,5.5Z"
+                        transform="translate(-26.138)" fill="#797979" />
+                    </g>
+                  </g>
+                </svg> {{translation?.deactivate_people_section}} </a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="p_nouser" *ngIf="admins.length==0 && adminSearch==''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_admins_have_been_added}}.</p>
+
+            </div>
+            <div class="p_nouser" *ngIf="(admins | search:adminSearch:'full_name,first_name,last_name,email':false)?.length==0 && adminSearch!=''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_admin_found}}</p>
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="p_page" *ngIf="(admins | search:adminSearch:'full_name,first_name,last_name,email':false)?.length>12">
+                <pagination-controls id="admins" previousLabel="<" nextLabel=">" (pageChange)="pA = $event"></pagination-controls>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="clear"></div>
+    </div>
+    <!--d-->
+
+    <div class="people_box" id="adduser" #adduser1>
+        <div class="row">
+            <div class="col-md-5 p_hading">
+                <h4>{{translation?.user_people_section_single}} ({{(users | search:userSearch:'full_name,first_name,last_name,email':false)?.length}}) <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',120)"></h4>
+
+            </div>
+
+            <div class="col-md-7 p_search">
+                <a (click)="addusr_roleid=120;showModal('newsuper');" style="color:white;cursor: pointer;"><img src="assets/img/pluswicon.svg"> {{translation?.people_add_user }}</a>
+                <span class="pserch_field">
+                   <form autocomplete="off"> <input type="text" placeholder="{{translation?.search_users_people_section}}" name="userSearch" [(ngModel)]="userSearch" (ngModelChange)="pU=1;" autocomplete="off"></form>
+                <img  *ngIf="userSearch?.length>0"  src="assets/img/x.svg" (click)="userSearch=''">
+            </span>
+                <div class="clear"></div>
+
+            </div>
+            <ng-container *ngIf="users.length!=[]">
+                <div *ngFor="let user of users | uniqueUser | search:userSearch:'full_name,first_name,last_name,email':false | orderBy:'first_name' | paginate: { itemsPerPage: 12, currentPage: pU, id: 'users' }" class="col-md-4">
+                    <div *ngIf="user.type=='Active'" class="p_img2">
+                        <img src="{{ImageUrlBuilder(user)}}">
+                    </div>
+                    <div *ngIf="user.type!='Active'" (click)="modalData(user);showModal('resend_inv');" style="cursor: pointer;" class="p_img2 non-active-user" (mouseenter)="user.mouseenter=true" (mouseleave)="user.mouseenter=false">
+                        <svg *ngIf="!user.mouseenter" xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                    <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                        <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                            fill="#fff" />
+                                        <path id="Path_8" data-name="Path 8"
+                                            d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                            transform="translate(0 -44.656)" fill="#fff" />
+                                    </g>
+                                </g>
+                            </svg>
+                        <svg *ngIf="user.mouseenter" class="env-svg" xmlns="http://www.w3.org/2000/svg" width="22.725" height="17.855" viewBox="0 0 22.725 17.855">
+                                <path id="envelope-o"
+                                    d="M21.1,271.826v-9.739a7.431,7.431,0,0,1-.875.837q-3.4,2.612-5.4,4.286-.647.545-1.053.85a5.858,5.858,0,0,1-1.1.615,3.181,3.181,0,0,1-1.3.311H11.35a3.181,3.181,0,0,1-1.3-.311,5.858,5.858,0,0,1-1.1-.615q-.406-.3-1.053-.85-2-1.674-5.4-4.286a7.431,7.431,0,0,1-.875-.837v9.739a.411.411,0,0,0,.406.406H20.7a.411.411,0,0,0,.406-.406Zm0-13.328v-.311l-.006-.165-.038-.159-.07-.114-.114-.1-.178-.032H2.029a.411.411,0,0,0-.406.406,4.439,4.439,0,0,0,1.864,3.6q2.447,1.928,5.085,4.02l.444.374q.368.311.583.476t.564.4a3.379,3.379,0,0,0,.64.349,1.5,1.5,0,0,0,.545.114h.025a1.5,1.5,0,0,0,.545-.114,3.379,3.379,0,0,0,.64-.349q.349-.235.564-.4t.583-.476l.444-.374q2.638-2.092,5.085-4.02a5.961,5.961,0,0,0,1.274-1.465A3.167,3.167,0,0,0,21.1,258.5Zm1.623-.469v13.8a2.035,2.035,0,0,1-2.029,2.029H2.029a1.954,1.954,0,0,1-1.433-.6,1.954,1.954,0,0,1-.6-1.433v-13.8A1.954,1.954,0,0,1,.6,256.6a1.954,1.954,0,0,1,1.433-.6H20.7a2.035,2.035,0,0,1,2.029,2.029Z"
+                                    transform="translate(0 -256)" fill="#fff" />
+                            </svg>
+                    </div>
+                    <div class="p_detail2">
+                        <label *ngIf="user?.title != null"><span [tooltip]='user?.title'>{{user?.first_name}} {{user?.last_name}}</span></label>
+                        <label *ngIf="user?.title == null">{{user?.first_name}} {{user?.last_name}}</label>
+                        <p><a href="mailto:{{user?.email}}">{{user?.email}}</a></p>
+                        <div class="p_options">
+                            <a *ngIf="userAccess" class="p_icon1" [routerLink]="['permission/',user?.account_id,user?.id,user?.role]"> <svg xmlns="http://www.w3.org/2000/svg" width="10.494" height="12.752" viewBox="0 0 10.494 12.752">
+                  <g id="noun_Shield_2057393" transform="translate(1.46 3.496)" opacity="0.52">
+                    <g id="Group_443" data-name="Group 443" transform="translate(0 -0.25)">
+                      <path id="Path_1" data-name="Path 1"
+                        d="M4.989-.153A11.259,11.259,0,0,1,.473,1.223.559.559,0,0,0,0,1.782V6.169c0,3.613,2.408,4.559,4.946,6.236a.517.517,0,0,0,.6,0c2.537-1.677,4.946-2.624,4.946-6.236V1.782a.559.559,0,0,0-.473-.559A11.259,11.259,0,0,1,5.505-.153.392.392,0,0,0,4.989-.153Zm-.645,7.1L6.924,4.32a.487.487,0,1,1,.688.688L4.688,7.932A.483.483,0,0,1,4,7.975L2.882,6.857a.487.487,0,0,1,.688-.688Z"
+                        transform="translate(-1.459 -2.996)" fill-rule="evenodd" />
+                    </g>
+                  </g>
+                </svg> {{translation?.poeple_access}} </a>
+                            <a *ngIf="userAccess && passwordChange" class="p_icon2" (click)="showModal('changepassword');modalData(user);"><svg xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026"
+                  viewBox="0 0 20.027 20.026">
+                  <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+                    <g id="Group_444" data-name="Group 444" transform="translate(8 8)">
+                      <path id="Path_2" data-name="Path 2"
+                        d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z"
+                        transform="translate(-8.088 -13.415) rotate(45)" />
+                    </g>
+                  </g>
+                </svg>{{translation?.poeple_password}} </a>
+                            <a *ngIf="userAccess && deActive" (click)="showModal('deactiveDelete');modalData(user);" class="p_icon3"><svg xmlns="http://www.w3.org/2000/svg" width="10.172" height="10.714"
+                  viewBox="0 0 10.172 10.714">
+                  <g id="Group_681" data-name="Group 681" transform="translate(0)">
+                    <g id="Group_680" data-name="Group 680" transform="translate(0)">
+                      <g id="Group_679" data-name="Group 679" transform="translate(0 1.742)">
+                        <path id="Path_9" data-name="Path 9"
+                          d="M7.156,20.151a5.086,5.086,0,0,1-3.476-8.8.644.644,0,1,1,.88.939,3.762,3.762,0,0,0-1.2,2.774A3.8,3.8,0,1,0,9.8,12.334a.644.644,0,0,1,.895-.925,5.086,5.086,0,0,1-3.535,8.742Z"
+                          transform="translate(-2.07 -11.178)" fill="#797979" />
+                      </g>
+                      <path id="Path_10" data-name="Path 10"
+                        d="M31.224,5.5a.643.643,0,0,1-.643-.643V.643a.643.643,0,0,1,1.287,0V4.86A.643.643,0,0,1,31.224,5.5Z"
+                        transform="translate(-26.138)" fill="#797979" />
+                    </g>
+                  </g>
+                </svg> {{translation?.deactivate_people_section}} </a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="p_nouser" *ngIf="users.length==0 && userSearch==''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.no_users_added_people_section}}.</p>
+
+            </div>
+            <div class="p_nouser" *ngIf="(users | search:userSearch:'full_name,first_name,last_name,email':false)?.length==0 && userSearch!=''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_user_found}}</p>
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="p_page" *ngIf="(users | search:userSearch:'full_name,first_name,last_name,email':false)?.length>12">
+                <pagination-controls id="users" previousLabel="<" nextLabel=">" (pageChange)="pU = $event"></pagination-controls>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="clear"></div>
+    </div>
+    <!--d-->
+
+
+
+    <div class="people_box">
+        <div class="row">
+            <div class="col-md-5 p_hading">
+                <h4>{{translation?.viewers_people_section}} ({{(viewers | search:viewerSearch:'full_name,first_name,last_name,email':false)?.length}}) <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',125)"></h4>
+
+            </div>
+
+            <div class="col-md-7 p_search">
+                <a (click)="addusr_roleid=125;showModal('newsuper');" style="color:white;cursor: pointer;"><img src="assets/img/pluswicon.svg"> {{translation?.people_add_viewer}}</a>
+                <span class="pserch_field">
+                    <form autocomplete="off">
+
+
+                <input type="text" placeholder="{{translation?.search_viewers_people_section}}" name="viewerSearch" [(ngModel)]="viewerSearch" (ngModelChange)="pV=1;" autocomplete="off">
+                    </form><img  *ngIf="viewerSearch?.length>0"  src="assets/img/x.svg" (click)="viewerSearch=''">
+            </span>
+                <div class="clear"></div>
+
+            </div>
+            <ng-container *ngIf="viewers!=[]">
+                <div *ngFor="let viewer of viewers | uniqueUser | search:viewerSearch:'full_name,first_name,last_name,email':false | orderBy:'first_name' | paginate: { itemsPerPage: 12, currentPage: pV, id: 'viewer' }" class="col-md-4">
+                    <div *ngIf="viewer.type=='Active'" class="p_img2">
+                        <img src="{{ImageUrlBuilder(viewer)}}">
+                    </div>
+                    <div *ngIf="viewer.type!='Active'" (click)="modalData(viewer);showModal('resend_inv');" style="cursor: pointer;" class="p_img2 non-active-user" (mouseenter)="viewer.mouseenter=true" (mouseleave)="viewer.mouseenter=false">
+                        <svg *ngIf="!viewer.mouseenter" xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                    <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                        <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                            fill="#fff" />
+                                        <path id="Path_8" data-name="Path 8"
+                                            d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                            transform="translate(0 -44.656)" fill="#fff" />
+                                    </g>
+                                </g>
+                            </svg>
+                        <svg *ngIf="viewer.mouseenter" class="env-svg" xmlns="http://www.w3.org/2000/svg" width="22.725" height="17.855" viewBox="0 0 22.725 17.855">
+                                <path id="envelope-o"
+                                    d="M21.1,271.826v-9.739a7.431,7.431,0,0,1-.875.837q-3.4,2.612-5.4,4.286-.647.545-1.053.85a5.858,5.858,0,0,1-1.1.615,3.181,3.181,0,0,1-1.3.311H11.35a3.181,3.181,0,0,1-1.3-.311,5.858,5.858,0,0,1-1.1-.615q-.406-.3-1.053-.85-2-1.674-5.4-4.286a7.431,7.431,0,0,1-.875-.837v9.739a.411.411,0,0,0,.406.406H20.7a.411.411,0,0,0,.406-.406Zm0-13.328v-.311l-.006-.165-.038-.159-.07-.114-.114-.1-.178-.032H2.029a.411.411,0,0,0-.406.406,4.439,4.439,0,0,0,1.864,3.6q2.447,1.928,5.085,4.02l.444.374q.368.311.583.476t.564.4a3.379,3.379,0,0,0,.64.349,1.5,1.5,0,0,0,.545.114h.025a1.5,1.5,0,0,0,.545-.114,3.379,3.379,0,0,0,.64-.349q.349-.235.564-.4t.583-.476l.444-.374q2.638-2.092,5.085-4.02a5.961,5.961,0,0,0,1.274-1.465A3.167,3.167,0,0,0,21.1,258.5Zm1.623-.469v13.8a2.035,2.035,0,0,1-2.029,2.029H2.029a1.954,1.954,0,0,1-1.433-.6,1.954,1.954,0,0,1-.6-1.433v-13.8A1.954,1.954,0,0,1,.6,256.6a1.954,1.954,0,0,1,1.433-.6H20.7a2.035,2.035,0,0,1,2.029,2.029Z"
+                                    transform="translate(0 -256)" fill="#fff" />
+                            </svg>
+                    </div>
+                    <div class="p_detail2">
+                        <label *ngIf="viewer?.title != null"><span [tooltip]='viewer?.title'>{{viewer?.first_name}} {{viewer?.last_name}}</span></label>
+                        <label *ngIf="viewer?.title == null">{{viewer?.first_name}} {{viewer?.last_name}}</label>
+                        <p><a href="mailto:{{viewer?.email}}">{{viewer?.email}}</a></p>
+                        <div class="p_options">
+                            <a *ngIf="viewerAccess" class="p_icon1" [routerLink]="['permission/',viewer?.account_id,viewer?.id,viewer?.role]"> <svg xmlns="http://www.w3.org/2000/svg" width="10.494" height="12.752" viewBox="0 0 10.494 12.752">
+ <g id="noun_Shield_2057393" transform="translate(1.46 3.496)" opacity="0.52">
+   <g id="Group_443" data-name="Group 443" transform="translate(0 -0.25)">
+     <path id="Path_1" data-name="Path 1" d="M4.989-.153A11.259,11.259,0,0,1,.473,1.223.559.559,0,0,0,0,1.782V6.169c0,3.613,2.408,4.559,4.946,6.236a.517.517,0,0,0,.6,0c2.537-1.677,4.946-2.624,4.946-6.236V1.782a.559.559,0,0,0-.473-.559A11.259,11.259,0,0,1,5.505-.153.392.392,0,0,0,4.989-.153Zm-.645,7.1L6.924,4.32a.487.487,0,1,1,.688.688L4.688,7.932A.483.483,0,0,1,4,7.975L2.882,6.857a.487.487,0,0,1,.688-.688Z" transform="translate(-1.459 -2.996)" fill-rule="evenodd"/>
+   </g>
+ </g>
+</svg> {{translation?.poeple_access}} </a>
+                            <a *ngIf="viewerAccess && passwordChange" class="p_icon2" (click)="showModal('changepassword');modalData(viewer);"><svg xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026" viewBox="0 0 20.027 20.026">
+ <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+   <g id="Group_444" data-name="Group 444" transform="translate(8 8)">
+     <path id="Path_2" data-name="Path 2" d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z" transform="translate(-8.088 -13.415) rotate(45)"/>
+   </g>
+ </g>
+</svg>{{translation?.poeple_password}} </a>
+                            <a *ngIf="viewerAccess && deActive" (click)="showModal('deactiveDelete');modalData(viewer);" class="p_icon3"><svg xmlns="http://www.w3.org/2000/svg" width="10.172" height="10.714" viewBox="0 0 10.172 10.714">
+ <g id="Group_681" data-name="Group 681" transform="translate(0)">
+   <g id="Group_680" data-name="Group 680" transform="translate(0)">
+     <g id="Group_679" data-name="Group 679" transform="translate(0 1.742)">
+       <path id="Path_9" data-name="Path 9" d="M7.156,20.151a5.086,5.086,0,0,1-3.476-8.8.644.644,0,1,1,.88.939,3.762,3.762,0,0,0-1.2,2.774A3.8,3.8,0,1,0,9.8,12.334a.644.644,0,0,1,.895-.925,5.086,5.086,0,0,1-3.535,8.742Z" transform="translate(-2.07 -11.178)" fill="#797979"/>
+     </g>
+     <path id="Path_10" data-name="Path 10" d="M31.224,5.5a.643.643,0,0,1-.643-.643V.643a.643.643,0,0,1,1.287,0V4.86A.643.643,0,0,1,31.224,5.5Z" transform="translate(-26.138)" fill="#797979"/>
+   </g>
+ </g>
+</svg> {{translation?.deactivate_people_section}} </a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="p_nouser" *ngIf="viewers.length==0 && viewerSearch==''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_viewers_added}}</p>
+
+            </div>
+            <div class="p_nouser" *ngIf="(viewers | search:viewerSearch:'full_name,first_name,last_name,email':false)?.length==0 && viewerSearch!=''">
+
+                <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_viewers_found}}</p>
+
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="p_page" *ngIf="(viewers | search:viewerSearch:'full_name,first_name,last_name,email':false)?.length>12">
+                <pagination-controls id="viewer" previousLabel="<" nextLabel=">" (pageChange)="pV = $event"></pagination-controls>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="clear"></div>
+    </div>
+    <!--d-->
+</ng-container>
+<!-- Sections Views End  -->
+<!-- Sections Views Skeleton Loading Start -->
+<ng-container *ngIf="skeletonLoading">
+    <div class="people_box" *ngFor="let item of [1,2,3,4]">
+        <div class="row">
+            <div class="col-md-5 p_hading">
+                <h4 class="sm_headig p_ani2"></h4>
+
+            </div>
+
+            <div class="col-md-7 p_search">
+                <span class="ptext7 p_ani2"></span>
+                <span class="ptext6 p_ani2"></span>
+                <div class="clear"></div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p_img2">
+                    <span class="pimg2 p_ani"></span>
+                </div>
+                <div class="p_detail2">
+                    <label class="p_ani2 ptext"></label>
+                    <p class="p_ani2 ptext2"></p>
+                    <div class="p_options">
+                        <a class="p_icon1" href="#"> <span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon2" href="#"><span class="p_ani2 ptext3"></span> </a>
+                        <a class="p_icon3" href="#"><span class="p_ani2 ptext3"></span></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="clear"></div>
+    </div>
+</ng-container>
+<!-- Sections Views Skeleton Loading End -->
+<div class="people_box bb0" *ngIf="deactivatedUsers.length!=0">
+    <div class="row">
+        <div class="col-md-5 p_hading">
+            <h4>{{translation?.poeple_deactivated}} ({{(deactivatedUsers | search:deactivateSearch:'full_name,first_name,last_name,email':false)?.length}}) <img src="assets/img/infoicon.svg" style="cursor: pointer;" (click)="showModal('account_ownerrole',130)"></h4>
+
+        </div>
+
+        <div class="col-md-7 p_search">
+            <span class="pserch_field">
+                <form autocomplete="off"><input type="text" placeholder="{{translation?.poeple_search_placeholder}}" name="deactivateSearch" [(ngModel)]="deactivateSearch" (ngModelChange)="pD=1;" autocomplete="nope"></form>
+            <img  *ngIf="deactivateSearch?.length>0"  src="assets/img/x.svg" (click)="deactivateSearch=''">
+        </span>
+            <div class="clear"></div>
+
+        </div>
+
+        <ng-container *ngIf="deactivatedUsers!=[]">
+            <div *ngFor="let deactivatedUser of deactivatedUsers | uniqueUser | search:deactivateSearch:'full_name,first_name,last_name,email':false | orderBy:'first_name' | paginate: { itemsPerPage: 12, currentPage: pD, id: 'deactivatedUsers' }" class="col-md-4">
+                <div *ngIf="deactivatedUser.type=='Active'" class="p_img2">
+                    <img src="{{ImageUrlBuilder(deactivatedUser)}}">
+                </div>
+                <div *ngIf="deactivatedUser.type!='Active'" (click)="modalData(deactivatedUser);showModal('resend_inv');" style="cursor: pointer;" class="p_img2 non-active-user" (mouseenter)="deactivatedUser.mouseenter=true" (mouseleave)="deactivatedUser.mouseenter=false">
+                    <svg *ngIf="!deactivatedUser.mouseenter" xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                            <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                    <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                        fill="#fff" />
+                                    <path id="Path_8" data-name="Path 8"
+                                        d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                        transform="translate(0 -44.656)" fill="#fff" />
+                                </g>
+                            </g>
+                        </svg>
+                    <svg *ngIf="deactivatedUser.mouseenter" class="env-svg" xmlns="http://www.w3.org/2000/svg" width="22.725" height="17.855" viewBox="0 0 22.725 17.855">
+                            <path id="envelope-o"
+                                d="M21.1,271.826v-9.739a7.431,7.431,0,0,1-.875.837q-3.4,2.612-5.4,4.286-.647.545-1.053.85a5.858,5.858,0,0,1-1.1.615,3.181,3.181,0,0,1-1.3.311H11.35a3.181,3.181,0,0,1-1.3-.311,5.858,5.858,0,0,1-1.1-.615q-.406-.3-1.053-.85-2-1.674-5.4-4.286a7.431,7.431,0,0,1-.875-.837v9.739a.411.411,0,0,0,.406.406H20.7a.411.411,0,0,0,.406-.406Zm0-13.328v-.311l-.006-.165-.038-.159-.07-.114-.114-.1-.178-.032H2.029a.411.411,0,0,0-.406.406,4.439,4.439,0,0,0,1.864,3.6q2.447,1.928,5.085,4.02l.444.374q.368.311.583.476t.564.4a3.379,3.379,0,0,0,.64.349,1.5,1.5,0,0,0,.545.114h.025a1.5,1.5,0,0,0,.545-.114,3.379,3.379,0,0,0,.64-.349q.349-.235.564-.4t.583-.476l.444-.374q2.638-2.092,5.085-4.02a5.961,5.961,0,0,0,1.274-1.465A3.167,3.167,0,0,0,21.1,258.5Zm1.623-.469v13.8a2.035,2.035,0,0,1-2.029,2.029H2.029a1.954,1.954,0,0,1-1.433-.6,1.954,1.954,0,0,1-.6-1.433v-13.8A1.954,1.954,0,0,1,.6,256.6a1.954,1.954,0,0,1,1.433-.6H20.7a2.035,2.035,0,0,1,2.029,2.029Z"
+                                transform="translate(0 -256)" fill="#fff" />
+                        </svg>
+                </div>
+                <div class="p_detail2">
+                    <label *ngIf="deactivatedUser?.title != null"><span [tooltip]='deactivatedUser?.title'>{{deactivatedUser?.first_name}} {{deactivatedUser?.last_name}}</span></label>
+                    <label *ngIf="deactivatedUser?.title == null">{{deactivatedUser?.first_name}} {{deactivatedUser?.last_name}}</label>
+                    <p><a href="mailto:{{deactivatedUser?.email}}">{{deactivatedUser?.email}}</a></p>
+                    <div class="p_options">
+                        <a *ngIf="active" (click)="showModal('activeuser');deactivatedUser.role=125;modalData(deactivatedUser);" class="p_icon3"><svg
+            xmlns="http://www.w3.org/2000/svg" width="10.172" height="10.714" viewBox="0 0 10.172 10.714">
+            <g id="Group_681" data-name="Group 681" transform="translate(0)">
+              <g id="Group_680" data-name="Group 680" transform="translate(0)">
+                <g id="Group_679" data-name="Group 679" transform="translate(0 1.742)">
+                  <path id="Path_9" data-name="Path 9"
+                    d="M7.156,20.151a5.086,5.086,0,0,1-3.476-8.8.644.644,0,1,1,.88.939,3.762,3.762,0,0,0-1.2,2.774A3.8,3.8,0,1,0,9.8,12.334a.644.644,0,0,1,.895-.925,5.086,5.086,0,0,1-3.535,8.742Z"
+                    transform="translate(-2.07 -11.178)" fill="#797979" />
+                </g>
+                <path id="Path_10" data-name="Path 10"
+                  d="M31.224,5.5a.643.643,0,0,1-.643-.643V.643a.643.643,0,0,1,1.287,0V4.86A.643.643,0,0,1,31.224,5.5Z"
+                  transform="translate(-26.138)" fill="#797979" />
+              </g>
+            </g>
+          </svg> {{translation?.poeple_activate}} </a>
+                        <a *ngIf="passwordChange" class="p_icon2" (click)="showModal('changepassword');modalData(deactivatedUser);"><svg
+            xmlns="http://www.w3.org/2000/svg" width="20.027" height="20.026" viewBox="0 0 20.027 20.026">
+            <g id="noun_password_565394" transform="translate(10.102 -5.899)" opacity="0.52">
+              <g id="Group_444" data-name="Group 444" transform="translate(8 8)">
+                <path id="Path_2" data-name="Path 2"
+                  d="M18.115,8a4.067,4.067,0,0,0-3.877,5.226l-5.9,5.9L8,22.16h2.7l1.517-1.517V18.957H13.9l.506-.506V16.766h1.686l.843-.843A4.049,4.049,0,1,0,18.115,8Zm0,2.866a1.18,1.18,0,1,1-1.18,1.18A1.18,1.18,0,0,1,18.115,10.866Z"
+                  transform="translate(-8.088 -13.415) rotate(45)" />
+              </g>
+            </g>
+          </svg>{{translation?.poeple_password}} </a>
+                        <a *ngIf="delete" (click)="showModal('delete');modalData(deactivatedUser);" class="p_icon3"><svg
+            xmlns="http://www.w3.org/2000/svg" width="9.365" height="11.317" viewBox="0 0 9.365 11.317">
+            <g id="Group_450" data-name="Group 450" transform="translate(0.001 0)">
+              <path id="Path_5" data-name="Path 5"
+                d="M18.072,39.274a.951.951,0,0,0,.953.882h4.694a.951.951,0,0,0,.953-.882l.572-6.874H17.5ZM23,34.008a.323.323,0,0,1,.643.048l-.3,4.515a.323.323,0,0,1-.643-.048Zm-1.954.012a.322.322,0,1,1,.643,0v4.515a.322.322,0,0,1-.643,0ZM19.406,33.7h0a.321.321,0,0,1,.345.3l.3,4.515a.323.323,0,0,1-.643.048l-.3-4.515A.314.314,0,0,1,19.406,33.7Z"
+                transform="translate(-16.69 -28.838)" fill="#797979" />
+              <path id="Path_6" data-name="Path 6"
+                d="M19.027,4.132H17.24A1.842,1.842,0,0,0,15.418,2.5h-.083a1.822,1.822,0,0,0-1.811,1.632H11.736A1.037,1.037,0,0,0,10.7,5.169a.244.244,0,0,0,.25.25h8.863a.244.244,0,0,0,.25-.25A1.037,1.037,0,0,0,19.027,4.132Zm-3.681-.667h.083a.866.866,0,0,1,.834.667H14.512A.856.856,0,0,1,15.346,3.465Z"
+                transform="translate(-10.7 -2.5)" fill="#797979" />
+            </g>
+          </svg> {{translation?.delete_people_section}} </a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="p_nouser" *ngIf="(deactivatedUsers | search:deactivateSearch:'full_name,first_name,last_name,email':false)?.length==0 && deactivateSearch!=''">
+
+            <p> <img src="assets/img/no_info.svg">{{translation?.poeple_no_user_found}}</p>
+
+        </div>
+        <div class="clear"></div>
+
+        <div class="p_page" *ngIf="(deactivatedUsers | search:deactivateSearch:'full_name,first_name,last_name,email':false)?.length>12">
+            <pagination-controls id="deactivatedUsers" previousLabel="<" nextLabel=">" (pageChange)="pD = $event"></pagination-controls>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+    <div class="clear"></div>
+</div>
+<!--d-->
+<div bsModal #deactiveDelete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="multipeople">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.deactivate_people_section}}/ {{translation?.delete_user_people_section}}</h4>
+                <button type="button" class="close" (click)="hideModal('deactiveDelete')" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body deactive_delete">
+
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <div class="user_popupcl">
+
+                            <div *ngIf="deactiveDeleteData?.type=='Active'" class="p_img2">
+                                <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                            </div>
+                            <div *ngIf="deactiveDeleteData?.type!='Active'" class="p_img2 non-active-user">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                        <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                            <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                                <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                                    fill="#fff" />
+                                                <path id="Path_8" data-name="Path 8"
+                                                    d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                                    transform="translate(0 -44.656)" fill="#fff" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                            </div>
+                            <div class="p_textcls">
+                                <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                                <p>{{deactiveDeleteData?.email}}</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="border-ri del_b">
+
+                            <div class="p_opt"><img src="assets/img/p_power.svg"> {{translation?.poeple_deactivated_user}} </div>
+
+
+                            <p>{{translation?.poeple_deactivated_user_notes}}.</p>
+
+                            <button (click)='deactiveUser()' type="button" [disabled]="APIcalInProcess">{{translation?.poeple_deactivated_user}}</button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="user_popupcl">
+
+                            <div *ngIf="deactiveDeleteData?.type=='Active'" class="p_img2">
+                                <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                            </div>
+                            <div *ngIf="deactiveDeleteData?.type!='Active'" class="p_img2 non-active-user">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                        <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                            <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                                <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                                    fill="#fff" />
+                                                <path id="Path_8" data-name="Path 8"
+                                                    d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                                    transform="translate(0 -44.656)" fill="#fff" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                            </div>
+                            <div class="p_textcls">
+                                <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                                <p>{{deactiveDeleteData?.email}}</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="border-ri">
+
+                            <div class="p_opt"><img src="assets/img/p_delete.svg"> {{translation?.delete_user_people_section}}</div>
+                            <p>{{translation?.poeple_deleting_a_user_will_remove}}
+
+                            </p>
+
+                            <div class="p_del">
+                                <label>{{translation?.poeple_type_delete_to_confirm}}</label>
+                                <form autocomplete="off"><input type="text" name="deleteString" [(ngModel)]="deleteString"></form>
+                            </div>
+
+                            <button (click)="deleteUser()" type="button" [disabled]="APIcalInProcess">{{translation?.delete_user_people_section}}</button>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #multipeople="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="multipeople">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_add_multiple_people}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('multipeople')">&times;</button>
+
+            </div>
+
+            <div class="modal-body addmulti_popup">
+
+                <p>{{translation?.poeple_this_area_allows}}</p>
+
+                <div class="csv_do">
+                    <img src="assets/img/downloadicon.svg">
+                </div>
+
+                <div class="csv_do2">
+                    <a href="assets/people/download/add-multiple-people-sample.csv" download>{{translation?.poeple_download_model_csv}}</a>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <label class="checkboxcls">{{translation?.send_invitation_email_import_people_section}}
+                            <input type="checkbox" name="addmultiEmail" [(ngModel)]="addmultiEmail">
+                          <span class="checkmark"></span>
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('multipeople')">{{translation?.vd_cancel}}</button>
+                        <label class="btn btn-success"> {{translation?.poeple_upload}}
+                      <input type="file" name="additional_attachemnt" [(ngModel)]="csvFile" (change)="addMultiPeople($event.target.files)" accept=".csv">
+                      </label>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #changepassword="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="changepassword">
+    <div class="modal-dialog" style="max-width:500px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.change_password_people_section}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('changepassword')">&times;</button>
+
+            </div>
+
+            <div class="modal-body change_password">
+
+                <div class="pass_wrd">
+
+                    <div *ngIf="deactiveDeleteData?.type=='Active'" class="chane_pimg">
+                        <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                    </div>
+                    <div *ngIf="deactiveDeleteData?.type!='Active'" class="chane_pimg non-active-user">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                    <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                        <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                            fill="#fff" />
+                                        <path id="Path_8" data-name="Path 8"
+                                            d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                            transform="translate(0 -44.656)" fill="#fff" />
+                                    </g>
+                                </g>
+                            </svg>
+                    </div>
+                    <div class="ch_textcls">
+                        <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                        <p>{{deactiveDeleteData?.email}}</p>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+
+                <div class="row ch_pass">
+                    <div class="col-12">
+                        <label>{{translation?.new_password_placeholder_people_section}}</label>
+                        <form autocomplete="off"><input type="password" name="cPass_npaswrd" [(ngModel)]="cPass.npaswrd" autocomplete="confirm-new-first-password"></form>
+                        <p>({{translation?.poeple_mim_six_characters}})</p>
+
+                        <label>Confirm Password</label>
+                        <form autocomplete="off"><input type="password" name="cPass_cnpaswrd" [(ngModel)]="cPass.cnpaswrd" autocomplete="confirm-new-again-password"></form>
+                        <p>({{translation?.poeple_mim_six_characters}})</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="modal-footer footer_modal mb3">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-12 check_pas">
+
+                        <!-- <label class="checkboxcls" *ngIf="!(deactiveDeleteData?.isitDeUser)">{{translation?.poeple_email_user_account}}
+                          <input type="checkbox" name="cPass_email" [(ngModel)]="cPass.email">
+                          <span class="checkmark"></span>
+                        </label> -->
+
+                    </div>
+
+
+
+                    <div class="col-12 tright pr0">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('changepassword')">{{translation?.vd_cancel}}</button>
+                        <button type="button" class="btn btn-success" (click)="changePassword()" type="button" [disabled]="APIcalInProcess">{{translation?.poeple_save}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #resend_inv="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resend_inv">
+    <div class="modal-dialog" style="max-width:530px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.Resend_Invitation}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('resend_inv')">&times;</button>
+
+            </div>
+
+            <div class="modal-body re_popup">
+
+                <div class="userpas sendin">
+                    <div *ngIf="deactiveDeleteData?.type=='Active'" class="acuserimg">
+                        <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                    </div>
+                    <div *ngIf="deactiveDeleteData?.type!='Active'" class="acuserimg">
+                        <span class="p_iconcls"><svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                            <g id="noun_User_24581" transform="translate(65 -135.279)">
+                              <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)" fill="#fff"/>
+                                <path id="Path_8" data-name="Path 8" d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z" transform="translate(0 -44.656)" fill="#fff"/>
+                              </g>
+                            </g>
+                          </svg>
+                          </span>
+                    </div>
+                    <div class="acusertxt">
+                        <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                        <p>{{deactiveDeleteData?.email}}</p>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="resend_text">
+                    <p>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}} {{translation?.poeple_has_not_signed_into_sibme}} {{deactiveDeleteData?.first_name}} {{translation?.poeple_an_inviation_to_log_in}}?
+                    </p>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer footer_modal">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('resend_inv')">{{translation?.vd_cancel}}</button>
+                        <button type="button" class="btn btn-success" (click)="reSendInvitation()" type="button" [disabled]="APIcalInProcess">{{translation?.send_people_section}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #newsuper="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newsuper">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_new}}
+                    <ng-container *ngIf="addusr_roleid==110">{{translation?.super_admin_people_section_single}}</ng-container>
+                    <ng-container *ngIf="addusr_roleid==115">{{translation?.admin_people_section}}</ng-container>
+                    <ng-container *ngIf="addusr_roleid==120">{{translation?.user_people_section_single}}</ng-container>
+                    <ng-container *ngIf="addusr_roleid==125">{{translation?.viewer_people_section_single}}</ng-container>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('newsuper')">&times;</button>
+
+            </div>
+
+            <div class="modal-body newsuperuser">
+
+                <div class="row">
+                    <ng-container *ngFor="let item of [1,2,3];let i = index">
+                        <div class="col-md-6">
+                            <label>{{translation?.full_name_people_section}}</label>
+                            <form autocomplete="off"><input type="text" name="addusr_name" [(ngModel)]="addusr_obj[i].name"></form>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label>{{translation?.poeple_email}}</label>
+                            <form autocomplete="off"><input type="email" name="addusr_email" [(ngModel)]="addusr_obj[i].email" email></form>
+                        </div>
+                    </ng-container>
+
+
+                    <!-- <div class="col-md-6">
+                    <label>Full Name</label>
+                    <input type="text" [(ngModel)]="addusr_obj[name][1]">
+                  </div>
+                  
+                  
+                  <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="addusr_obj[email][1]">
+                  </div>
+                  
+                  
+                  
+                   <div class="col-md-6">
+                    <label>Full Name</label>
+                    <input type="text" [(ngModel)]="addusr_obj[name][2]">
+                  </div>
+                  
+                  
+                  <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="addusr_obj[email][2]">
+                  </div> -->
+
+
+                    <div class="col-md-12">
+
+                        <label>{{translation?.poeple_send_message_to}} <ng-container *ngIf="addusr_roleid==110">{{translation?.super_admin_people_section_single}}</ng-container>
+                      <ng-container *ngIf="addusr_roleid==115">{{translation?.admin_people_section_single}}</ng-container>
+                      <ng-container *ngIf="addusr_roleid==120">{{translation?.user_people_section_single}}</ng-container>
+                      <ng-container *ngIf="addusr_roleid==125">{{translation?.viewer_people_section_single}}</ng-container>  (s)</label>
+                        <textarea name="addusr_message" [(ngModel)]="addusr_message"></textarea>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer footer_modal mb">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-6">
+
+                        <!-- <label class="checkboxcls">{{translation?.send_invitation_email_people_section}}
+                            <input type="checkbox" name="addUEmail" [(ngModel)]="addUEmail">
+                            <span class="checkmark"></span>
+                          </label> -->
+
+                    </div>
+
+
+
+                    <div class="col-6 tright pr0">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('newsuper')">{{translation?.vd_cancel}}</button>
+                        <button type="button" class="btn btn-success" (click)="addUser()" type="button" [disabled]="APIcalInProcess">{{translation?.send_people_section}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #activeuser="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="activeuser">
+    <div class="modal-dialog" style="max-width:800px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.poeple_account_user}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('activeuser')">&times;</button>
+
+            </div>
+
+            <div class="modal-body actuser">
+
+                <div class="row">
+                    <div class="col-12 actop">
+                        <p>{{translation?.poeple_once_activated_notes}}</p>
+                    </div>
+                    <div class="userpas">
+                        <div class="acuserimg">
+
+
+
+                            <ng-container *ngIf="deactiveDeleteData?.type=='Active'">
+                                <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                            </ng-container>
+                            <div *ngIf="deactiveDeleteData?.type!='Active'" class="non-active-user">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22.422" height="22.421" viewBox="0 0 22.422 22.421">
+                                        <g id="noun_User_24581" transform="translate(65 -135.279)">
+                                            <g id="Group_675" data-name="Group 675" transform="translate(-65 135.279)">
+                                                <circle id="Ellipse_4" data-name="Ellipse 4" cx="5.605" cy="5.605" r="5.605" transform="translate(5.605)"
+                                                    fill="#fff" />
+                                                <path id="Path_8" data-name="Path 8"
+                                                    d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z"
+                                                    transform="translate(0 -44.656)" fill="#fff" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="acusertxt">
+
+                            <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                            <p>{{deactiveDeleteData?.email}}</p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="accpop">
+
+
+                            <div class="btn-group btn-group-toggle role_opt" data-toggle="buttons">
+                                <label class="btn btn-secondary s5" [ngClass]="{'active-radio': deactiveDeleteData?.role==110}" (click)="deactiveDeleteData.role=110">
+                        <input type="radio" name="options" id="option1" autocomplete="off">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.super_admin_people_section_single}}
+                      </label>
+                                <label class="btn btn-secondary s6" [ngClass]="{'active-radio': deactiveDeleteData?.role==115}" (click)="deactiveDeleteData.role=115">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.admin_people_section_single}}
+                      </label>
+                                <label class="btn btn-secondary s7" [ngClass]="{'active-radio': deactiveDeleteData?.role==120}" (click)="deactiveDeleteData.role=120">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.user_people_section_single}} 
+                      </label>
+
+                                <label class="btn btn-secondary s8" [ngClass]="{'active-radio': deactiveDeleteData?.role==125}" (click)="deactiveDeleteData.role=125">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        <img class="rck" src="assets/img/radiock.svg">
+                        <img class="run" src="assets/img/radio.svg">
+                        {{translation?.viewer_people_section_single}}
+                      </label>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 ac_btnc">
+
+
+
+                        <!-- <label class="checkboxcls">{{translation?.poeple_email_user_account}}
+                    <input type="checkbox" name="emailcheck" [(ngModel)]="deactiveDeleteData.emailcheck">
+                    <span class="checkmark"></span>
+                  </label> -->
+                        <br><br>
+
+
+                        <button (click)="activeUser()" type="button" [disabled]="APIcalInProcess">{{translation?.poeple_active_user}}</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #deletepopup="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deletepopup">
+    <div class="modal-dialog" style="max-width:534px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.delete_user_people_section}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('delete')">&times;</button>
+
+            </div>
+
+            <div class="modal-body deluser">
+
+                <div class="row">
+
+                    <div class="userpas">
+                        <div class="acuserimg" [ngClass]="{'non-active-user': deactiveDeleteData?.type!='Active'}">
+
+
+
+                            <ng-container *ngIf="deactiveDeleteData?.type=='Active'">
+                                <img src="{{ImageUrlBuilder(deactiveDeleteData)}}">
+                            </ng-container>
+                            <ng-container *ngIf="deactiveDeleteData?.type!='Active'" class="p_img2">
+                                <svg height="22.421" viewBox="0 0 22.422 22.421" width="22.422" xmlns="http://www.w3.org/2000/svg"><g  id="noun_User_24581" transform="translate(65 -135.279)"><g  data-name="Group 675" id="Group_675" transform="translate(-65 135.279)"><circle  cx="5.605" cy="5.605" data-name="Ellipse 4" fill="#fff" id="Ellipse_4" r="5.605" transform="translate(5.605)"></circle><path  d="M11.211,57.562c6.152,0,11.148,4.252,11.211,9.515H0c.063-5.263,5.058-9.515,11.211-9.515Z" data-name="Path 8" fill="#fff" id="Path_8" transform="translate(0 -44.656)"></path></g></g></svg>
+                            </ng-container>
+
+
+
+
+                        </div>
+                        <div class="acusertxt">
+
+                            <label>{{deactiveDeleteData?.first_name}} {{deactiveDeleteData?.last_name}}</label>
+                            <p>{{deactiveDeleteData?.email}}</p>
+
+                        </div>
+                    </div>
+                    <div class="col-12 actop3">
+                        <p><img src="assets/img/p_delete.svg"> {{translation?.delete_user_people_section}}</p>
+
+                    </div>
+
+                    <div class="col-12 actop2">
+                        <p>{{translation?.poeple_deleting_a_user_will_remove_traces}}</p>
+                    </div>
+
+                    <div class="col-12 del_user_con">
+                        <label>{{translation?.poeple_type_delete_to_confirm}}</label>
+                        <form autocomplete="off"><input type="text" name="deleteDeString" [(ngModel)]="deleteDeString"></form>
+                    </div>
+
+
+                    <div class="col-12 ac_btnc">
+
+
+
+
+
+
+                        <button (click)="deleteDeUser()" type="button" [disabled]="APIcalInProcess">{{translation?.delete_user_people_section}}</button>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<div bsModal #account_ownerrole="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="account_ownerrole">
+    <div class="modal-dialog" style="max-width:530px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{infopopupTitle}}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideModal('account_ownerrole')">&times;</button>
+
+            </div>
+
+            <div class="modal-body owner_rolecls">
+
+
+
+                <p>{{infopopupData}}</p>
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>

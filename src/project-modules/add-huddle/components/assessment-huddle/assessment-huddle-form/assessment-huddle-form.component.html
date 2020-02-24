@@ -1,0 +1,270 @@
+<div class="container box_outer">
+
+    <div class="skicls" *ngIf="isLoading">
+        <div class="analy_b">
+            <div class="header_an">
+                <h2 class="aa_ani addani"></h2>
+            </div>
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu1 aa_ani"></label>
+                    <div class="anaddhu2 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu1 aa_ani"></label>
+                    <div class="anaddhu3 aa_ani"></div>
+                    <div class="anaddhu4 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+            <div class="new_coachingcls mbtop">
+
+                <div class="coaching_row">
+
+                    <div class="anaddhu2 aa_ani"></div>
+                </div>
+
+            </div>
+
+
+
+            <div class="new_coachingcls">
+
+                <div class="coaching_row">
+                    <label class="anaddhu5 aa_ani"></label>
+                    <div class="anaddhu6 aa_ani"></div>
+                    <div class="anaddhu6 aa_ani"></div>
+                    <div class="clear"> </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+    <ng-container #realData *ngIf="!isLoading">
+        <div class="row panl_heading">
+            <div class="col-12">
+                <h3>{{pageTitle}}</h3>
+            </div>
+        </div>
+
+        <div class="coaching_cls">
+            <form #assessmentHuddleForm="ngForm">
+                <div class="hu_nm">
+                    <label>{{translation?.huddle_assessment_name }}</label>
+                    <input type="text" name="hname" [(ngModel)]="huddle_data.hname" class="form-control" [placeholder]="translation?.huddle_name_placeholder">
+                </div>
+                <div class="coaching_editor">
+                    <label>{{translation?.huddle_assessment_description }}</label>
+                    <quill-editor [style]="quillConfiguration.CSS_STYLE" [modules]="quillConfiguration.MODULES" name="hdescription" [(ngModel)]="huddle_data.hdescription">
+                    </quill-editor>
+                </div>
+                <div class="row deadlinecls">
+
+                    <div class="col-md-4 dateicon">
+                        <label>{{translation?.artifacts_submission_deadline }} </label>
+                        <input #deadLineDateInput type="text" class="form-control" name="deadline_date" [(ngModel)]="huddle_data.deadline_date" placeholder="MM-DD-YYYY" (ngModelChange)="validateData()" bsDatepicker [bsConfig]="{dateInputFormat: 'MM-DD-YYYY'}">
+
+                        <svg (click)="deadLineDateInput.click();" xmlns="http://www.w3.org/2000/svg" width="22.135" height="20.2" viewBox="0 0 22.135 20.2">
+                            <g id="Group_440" data-name="Group 440" transform="translate(0 0)">
+                                <path id="Path_80" data-name="Path 80"
+                                    d="M34.312,47.022H22.149v.745a.777.777,0,0,0,.776.776H38.254a.777.777,0,0,0,.776-.776V36.048l-2.659,9.513A2.183,2.183,0,0,1,34.312,47.022Z"
+                                    transform="translate(-17.931 -29.379)" fill="none" />
+                                <path id="Path_81" data-name="Path 81"
+                                    d="M25.615,42.816l2.806-10.038H12.108L9.225,43.095a.294.294,0,0,0,.033.268.531.531,0,0,0,.423.158H24.554A1.173,1.173,0,0,0,25.615,42.816Z"
+                                    transform="translate(-8.173 -26.914)" fill="none" />
+                                <path id="Path_82" data-name="Path 82"
+                                    d="M25.322,17.84H22.855v.445a1.39,1.39,0,0,1-1.388,1.387h-.335a1.39,1.39,0,0,1-1.388-1.387V17.84H13.916v.445a1.39,1.39,0,0,1-1.388,1.387h-.335a1.39,1.39,0,0,1-1.388-1.387V17.84H9.994a1.814,1.814,0,0,0-1.812,1.812v.71L5.054,31.552a1.329,1.329,0,0,0,.205,1.173,1.535,1.535,0,0,0,1.248.567H8.182v.745a1.814,1.814,0,0,0,1.812,1.812H25.322a1.814,1.814,0,0,0,1.812-1.812V19.652A1.814,1.814,0,0,0,25.322,17.84ZM6.508,32.256a.531.531,0,0,1-.423-.158.294.294,0,0,1-.033-.268L8.935,21.514H25.248L22.443,31.552a1.173,1.173,0,0,1-1.061.7ZM26.1,34.037a.777.777,0,0,1-.776.776H9.994a.777.777,0,0,1-.776-.776v-.745H21.381a2.184,2.184,0,0,0,2.059-1.461L26.1,22.318V34.037Z"
+                                    transform="translate(-5 -15.649)" fill="#6d6d6d" />
+                                <path id="Path_83" data-name="Path 83"
+                                    d="M31.82,8.933a.793.793,0,0,0-.792.792v1.844a.793.793,0,0,0,.792.792h.335a.793.793,0,0,0,.792-.792V9.725a.793.793,0,0,0-.792-.792Z"
+                                    transform="translate(-24.627 -8.933)" fill="#6d6d6d" />
+                                <path id="Path_84" data-name="Path 84"
+                                    d="M68.5,8.933h-.335a.793.793,0,0,0-.792.792v1.844a.793.793,0,0,0,.792.792H68.5a.793.793,0,0,0,.792-.792V9.725A.793.793,0,0,0,68.5,8.933Z"
+                                    transform="translate(-52.036 -8.933)" fill="#6d6d6d" />
+                            </g>
+                        </svg>
+
+                    </div>
+                    <div class="col-md-2 timeicon">
+                        <label>&nbsp;</label>
+                        <p-dropdown #deadLineTimeInput [options]="timeVals" name="deadline_time" [(ngModel)]="huddle_data.deadline_time" optionLabel="name" [ngModelOptions]="{standalone: true}" placeholder="hh:mm       AM/PM"></p-dropdown>
+                        <!-- <label>&nbsp;</label> -->
+                        <!-- <input #deadLineTimeInput name="deadline_time" [(ngModel)]="huddle_data.deadline_time" [typeahead]="timeVals" typeaheadOptionField="name" [typeaheadMinLength]="0" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                         placeholder="hh:mm       AM/PM"
+                            [typeaheadOptionsLimit]="26" class="form-control"> -->
+                        <svg (click)="deadLineTimeInput.container.click();" xmlns="http://www.w3.org/2000/svg" width="17.355" height="17.355" viewBox="0 0 17.355 17.355" style="cursor: pointer">
+                            <g id="Group_421" data-name="Group 421" transform="translate(0)">
+                                <g id="Group_420" data-name="Group 420">
+                                    <path id="Path_78" data-name="Path 78"
+                                        d="M13.657,4.979a8.678,8.678,0,1,0,8.678,8.678A8.688,8.688,0,0,0,13.657,4.979Zm0,15.621A6.943,6.943,0,1,1,20.6,13.657,6.951,6.951,0,0,1,13.657,20.6Z"
+                                        transform="translate(-4.979 -4.979)" fill="#787878" />
+                                    <path id="Path_79" data-name="Path 79"
+                                        d="M47.221,28.659a.865.865,0,0,0,.014-.135V24.741a.867.867,0,1,0-1.735,0v3.783c0,.074-.009.913.263,1.158l2.684,2.406A.867.867,0,1,0,49.605,30.8Z"
+                                        transform="translate(-37.689 -20.232)" fill="#787878" />
+                                </g>
+                            </g>
+                        </svg>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>{{translation?.artifacts_video_submissions_allowed }}</label>
+                        <select class="form-control" name="submission_allowed" [(ngModel)]="huddle_data.submission_allowed">
+                            <option [attr.value]="item" *ngFor="let item of formFields.VIDEO.OPTIONS">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{translation?.artifacts_resource_submissions_allowed }}</label>
+                        <select class="form-control" name="resource_submission_allowed" [(ngModel)]="huddle_data.resource_submission_allowed">
+                            <option [attr.value]="item" *ngFor="let item of formFields.RESOURCE.OPTIONS">{{item}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="parti_left">
+                    <label>{{translation?.huddle_participants}}</label>
+                    <input name="asyncSelected" [(ngModel)]="asyncSelected" #input [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="5" [typeaheadMinLength]="0" typeaheadOptionField="first"
+                        [typeaheadItemTemplate]="customItemTemplate" [placeholder]="translation?.huddle_collaboration_search_person_plcholder" class="form-control">
+                </div>
+                <ng-template #customItemTemplate let-model="item">
+                    <div class="user_pro" [style.width.px]="inputRef.nativeElement.clientWidth - 19">
+                        <span>
+                            <span *ngIf="!model?.image && model.is_user" class="oi per_img" data-glyph="person"
+                                title="User avatar available" aria-hidden="true">
+                            </span>
+                        <span *ngIf="!model?.image && !model.is_user" class="oi per_img" data-glyph="people" title="Group" aria-hidden="true">
+                            </span>
+                        <img width="20" *ngIf="model?.image" [attr.src]="model?.image">
+                        </span>
+                        <div class="col-sm-5" *ngIf="model.is_user"> {{model.first_name}} {{model.last_name}} </div>
+                        <div *ngIf="model.is_user" class="col-sm-5"> {{model.email}} </div>
+                        <div *ngIf="!model.is_user">
+                            <div class="col-sm-5"> {{model.name}}</div>
+                        </div>
+                    </div>
+                </ng-template>
+                <div class="parti_left_or">{{translation?.or}}</div>
+                <assessment-huddle-new-user></assessment-huddle-new-user>
+                <div class="clear"></div>
+                <div class="coaching_rows">
+
+                    <div class="row coaching_heading">
+                        <div class="col-md-2">{{translation?.name_global}}</div>
+                        <div class="col-md-5">{{translation?.email_global}}</div>
+                        <div class="col-md-4">{{translation?.role_global}}</div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div class="row nouser_sel">
+                        <div *ngIf="selectedusers.length==0 || !selectedusers" class="text-center col-12">
+                            <h6> {{translation?.no_user_selected}} </h6>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let user of selectedusers; let i = index" class="row coaching_rowcls">
+
+                        <div class="col-md-2 user_pro">
+                            <span>
+                                <span *ngIf="!user.image && user.is_user" class="oi per_img" data-glyph="person"
+                                    title="User" aria-hidden="true">
+                                </span>
+                            <span *ngIf="!user.image && !user.is_user" class="oi per_img" data-glyph="people" title="Group" aria-hidden="true">
+                                </span>
+                            <img width="20" *ngIf="user.image" [attr.src]="user?.image">
+                            </span>
+                            <span *ngIf="user.is_user" class="list_use"> {{user.first_name}} {{user.last_name}} </span>
+                            <span *ngIf="!user.is_user" class="list_use fake_link" (click)="GetGroupDetails(groupUsersModal, user.id)">
+                                {{user.name}} </span>
+                        </div>
+                        <div class="col-md-5">
+                            {{user.email ||'n/a'}}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="btn-group role_group">
+                                <ng-container *ngIf="user.is_user">
+                                    <ng-container *ngIf="currentUser.id == user.id then creatorSection else membersSection">
+                                    </ng-container>
+                                    <ng-template #creatorSection>
+                                        <div class="text-center"> {{translation?.assessor_global}} </div>
+                                    </ng-template>
+                                    <ng-template #membersSection>
+                                        <label (click)="checkAssesseeSubmissions(user)" class="btn btn-light" [name]="'isAssessor-' + i" [(ngModel)]="user.isAssessor" btnRadio="true" tabindex="0" role="button">{{translation?.assessor_global}}</label>
+                                        <label class="btn btn-light" [name]="'isAssessor-' + i" [(ngModel)]="user.isAssessor" btnRadio="false" tabindex="0" role="button" (ngModelChange)="AssessorChanged($event, user)">{{translation?.artifact_assessee}}</label>
+                                    </ng-template>
+                                    
+                                </ng-container>
+                                <ng-container *ngIf="!user.is_user">{{translation?.artifact_assessee}}</ng-container>
+                            </div>
+                        </div>
+                        <div *ngIf="currentUser.id != user.id" class="col-md-1 coach_cross">
+                            <svg class="remove_img" (click)="DeleteUser(user)" xmlns="http://www.w3.org/2000/svg" width="11.059" height="11.172" viewBox="0 0 11.059 11.172">
+                                <g id="noun_Cross_929505" transform="translate(0.5 0.557)" opacity="0.313">
+                                    <path id="Path"
+                                        d="M5.674,5.032,9.931.793a.435.435,0,0,0,0-.615h0a.44.44,0,0,0-.618,0L5.054,4.414.745.127a.44.44,0,0,0-.618,0,.435.435,0,0,0,0,.615L4.436,5.029.13,9.316a.435.435,0,0,0,0,.615h0a.44.44,0,0,0,.618,0L5.054,5.647,9.307,9.88a.44.44,0,0,0,.618,0,.435.435,0,0,0,0-.615Z"
+                                        transform="translate(0 0)" stroke="#000" stroke-miterlimit="10"
+                                        stroke-width="1" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="huddle_settings">
+                        <button (click)="cancel()">{{translation?.artifact_cancle}}</button>
+                        <a href="javascript:void(0)" (click)="openMoreSettingDialog()">{{translation?.artifacts_more_settings }}</a>
+                        <button class="create_btn" (click)="submitHuddle()">{{translation?.artifacts_done }}</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-container>
+
+    <ng-template #groupUsersModal>
+        <div class="modal-header">
+            <h5 class="modal-title pull-left">{{GroupDetails.name}}</h5>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="table modal_table">
+                <thead>
+                    <tr>
+                        <td><label>{{translation?.name_global}}</label> </td>
+                        <td> <label>{{translation?.email_global}}</label></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of GroupDetails.users">
+                        <td>
+                            <span *ngIf="!user.image && user.is_user" class="oi" data-glyph="person" title="User" aria-hidden="true">
+                            </span>
+                            <span *ngIf="!user.image && !user.is_user" class="oi" data-glyph="people" title="Group" aria-hidden="true">
+                            </span>
+                            <img width="20" *ngIf="user.image" [attr.src]="user?.image"> {{user.first_name}} {{user.last_name}}
+                        </td>
+                        <td> {{user.email}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div class="row text-right">
+                <button (click)="modalRef.hide()" class="hu_primary">{{translation?.ok}}</button>
+            </div>
+        </div>
+    </ng-template>

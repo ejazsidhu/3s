@@ -1,0 +1,83 @@
+<div class="avg_performance_level" *ngIf="permissions?.framework_selected_for_video==1 && PLTabData?.average_rating">
+    <label>{{translation?.vd_avrg_pl}} <b>{{PLTabData?.average_rating}}</b> </label>
+</div>
+<div class="col-sm-6" *ngIf="permissions?.framework_selected_for_video==1">
+    <rubrics [isCreater]="'true'" [data]="PLTabData?.standards?.data" [from]="'tab'" (RubricClicked)="OnRubricClicked($event)">
+    </rubrics>
+</div>
+<div class="col-sm-6" *ngIf="permissions?.framework_selected_for_video!=1">
+    {{translation?.vd_you_must_define_frameworks}}
+</div>
+<div class="col-sm-6" *ngIf="PLcomments && SelectedPLRubric">
+    <div class="selectedPl">
+        <div class="flex_box_pLevel">
+            <span class="rub_nu flex_box_pLevel_left">{{SelectedPLRubric?.tag_code}}</span>
+            <span class="flex_box_pLevel_right">
+                {{SelectedPLRubric?.tag_html}}
+                <div class="number_tagged" *ngIf="SelectedPLRubric?.account_tag_id">
+                    {{translation?.vd_times_observed}}: <span
+                        class="badge badge-primary">{{SelectedPLRubric?.get_standard_tagged_count}}</span>
+        </div>
+        </span>
+    </div>
+</div>
+<div class="Pldropdown" *ngIf=" PLcomments.length>0">
+    <label *ngIf="currnetUser.huddle_role_id == 210 && SelectedPLRubric.selectedRating">
+            {{translation?.vd_performance_level_ratting}}:
+            <b [style.display]="'inherit'">
+                <select class="form-control fake_select" disabled
+                    [(ngModel)]="SelectedPLRubric.selectedRating"
+                    (ngModelChange)="RatingChanged($event)">
+                    <option [value]="0" selected="selected"> {{translation?.rating_select}} </option>
+                    <option *ngFor="let pl of SelectedPLRubric.selectOptions" [value]="pl.id">
+                        {{pl.text}}
+                    </option>
+                </select>
+            </b>
+        </label>
+    <select *ngIf="permissions.can_rate && currnetUser.huddle_role_id == 200" class="form-control" [(ngModel)]="SelectedPLRubric.selectedRating" (ngModelChange)="RatingChanged($event)">
+            <option [value]="0" selected="selected"> {{translation?.rating_select}} </option>
+            <option *ngFor="let pl of SelectedPLRubric.selectOptions" [value]="pl.id">
+                {{pl.text}}
+            </option>
+        </select>
+</div>
+<div class="comments_desc" *ngIf="PLcomments && PLcomments.length>0">
+    <tabset class="tab_no_border">
+        <tab>
+            <ng-template tabHeading>
+                {{translation?.vd_comments}}
+            </ng-template>
+            <div class="comm_option comm_option2 nopointer" *ngIf="PLcomments && PLcomments.length>0">
+                <ng-container *ngFor="let marker of CustomMarkers; let i = index">
+                    <span class="custom_tag" [style.background]="colorClasses[i]" [style.borderColor]="[colorClasses[i]]" (click)="SelectTag(marker)"></span> {{marker.tag_title}}
+                </ng-container>
+            </div>
+            <comment [from]="'tab'" *ngFor="let comment of PLcomments" [staticFiles]="staticFiles" [settings]="settings" (onDelete)="onCommentDelete($event)" (onEdit)="onCommentEdit($event)" [isActive]="currentComment == comment" [customMarkers]="CustomMarkers" [classes]="colorClasses"
+                [comment]="comment" [params]="params" (onReplyEdit)="onReplyEdit($event)"> </comment>
+        </tab>
+        <tab *ngIf="getSettings('enable_performance_level')!=0">
+            <ng-template tabHeading>
+                {{translation?.vd_performance_level_desc}}
+            </ng-template>
+            <ng-container *ngIf="getSettings('enable_unique_desc')==0">
+                <div class="performance_level_detail" *ngFor="let settings of SelectedPLRubric?.account_framework_settings_performance_levels">
+                    <div>
+                        <h6> {{settings.performance_level}} </h6>
+                    </div>
+                    <div> {{settings.description}} </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="this.SelectedPLRubric.descriptions && this.SelectedPLRubric.descriptions.length>0">
+                <div *ngFor="let description of this.SelectedPLRubric.descriptions">
+                    <div>
+                        <h6> {{description.label}} </h6>
+                    </div>
+                    <div> {{description.text}} </div>
+                </div>
+            </ng-container>
+        </tab>
+    </tabset>
+</div>
+
+</div>

@@ -1,0 +1,23 @@
+.image-upload>input {
+    display: none;
+    cursor: pointer;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+.dupcls {
+    text-align: left;
+    font-size: 16px;
+    padding-top: 26px;
+}
+
+.b1 {
+    border: 1px solid #ddd !important;
+}
+
+.b1 .btn-success {
+    padding: 6px 29px;
+}

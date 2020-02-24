@@ -1,0 +1,56 @@
+
+<div class="video_box">
+  <video width="508" class="vjs-matrix video-js" id="cropVideo">
+
+  </video>
+  <div id="overlay" class="animated slideInUp" [@enterAnimation] *ngIf="ShowInfo">
+
+    <div class="info_container">
+
+      <h6 class="col-md-11 pull-left">{{translation?.myfile_video_info}} </h6>
+      <div class="col-md-1 pull-right fake_link" (click)="ShowInfo=false;CropShowInfoBack.emit(false)" style="transform: rotate(135deg);"> <span class="oi" data-glyph="plus"></span>  </div>
+
+      <div>
+        <div class="col-sm-6 pull-left">
+
+          <label class="info_title"> {{translation?.myfile_genral_info}} </label>
+
+          <label class="info"> {{translation?.myfile_huddle_type}}: {{VideoInfo.huddle_type}} </label>
+          <label class="info"> {{translation?.myfile_session_date}}: {{VideoInfo.recorded_date}} </label>
+          <label class="info"> {{translation?.myfile_times_played}}: {{VideoInfo.view_count}} </label>
+
+
+        </div>
+
+        <div class="col-sm-6 pull-right" *ngIf="VideoInfo.h_type!=1">
+          <label class="info_title"> {{translation?.myfile_participants}} </label>
+          <ng-container *ngIf="VideoInfo.h_type==2">
+
+
+            <label class="info">
+              {{translation?.myfile_coach}}: <span *ngFor="let coach of VideoInfo.coaches_name"> {{coach.user_name+" - "+coach.email}} </span>
+            </label>
+
+            <label class="info">
+              {{translation?.myfile_coachee}}: <span *ngFor="let coachee of VideoInfo.coachee_name"> {{coachee.user_name+" - "+coachee.email}} </span>
+            </label>
+          </ng-container>
+
+          <ng-container *ngIf="VideoInfo.h_type==3">
+
+            <label class="info">
+              {{translation?.myfile_assesors}}: <span *ngFor="let assessor of VideoInfo.assessor_names"> {{assessor.user_name+" - "+assessor.email}} </span>
+            </label>
+
+            <label class="info">
+              {{translation?.myfile_assessee}}: <span *ngFor="let assessee of VideoInfo.eval_participant_names"> {{assessee.user_name+" - "+assessee.email}} </span>
+            </label>
+          </ng-container>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

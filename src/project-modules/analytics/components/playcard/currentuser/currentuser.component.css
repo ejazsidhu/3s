@@ -1,0 +1,33 @@
+.tags_topb {
+    background-color: #FFF;
+    border: 1px solid #DAD6CE;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+    margin: 0 0 20px 0 !important;
+    padding: 15px;
+}
+
+.tags_topb p {
+    color: #414141;
+    font-family: 'Conv_Roboto-Light';
+    font-weight: 400;
+    margin: 2px 0 0 0;
+}
+
+.tags_topb b {
+    font-family: 'Conv_Roboto-Regular';
+    font-weight: 600;
+    color: #414141;
+    margin-right: 5px;
+}
+
+.current_img{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.user-header { height: 30px;}
+.user-desc { height: 25px;}
+.user-img { height: 80px;}
+.user-detail { height: 27px;}

@@ -1,0 +1,43 @@
+<div id="user" class="dropdown" dropdown>
+  <div dropdownToggle class="dropdown-toggle">
+
+    <img [attr.src]="getAvatarPath(details)" id="user_top_photo" class="photo ph" height="25" rel="tooltip" width="25" data-original-title="" title="">
+    <span class="span-wrap wrap" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;height: 18px;float:left;">{{details?.user_current_account?.User?.first_name}}</span>
+
+  </div>
+  <div *dropdownMenu class="dropdown-menu dropdown-menu-right user_newDropDown" role="menu">
+    <div class="user_dropDown_info">
+    	<p>{{details?.user_current_account?.User?.first_name+" "+details?.user_current_account?.User?.last_name}}</p>
+    	<span>{{details?.user_current_account?.User?.email}}</span>
+    	<span class="account_info">{{details?.user_current_account?.roles?.name}}</span>
+
+    	
+    </div>
+    <ol>
+        <li><a href="" [attr.href]="details?.base_url+'/Users/editUser/'+details?.user_current_account
+?.User?.id">{{translation?.hp_user_settings}}</a></li>
+       <li *ngIf="SettingsAllowed(details)"><a [attr.href]="details?.base_url+'/accounts/account_settings_main/'+details?.user_current_account
+        ?.accounts?.account_id">{{translation?.hp_account_settings}}</a></li>
+                 
+     	<!-- <li *ngIf="details?.is_change_account_enable==1"><a [attr.href]="details?.base_url+'/launchpad'">Launchpad</a></li> -->
+                 
+        <li><a [attr.href]="details?.base_url+'/users/logout'">{{translation?.hp_logout}}</a></li>
+        </ol>
+
+        <div class="clear"></div>
+
+        <a href="/launchpad" *ngIf="details?.is_change_account_enable==1">
+			<div class="user_info_bottom">
+				<span>{{details?.user_current_account?.accounts?.company_name}}</span>
+				<img width="19" src="../../../../assets/dashboard/assets/img/new/icon-switch-account_grey.svg">
+			</div>
+        </a>
+
+        <a href="#" *ngIf="details?.is_change_account_enable!=1">
+			<div class="user_info_bottom">
+				<span>{{details?.user_current_account?.accounts?.company_name}}</span>
+			</div>
+        </a>
+        
+  </div>
+</div>

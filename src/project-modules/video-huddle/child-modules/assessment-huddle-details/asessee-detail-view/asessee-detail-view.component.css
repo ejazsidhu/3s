@@ -1,0 +1,17 @@
+.slimscroll-bar{
+    height: 150px;
+}
+
+.disableButton{
+    opacity: 0.2;
+}
+
+.errorButton{
+    opacity: 0.2;
+}
+
+.textd p{
+    margin: 0;
+    padding: 0;
+
+}

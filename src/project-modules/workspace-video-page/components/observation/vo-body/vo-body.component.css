@@ -1,0 +1,66 @@
+.fake_player{
+	background: black;
+    display: inline-block;
+    width: 100%;
+    color: white;
+    height: 250px;
+    position: relative;
+}
+
+.player_icon{
+	position: absolute;
+    left: 50%;
+    top: 42%;
+    font-size: 18px;
+}
+
+.uploading_wrapper{
+    background: #5db85b87;
+    height: 100%;
+    position: relative;
+}
+
+.uploading_wrapper + span{
+    position: absolute;
+    top: 40%;
+    left: 36%;
+    font-size: 13pt;
+}
+
+.comm_top.ob_comment_label{
+    padding-top: 15px;
+}
+
+.transition_on_change{
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.btn-sco-publish{
+    margin-bottom: 15px;
+}
+
+a.all-observations{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.nopointer{
+    cursor: default !important;
+}
+
+.no_comments_found h5{
+
+    font-size: 11pt;
+
+}
+
+#dropdown-basic li{
+    display: block !important;
+}
+
+.ob_add_comment{
+    padding-bottom: 75px;
+}

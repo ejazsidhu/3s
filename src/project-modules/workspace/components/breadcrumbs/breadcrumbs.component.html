@@ -1,0 +1,8 @@
+<div *ngIf="isLoadingBread" class="container bred_an">
+    <a [routerLink]="['/']">{{translation?.workspace_home}}</a>
+    <img src="assets/img/breadcrumarrow.svg">
+    <a> {{translation?.workspace_label}} </a>
+</div>
+<div *ngIf="!isLoadingBread" class="container bred_an">
+    <div class="animate_me br_an"></div>
+</div>

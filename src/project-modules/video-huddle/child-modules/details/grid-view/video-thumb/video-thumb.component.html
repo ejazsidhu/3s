@@ -1,0 +1,167 @@
+<!-- Junaid Sarwar: March-14-2019: VIDEO THUMBNAIL WILL BE UPDATED ON SOCKET MESSAGE, CURRENTLY IT IS HARDCODED BASED UPON PROCESSING STATE OF VIDEO -->
+<!-- *ngIf="permissionService?.getArtifactShowHidePermission(artifact)" -->
+<div class="inner_h">
+    <!-- <a href="{{HrefLink(artifact)}}"> -->
+    <a *ngIf="artifact?.doc_type!=4" [class.link-disabled]="artifact.published==1 ? true : null" [routerLink]="['/video_details/home/', artifact.account_folder_id, artifact.doc_id]">
+        <div class="thumb_hu" [class.processing]="artifact.published==0 || artifact?.thubnail_url ==null || (artifact?.transcoding_status==5  || artifact?.encoder_status=='Error')">
+            <!-- && artifact?.thubnail_url!=null -->
+            <ng-container *ngIf="artifact.published==1 && artifact?.thubnail_url !=null  && artifact?.video_duration > 0 && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error')">
+                <!-- <img [src]="artifact?.thubnail_url" width="200" height="150"> -->
+
+                <img *ngIf="!this.headerService.isAValidAudio(this.headerService?.getExtension(artifact?.url))" class="thumbnail_i" src="{{artifact?.thubnail_url}}" width="230" height="150">
+                <img *ngIf="this.headerService.isAValidAudio(this.headerService?.getExtension(artifact?.url))" class="thumbnail_i" src="{{this.headerService?.getAudioURL()}}" width="230" height="150">
+
+                <span  class="play_icon"> <img src="assets/video-huddle/img/video_ply.svg"> </span>
+            </ng-container>
+            <ng-container *ngIf="artifact.published==1 && artifact?.thubnail_url !=null  && (!artifact?.video_duration || artifact?.video_duration == 0) && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error')">
+                <!-- <img [src]="artifact?.thubnail_url" width="200" height="150"> -->
+                <img *ngIf="!this.headerService.isAValidAudio(this.headerService?.getExtension(artifact?.url))" class="thumbnail_i" src="{{artifact?.thubnail_url}}" width="230" height="150">
+                <img *ngIf="this.headerService.isAValidAudio(this.headerService?.getExtension(artifact?.url))" class="thumbnail_i" src="{{this.headerService?.getAudioURL()}}" width="230" height="150">
+
+                <span *ngIf="artifact?.video_is_saved !=0" class="play_icon"> <img src="assets/video-huddle/img/video_ply.svg"> </span>
+            </ng-container>
+            <ng-container *ngIf="artifact.published==1 && artifact?.thubnail_url !=null  && artifact?.video_duration == -1 && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error')">
+                <img [src]="artifact?.thubnail_url" width="200" height="150">
+                <span class="play_icon"> <img src="assets/video-huddle/img/video_ply.svg"> </span>
+            </ng-container>
+            <!-- || artifact?.transcoding_status==2 -->
+            <!-- {{artifact.published |json}} -->
+            <ng-container *ngIf="(artifact.published==0 && (artifact?.thubnail_url ==null || artifact?.thubnail_url =='' )) && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error') ">
+                <!-- {{artifact |json}} -->
+                <p *ngIf="(artifact?.transcoding_status!=5 || artifact?.encoder_status!='Error') && !this.headerService.isAValidAudio(artifact?.file_type)">
+                    <span> {{artifact?.video_is_saved ==0 ? translation?.artifacts_video_not_saved : translation?.artifacts_video_currently_processing}} </span>
+                    <br />
+                    <img *ngIf="artifact?.video_is_saved !=0" class="loader" height="70" src="assets/video-huddle/img/spinner.svg">
+                    <img *ngIf="artifact?.video_is_saved ==0"  class="thumbnail_i" height="70" src="assets/img/video-thumbnail-sibme.svg">
+                </p>
+                <!-- {{artifacts_audio_currently_processing |json}} -->
+                <p *ngIf="(artifact?.transcoding_status!=5 || artifact?.encoder_status!='Error') && this.headerService.isAValidAudio(artifact?.file_type)">
+                    {{translation?.artifacts_audio_currently_processing}}
+                    <br />
+                    <img class="loader" height="70" src="assets/video-huddle/img/spinner.svg">
+                </p>
+
+            </ng-container>
+            <!-- <ng-container *ngIf="artifact?.published==1 && artifact.video_duration <= 0 && artifact?.transcoding_status==null">
+                <div class="video_crope">
+                    {{translation?.workspace_videoiscurrept}}
+                </div>
+
+            </ng-container> -->
+            <!-- artifact?.published!=0 && -->
+            <ng-container *ngIf="(artifact?.transcoding_status==5  || artifact?.encoder_status=='Error') ">
+                <div class="video_crope">
+                    {{translation?.video_not_processed}}<a target="_top">support@sibme.com</a>
+                </div>
+
+            </ng-container>
+
+            <span class="video_time" *ngIf="artifact?.video_is_saved !=0">{{detailsService?.FormatSeconds(artifact?.video_duration)}}</span>
+
+        </div>
+    </a>
+    <a *ngIf="artifact?.doc_type==4" [class.link-disabled]="artifact.published==1 ? true : null" [routerLink]="['/video_details/live-streaming/', artifact.account_folder_id, artifact.doc_id]">
+        <div class="thumb_hu" [class.processing]="artifact.published==0 || artifact?.thubnail_url ==null || (artifact?.transcoding_status==5  || artifact?.encoder_status=='Error')">
+
+
+            <span class="video_time live-time">LIVE</span> 
+
+        </div>
+    </a>
+
+    <div class="huddle_detail">
+        <!-- {{artifact | json}} -->
+        <!--  -->
+        <!-- "{{basepath}}/video_huddles/home/{{artifact.account_folder_id}}/{{artifact.doc_id}}" -->
+        <div class="hu_video">
+            <label style="cursor:pointer" tooltip="{{artifact.title}}" (click)="goToDetailPage(artifact)">{{artifact.title | slice:0:20}} <span *ngIf="artifact.title.length>18">...</span></label>
+        </div>
+
+        <ng-container *ngIf="permissionService?.getPermission(artifact,'delete') &&  (artifact?.video_duration!=0 || artifact?.video_is_saved ==0) && artifact.published==1 || (artifact?.transcoding_status==5 || artifact?.encoder_status=='Error')">
+            <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen) ">
+                <button type="button">
+        <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+      </button>
+            </div>
+            <!--  -->
+            <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+                <span (isOpenChange)="isOpen($event)" dropdown>
+        <button type="button" id="button-basic" dropdownToggle>
+          <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+        </button>
+        <!-- {{detailsService?.artifactObj.submission_date_passed |json}} -->
+        <ul  id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+          [class.disabled_ul]="artifact.published==0">
+
+          <ng-container *ngIf="artifact.published==1">
+            <a  class="dropdown-item" (click)="OpenModel(artifact,'rename');" *ngIf="(artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error')">{{translation?.artifact_rename}}</a>
+            <a *ngIf="permissionService?.getPermission(artifact,'crop') && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error') && artifact?.video_is_saved !=0" class="dropdown-item" (click)="OpenModel(artifact,'crop');">{{translation?.artifact_crop}}</a>
+            <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'email');">Email</a> -->
+            <a *ngIf="permissionService?.getPermission(artifact ,'duplicate') && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error') && artifact?.video_is_saved !=0" class="dropdown-item" (click)="DuplicateResource(artifact)">{{translation?.artifact_duplicate}}</a>
+            <a *ngIf="permissionService?.getPermission(artifact,'download') && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error') && artifact?.video_is_saved !=0" class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.artifact_download}}</a>
+            
+            <!-- <a *ngIf="!!detailsService?.artifactObj.submission_date_passed" class="dropdown-item">Delete</a> -->
+            <a *ngIf="permissionService?.getPermission(artifact,'delete')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+           
+            <!--  -->
+          </ng-container>
+
+          <ng-container *ngIf="artifact.published==0">
+
+            <!-- <a class="dropdown-item navailable">{{translation?.artifact_rename}}</a>
+            <a class="dropdown-item navailable">{{translation?.artifact_crop}}</a> -->
+            <!-- <a class="dropdown-item">Email</a> -->
+            <!-- <a class="dropdown-item navailable">{{translation?.artifact_duplicate}}</a>
+            <a class="dropdown-item navailable">{{translation?.artifact_download}}</a> -->
+            <a *ngIf="!!detailsService?.artifactObj.submission_date_passed" class="dropdown-item">{{translation?.artifact_delete}}</a>
+            <a *ngIf="!detailsService?.artifactObj.submission_date_passed && permissionService?.getPermission(artifact,'delete') && (artifact?.transcoding_status!=5 && artifact?.encoder_status!='Error')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+            <a *ngIf="permissionService?.getPermission(artifact,'delete') || (artifact?.transcoding_status==5 || artifact?.encoder_status=='Error')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete}}</a>
+           
+            <!-- <a class="dropdown-item available" (click)="OpenModel(artifact,'delete')">Delete</a> -->
+
+          </ng-container>
+
+
+        </ul>
+      </span>
+            </div>
+        </ng-container>
+
+        <!-- <div class="hu_op dropdown">
+      
+        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+  <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+ </button>
+        <div class="dropdown-menu">
+           <a class="dropdown-item" href="#">Rename</a>
+           <a class="dropdown-item" href="#">Crope</a>
+           <a class="dropdown-item" href="#">Duplicate</a>
+           <a class="dropdown-item" href="#">Download</a>
+           <a class="dropdown-item" href="#">Delete</a>
+  
+ 
+       </div>
+
+        </div> -->
+        <div class="clear"></div>
+        <p class="h_by">{{translation?.artifacts_by}}: <b>{{artifact?.first_name}} {{ artifact?.last_name}}</b></p>
+        <p class="h_date">{{translation?.artifact_upload}} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+
+        <div class="huddle_option">
+            <a class="chat_cls" tooltip="{{translation?.artifact_comments}}"> <img src="assets/video-huddle/img/comm_icon.svg"> {{artifact?.total_comments}}</a>
+            <a class="h_att" tooltip="{{translation?.artifact_attachments}}"> <img src="assets/video-huddle/img/attachment_icon.svg"> {{artifact?.total_attachment}}
+            </a>
+
+            <a tooltip="{{translation?.artifact_share}}" *ngIf="permissionService?.getPermission(artifact,'delete') && artifact?.published==1 && artifact?.video_is_saved !=0" class="arrow_cls" (click)="OpenModel(artifact,'share')"> <img src="assets/video-huddle/img/icon_arrow.svg">
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- <shared-popup-models #popUp [artifact]="artifact"></shared-popup-models> -->

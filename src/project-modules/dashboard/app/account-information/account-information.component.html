@@ -1,0 +1,22 @@
+<div class="sibme_coaching">
+	<p>
+		
+		<a *ngIf="details?.is_change_account_enable==1" [attr.href]="details?.base_url+'/launchpad'" tooltip={{translations?.change_account}} placement="bottom">
+			{{details?.user_current_account?.accounts?.company_name}}
+			<img width="19" src="../../../assets/dashboard/../../../../assets/dashboard/assets/img/new/icon-switch-account.svg" class="non_gry" />
+			<img width="19" src="../../../assets/dashboard/../../../../assets/dashboard/assets/img/new/icon-switch-account_gry.svg" class="gry" />
+
+		</a>
+		<a *ngIf="details?.is_change_account_enable!=1 && !details?.user_current_account?.accounts?.in_trial" tooltip={{translations?.change_account}} placement="bottom">
+			{{details?.user_current_account?.accounts?.company_name}}
+
+		</a>
+
+		<a *ngIf="details?.is_change_account_enable!=1 && details?.user_current_account?.accounts?.in_trial" tooltip={{translations?.change_account}} placement="bottom">
+			{{details?.user_current_account?.accounts?.company_name}}
+
+		</a>
+
+	</p>
+	<trial-message [details]="details"> </trial-message>
+</div>

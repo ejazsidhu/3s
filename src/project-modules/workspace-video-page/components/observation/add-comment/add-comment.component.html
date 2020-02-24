@@ -1,0 +1,36 @@
+<div class="comment_box">
+    <textarea [(ngModel)]="newComment.commentText" (keydown)="TriggerTextChange($event)" placeholder="add a note..."></textarea>
+    <div class="comment_tags">
+        <div class="tags_icons fake_link" (click)="mainService.FocusCustomTag()" style="transform: rotate(86deg);">
+            <span class="oi" data-glyph="tag"></span>
+        </div>
+        <div class="plusicon fake_link" (click)="mainService.FocusCustomTag()">
+
+            <span class="oi" data-glyph="plus"></span>
+        </div>
+        <custom-tags [predefinedTags]="presetTags" (Tags)="SetCustomTags($event)"></custom-tags>
+        <div class="clear"></div>
+    </div>
+
+
+    <fs-uploader [label]=translation?.myfile_upload [source]="'comment'" [configuration]="videoOptions" (onUpload)="AppendNewFiles($event)"></fs-uploader>
+    <span *ngFor="let file of newComment.files; let i=index" [ngClass]="{'tag_adjusted':i>0}" class="tag_rounded full_width marg_top">
+    <span>
+      {{file.filename || file.title}}
+    </span>
+    <span class="pull-right cross_span" (click)="RemoveFileFromComment(file, i)">
+      x
+    </span>
+    </span>
+
+
+</div>
+<div class="add_comm_btn" *ngIf="!EditMode">
+    <a class="fake_link" (click)="AddTextComment()">{{translation?.myfile_add}}</a>
+</div>
+<div class="add_comm_btn" *ngIf="EditMode">
+    <a class="simple_btn" (click)="EditTextComment(0)">{{translation?.myfile_cancel}}</a>
+    <a class="fake_link" (click)="EditTextComment(1)">{{translation?.myfile_update}}</a>
+</div>
+
+<div class="clear"></div>

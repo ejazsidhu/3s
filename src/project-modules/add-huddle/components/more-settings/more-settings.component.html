@@ -1,0 +1,223 @@
+<a href="" (click)="LoadMoreSettings(template, $event)">{{translation?.huddle_more_huddle_btn}}</a>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{translation?.huddle_more_huddle_settings}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+
+        <div>
+            <label class="field_title">{{translation?.huddle_huddle_description_label}}</label>
+
+            <div>
+
+                <textarea class="form-control" [(ngModel)]="HuddleSettings.description"> </textarea>
+
+            </div>
+
+        </div>
+
+        <div>
+            <label class="field_title">{{translation?.huddle_other_settings}}</label>
+
+            <div>
+
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-sm-6">
+                        <span class="switch_container">
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.video_marker" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+	  			</ui-switch>	
+	  			</span>
+
+                        <span class="switch_text">
+					{{translation?.huddle_custom_video_markers}}
+	  			</span>
+
+                        <div class="clearfix">
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6" *ngIf="huddle_type==2">
+                        <span class="switch_container">
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.allow_download" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+	  			</ui-switch>
+	  			</span>
+                        <span class="switch_text">
+	  				{{translation?.huddle_coachee_download_copy_edit}} 
+	  			</span>
+                        <div class="clearfix">
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6" *ngIf="huddle_type==3">
+                        <span class="switch_container">
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.can_view_summary" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+	  			</ui-switch>
+	  			</span>
+                        <span class="switch_text">
+	  				{{translation?.huddle_assessee_can_view_summary}}  
+	  			</span>
+                        <div class="clearfix">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6" *ngIf="enable_framework_standard!=0">
+
+                        <span class="switch_container">
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.frameworks" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+	  			</ui-switch>  
+	  			</span>
+
+                        <span class="switch_text">
+	  				<ng-container *ngIf="huddle_type!=3">{{translation?.huddle_more_frameworks}}  </ng-container>
+	  				<ng-container *ngIf="huddle_type==3">{{translation?.huddle_assessment_rubrics_checkbox}}</ng-container>   <!-- coach:2, collab:1, assess:3 -->
+	  			</span>
+                        <div class="clearfix">
+
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="col-sm-6">
+
+	  			<span class="switch_container">
+	  				<ui-switch [disabled]="!HuddleSettings.show_publish_comments" defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.enable_publish" labelOn="On" labelOff="Off"></ui-switch>
+	  				
+	  			</span>
+
+	  			
+	  			<span class="switch_text">
+	  				Enable publish comment button  <img  tooltip="There is a comment on a video so this option can not be enabled" *ngIf="!HuddleSettings.show_publish_comments" class="question_cls"   src="assets/img/question.png"/>
+	  			</span>
+	  			<div class="clearfix">
+	  				
+	  			</div>
+	  			
+	  		</div> -->
+
+
+                    <div class="col-sm-6" *ngIf="huddle_type==2 && HuddleSettings.show_publish_comments">
+                        <span class="switch_container">
+					  <!-- {{HuddleSettings.enable_publish}} -->
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.enable_publish" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}"></ui-switch>	  				
+	  			</span>
+
+
+                        <span class="switch_text">
+	  				{{translation?.huddle_enable_publish}}
+	  			</span>
+                        <div class="clearfix">
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+                <div class="row settings_container" [style.marginTop.px]="20" *ngIf="HuddleSettings.frameworks">
+                    <ng-container *ngIf="huddle_type != 3 && enable_framework_standard!=0">
+                        <i class="vertical">
+		  			
+		  		</i>
+                        <i class="horizontal">
+		  			
+		  		</i>
+                    </ng-container>
+
+                    <div class="col-sm-5 offset-sm-1" *ngIf="huddle_type != 3 && enable_framework_standard!=0">
+
+                        <span class="switch_container">
+	  				<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.allow_per_video" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+	  			</ui-switch>  
+	  			</span>
+
+                        <span class="switch_text adjusted_text" *ngIf="huddle_type == 1">
+					{{translation?.allow_huddle_members_to}}
+	  			</span>
+
+                        <span class="switch_text adjusted_text" *ngIf="huddle_type == 2">
+					{{translation?.huddle_more_allow_huddle}}
+				</span>
+                        <div class="clearfix">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Here coachee_can_view_coaching_summary -->
+                    <div class="col-sm-6" *ngIf="huddle_type==2">
+                        <span class="switch_container">
+					<ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.can_view_summary" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}"></ui-switch>
+				</span>
+                        <span class="switch_text">
+					{{translation?.huddle_coachee_view}}
+				</span>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+                <div class="row" [style.marginTop.px]="20" *ngIf="huddle_type != 3 && cirqEnabled">
+                    <div class="col-sm-6">
+                        <span class="switch_container">
+                      <ui-switch defaultBgColor="#a3a3a3" [(ngModel)]="HuddleSettings.allow_download_recordings" labelOn="{{translation?.huddle_on_check_btn}}" labelOff="{{translation?.huddle_off_check_btn}}">
+                  </ui-switch>	
+                  </span>
+    
+                        <span class="switch_text">
+                   Allow huddle to auto download conference recordings and display in Artifacts
+                  </span>
+    
+                        <div class="clearfix">
+    
+                        </div>
+    
+                    </div>
+                </div>
+
+            </div>
+
+            <div [style.marginTop.px]="20">
+                <alert type="warning" dismissible="true" *ngIf="!frameworks || frameworks?.length<1 && enable_framework_standard!=0">
+                    <!-- You must define a framework before frameworks can be enabled here. Please contact your account owner to enable frameworks. -->
+                    {{translation?.huddle_no_rubrics_framework_published}}
+                </alert>
+                <select [(ngModel)]="HuddleSettings.selected_framework" class="form-control" *ngIf="HuddleSettings.frameworks && frameworks?.length>0 && enable_framework_standard==1">
+	  			<option value="0" selected="selected">
+	  				 <ng-container *ngIf="huddle_type!=3">{{translation?.huddle_select_framework}}</ng-container>
+	  				<ng-container *ngIf="huddle_type==3">zxzxcx</ng-container> 
+	  			</option>
+	  			<option *ngFor="let framework of frameworks" [attr.value]="framework.account_tag_id"> {{framework.tag_title}} </option>
+	  		</select>
+
+            </div>
+            <div>
+                <label class="field_title">{{translation?.huddle_message_to_invite_participant}}</label>
+                <textarea [(ngModel)]="HuddleSettings.invite_message" class="form-control"> </textarea>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="row text-right">
+
+            <button (click)="resolve_settings(0, HuddleSettings)" class="hu_cancel">{{translation?.huddle_cancel_btn}}</button>
+            <button (click)="resolve_settings(1, HuddleSettings)" class="hu_primary">{{translation?.huddle_user_save}}</button>
+
+        </div>
+
+    </div>
+</ng-template>

@@ -1,0 +1,27 @@
+.bred_an {
+    position: relative;
+    top: 18px;
+    color: #4d504d;
+    padding-bottom: 25px;
+    font-family: Roboto;
+    padding: 0px 0px 16px 0px;
+}
+
+.breadcrumb-animate {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #d9d9d9;
+    background: -webkit-gradient(linear, left top, right top, color-stop(8%, #e9e9e9), color-stop(18%, #F0F0F0), color-stop(33%, #efefef));
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+    background-size: 800px 104px;
+    height: 20px;
+    position: relative;
+}

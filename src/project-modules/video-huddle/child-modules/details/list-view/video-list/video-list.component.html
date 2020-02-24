@@ -1,0 +1,245 @@
+<div class="row list_row">
+    <div class="col-md-5">
+        <a *ngIf="artifact?.doc_type!=4" href="{{HrefLink(artifact)}}">
+            <div class="thumblist" [class.trimming]="artifact.published==0" (click)="goToDetailPage(artifact)">
+
+                <ng-container *ngIf="artifact.published==1">
+                    <div class="th_img">
+                        <img [src]="artifact?.thubnail_url">
+                    </div>
+                    <span class="list_play"> <img src="assets/video-huddle/img/play_gry-sml.svg"> </span>
+                    <span class="video_time" *ngIf="artifact?.video_is_saved !=0">{{detailsService?.FormatSeconds(artifact?.video_duration)}}</span>
+                </ng-container>
+                <ng-container *ngIf="artifact.published==0">
+                    <img _ngcontent-c11=""  class="loader" height="50" src="assets/video-huddle/img/spinner.svg">
+                </ng-container>
+            </div>
+        </a>
+        <a *ngIf="artifact?.doc_type==4" [routerLink]="['/video_details/live-streaming/', artifact.account_folder_id, artifact.doc_id]">
+         
+          <div class="thumblist" [class.trimming]="artifact.published==0 || artifact?.thubnail_url ==null || (artifact?.transcoding_status==5  || artifact?.encoder_status=='Error')">
+
+
+            <span class="video_time live-time">LIVE</span> 
+
+        </div>
+      </a>
+        <div class="detail_list">
+            <p style="cursor:pointer" tooltip="{{artifact.title}}" (click)="goToDetailPage(artifact)">{{artifact.title | slice:0:38}} <span *ngIf="artifact.title.length>38">...</span></p>
+            <div class="huddle_option">
+                <a class="chat_cls" tooltip="{{translation?.artifact_comments}}"> <img src="assets/video-huddle/img/comm_icon.svg"> {{artifact?.total_comments||0}}</a>
+                <a class="h_att" tooltip="{{translation?.artifact_attachments}}"> <img src="assets/video-huddle/img/attachment_icon.svg"> {{artifact?.total_attachment||0}} </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <label>{{artifact?.first_name}} {{ artifact?.last_name}}</label>
+    </div>
+    <div class="col-md-2">
+        <label>{{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</label>
+    </div>
+    <div class="col-md-3 list_share">
+
+        <a class="share_icon" *ngIf="permissionService?.getPermission(artifact,'copy')  && artifact.published==1 && artifact?.video_is_saved !=0" (click)="OpenModel(artifact,'share')"> <img src="assets/video-huddle/img/icon_arrow.svg"> {{translation.artifact_share}} </a>
+
+        <ng-container *ngIf="permissionService?.getPermission(artifact,'delete') && (artifact?.video_duration!=0 || artifact?.video_is_saved ==0) && artifact.published==1">
+            <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+                <button type="button">
+          <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+        </button>
+            </div>
+            <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+                <span (isOpenChange)="isOpen($event)" dropdown>
+                            <button type="button" id="button-basic" dropdownToggle>
+                                <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+                              </button>
+                          
+                          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"  role="menu" aria-labelledby="button-basic" [class.diabled_ul]="artifact.published==0">
+                            <ng-container *ngIf="artifact.published==1">
+                              <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation.artifact_rename}}</a>
+                              <a *ngIf="permissionService?.getPermission(artifact,'crop') && artifact?.video_is_saved !=0" class="dropdown-item" (click)="OpenModel(artifact,'crop');">{{translation.artifact_crop}}</a>
+                              <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'email');">Email</a> -->
+                              <a *ngIf="permissionService?.getPermission(artifact,'duplicate') && artifact?.video_is_saved !=0" class="dropdown-item" (click)="DuplicateResource(artifact)">{{translation.artifact_duplicate}}</a>
+                              <a *ngIf="artifact?.video_is_saved !=0" class="dropdown-item" (click)="DownloadResource(artifact,'download')">{{translation.artifact_download}}</a>
+                              <!-- <a *ngIf="permissionService?.getPermission(artifact)" class="dropdown-item" (click)="OpenModel(artifact,'delete')">Delete</a> -->
+                              <a *ngIf="!!detailsService?.artifactObj.submission_date_passed" class="dropdown-item">{{translation.artifact_delete}}</a>
+                              <a *ngIf="!detailsService?.artifactObj.submission_date_passed && permissionService?.getPermission(artifact,'delete')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation.artifact_delete}}</a>
+                            </ng-container>
+
+                            <ng-container *ngIf="artifact.published==0">
+                              <a class="dropdown-item navailable">{{translation.artifact_rename}}</a>
+                              <a class="dropdown-item navailable">{{translation.artifact_crop}}</a>
+                              <!-- <a class="dropdown-item">Email</a> -->
+                              <a class="dropdown-item navailable">{{translation.artifact_duplicate}}</a>
+                              <a class="dropdown-item navailable">{{translation.artifact_download}}</a>
+                              <!-- <a *ngIf="!!detailsService?.artifactObj.submission_date_passed" class="dropdown-item available">Delete</a> -->
+                              <a class="dropdown-item available" *ngIf="permissionService?.getPermission(artifact,'delete')" class="dropdown-item" (click)="OpenModel(artifact,'delete')">{{translation.artifact_delete}}</a>
+                             
+                              <!-- <a class="dropdown-item " (click)="OpenModel(artifact,'delete')">Delete</a> -->
+                            </ng-container>
+
+                          </ul>
+                          </span>
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+
+<!-- <div class="row list_row">
+   <div class="col-md-5">
+      <div class="thumblist">
+                          <img src="assets/video-huddle/img/videoimg.jpg">
+                          <span class="list_play"> <img class="w13" src="assets/video-huddle/img/speaker_gry_icon.svg"> </span>
+                          <span class="video_time">02:05</span>
+                       </div>
+      
+      <div class="detail_list">
+         <p>Faculty meeting presentation</p>
+         <div class="huddle_option">
+                           <a class="chat_cls" href=""> <img src="assets/video-huddle/img/comm_icon.svg"> 3</a>
+                           <a class="h_att" href=""> <img src="assets/video-huddle/img/attachment_icon.svg"> 3 </a>
+                           
+                          
+                           
+                        </div>
+         
+      </div>
+      
+   </div> 
+   <div class="col-md-2">
+     <label>Carlos Sibme</label>
+   </div> 
+   <div class="col-md-2">
+     <label>12/20/2018</label>
+   </div>
+   <div class="col-md-3 list_share">
+   
+     <a class="share_icon" href="#"> <img src="assets/video-huddle/img/icon_arrow.svg"> Share  </a> 
+     
+     
+     <div class="hu_op dropdown">
+                       
+                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                   <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+                  </button>
+                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Rename</a>
+                            <a class="dropdown-item" href="#">Crope</a>
+                            <a class="dropdown-item" href="#">Duplicate</a>
+                            <a class="dropdown-item" href="#">Download</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                   
+                  
+                        </div>
+                
+                         </div>
+                         
+   </div>      
+   </div>
+   
+   
+   <div class="row list_row">
+   <div class="col-md-5">
+      <div class="thumblist">
+                          <img src="assets/video-huddle/img/videoimg.jpg">
+                          <span class="list_play"> <img src="assets/video-huddle/img/play_gry-sml.svg"> </span>
+                          <span class="video_time">02:05</span>
+                       </div>
+      
+      <div class="detail_list">
+         <p>Faculty meeting presentation</p>
+         
+      </div>
+      
+   </div> 
+   <div class="col-md-2">
+     <label>Carlos Sibme</label>
+   </div> 
+   <div class="col-md-2">
+     <label>12/20/2018</label>
+   </div>
+   <div class="col-md-3 list_share">
+   
+     <a class="share_icon" href="#"> <img src="assets/video-huddle/img/icon_arrow.svg"> Share  </a> 
+     
+     
+     <div class="hu_op dropdown">
+                       
+                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                   <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+                  </button>
+                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Rename</a>
+                            <a class="dropdown-item" href="#">Crope</a>
+                            <a class="dropdown-item" href="#">Duplicate</a>
+                            <a class="dropdown-item" href="#">Download</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                   
+                  
+                        </div>
+                
+                         </div>
+                         
+   </div>      
+   </div>
+   
+   
+   
+   
+   
+   
+   <div class="row list_row">
+   <div class="col-md-5">
+      <div class="thumblist">
+                          <img src="assets/video-huddle/img/videoimg.jpg">
+                          <span class="list_play"> <img src="assets/video-huddle/img/play_gry-sml.svg"> </span>
+                          <span class="video_time">02:05</span>
+                       </div>
+      
+      <div class="detail_list">
+         <p>Faculty meeting presentation</p>
+         
+      </div>
+      
+   </div> 
+   <div class="col-md-2">
+     <label>Carlos Sibme</label>
+   </div> 
+   <div class="col-md-2">
+     <label>12/20/2018</label>
+   </div>
+   <div class="col-md-3 list_share">
+   
+     <a class="share_icon" href="#"> <img src="assets/video-huddle/img/icon_arrow.svg"> Share  </a> 
+     
+     
+     <div class="hu_op dropdown">
+                       
+                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                   <img src="assets/video-huddle/img/dots_dark.svg" width="30">
+                  </button>
+                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Rename</a>
+                            <a class="dropdown-item" href="#">Crope</a>
+                            <a class="dropdown-item" href="#">Duplicate</a>
+                            <a class="dropdown-item" href="#">Download</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                   
+                  
+                        </div>
+                
+                         </div>
+                         
+   </div>      
+   </div>
+    -->
+
+
+<!--listview-->
+
+
+<!-- <shared-popup-models #popUp [artifact]="currentArtifact"></shared-popup-models> -->

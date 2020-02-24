@@ -1,0 +1,250 @@
+<div class="clear"></div>
+<div class="container bred_an">
+  <a [routerLink]="['/']">{{translations.home_user_settings}}</a>
+  <ng-container>
+    <img src="assets/img/breadcrumarrow.svg"/>
+    <a>
+      {{translations.user_settings}}
+    </a>
+  </ng-container>
+</div>
+
+<div class="clear"></div>
+
+
+<!-- User Settings-->
+
+<div *ngIf="skelton_loading" class="container box_outer">
+
+  <div class="row panl_headingac">
+    <div class="col-6">
+      <h3 class="ani_us us1"></h3>
+
+
+    </div>
+
+  </div>
+
+
+  <div class="row user_acount">
+    <div class="col-12">
+
+      <div class="acc_img">
+        <span class="uimg ani_us"></span>
+      </div>
+      <div class="acc_detail">
+        <label class="ani_us use_lab"></label>
+        <p class="ani_us use_lab"></p>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="row user_opt">
+    <div class="col-md-5">
+      <h4 class="use_lab2 ani_us"></h4>
+      <div class="ckoptions">
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+        <div class="use_lab3 ani_us"></div>
+      </div>
+    </div>
+
+
+    <div class="col-md-7">
+      <h4 class="use_lab2 ani_us"></h4>
+
+      <div class="setcsl1">
+        <div class="use_lab3 ani_us"></div>
+      </div>
+      <div class="setcsl2">
+        <div class="use_lab3 ani_us"></div>
+
+      </div>
+      <div class="clear"></div>
+
+      <div class="ckoptions">
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+        <div class="use_lab4 ani_us"></div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="user_sebtn">
+    <span class="use_lab5 ani_us"></span>
+    <span class="use_lab5 ani_us"></span>
+  </div>
+
+</div>
+
+
+<div *ngIf="!skelton_loading" class="container box_outer">
+
+  <div class="row panl_headingac">
+    <div class="col-6">
+      <h3>{{translations.user_settings}}</h3>
+
+
+    </div>
+
+  </div>
+
+
+  <div class="row user_acount" *ngIf="userSettings.user">
+    <div class="col-12">
+
+      <div class="acc_img">
+        <form >
+          <img *ngIf="!userSettings.user.image" src="assets/trackers/img/photo-default.png" (click)="showPopup()">
+          <img *ngIf="userSettings.user.image" [src]="url" (click)="showPopup()">
+          <div class="pic_upload_popup" *ngIf="popup">
+            <h4>Change your photo</h4>
+          <input type="file"
+                 accept="image/*"
+                 (change)="onFileChanged($event.target.files)" #photo>
+                 <div class="pic_upload_btn">
+          <button class="btn btn-primary btn-sm" type="submit" (click)="onUpload()">{{translations.submit_us}}</button>&nbsp;&nbsp;
+          <button class="btn btn-secondary btn-sm" (click)="reset()">{{translations.vd_cancel}}</button>
+        </div>
+        </div>
+        </form>
+      </div>
+      <div class="acc_detail">
+        <label>{{firstName+" "+lastName}}</label>
+        <p>{{email}}</p>
+      </div>
+
+
+    </div>
+
+  </div>
+<form #updateUser="ngForm">
+  <div class="row user_opt">
+    <div class="col-md-5" *ngIf="userSettings.user">
+      <h4>{{translations.personal_information}}</h4>
+      <div class="ckoptions">
+        <label>{{translations.title_placeholder}}</label>
+        <input type="text" class="form-control" [(ngModel)]="userSettings.user.title" name="title">
+        <div>
+          <label>{{translations.fname_placeholder}}</label>
+          <input type="text" class="form-control" [(ngModel)]="userSettings.user.first_name" #firstName="ngModel" name="first_name"
+                 required>
+          <span *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                  <small *ngIf="firstName.errors.required" class="form-control-feedback">
+                    {{translations.this_is_required}}
+                  </small>
+        </span>
+        </div>
+
+        <div>
+          <label>{{translations.lname_placeholder}}</label>
+          <input type="text" class="form-control" [(ngModel)]="userSettings.user.last_name" required #last_name="ngModel" name="last_name">
+          <span *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
+                  <small *ngIf="last_name.errors.required" class="form-control-feedback">
+                    {{translations.this_is_required}}
+                  </small>
+                </span>
+        </div>
+
+
+        <div>
+          <label>{{translations.email_global}}</label>
+          <input type="email" class="form-control" [(ngModel)]="userSettings.user.email"
+                 pattern="[A-Za-zzÄÖÜäöüß0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$" #email='ngModel' required name="email">
+          <span *ngIf="email.invalid && (email.dirty || email.touched)">
+                <small *ngIf="email.errors.required" class="form-control-feedback">
+                  {{translations.this_is_required}}
+                </small>
+                <small *ngIf="email.errors.pattern" class="form-control-feedback">
+                  {{translations.email_must_be_valid}}
+                </small>
+              </span>
+        </div>
+
+        <div>
+        <label>{{translations.username_placeholder}}</label>
+        <input type="text" class="form-control" [(ngModel)]="userSettings.user.username"
+               name="username" #username="ngModel" required>
+        <span *ngIf="username.invalid && (username.dirty || username.touched)">
+                  <small *ngIf="username.errors.required" class="form-control-feedback">
+                    {{translations.this_is_required}}
+                  </small>
+                </span>
+        </div>
+
+        <div>
+          <label>{{translations.new_password_placeholder}}</label>
+          <input type="password" class="form-control" [(ngModel)]="password"
+                  name="password">
+        </div>
+
+        <div>
+          <label>{{translations.confirm_password_placeholder}}</label>
+          <input type="password" class="form-control" [(ngModel)]="confirm_password" name="confirm_password">
+        </div>
+
+        <label>{{translations.intitution_id_all_global_user_settings}}</label>
+        <input type="text" class="form-control" [(ngModel)]="userSettings.user.institution_id" name="institution_id">
+      </div>
+    </div>
+
+
+    <div class="col-md-7" *ngIf="userSettings.email_unsubscribers">
+      <h4>{{translations.email_notifications_settings}}</h4>
+
+      <div class="setcsl1">
+        <label>{{translations.account_user_settings}}</label>
+        <select class="form-control" (change)="showSubscribers($event)" (click)="updateButton(email_unsubscribers.account_name)" [(ngModel)]="userAccount" name="showSubscribers">
+          <option *ngFor="let email_unsubscribers of  userSettings.email_unsubscribers"
+                  value={{email_unsubscribers.account_name}}>{{email_unsubscribers.account_name}}</option>
+        </select>
+      </div>
+      <div class="setcsl2">
+        <label>{{translations.language_desktop_only}}</label>
+        <select class="form-control" [(ngModel)]="userSettings.user.lang" name="userSettings">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+        </select>
+
+      </div>
+      <div class="clear"></div>
+      <div class="sub_ac" *ngIf="!isChecked"><a (click)="subscribeAll(email_unsubscribers.account_name)">{{translations.subscribe_all_user_settings}}</a></div>
+      <div class="sub_ac" *ngIf="isChecked"><a (click)="unsubscribeAll(email_unsubscribers.account_name)">{{translations.unsubscribe_all_user_settings}}</a></div>
+
+
+      <div class="ckoptions" *ngFor="let unsubscribers of  email_unsubscribers.unsubscribers">
+        <label class="ck_box">{{unsubscribers.full_name}}
+          <input type="checkbox" [checked]="unsubscribers.status === 'checked'"
+                 (change)="updateSubscribers($event,email_unsubscribers.account_name,unsubscribers.id)" name="checks">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="user_sebtn">
+    <button (click)="getUserSettings()">{{translations.vd_cancel}}</button>
+    <button [disabled]="!(updateUser.form.valid)" type="submit" (click)="update()" class="set_sav">{{translations.save_us}}</button>
+  </div>
+</form>
+</div>

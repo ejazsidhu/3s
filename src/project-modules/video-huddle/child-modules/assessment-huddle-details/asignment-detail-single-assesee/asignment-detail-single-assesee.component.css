@@ -1,0 +1,30 @@
+.back-to-assessment {
+    color: #949494;
+}
+
+.back-to-assessment:hover {
+    text-decoration: none;
+}
+.aswc {    background: #28A745 !important;
+    border-radius: 50px;
+    display: inline-block;
+    padding: 2px 13px 1px 13px;
+    line-height: 19px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;}
+
+    
+
+    .aswc2 {    background: #626262 !important;
+    border-radius: 50px;
+    display: inline-block;
+    padding: 2px 13px 1px 13px;
+    line-height: 19px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;}
+.aswc2 svg path{    stroke: #fff;}
+.aswc svg path{    stroke: #fff;}

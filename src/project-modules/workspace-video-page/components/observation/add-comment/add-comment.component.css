@@ -1,0 +1,11 @@
+textarea{
+	border: 0;
+    width: 100%;
+    height: 80px;
+    -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0.09) inset;
+    box-shadow: 0 0px 0px rgba(0,0,0,0.09) inset;
+    padding: 0;
+    color: #919191;
+    resize: none;
+}
+

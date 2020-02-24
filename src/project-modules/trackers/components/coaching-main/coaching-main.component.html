@@ -1,0 +1,330 @@
+    <!-- Breadcrumb Start -->
+    <div class="clear"></div>
+    <!-- *ngIf="breadcrubms" -->
+    <div *ngIf="!isLoadingBread" class="container bred_an">
+      <a [routerLink]="['/dashboard_angular/home']">{{translation?.home_coaching_tracker_new}}</a>
+      <img src="assets/img/breadcrumarrow.svg"> {{translation?.coaching_tracker_new}}
+    </div>
+    <div *ngIf="isLoadingBread" class="container bred_an">
+      <div class="animate_me br_an"></div>
+    </div>
+    <div class="clear"></div>
+    <!-- Breadcrumb End  -->
+<div class="container box_outer">
+    <ng-container *ngIf="!isLoadingBread">
+
+        <div class="row pan_heading">
+            <div class="col-12">
+              <h3>{{translation?.huddle_tracker_coaching_tracker_new}}</h3>
+              
+              
+               
+            </div>
+            
+        </div>
+        
+        <div class="tabs_barcls">
+        <div class="row">
+         <div class="col-md-12">
+           <ul class="nav nav-tabs">
+                     <li *ngIf = "enable_coaching_tracker == '1' " class="nav-item">
+                     
+                         <a class="active"  data-toggle="tab" role="tab">{{translation?.coaching_tracker_new}}</a>
+                     </li>
+                     <li *ngIf = "enable_assessment_tracker == '1' " class="nav-item itm2">
+                         <a  [routerLink]="['/trackers/assessment']" data-toggle="tab" role="tab">{{translation?.assessment_tracker_coaching_tracker_new}}</a>
+                     </li>
+                     <div class="clear"></div>
+                     
+                 </ul>
+                 <div class="clear"></div>
+         </div>
+         
+         
+         
+         
+         
+                  
+        </div>
+        
+     
+        
+        
+         
+         
+         
+                    
+        
+        </div>
+        <div class="clear"></div>
+        <div class="row tracker_as">
+        
+          <div class="col-12">
+             <div class="search_coaching" *ngIf="sessionData.user_current_account.users_accounts.role_id!='115'">
+             <input type="text" placeholder="{{translation?.search_coaches_coaching_tracker_new}}" [(ngModel)]="searchCoache" (ngModelChange)="OnSearchChange($event);">
+             <img class="x_hu_cross" *ngIf="searchCoache?.length>0" src="./assets/img/x.svg" (click)="searchCoache='';OnSearchChange('');">
+             </div>
+             <div class="coaching_filter">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+       <label class="btn btn-secondary" [ngClass]="{'active':date=='1month'}" [routerLink]="[]" [queryParams]="{ date: '1month'}"
+       queryParamsHandling="merge">
+         <input type="radio" name="options" id="option1" autocomplete="off" checked> 1 {{translation?.mo_coaching_tracker}}
+       </label>
+       <label class="btn btn-secondary" [ngClass]="{'active':date=='3months'}" [routerLink]="[]" [queryParams]="{ date: '3months'}"
+       queryParamsHandling="merge">
+         <input type="radio" name="options" id="option2" autocomplete="off">
+       
+          3 {{translation?.mo_coaching_tracker}}
+       </label>
+        <label class="btn btn-secondary" [ngClass]="{'active':date=='6months'}" [routerLink]="[]" [queryParams]="{ date: '6months'}"
+        queryParamsHandling="merge">
+         <input type="radio" name="options" id="option3" autocomplete="off"> 
+         
+         6 {{translation?.mo_coaching_tracker}}
+       </label>
+       
+        <label class="btn btn-secondary" [ngClass]="{'active':date=='12months'}" [routerLink]="[]" [queryParams]="{ date: '12months'}"
+        queryParamsHandling="merge">
+         <input type="radio" name="options" id="option2" autocomplete="off"> 
+         
+        12 {{translation?.mo_coaching_tracker}}
+       </label>
+       
+      
+     </div>
+             </div>
+             
+             <div class="co_or">
+               {{translation?.or_coaching_tracker}}
+             </div>
+             
+             <div class="date_coaching">
+             <input type="text" placeholder="{{translation?.select_date_coaching_tracker}}" bsDaterangepicker #dp="bsDaterangepicker" [bsConfig]="bsConfig" [(ngModel)]="bsRangeValue" (ngModelChange)="datePicker($event)">
+             </div>
+             
+          </div>
+          
+          <div class="onlyborder"></div>
+          
+        </div>
+
+    </ng-container>
+
+    
+    <ng-container *ngIf = "!isLoading">
+    
+    <div class="row coachingopt_row" *ngFor="let item of items" >
+       <div class="col-11" (click)="dropdownToggle(item);" style="cursor: pointer;">
+         <h3 style="text-overflow: ellipsis;overflow: hidden;">{{item.first_name}} {{item.last_name}}</h3>
+         <p>{{item.total_sessions}} {{translation?.video_sessions_coaching_tracker_new}}</p>
+       </div>
+       
+        <div class="col-1 right_co">
+            <div class="open_coachrow" *ngIf="sessionData.user_current_account.users_accounts.role_id!='115'" (click)="dropdownToggle(item);">
+           <img *ngIf="item.isOpen" src="assets/trackers/img/arrow_up.svg" width="20">
+           <img *ngIf="!item.isOpen" src="assets/trackers/img/arrowndown.svg" width="20">
+        </div>
+        
+        <div dropdown class="dropdown coaching_option">
+        
+        
+        
+        
+          <button type="button" class="dropdown-toggle" dropdownToggle data-toggle="dropdown">
+    <img src="assets/trackers/img/dots_d.svg">
+   </button>
+          <div class="dropdown-menu" *dropdownMenu>
+     <a class="dropdown-item" [href]="coachUrl(item)" target="_blank">{{translation?.coach_analytics_coaching_tracker_new}}</a>
+     <!-- <a class="dropdown-item" (click)="exportApi('pdf',item)">{{translation?.export_to_pdf_coaching_tracker_new}}</a> -->
+     <a class="dropdown-item" (click)="exportApi('xlsx',item)">{{translation?.export_to_excel_coaching_tracker_new}}</a>
+    
+   
+ </div>
+ 
+        
+          
+      </div>
+      
+          <div class="clear"></div>
+    
+        </div>
+            <app-coaching-detail class="col-12 p0" *ngIf="item.isOpen" [data]="item.Coachees" [translation]="translation"></app-coaching-detail>
+    </div>    
+        <div class="row coachingopt_row no_coaching" *ngIf="items.length==0 && searchCoache==''">
+          <div class="col-12">
+            <img src="/home/assets/img/no-found.svg">
+            {{translation?.coaching_tracker_no_coach_are_being_tracked_at_this_time}}
+          </div>
+        </div>
+        <div class="row coachingopt_row no_coaching" *ngIf="(items).length==0 && searchCoache!=''">
+            <div class="col-12">
+              <img src="/home/assets/img/no-found.svg">
+              {{translation?.coaching_tracker_no_coach_were_found}}
+            </div>
+          </div>
+    </ng-container>
+    <ng-container *ngIf="isLoadingBread">
+        <div class="row pan_heading">
+            <div class="col-12">
+                <h3>{{translation?.huddle_tracker_coaching_tracker_new}}</h3>
+              
+              
+               
+            </div>
+            
+        </div>
+        
+        <div class="tabs_barcls">
+        <div class="row">
+         <div class="col-md-12">
+           <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     
+                         <a class="trac4 tran"></a>
+                     </li>
+                     <li class="nav-item itm2">
+                         <a class="trac4 tran"></a>
+                     </li>
+                     <div class="clear"></div>
+                     
+                 </ul>
+                 <div class="clear"></div>
+         </div>
+         
+         
+         
+         
+         
+                  
+        </div>
+        
+     
+        
+        
+         
+         
+         
+                    
+        
+        </div>
+        <div class="clear"></div>
+        <div class="row tracker_as">
+          
+          <div class="col-6 tracker_serch">
+             <div class="trac5 tran"></div>
+          </div>
+          <div class="col-6">
+          
+           <div class="tracker_opt dropdown">
+                            
+                              <div class="tran trac6"></div>
+                     
+                              </div>
+          </div>
+          
+        </div>
+     </ng-container>
+        <ng-container *ngIf = "paginationSkeleton">          
+          <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+         <div class="row trc_row">
+            <div class="col-11">
+              <h3 class="tran trac1"></h3>
+              <p class="tran trac2"> </p>
+            </div>
+            
+             <div class="col-1">
+                <div class="tran trac3"></div>
+             </div>
+             
+             
+             
+             
+         </div>
+        </ng-container>
+    </div>

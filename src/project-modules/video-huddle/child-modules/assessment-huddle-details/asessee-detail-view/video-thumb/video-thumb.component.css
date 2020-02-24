@@ -1,0 +1,21 @@
+.processing{
+	background: black;
+	color: #FFF;
+	text-align: center;
+}
+
+.processing p{
+	margin-top: 33px;
+}
+
+.processing img.loader{
+	height: 70px;
+}
+
+ul.disabled{
+	color: grey;
+}
+
+ul.disabled_ul a:not(.available){
+	color: grey;
+}

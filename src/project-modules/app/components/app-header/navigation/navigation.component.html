@@ -1,0 +1,29 @@
+<nav class="nav nav-header">
+    <ul>
+        <li [class.active]="selectedNavItem === navItems.WORKSPACE" *ngIf="details.user_current_account.users_accounts.parmission_access_my_workspace=='1' ">
+            <a [routerLink]="['/workspace/workspace/home']">{{translation?.header_list_worksapce}}</a>
+        </li>
+
+        <li [class.active]="selectedNavItem === navItems.HUDDLE">
+            <a [routerLink]="['/video_huddles/list']">{{translation?.huddle_breadcrumb_huddle}}</a>
+        </li>
+
+        <li *ngIf="details?.library_permission==1">
+            <a [attr.href]="details?.base_url+'/VideoLibrary/'">{{translation?.header_list_library}}</a>
+        </li>
+
+        <li [class.active]="selectedNavItem === navItems.ANALYTICS" *ngIf="(details?.user_permissions?.UserAccount?.permission_view_analytics==1  || details?.user_current_account?.roles?.role_id==115) && !details?.user_current_account?.accounts?.in_trial">
+            <a [routerLink]="['/analytics_angular/home']">{{translation?.header_list_analytics}}</a>
+        </li>
+
+        <li [class.active]="selectedNavItem === navItems.PEOPLE" *ngIf="isAllowedPeople()">
+            <a [routerLink]="['/people']">{{translation?.header_list_people}}</a>
+
+            <!-- <a [attr.href]="details?.base_url+'/users/administrators_groups'">{{translation?.header_list_people}}</a> -->
+        </li>
+
+        <!-- <li *ngIf="details?.user_permissions?.accounts?.enable_edtpa=='1'">
+            <a href="/Edtpa/edtpa">{{translation?.header_list_edTPA}}</a>
+        </li> -->
+    </ul>
+</nav>

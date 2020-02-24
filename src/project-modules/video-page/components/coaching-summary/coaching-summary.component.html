@@ -1,0 +1,137 @@
+<div class="comment_main">
+
+    <div *ngIf="VideoInfo.h_type==2">
+        <div class="title_gra">
+            <span> <label> {{translation?.vd_coach_session}} </label> </span>
+        </div>
+        <p>
+            {{Summary?.coach_feedback?.comment || translation?.vd_no_summery_added}}
+        </p>
+    </div>
+
+    <div *ngIf="VideoInfo.h_type==3">
+        <div class="title_gra">
+            <span> <label> {{translation?.vd_assessor_session}} </label> </span>
+        </div>
+        <p>
+            {{Summary?.assessment_feedback?.comment || translation?.vd_no_summery_added}}
+        </p>
+    </div>
+
+    <div class="text-right cs_editBtn" *ngIf="!EditEnabled && huddle_permission!=210">
+        <span class="fake_link" (click)="EditFeedback()">
+            <span class="oi pencilIcon" data-glyph="pencil"></span> {{translation?.vd_editor}}
+        </span>
+    </div>
+
+</div>
+<div *ngIf="EditEnabled && huddle_permission!=210" class="edit_response animated fadeIn">
+    <textarea class="form-control" [(ngModel)]="EditableFeedback"></textarea>
+    <div class="text-right">
+        <a class="simple_btn" (click)="ResolveEditResponse(0)"> {{translation?.vd_cancel}} </a>
+        <a class="add_reply" (click)="ResolveEditResponse(1)"> {{translation?.vd_save}} </a>
+    </div>
+</div>
+
+<div class="row cardsmain">
+
+    <div class="col-sm-4">
+        <div class="card">
+
+            {{Summary?.coach_comments}} <br />
+            <p *ngIf="VideoInfo.h_type==2"> {{translation?.vd_coach_comments_added}}</p>
+            <p *ngIf="VideoInfo.h_type==3">{{translation?.vd_assessor_comments_added}} </p>
+
+        </div>
+    </div>
+    <div class="col-sm-4">
+
+        <div class="card">
+
+
+            {{Summary?.coachee_comments}} <br />
+            <p *ngIf="VideoInfo.h_type==2">{{translation?.vd_coachee_comments_added}}</p>
+            <p *ngIf="VideoInfo.h_type==3">{{translation?.vd_assessee_comments_added}}</p>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+
+        <div class="card">
+
+
+            {{Summary?.resources}} <br />
+            <p>{{translation?.vd_resources_attached}}</p>
+        </div>
+
+    </div>
+
+</div>
+<!-- enable_tracking == {{header_data.enable_tracking}} enable_coaching_tracker == {{header_data.enable_coaching_tracker}} can_view_summary_value == {{coachee_can_view_summary}} -->
+<!-- {{Summary?.can_view_summary_value}} -->
+<!-- <div *ngIf="header_data?.enable_tracking=='1' && header_data?.enable_coaching_tracker =='1' && coachee_can_view_summary=='1'"> -->
+<ng-container
+    *ngIf="huddle_permission == 200 && header_data?.enable_tracking=='1' && header_data?.enable_coaching_tracker == '1'">
+    <div class="title_gra" *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level">
+        <span *ngIf="Summary?.total_ratting"> <label>{{translation?.vd_avrg_pl}}</label>: {{Summary?.total_ratting}}
+        </span>
+    </div>
+    <div class="clear"></div>
+    <div class="row grap">
+        <div id="chartContainer" [style.height.px]="getHeight()" [style.width.%]="100"></div>
+    </div>
+
+    <ng-container *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level">
+        <div class="x_tagged">#{{translation?.tagged}}</div>
+        <div class="title_gra_bottom">
+            <span>*{{translation?.vd_stripped_wars}}</span> <br />
+            <span> **{{translation?.vd_to_view_scored}} </span>
+        </div>
+    </ng-container>
+</ng-container>
+<ng-container *ngIf="huddle_permission != 200">
+    <ng-container
+        *ngIf="huddle_permission == 210 && header_data?.enable_coaching_tracker == '1' && header_data?.enable_tracking=='1'">
+        <div class="title_gra"
+            *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level && coachee_can_view_summary=='1'">
+            <span *ngIf="Summary?.total_ratting"> <label>{{translation?.vd_avrg_pl}}</label>: {{Summary?.total_ratting}}
+            </span>
+        </div>
+        <div class="clear"></div>
+
+        <div class="row grap" [ngClass]="{'dnone': !(coachee_can_view_summary=='1')}">
+            <div id="chartContainer" [style.height.px]="getHeight()" [style.width.%]="100"></div>
+        </div>
+
+        <ng-container
+            *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level && coachee_can_view_summary=='1'">
+            <div class="x_tagged">#{{translation?.tagged}}</div>
+            <div class="title_gra_bottom">
+                <span>*{{translation?.vd_stripped_wars}}</span> <br />
+                <span> **{{translation?.vd_to_view_scored}} </span>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="huddle_permission != 210">
+        <div class="title_gra"
+            *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level && ((header_data?.enable_tracking=='1' && header_data?.enable_coaching_tracker =='1' && coachee_can_view_summary=='1'))">
+            <span *ngIf="Summary?.total_ratting"> <label>{{translation?.vd_avrg_pl}}</label>: {{Summary?.total_ratting}}
+            </span>
+        </div>
+        <div class="clear"></div>
+        <div class="row grap"
+            [ngClass]="{'dnone': !(header_data?.enable_tracking=='1' && header_data?.enable_coaching_tracker =='1' && coachee_can_view_summary=='1')}">
+            <div id="chartContainer" [style.height.px]="getHeight()" [style.width.%]="100"></div>
+        </div>
+
+        <ng-container
+            *ngIf="ChartOptions?.dataProvider?.length>0 && coaching_perfomance_level && header_data?.enable_tracking=='1' && header_data?.enable_coaching_tracker =='1' && coachee_can_view_summary=='1'">
+            <div class="x_tagged">#{{translation?.tagged}}</div>
+            <div class="title_gra_bottom">
+                <span>*{{translation?.vd_stripped_wars}}</span> <br />
+                <span> **{{translation?.vd_to_view_scored}} </span>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>
+<!-- </div> -->

@@ -1,0 +1,92 @@
+<div class="audio-recorder-play-wrapper">
+    <ng-container
+        *ngIf="recordingState === 'comfortZone' || recordingState === 'recording'; then audioRecorder; else audioContainer">
+    </ng-container>
+    <ng-template #audioRecorder>
+        <div class="audio-recorder disable-select">
+            <ng-container *ngIf="browserSupportAudioRecording; then browserSupportAudio; else browserNotSupportAudio">
+            </ng-container>
+            <ng-template #browserSupportAudio>
+                <ng-template #recordAudioTooltipTemplate>{{ recordAudioTooltip }}</ng-template>
+                <div [tooltip]="recordAudioTooltipTemplate" containerClass="audio-record-tooltip" class="record-icon" holdable [type]="'record'" (hold)="hold($event)">
+                    <svg *ngIf="recordingState === 'comfortZone'" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                        viewBox="0 0 261.075 261.075" style="enable-background:new 0 0 261.075 261.075;"
+                        xml:space="preserve" width="50px" height="30px">
+                        <path
+                            d="M126.855,174.05h5.744c22.447,0,40.641-18.194,40.641-40.641V40.641    C173.24,18.194,155.046,0,132.599,0h-5.744c-22.447,0-40.641,18.194-40.641,40.641v92.769    C86.215,155.856,104.408,174.05,126.855,174.05z"
+                            data-original="#010002" class="active-path" data-old_color="#010002" fill="#FFFFFF" />
+                        <path
+                            d="M124.288,201.147v43.61H86.215c-4.504,0-8.159,3.65-8.159,8.159s3.655,8.159,8.159,8.159h92.464    c4.504,0,8.159-3.65,8.159-8.159s-3.655-8.159-8.159-8.159h-38.073v-43.823c34.832-3.138,63.262-34.44,63.262-71.208    c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159c0,29.92-24.122,55.201-52.672,55.201h-8.686    c-28.544,0-52.666-24.699-52.666-53.939c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159    C57.208,169.073,87.134,200.109,124.288,201.147z"
+                            data-original="#010002" class="active-path" data-old_color="#010002" fill="#FFFFFF" />
+                    </svg>
+                    <span *ngIf="recordingState === 'recording'">{{seconds | displayTime}}</span>
+                </div>
+            </ng-template>
+            <ng-template #browserNotSupportAudio>
+                <div [tooltip]="translations?.browser_does_not_support_audio_recording" containerClass="audio-record-tooltip" class="record-icon disable-record-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        id="Capa_1" x="0px" y="0px" viewBox="0 0 261.075 261.075"
+                        style="enable-background:new 0 0 261.075 261.075;" xml:space="preserve" width="50px"
+                        height="30px">
+                        <path
+                            d="M126.855,174.05h5.744c22.447,0,40.641-18.194,40.641-40.641V40.641    C173.24,18.194,155.046,0,132.599,0h-5.744c-22.447,0-40.641,18.194-40.641,40.641v92.769    C86.215,155.856,104.408,174.05,126.855,174.05z"
+                            data-original="#010002" class="active-path" data-old_color="#010002" fill="#FFFFFF" />
+                        <path
+                            d="M124.288,201.147v43.61H86.215c-4.504,0-8.159,3.65-8.159,8.159s3.655,8.159,8.159,8.159h92.464    c4.504,0,8.159-3.65,8.159-8.159s-3.655-8.159-8.159-8.159h-38.073v-43.823c34.832-3.138,63.262-34.44,63.262-71.208    c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159c0,29.92-24.122,55.201-52.672,55.201h-8.686    c-28.544,0-52.666-24.699-52.666-53.939c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159    C57.208,169.073,87.134,200.109,124.288,201.147z"
+                            data-original="#010002" class="active-path" data-old_color="#010002" fill="#FFFFFF" />
+                    </svg>
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+    <ng-template #audioContainer>
+        <div class="audio-container">
+            <ng-container *ngIf="recordingState === 'resume' && !uploadingAudio ; then resumeRecorder; else playAudio">
+            </ng-container>
+            <ng-template #resumeRecorder>
+                <div class="stop-audio-wrapper disable-select">
+                    <div class="stop-audio-container" [tooltip]="translations?.stop_upload_audio" containerClass="stop-upload-tooltip">
+                        <svg (click)="stopAndUploadAudio()" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"
+                            width="30px" height="30px" viewBox="0 0 300.003 300.003"
+                            style="enable-background:new 0 0 300.003 300.003;" xml:space="preserve" fill="#fd1515">
+                            <g>
+                                <path
+                                    d="M150.005,0C67.164,0,0.001,67.159,0.001,150c0,82.838,67.162,150.003,150.003,150.003S300.002,232.838,300.002,150    C300.002,67.159,232.844,0,150.005,0z M196.63,210.605h-93.26c-7.706,0-13.974-6.269-13.974-13.974v-93.259    c0-7.706,6.269-13.974,13.974-13.974h93.259c7.706,0,13.974,6.269,13.974,13.974v93.259h0.001    C210.604,204.337,204.336,210.605,196.63,210.605z" />
+                            </g>
+                        </svg>
+                    </div>
+                    <span>{{seconds | displayTime}}</span>
+                </div>
+                <ng-template #resumeAudioTooltipTemplate>{{ resumeAudioTooltip }}</ng-template>
+                <div [tooltip]="resumeAudioTooltipTemplate" containerClass="audio-record-tooltip" class="resume-audio" holdable [type]="'resume'" (hold)="hold($event)">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        id="Capa_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 373.008 373.008"
+                        style="enable-background:new 0 0 373.008 373.008;" xml:space="preserve" fill="#FFFFFF">
+                        <g id="Layer_8_54_">
+                            <path
+                                d="M25.307,2.588C28.295,0.864,31.627,0,34.963,0c3.338,0,6.663,0.864,9.655,2.588l200.384,167.2    c5.957,3.445,9.65,9.823,9.65,16.719c0,6.895-3.683,13.272-9.65,16.713L44.618,370.427c-5.969,3.441-13.333,3.441-19.306,0    c-5.973-3.453-9.655-9.833-9.655-16.724V19.305C15.658,12.413,19.335,6.036,25.307,2.588z M278.204,7.924v357.167    c0,4.263,3.46,7.722,7.723,7.722h63.697c4.268,0,7.727-3.459,7.727-7.722V7.924c0-4.269-3.459-7.727-7.727-7.727h-63.697    C281.664,0.197,278.204,3.655,278.204,7.924z" />
+                        </g>
+                    </svg>
+                </div>
+            </ng-template>
+            <ng-template #playAudio>
+                <div *ngIf="uploadingAudio" class="audioLoading sibme-animation"></div>
+                <div #audioPlayerContainer></div>
+            </ng-template>
+            <div *ngIf="!uploadingAudio" class="cancel-audio" (click)="cancel()">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    id="Capa_2" x="0px" y="0px" width="15px" height="15px" viewBox="0 0 47.971 47.971"
+                    style="enable-background:new 0 0 47.971 47.971;" xml:space="preserve" fill="#757474">
+                    <g>
+                        <path
+                            d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88   c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242   C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879   s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </ng-template>
+
+
+</div>

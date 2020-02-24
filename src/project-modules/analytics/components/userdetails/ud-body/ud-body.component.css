@@ -1,0 +1,116 @@
+#main{
+	width: 100%;
+    margin-top: 15px !important;
+    margin-bottom: 48px;
+    position: relative;
+    margin: 32px auto 88px;
+    overflow: hidden;
+}
+
+.box {
+    -moz-box-sizing: border-box;
+    background-color: #FFF;
+    border: 1px
+ solid #DAD6CE;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    float: left;
+    min-height: 371px;
+    overflow: hidden;
+    padding: 10px
+ 20px 20px;
+    width: 328px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.header_an {
+    background-color: #f9f9f9;
+    margin: -10px -20px 0px -20px;
+    padding: 9px 20px;
+    border-bottom: 1px solid #e1e2e2;
+}
+
+.header_an h2 {
+    font-size: 30px;
+    font-family: 'Conv_Roboto-Light';
+    padding-left: 3px;
+    margin: 10px 0;
+}
+
+.filter_an {
+    margin: 0px -20px 20px -20px;
+    padding: 15px 0px 16px 35px;
+    border-bottom: 1px solid #e1e2e2;
+}
+
+.an_date {
+    position: relative;
+    width: 33%;
+}
+
+.an_date input[type=text] {
+    border-radius: 6px;
+    border: 1px solid #e1e2e2;
+    -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0.0) inset;
+    box-shadow: 0 0px 0px rgba(0,0,0,0.0) inset;
+    height: 37px;
+    color: #414141;
+    font-weight: 500;
+    width: 65%;
+    padding: 3px 10px;
+}
+
+.an_cal {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 140px;
+    cursor: pointer;
+    top: 10px;
+}
+
+/* .container {
+    float: none !important;
+} */
+
+.filter_an input[type=submit] {
+    background: #5cb85c;
+    font-weight: 500;
+    font-family: 'Roboto';
+    padding: 5px 20px 8px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #fff;
+    border: 0;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.selec_opt4 {
+    width: 26%;
+    margin-right: 10px;
+}
+
+.bs-datepicker{
+    position: relative;
+    left: 25%;
+}
+
+.dropdown_row {
+    position: relative;
+    text-align: right;
+}
+
+.dropdown_row{
+  position: relative;     text-align: right;
+}
+.dropdown_row .dd_toggle{position: relative; top: 18px;    cursor: pointer;}
+.dropdown_row .dropdown-menu.show {top:42px !important;}
+
+ul#tagged.dropdown-menu.show{
+    top: 5% !important;
+}

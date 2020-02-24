@@ -1,0 +1,22 @@
+<ng-container *ngIf="!bysearch">
+  <div class="no_discussions">
+    <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+      <path id="Path_51" data-name="Path 51" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" transform="translate(0)" fill="#616161"/>
+    </svg>
+    <br>
+    <br>
+      <b style="font-size:18px" [innerHTML]="translation?.artifact_no_discussion_available"></b><br>
+      <b *ngIf="userAccountLevelRoleId != '125'" style="font-size:18px" [innerHTML]="translation?.artifact_click_green_plus_button"></b>
+  </div>
+</ng-container>
+<ng-container *ngIf="bysearch">
+  <div class="no_discussions">
+    <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+      <path id="Path_51" data-name="Path 51" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" transform="translate(0)" fill="#616161"/>
+    </svg>    
+    <br>
+    <br>
+      <b style="font-size:18px">{{translation?.discussion_no_matching_discussions_found}}</b>
+  </div>
+</ng-container>
+

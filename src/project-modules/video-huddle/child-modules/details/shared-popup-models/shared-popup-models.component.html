@@ -1,0 +1,584 @@
+<!-- <p>shared called</p> -->
+<!-- renamemodel -->
+<div bsModal #renameModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.artifact_rename}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('rename')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="f_name">
+                    <p>{{translation?.artifact_rename}}</p>
+                    <input type="text" class="form-control" name="edit_title" [(ngModel)]="rename" #title=ngModel #renameTitle required> {{renameTitle.focus()}}
+
+                </div>
+
+            </div>
+            <div class="modal-footer hufooter refooter">
+                <div class="col-12">
+                    <a (click)="hideModal('rename')">{{translation?.artifact_cancle}}</a>
+                    <a class="green_btn" (click)="SubmitRename();">{{translation?.artifacts_done}}</a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- deleteModel -->
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.artifacts_confirmation_required}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('delete')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert_bg singleline row">
+                    <div class="col-2 ">
+                        <img src="assets/img/alert_i.svg">
+                    </div>
+                    <div class="col-10">
+                        <h6>{{translation?.artifacts_are_you_sure_you_want_to_delete}}
+                            <ng-container *ngIf="artifactModel.doc_type==1 && headerService.isAValidAudio(artifactModel.file_type)!=true">{{translation?.artifacts_video}}</ng-container>
+                            <ng-container *ngIf="artifactModel.doc_type==1 && headerService.isAValidAudio(artifactModel.file_type)==true">audio</ng-container>
+                            <ng-container *ngIf="artifactModel.doc_type==2">resource</ng-container>
+                            <ng-container *ngIf="artifactModel.doc_type==3">scripted note</ng-container>
+                            ?
+                        </h6>
+                        <!-- <p>Once you confirm, all of your data will be permanently deleted.</p> : {{artifactModel.title}} -->
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer hufooter de_footer">
+                <div class="col-12">
+                    <a (click)="hideModal('delete')">{{translation?.discussion_cancel}}</a>
+                    <a (click)="SubmitDelete()" class="conf_delete">{{translation?.discussion_delete}}</a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- email -->
+
+<div bsModal #emailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.artifacts_send_email}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('email')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+
+            <div class="modal-body sendmail">
+
+                <label>{{translation?.artifacts_subject}}</label>
+                <input type="text" class="form-control" name="subject" [(ngModel)]="emailForm.subject">
+
+                <label>{{translation?.artifacts_to}}</label>
+                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="emailForm.email" email>
+
+                <div class="attachment_popup image-upload">
+
+                    <label for="attachment" class="email_icon">
+            <img src="assets/video-huddle/img/attachmenticon.svg">
+
+          </label>
+                    <input type="file" name="attachment" id="attachment" name="attachment" (change)="setFile($event.target.files)">
+                    <!-- (change)="setFile($event.target.files,file)"> -->
+                    <span *ngIf="attachmentName" class="fileName">
+            {{attachmentName}}
+          </span>
+
+
+                    <div class="clear"></div>
+                </div>
+                <label>{{translation?.artifacts_enter_message}}</label>
+                <textarea class="form-control" name="message" [(ngModel)]="emailForm.message"></textarea>
+
+            </div>
+            <div class="modal-footer sharefooter email_footer">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-12 share_btn">
+                        <button type="button" class="btn btn-default " (click)="EmailSubmit(0)">{{translation?.discussion_cancel}}</button>
+                        <button type="button" (click)="EmailSubmit(1)" class="btn btn-success">{{translation?.artifacts_send}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--share popup start-->
+
+<div bsModal #shareModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.artifact_share}}</h4>
+                <button type="button" class="close" (click)="hideModal('share')">&times;</button>
+
+            </div>
+            <div class="modal-body share_popup">
+
+                <ul class="nav nav-tabs">
+                    <!-- {{isActive}} -->
+                    <li class="nav-item">
+
+                        <a [ngClass]="{'active':isActive=='t1'}" (click)="setIsActive('t1')">
+              {{translation?.artifacts_share_to_huddle}}</a>
+                    </li>
+
+                    <li *ngIf="notResourceShare && permissionService?.isShareToLibraryAllowed()" class="nav-item">
+                        <a [ngClass]="{'active':isActive=='t2'}" (click)="setIsActive('t2')">{{translation?.artifacts_share_to_library}}</a>
+                    </li>
+
+
+                    <li *ngIf="huddlesrecord?.all_accounts && (huddlesrecord?.all_accounts)?.length !=0" class="nav-item">
+                        <a [ngClass]="{'active':isActive=='t3'}" (click)="setIsActive('t3')">{{translation?.artifacts_share_to_account}}</a>
+                    </li>
+
+
+
+                </ul>
+
+                <div class="tab-content">
+                    <!--Share to Huddle-->
+                    <div *ngIf="isActive=='t1'">
+                        <div class="row">
+                            <div class="col-12">
+                                <div *ngIf="!huddlesrecord || !huddlesrecord.all_huddles" class="sibme-animation search-skeleton"></div>
+                                <div *ngIf="huddlesrecord && huddlesrecord.all_huddles" class="hu_search">
+                                    <input type="text" placeholder="{{translation?.artifacts_search_to_huddle}}" [(ngModel)]="search_Huddle_Input">
+                                    <img *ngIf="search_Huddle_Input?.length> 0" src="./assets/img/x.svg" (click)="search_Huddle_Input='';">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 scrolllist" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                                <div *ngIf="!huddlesrecord || !huddlesrecord.all_huddles">
+                                    <div class="skeleton-container" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
+                                        <div class="sibme-animation checkbox-skeleton"></div>
+                                        <div class="sibme-animation huddle-name-skeleton"></div>
+                                    </div>
+                                </div>
+                                <div *ngFor="let huddles of (huddlesrecord?.all_huddles | search: search_Huddle_Input:'name':-1) as result">
+                                    <label class="checkboxcls" *ngIf=" (!isitNotes && !notResourceShare && huddles.meta_data_value!='3') || (isitNotes && huddles.meta_data_value!='3') || (notResourceShare)">{{huddles.name}}
+                    <input type="checkbox" [(ngModel)]="huddles.selected">
+                    <span class="checkmark"></span>
+                  </label>
+                                </div>
+                                <br>
+                                <p *ngIf="(huddlesrecord?.all_huddles | search: search_Huddle_Input:'name':-1)?.length==0">
+                                    {{translation?.artifacts_no_huddle_found}}</p>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <!--Share to Library-->
+
+                    <div *ngIf="isActive=='t2' &&  notResourceShare">
+
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <label class="checkboxcls">{{translation?.artifacts_share_to_video_library}}
+                  <input type="checkbox" [(ngModel)]="selected_library">
+                  <span class="checkmark"></span>
+                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!--Share to Account-->
+                    <div *ngIf="isActive=='t3'">
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hu_search">
+                                    <input type="text" placeholder="{{translation?.artifacts_search_account}}" [(ngModel)]="search_Account_Input">
+                                    <img *ngIf="search_Account_Input?.length> 0" src="./assets/img/x.svg" (click)="search_Account_Input='';">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div *ngFor="let account of huddlesrecord?.all_accounts | search: search_Account_Input:'company_name':-1">
+                                    <label class="checkboxcls">{{account.company_name}} - <b>{{translation?.artifacts_workspace_txt}}</b>
+                    <input type="checkbox" [(ngModel)]="account.selected">
+                    <span class="checkmark"></span>
+                  </label>
+                                </div>
+                                <br>
+                                <p *ngIf="(huddlesrecord?.all_accounts | search: search_Account_Input:'company_name':-1)?.length==0">
+                                    {{translation?.artifacts_no_account_found}}</p>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer sharefooter">
+                <div class="clear"></div>
+                <div class="row">
+                    <div class="col-6">
+                        <ng-container *ngIf="!isitNotes">
+                            <label *ngIf="(artifact?.total_comments!=0 && notResourceShare && isActive!='t2') || (isitNotes && artifact?.total_comments!=0)" class="checkboxcls">
+              {{translation?.share_comments_tags_attachments}}
+              <!-- {{translation?.artifacts_share_video_comments}} -->
+              <input type="checkbox" [(ngModel)]="copy_comments">
+              <span class="checkmark"></span>
+            </label>
+                        </ng-container>
+                    </div>
+                    <div class="col-6 share_btn">
+                        <button type="button" class="btn btn-default" (click)="hideModal('share')">{{translation?.discussion_cancel}}</button>
+                        <button [disabled]="videoShareFlag==true" type="button" class="btn btn-success" (click)="copyVideo();">{{translation?.artifact_share}}</button>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<!-- </div> -->
+<!-- </div> -->
+<!--share popup end-->
+
+
+<!-- crop video -->
+
+<!-- deleteModel -->
+<div bsModal #cropModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog" style="max-width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.artifacts_crop_video}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('crop')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="croop_popup">
+                    <!-- <img src="assets/video-huddle/img/videcroop.jpg"> -->
+                    <div class="ply_box" (click)="playImageRemover()">
+                        <img class="ply_play" id="ply_butn" src="assets/video-huddle/img/video_ply.svg">
+                        <video controlsList="nodownload" class="ply_video" controls="" class="vjs-matrix video-js" [id]="'artifact_'+artifact.doc_id" [src]="artifact.static_url">
+            </video>
+                    </div>
+
+                    <!-- <ng5-slider [(value)]="sliderValues.min" [(highValue)]="sliderValues.max" [options]="{floor:0, ceil: 100, start: 0, end:100}"></ng5-slider> -->
+
+                    <!--  <ng5-slider [(value)]="sliderValues.min" [(highValue)]="sliderValues.max" [options]="sliderValues.options" [manualRefresh]="manualRefresh"></ng5-slider> -->
+                    <!-- <div class="row"> -->
+                    <range-slider [min]="sliderValues.min" [max]="sliderValues.max" [step]="1" [toolTips]="[false,false]" [(ngModel)]="sliderValues.range" [highlightClass]="'highlightClass'" [barClass]="'barClass'" [sliderClass]="'sliderClass'" class="scroll">
+                    </range-slider>
+                    <!-- </div> -->
+
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            {{ getFormattedTime(sliderValues.range[0]) }}
+                        </div>
+                        <div class="col-6 text-right">
+                            {{ getFormattedTime(sliderValues.range[1]) }}
+                        </div>
+                    </div>
+
+                    <span *ngIf="sliderValues?.range[0]==sliderValues?.range[1]" style="color:red">{{translation?.artifacts_crop_min_and_max}}</span>
+
+                </div>
+
+            </div>
+            <div class="modal-footer sharefooter cro_foo">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-12 share_btn">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideModal('crop')">{{translation?.discussion_cancel}}</button>
+                        <button type="button" class="btn btnpreview" (click)="OnPreviewVideo(sliderValues.range)">{{translation?.artifacts_preview_video}}</button>
+                        <button type="button" [disabled]="isTrimming || sliderValues?.range[0]==sliderValues?.range[1]" class="btn btn-success" (click)="OnTrim(sliderValues.range)">{{translation?.artifact_crop}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!--participant pop-up start-->
+<div bsModal #participants="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <!-- <div id="participants_popup" class="modal fade participants_cls" role="dialog">
+      <div class="modal-dialog" style="max-width:700px;"> -->
+    <!-- Modal content-->
+    <!-- <div class="modal-content"> -->
+    <div class="modal-header">
+        <h4 class="modal-title">{{translation?.artifact_participants}}</h4>
+        <button type="button" class="close" (click)="hideModal('participants')">&times;</button>
+
+    </div>
+    <div class="modal-body">
+        <div class="parti_list">
+
+
+            <div class="row par_heading">
+
+                <div class="col-4">
+                    Name
+                </div>
+
+                <div class="col-6">
+                    Email
+                </div>
+
+                <div class="col-2">
+                    Role
+                </div>
+
+
+            </div>
+
+            <div class="listing_scroll">
+
+                <div class="row par_listing" *ngFor="let p of participents">
+                    <div class="col-4">
+                        <img src="{{ImageUrlBuilder(p)}}"> <span>{{p.user_name}}</span>
+                    </div>
+                    <div class="col-6 par_email">
+                        {{p.user_email}}
+                    </div>
+
+
+                    <div class="col-2">
+                        {{p.role}}
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer hufooter">
+        <div class="col-12">
+            <div class="border_bottom">
+                <a class="okbtn" (click)="hideModal('participants')">{{translation?.artifact_ok}}</a>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- </div> -->
+</div>
+<!--activity popup start-->
+<div bsModal #activity="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{translation?.artifact_activity}}</h4>
+            <button type="button" class="close" (click)="hideModal('activity')">&times;</button>
+
+        </div>
+        <div class="modal-body">
+
+            <div class="activity_row" *ngFor="let act of actvities">
+                <div class="ac_1">
+                    <b>{{timedateSpanish(act?.activityTimestamp,1)}}</b><br> {{timedateSpanish(act?.activityTimestamp,2)}}
+                </div>
+                <div class="ac_2">
+                    <label>{{act?.activityLogs_users}} {{act?.resource_name}}:</label>
+                    <a href="{{path}}{{act?.resource_url}}">{{act.resource_video_name}}</a>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+        <div class="modal-footer hufooter">
+            <div class="col-12">
+
+                <a class="okbtn" (click)="hideModal('activity')">{{translation?.artifact_ok}}</a>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!--activity popup end-->
+
+
+<!--resource share popup start-->
+
+<div bsModal #shareResource="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.artifacts_share_to_videos}}</h4>
+                <button type="button" class="close" (click)="hideModal('shareResource')">&times;</button>
+
+            </div>
+            <div class="modal-body share_popup">
+
+
+
+                <div>
+                    <!--Share to Huddle-->
+                    <div *ngIf="isActive=='t1'">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hu_search">
+                                    <input type="text" placeholder="{{translation?.artifact_search}}..." [(ngModel)]="search_videos_Input">
+                                    <img *ngIf="search_videos_Input?.length> 0" src="./assets/img/x.svg" (click)="search_videos_Input='';">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 scrolllist" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                                <div *ngFor="let video of videos?.data | search: search_videos_Input:'title':-1">
+                                    <label class="checkboxcls">{{video.title}}
+                    <input type="checkbox" [(ngModel)]="video.selected">
+                    <span class="checkmark"></span>
+                  </label>
+                                </div>
+                                <p *ngIf="(videos?.data | search: search_videos_Input:'title':-1)?.length==0">
+                                    {{translation?.artifacts_no_videos_found}}</p>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer sharefooter">
+                <div class="clear"></div>
+                <div class="row">
+
+                    <div class="col-12 share_btn">
+                        <button type="button" class="btn btn-default" (click)="hideModal('shareResource')">{{translation?.discussion_cancel}}</button>
+                        <button type="button" class="btn btn-success" (click)="shareResources()">{{translation?.artifact_share}}</button>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<!-- </div> -->
+<!-- </div> -->
+
+<!--resource share popup end-->
+
+
+
+
+<!-- resource assets share confermation -->
+<div bsModal #assetsShare="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.workspace_duplicate}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideAssetsShare()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="dupcls"> {{translation?.duplicate_comments_tags_attachments}}</p>
+            </div>
+            <div class="modal-footer share_btn b1">
+                <button [disabled]="duplicateIsinProcess" type="button" class="btn btn-default" (click)="duplicateResourceNow(0)">
+                        {{translation?.no}}
+                </button>
+                <button [disabled]="duplicateIsinProcess" type="button" class="btn btn-success" (click)="duplicateResourceNow(1)"> 
+                        {{translation?.yes}}
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

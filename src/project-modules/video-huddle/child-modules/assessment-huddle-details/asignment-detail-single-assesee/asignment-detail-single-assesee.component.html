@@ -1,0 +1,242 @@
+<shared-popup-models #popUp [artifact]="artifact"></shared-popup-models>
+<div class="container box_outer p0">
+    <div class="row panl_heading">
+        <div class="col-12">
+            <h3>{{huddleData?.Huddle?.name}}</h3>
+        </div>
+    </div>
+    <div class="row asses_detail">
+        <div *ngIf="!dataLoading" class="col-6 asse_profile">
+            <img [src]="userImage">
+            <span>{{userName}} </span>
+        </div>
+        <div *ngIf="dataLoading" class="col-6 asse_profile">
+            <span class="ani imgcircle"></span>
+            <span class="ani imgtitle"></span>
+        </div>
+        <div class="col-6 backtoall">
+            <a class="back-to-assessment" (click)="backToAssessmentDetails(huddleId)">
+                <img src="assets/img/left-arrow.svg">
+                <span>{{translation?.artifacts_back_to_assessment_details }}</span>
+            </a>
+        </div>
+    </div>
+    <div *ngIf="!userHuddleSubmitted" class="alert alert-info">
+        {{translation?.artifacts_user_not_submitted_assessment }}
+    </div>
+    <div class="row assessor_box">
+        <ng-container *ngIf="dataLoading">
+            <div class="col-md-3" *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                <div class="assessor_inner">
+                    <div class="assessor_hu ani">
+                        <div class="assessor_thumb ">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="assessor_detail">
+
+                        <div class="asse_video">
+                            <label class="ani stitle"></label>
+                        </div>
+                        <div class="asse_op dropdown">
+
+
+                            <label class="ani sopt"></label>
+
+                        </div>
+                        <div class="clear"></div>
+                        <p class="ani sby"></p>
+                        <p class="ani sdate"></p>
+
+                        <div class="asse_option">
+                            <span class="ani scountcls"></span>
+                            <span class="ani scountcls"></span>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!dataLoading">
+            <div class="col-md-3" *ngFor="let artifact of userVideoArtifects; index as i">
+                <ng-container *ngIf="artifact.is_dummy then videoBlankDataSection else videoDataSection"></ng-container>
+                <ng-template #videoDataSection>
+                    <div class="assessor_inner">
+                        <div class="assessor_hu" (click)="goToDetailPage(artifact)">
+                            <div class="assessor_thumb">
+                                <img [src]="artifact.thubnail_url">
+                            </div>
+                            <span class="asse_icon"> <img src="assets/img/video_ply.svg"> </span>
+                            <span class="asse_time">{{detailsService?.FormatSeconds(artifact?.video_duration)}}</span>
+                        </div>
+                        <div class="assessor_detail">
+                            <div class="asse_video">
+                                <label style="cursor:pointer" tooltip="{{artifact.title}}" (click)="goToDetailPage(artifact)">
+                           {{artifact.title | slice:0:20}}
+                           <span *ngIf="artifact.title.length>18">...</span>
+                        </label>
+                            </div>
+                            <div dropdown class="asse_op dropdown">
+                                <button dropdownToggle type="button" class="dropdown-toggle" data-toggle="dropdown">
+                           <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+                                <ul *dropdownMenu class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="OpenModel(artifact, 'download')">{{translation?.artifact_download }}</a>
+                                    <a class="dropdown-item" *ngIf="userAccountLevelRoleId != '125'" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete  }}</a>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <p class="asse_by">{{translation?.artifacts_by }}: <b>{{artifact?.first_name}} {{ artifact?.last_name}}</b></p>
+                            <p class="asse_date">{{translation?.artifact_upload }} {{headerService?.formatDate(artifact.created_date, "MMM DD, YYYY")}}</p>
+                            <div class="asse_option">
+                                <a class="asse_comm"> <img src="assets/img/comm_icon.svg"> {{artifact.total_comments}}
+                                </a>
+                                <a class="asse_att"> <img src="assets/img/attachment_icon.svg"> {{artifact.total_attachment}} </a>
+
+                                <span class="aswc" tooltip="{{translation?.artifacts_assessed_tooltip}}" (click)="getSingleAsignment(item)" style="cursor:pointer" *ngIf="artifact?.assessed">
+                        <span >
+              <svg xmlns="http://www.w3.org/2000/svg" width="10.749" height="7.668" viewBox="0 0 10.749 7.668">
+                <path id="Path_99" data-name="Path 99" d="M-3257.017-10298.373l2.378,2.514,6.871-6.168"
+                  transform="translate(3257.767 10302.777)" fill="none" stroke="#f45a26" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="1.5" />
+              </svg>
+            </span>
+                                </span>
+
+                                <span class="aswc2" tooltip="{{translation?.artifacts_unassessed_tooltip}}" (click)="getSingleAsignment(item)" style="cursor:pointer" *ngIf="!artifact?.assessed">
+                        <span >
+                        
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 10.746 10.746">
+  <g id="Group_508" data-name="Group 508" transform="translate(-15.863 -6.031)">
+    <path id="Path_92" data-name="Path 92" d="M-3249.157-10301.331l-5.482,5.472" transform="translate(-4961.532 9593.05) rotate(45)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>
+            </span>
+                                </span>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #videoBlankDataSection>
+                    <div class="doucment_blank">
+                        <label>{{translation?.artifacts_video }} {{i+1}}</label>
+                        <div class="blank_img">
+                            <img src="assets/img/video_icon_b.svg">
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-3" *ngFor="let artifact of userResourceArtifects; index as i">
+                <ng-container *ngIf="artifact.is_dummy then resourceBlankDataSection else resourceDataSection">
+                </ng-container>
+                <ng-template #resourceDataSection>
+                    <div class="assessor_inner">
+                        <div class="assessor_hu" (click)="goToDetailPage(artifact)">
+                            <div class="doc_icon" style="cursor:pointer">
+                                <img [src]="artifact.thubnail_url">
+                            </div>
+                        </div>
+                        <div class="assessor_detail">
+                            <div class="asse_video">
+                                <label style="cursor:pointer" tooltip="{{artifact.title}}" (click)="openResource(artifact)" style="cursor:pointer">
+                           {{artifact.title | slice:0:20}}
+                           <span *ngIf="artifact.title.length>18">...</span>
+                        </label>
+                            </div>
+                            <div dropdown class="asse_op dropdown">
+                                <button dropdownToggle type="button" class="dropdown-toggle" data-toggle="dropdown">
+                           <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+                                <ul *dropdownMenu class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="OpenModel(artifact, 'download')">{{translation?.artifact_download }}</a>
+                                    <a class="dropdown-item" *ngIf="userAccountLevelRoleId != '125'" (click)="OpenModel(artifact,'delete')">{{translation?.artifact_delete  }}</a>
+
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <p class="asse_by">{{translation?.artifacts_by }}: <b>{{artifact?.first_name}} {{ artifact?.last_name}}</b></p>
+                            <p class="asse_date">{{translation?.artifact_upload }} {{artifact.created_date | date:"MMM dd, yyyy"}}</p>
+                            <div class="asse_option">
+                                <!-- <a class="asse_comm"> <img src="assets/img/comm_icon.svg">
+                           {{artifact.total_comments}}</a>
+                        <a class="asse_att"> <img src="assets/img/attachment_icon.svg">
+                           {{artifact.total_attachment}} </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #resourceBlankDataSection>
+                    <div class="doucment_blank">
+                        <label>{{translation?.artifacts_resource }} {{i+1}}</label>
+                        <div class="blank_img">
+                            <img src="assets/img/document_blank.svg">
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- Delete artifect modal start -->
+<div bsModal #deleteArtifectModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">{{translation?.artifacts_confirmation_required}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="artifectDeleteModalHide()">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert_bg singleline row">
+                    <div class="col-2 ">
+                        <img src="assets/img/alert_i.svg">
+                    </div>
+                    <div class="col-10">
+                        <h6>{{translation?.artifacts_are_you_sure_you_want_to_delete }}
+                            <ng-container *ngIf="artifact.doc_type==1">{{translation?.artifacts_video }}
+                            </ng-container>
+                            <ng-container *ngIf="artifact.doc_type==2">{{translation?.artifacts_resource }}</ng-container>
+                            <ng-container *ngIf="artifact.doc_type==3">{{translation?.artifact_scripted_notes}}</ng-container>
+                            ?
+                        </h6>
+                        <!-- <p>Once you confirm, all of your data will be permanently deleted.</p> : {{artifactModel.title}} -->
+                    </div>
+                </div>
+                <!-- <div class="f_name">
+              <p>Type DELETE to confirm</p>
+              <input type="text" class="form-control" name="delete" #delete=ngModel [(ngModel)]="confirmDelete" required>
+    
+            </div> -->
+
+            </div>
+            <div class="modal-footer hufooter de_footer">
+                <div class="col-12">
+                    <a (click)="artifectDeleteModalHide()">{{translation?.artifact_cancle }}</a>
+                    <a *ngIf="!showDeleteBtn" class="conf_delete">{{translation?.artifact_delete }}</a>
+
+                    <a *ngIf="showDeleteBtn" (click)="artifectModalDelete();artifectDeleteModalHide()" class="conf_delete">{{translation?.artifact_delete }}</a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete artifect modal end -->

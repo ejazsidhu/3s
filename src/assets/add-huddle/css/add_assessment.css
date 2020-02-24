@@ -1,0 +1,556 @@
+.box_outer {
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 32px!important;
+    max-width: 1024px!important;
+    margin-bottom: 20px!important;
+}
+
+.bred_an {
+    position: relative;
+    top: 18px !important;
+    color: #4d504d;
+    font-family: Roboto;
+    padding: 0 0 0px 0!important;
+}
+
+.panl_heading {
+    border-bottom: 1px solid #ddd;
+    padding: 18px 10px;
+    background: #f9f9f9;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.panl_heading h3 {
+    font-family: Roboto, sans-serif;
+    margin: 0 0 0 -7px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+    color: #484848;
+}
+
+.deadlinecls .col-md-4 {
+    flex: 0 0 33%;
+    max-width: 33%;
+}
+
+.deadlinecls .col-md-2 {
+    flex: 0 0 21%;
+    max-width: 21%;
+}
+
+.deadlinecls .col-md-3 {
+    flex: 0 0 23%;
+    max-width: 23%;
+}
+
+.coaching_cls {
+    font-family: Roboto, sans-serif;
+    padding: 25px 3px 0 3px;
+}
+
+.hu_nm label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+}
+
+.hu_nm .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 40px;
+    color: #616161;
+}
+
+.coaching_editor label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+}
+
+.coaching_editor {
+    padding: 15px 0 24px 0;
+}
+
+.deadlinecls {
+    padding: 5px 0 20px 0;
+}
+
+.deadlinecls label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+    display: block;
+}
+
+.deadlinecls .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 40px !important;
+    color: #616161;
+    border: 1px solid #CCCCCC;
+    padding-right: 34px;
+}
+
+.deadlinecls select {
+    background: #f9f9f9;
+}
+
+.parti_left {
+    float: left;
+    width: 76%;
+}
+
+.parti_left label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+    display: block;
+}
+
+.parti_left_or {
+    width: 7%;
+    float: left;
+    text-align: center;
+    padding-top: 37px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161 !important;
+    display: block;
+}
+
+.clear {
+    clear: both;
+}
+
+.parti_left .form-control {
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 40px;
+    color: #616161;
+}
+
+.new_huser_add a {
+    padding: 11px 15px;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    color: #616161 !important;
+    background: #f9f9f9;
+    font-size: 14px;
+    border: 1px solid #CCCCCC;
+    position: relative;
+}
+
+.new_huser_add a svg {
+    display: inline-block;
+    
+    margin-right: 8px;    position: relative;
+    top: -1px;
+}
+
+.new_huser_add a .plus_u {
+    position: absolute;
+    left: 43px;
+    top: 20px;
+}
+
+.new_huser_add {
+    float: left;
+    width: 17%;
+    padding-top: 23px;
+}
+
+.huddle_settings {
+    text-align: right;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    margin: 26px -15px;
+}
+
+.huddle_settings button {
+    border: 0;
+    padding: 10px 13px;
+    color: #616161;
+    background: none;
+    font-size: 14px;
+}
+
+.huddle_settings a {
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    color: #616161 !important;
+    background: #f9f9f9;
+    font-size: 14px;
+    border: 1px solid #CCCCCC;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.coaching_rows {
+    padding: 0 15px;
+}
+
+.huddle_settings button {
+    outline: 0 !important;
+}
+
+.huddle_settings .create_btn {
+    font-weight: 500;
+    background: #28A745;
+    border-radius: 4px;
+    color: #fff;
+    padding: 9px 24px;
+}
+
+.coaching_heading {
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding: 35px 0 5px 0;
+}
+
+.coaching_rowcls {
+    font-size: 14px;
+    padding: 10px 0;
+    color: #484848;
+}
+
+.user_pro img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    float: left;
+}
+
+.user_pro .per_img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    text-align: center;
+    background: #e7e7e7;
+    line-height: 35px;
+    float: left;
+}
+
+.coaching_heading .col-md-2 {
+    padding-left: 0;
+    flex: 0 0 33%;
+    max-width: 33%;
+}
+
+.coaching_heading .col-md-5 {
+    flex: 0 0 37%;
+    max-width: 37%;
+}
+
+.coaching_heading .col-md-4 {
+    flex: 0 0 27%;
+    max-width: 27%;
+}
+
+.coaching_heading .col-md-1 {
+    flex: 0 0 3%;
+    max-width: 3%;
+    padding: 0;
+    text-align: right;
+}
+
+.coaching_rowcls .coach_cross svg {
+    position: relative;
+    cursor: pointer;
+    top: 2px;
+}
+
+.coaching_rowcls .col-md-2 {
+    padding-left: 0;
+    flex: 0 0 33%;
+    max-width: 33%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.coaching_rowcls .col-md-5 {
+    flex: 0 0 37%;
+    max-width: 37%;
+    margin-top: auto;
+    margin-bottom: auto;    overflow: hidden;
+    text-overflow: ellipsis;white-space: nowrap;
+}
+
+.coaching_rowcls .col-md-4 {
+    flex: 0 0 27%;
+    max-width: 27%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.coaching_rowcls .col-md-1 {
+    flex: 0 0 3%;
+    max-width: 3%;
+    padding: 0;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.coaching_rowcls .col-md-4 .btn-group {
+    width: 100%;
+}
+
+.coaching_rowcls .col-md-4 .btn {
+    width: 50%;
+    padding: 9px 3px;
+    font-size: 14px;
+}
+
+.coaching_rowcls .col-md-4 .btn.active {
+    -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, .125);
+    background: #f9f9f9 !important;
+}
+
+.list_use {
+    display: inline-block;
+    padding-top: 7px;
+    padding-left: 10px;    max-width: 264px;
+    overflow: hidden;
+    text-overflow: ellipsis;    white-space: nowrap;
+}
+
+.bs-datepicker-container {
+    padding: 0 !important;
+}
+
+.dateicon {
+    position: relative;
+}
+
+.dateicon svg {
+    position: absolute;
+    right: 24px;
+    top: 36px;
+}
+
+.timeicon {
+    position: relative;
+}
+
+.timeicon svg {
+    position: absolute;
+    right: 24px;
+    top: 38px; z-index:10;
+}
+
+.modal-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    display: block;
+    color: #484848;
+    text-align: center;
+    width: 95%;
+}
+
+.close {
+    float: right;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+    line-height: 18px !important;
+    font-family: initial;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 15px 1rem !important;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.modal-header .close {
+    outline: 0!important;
+}
+
+.hu_primary {
+    font-weight: 400;
+    background: #28A745;
+    border-radius: 4px;
+    color: #fff;
+    padding: 10px 22px;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.modal-footer button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    outline: 0 !important;
+}
+
+.moresetting {
+    color: #616161;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 1rem 20px!important;
+}
+
+.moresetting .switch_text {
+    font-weight: 400;
+    color: #616161;
+    font-size: 13px;
+    line-height: 24px;
+}
+
+.moresetting .field_title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+}
+
+.moresetting .field_title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+}
+
+.rubric_cl label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
+}
+
+.rubric_cl {
+    padding: 16px 0;
+}
+
+.rubric_cl select {
+    color: #616161;
+    height: 40px !important;
+    font-size: 14px;
+    background: #f9f9f9;
+}
+
+.setting_area textarea.form-control {
+    height: 87px;
+    font-size: 15px;
+}
+
+.setting_footer {
+    border: 0;
+    padding: 1rem 20px!important;
+}
+
+.moresetting .switch_container {
+    float: left;
+    width: 66px;
+}
+
+.moresetting .switch .on {
+    top: 2px !important;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 19px;
+}
+
+.moresetting .switch .off {
+    top: 2px !important;
+    text-transform: uppercase;
+    line-height: 19px;
+    font-weight: 500; font-size:12px !important;
+}
+
+.timeicon .dropdown-menu {
+    width: 87%;
+}
+
+.parti_left .dropdown-item.active,
+.parti_left .dropdown-item:active {
+    color: #484848;
+    text-decoration: none;
+    background-color: #E0E0E0;
+}
+
+.parti_left .dropdown-item {
+    padding: 7px 10px;
+}
+
+.parti_left .dropdown-item .col-sm-5 {
+    padding-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+        flex: 0 0 35%;
+    max-width: 35%;     float: left;
+}
+
+.coaching_editor .ql-container.ql-snow {
+    height: 140px !important;
+}
+
+.toast-info {
+    font-size: 13px;
+}
+
+.nouser_sel h6 {
+    font-weight: 400;
+    font-size: 20px;
+    padding: 40px 0;
+}
+
+.bs-datepicker-head button {
+    font-size: 14px;
+}
+
+.bs-datepicker-body table th {
+    font-size: 13px !important;
+    color: #9aaec1;
+    font-weight: 400;
+    text-align: center;
+    padding: 0 5px !important;
+}
+
+
+.timeicon .ui-state-default {
+    border: 1px solid #d6d6d6;
+    background: #ffffff;
+    color: #555555;
+    height: 42px !important;
+    line-height: 33px;
+    position: relative;
+    top: -1px;
+    width: 100% !important;
+}
+
+.timeicon .ui-dropdown .ui-dropdown-label{ z-index: 9;}
+
+.timeicon .ui-corner-right{ opacity:0;}
+
+
+
+.timeicon .ui-state-highlight {
+    border-color: #ddd;
+    background: #ddd;
+    color: #000;
+}
+
+
+	.language_sp .new_huser_add .plus_u{       
+       top: 23px !important;
+    left: 35px !important;}
+	
+	
+	.timeicon .ui-dropdown-panel .ui-dropdown-items-wrapper{ max-height:190px !important;}
+	.language_sp .switch .off, .language_sp .switch .on { font-size:11px !important;}
+	
+	
+	
+	

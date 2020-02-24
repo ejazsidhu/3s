@@ -1,0 +1,5 @@
+<div *ngIf="!translationLoaded" class="container ani_brcls bre_ani"></div>
+<div *ngIf="translationLoaded" class="container bred_an">
+ <a [routerLink]="['/']">{{translation?.analytics_home}}</a>
+  <img src="assets/img/breadcrumarrow.svg"> {{translation?.analytics_account_analytics}}
+</div>

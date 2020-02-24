@@ -1,0 +1,57 @@
+/*.account_info{
+	display: inline-block;
+	color: #FFF;
+	font-size: 16px;
+	margin-top: 30px;
+	position: absolute;
+
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 35ch;
+}*/
+.sibme_coaching {
+    margin-left: 186px;
+    display: inline-block;
+    font-size: 15px;
+    color: #fff;
+    top: 3px;
+    position: relative;
+}
+
+.sibme_coaching a{
+    color: #ccc;
+    text-decoration: none;
+}
+.sibme_coaching a:hover{
+    color: #fff;
+}
+
+.sibme_coaching a .non_gry{
+    display: none;
+}
+
+.sibme_coaching a:hover .non_gry{
+    display: inline-block;
+}
+
+.sibme_coaching a:hover .gry{
+    display: none;
+}
+
+.tooltip {
+  width: 7em;
+  white-space: normal;
+}
+p{
+    margin:0px;
+}
+.sibme_coaching p{
+    font-size: 12px;
+    line-height: 23px;
+}
+
+.sibme_coaching img{
+    max-width: 15px;
+    margin-left: 3px;
+}

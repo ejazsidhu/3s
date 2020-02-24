@@ -1,0 +1,84 @@
+.edit_response textarea{
+
+	height: 150px;
+
+}
+
+a.add_reply {
+    background: #5db85b;
+    cursor: pointer;
+    color: #fff !important;
+    display: inline-block;
+    padding: 5px 22px;
+    border-radius: 4px;
+    font-family: 'Roboto-Light';
+    text-decoration: none;
+}
+
+a.simple_btn {
+    padding: 5px 22px;
+    cursor: pointer;
+}
+
+.edit_response div.text-right{
+
+	margin-top: 6px;
+	margin-bottom: 15px;
+
+}
+
+/***/
+
+.card{-webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 8px rgba(229,229,229,.7);
+    box-shadow: 0 0 8px rgba(229,229,229,.7);
+    margin-bottom: 20px;
+    font-family: "Segoe UI";
+    color: #555658;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 8px 6px;
+    background: rgba(255,255,255,1);
+    background: -webkit-gradient(linear,left top, right top,color-stop(0, rgba(255,255,255,1)),to(rgba(248,248,248,1)));
+    background: linear-gradient(to right,rgba(255,255,255,1) 0,rgba(248,248,248,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8', GradientType=1 );}
+    .cardsmain .col-sm-4{ padding: 0 5px; }
+    .cardsmain .col-sm-4 p{    font-family: 'Roboto-light';
+    font-size: 11px;    margin: 0 0 6px 0; }
+    .cardsmain{    margin: 0 -8px;}
+    .comment_main { border-bottom: 1px solid #e1e0e0;
+    margin-bottom: 23px;
+    padding-bottom: 10px;}
+    .comment_main p{ margin: 0;    color: #414141; }
+    .title_gra {
+        color: #414345;
+        font-family: "Segoe UI";
+        font-weight: 600;
+        position: relative;
+        z-index: 100;
+    }
+    .title_gra label{
+        color: #6b6b6b;
+    }
+    .grap{
+        position: relative;
+        z-index: 10;
+        margin-top: -10px;
+    }
+    .title_gra_bottom{
+        color: #56595a;
+        position: relative;
+        z-index: 100;
+        margin-top: -30px;
+    }
+    .cs_editBtn .pencilIcon{
+        font-size: 12px;
+    }
+    .comment_main .cs_editBtn .fake_link{       color: #cecece; }
+    .comment_main .cs_editBtn .fake_link:hover{      color: #616161;}
+    

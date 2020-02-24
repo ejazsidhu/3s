@@ -1,0 +1,32 @@
+<div class="">
+  <div class="tags_topb row">
+    <div class="col-md-5 row">
+      <div class="col-4">
+        <div *ngIf="!userLoaded" class="ana_cl user-img"></div>
+        <img *ngIf="userLoaded" [attr.height]="80" class="current_img" [attr.src]="getUserImgUrl()">
+      </div>
+      <div class="col-8">
+        <h5 *ngIf="!userLoaded" class="ana_cl user-header"></h5>
+        <h5 *ngIf="userLoaded">{{user?.user_essentials[0]?.first_name}} {{user?.user_essentials[0]?.last_name}}</h5>
+        <p *ngIf="!userLoaded" class="ana_cl user-desc"></p>
+        <p class="word-break" [title]="user?.user_essentials[0]?.email" *ngIf="userLoaded">{{user?.user_essentials[0]?.email}}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <p *ngIf="!translationLoaded || !userLoaded" class="ana_cl user-detail"></p>
+      <p *ngIf="!translationLoaded || !userLoaded" class="ana_cl user-detail"></p>
+      <p *ngIf="translationLoaded && userLoaded">
+        <b>{{translation?.analytics_user_role}}:</b>
+        {{getUserRole(user?.user_essentials[0]?.role_id)}}
+      </p>
+      <p *ngIf="translationLoaded && userLoaded"><b>{{translation?.analytics_user_type}}:</b> {{user?.user_type}}</p>
+    </div>
+    <div class="col-md-4">
+      <p *ngIf="!translationLoaded || !userLoaded" class="ana_cl user-detail"></p>
+      <p *ngIf="translationLoaded && userLoaded">
+        <b>{{translation?.analytics_last_login}}:</b>
+        {{user?.last_login?.date | date: 'shortDate'}}
+      </p>
+    </div>
+  </div>
+</div>

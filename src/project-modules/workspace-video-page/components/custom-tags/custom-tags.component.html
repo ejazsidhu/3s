@@ -1,0 +1,9 @@
+<span *ngFor="let tag of tags; let i=index" class="tag_rounded">
+	
+	{{tag.text}}
+
+	<span (click)="removeTag(tag)"> x </span>
+
+</span>
+
+<input #tagInput type="text" [(ngModel)]="newTag" [style.width.px]="((newTag.length + 2) * 8)" (keydown)="TagChanged($event)" (blur)="GenerateTag()" style="border: 0;background: transparent;" maxlength="26">

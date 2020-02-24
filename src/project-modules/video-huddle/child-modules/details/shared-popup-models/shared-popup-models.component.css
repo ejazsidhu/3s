@@ -1,0 +1,54 @@
+.image-upload>input {
+    display: none;
+    cursor: pointer;
+}
+
+.fileName {
+    /* margin: 10px 0 10px 5px;
+      width: 95%;
+      float: right;
+      height: 40px; */
+}
+
+input {
+    -webkit-user-drag: auto;
+}
+
+.search-skeleton {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-right: 2%;
+    float: left;
+    position: relative;
+}
+
+.skeleton-container {
+    display: flex;
+    margin: 10px 0;
+}
+
+.checkbox-skeleton {
+    height: 22px;
+    width: 24px;
+}
+
+.huddle-name-skeleton {
+    height: 22px;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.dupcls {
+    text-align: left;
+    font-size: 16px;
+    padding-top: 26px;
+}
+
+.b1 {
+    border: 1px solid #ddd !important;
+}
+
+.b1 .btn-success {
+    padding: 6px 29px;
+}

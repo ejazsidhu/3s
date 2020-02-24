@@ -1,0 +1,7 @@
+<ul class="tabs_stp">
+	<li *ngFor="let bullet of getItems();let last=last;let i=index;">
+		<span class="circle" [class]="getClass(i, 'c')"><i></i></span>
+		<span class="line" *ngIf="!last" [class]="getClass(i, 'l')"> </span>
+	</li>
+	<div class="clearfix"></div>
+</ul>

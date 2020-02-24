@@ -1,0 +1,18 @@
+ .an_box{
+	text-align:center;
+	background-color: #FFF;
+	border: 1px solid #DAD6CE;
+	border-radius: 3px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	padding-top: 20px; margin-bottom: 20px;
+}
+.an_boxb{
+	background:#f5f5f5;
+	padding: 6px 10px 7px 10px;
+	border-top:1px solid #cccccc;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	color:#3e3e3e; font-size:14px;
+	font-family: 'Conv_Roboto-Regular';
+}
+.an_img { min-height:30px;}

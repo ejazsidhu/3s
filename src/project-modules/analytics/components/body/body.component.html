@@ -1,0 +1,89 @@
+<analytics-breadcrumbs></analytics-breadcrumbs>
+<div id="main" class="container box">
+	<div class="analy_b">
+		<div class="header_an">
+			<h2 *ngIf="!translationLoaded" class="ani_brcls an_ah1"></h2>
+			<h2 *ngIf="translationLoaded">{{translation?.account_analytics}}</h2>
+		</div>
+		<div class="filter_an">
+			<div class="row">
+				<div *ngIf="!selectedItem || !translationLoaded" class="selec_opt single_select ana_cl an_ah2"></div>
+				<div *ngIf="translationLoaded && selectedItem" class="selec_opt single_select">
+					<ng-multiselect-dropdown name="account" [placeholder]="translation.analytics_sub_account"
+						[data]="sub_accounts" [(ngModel)]="selectedItem" [settings]="settings"
+						(onSelect)="onItemSelect($event)" (onDeSelect)="onItemChange($event,selectedItem)">
+					</ng-multiselect-dropdown>
+				</div>
+				<div *ngIf="!translationLoaded || !selectedItem" class="serch_op ana_cl an_ah2c1 "></div>
+				<div *ngIf="translationLoaded && selectedItem" class="serch_op">
+					<span (click)="selectDuration(1)" [ngClass]="{'active': filters.duration===1}">1
+						{{translation?.analytics_month}}</span>
+					<span (click)="selectDuration(3)" [ngClass]="{'active': filters.duration===3}">3
+						{{translation?.analytics_month}}</span>
+					<span (click)="selectDuration(6)" [ngClass]="{'active': filters.duration===6}">6
+						{{translation?.analytics_month}}</span>
+					<span (click)="selectDuration(12)" [ngClass]="{'active': filters.duration===12}">12
+						{{translation?.analytics_month}}</span>
+				</div>
+				<div *ngIf="!translationLoaded || !selectedItem" class="an_or ana_cl an_or_sk"></div>
+				<div *ngIf="translationLoaded && selectedItem" class="an_or">
+					{{translation?.analytics_or}}
+				</div>
+				<div *ngIf="!translationLoaded || !selectedItem" class="ana_cl an_date_sk"></div>
+				<div *ngIf="translationLoaded && selectedItem" class="an_date">
+					<input type="text" placeholder="{{translation?.analytics_select_date_range}}" [bsConfig]="bsConfig"
+						bsDaterangepicker [(ngModel)]="filters.date_range" (ngModelChange)="deselectDuration($event)"
+						#dp>
+					<img src="assets/img/calendar.svg" (click)="showdp()" class="an_cal">
+				</div>
+				<div class="submit-btn-sk-box" [hidden]="currentTab==1">
+					<div *ngIf="!translationLoaded || !selectedItem" class="ana_cl submit-btn-sk"></div>
+				</div>
+				<div class="submit-btn" [hidden]="currentTab==1">
+					<input *ngIf="translationLoaded && selectedItem" type="submit" value="{{translation?.analytics_update}}" (click)="updateData(false)"
+						[style.backgroundColor]="primery_button_color">
+				</div>
+				<div class="clear">
+				</div>
+				<div class="opt_row2 animated fadeIn" [hidden]="currentTab!=1">
+					<div *ngIf="!translationLoaded || !dropdowns.selectedHuddle || !selectedItem"
+						class="selec_opt2 single_select ana_cl an_ah2c4"></div>
+					<div *ngIf="translationLoaded && dropdowns.selectedHuddle && selectedItem"
+						class="selec_opt2 single_select">
+						<ng-multiselect-dropdown name="huddles" [placeholder]=translation?.analytics_select_huddle
+							[data]="dropdowns.huddles_filters" [(ngModel)]="dropdowns.selectedHuddle"
+							[settings]="huddle_settings" (onSelect)="onHuddleSelectSelect($event)"
+							(onDeSelect)="onHuddleDeselect($event)">
+						</ng-multiselect-dropdown>
+					</div>
+					<div *ngIf="!translationLoaded || !dropdowns.selectedFramework || !selectedItem"
+						class="selec_opt3 single_select ana_cl an_ah2c5"></div>
+					<div *ngIf="translationLoaded && dropdowns.selectedFramework && selectedItem"
+						class="selec_opt3 single_select">
+						<ng-multiselect-dropdown name="frameworks" [placeholder]=translation?.analytics_select_framework
+							[data]="dropdowns.frameworks" [(ngModel)]="dropdowns.selectedFramework"
+							[settings]="framework_settings" (onSelect)="onFrameworkSelectSelect($event)"
+							(onDeSelect)="onFrameworkDeselect($event)">
+						</ng-multiselect-dropdown>
+					</div>
+					<div *ngIf="!translationLoaded || !selectedItem" class="selec_opt4 ana_cl an_ah2c6"></div>
+					<div *ngIf="translationLoaded && selectedItem" class="selec_opt4">
+						<ng-multiselect-dropdown name="standards" [placeholder]=translation?.analytics_select_standards
+							[data]="dropdowns.standards" [settings]="standards_settings" [(ngModel)]="filters.standards"
+							(ngModelChange)="onStandardsSelectSelect($event)">
+						</ng-multiselect-dropdown>
+					</div>
+					<div *ngIf="!translationLoaded || !selectedItem" class="an_date2 ana_cl an_ah2c7"></div>
+					<div *ngIf="translationLoaded && selectedItem" class="an_date2">
+						<input type="submit" value="{{translation?.analytics_update}}"
+							[style.backgroundColor]="primery_button_color" (click)="updateData(false)"
+							[hidden]="currentTab!=1">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ana_body">
+			<navtabs></navtabs>
+		</div>
+	</div>
+</div>

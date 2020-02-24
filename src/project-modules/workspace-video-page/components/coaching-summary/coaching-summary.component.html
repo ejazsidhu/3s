@@ -1,0 +1,71 @@
+<div class="comment_main">
+<p *ngIf="VideoInfo.h_type==2">
+  {{Summary?.coach_feedback?.comment || translation?.myfile_no_feedback}}
+</p>
+<p *ngIf="VideoInfo.h_type==3">
+	{{Summary?.assessment_feedback?.comment || translation?.myfile_no_feedback}}
+</p>
+
+<div class="text-right cs_editBtn" *ngIf="!EditEnabled">
+	
+	<span class="fake_link" (click)="EditFeedback()">
+		<span class="oi pencilIcon" data-glyph="pencil"></span> {{translation?.myfile_edit}}	
+	</span>
+	
+
+</div>
+</div>
+<div *ngIf="EditEnabled" class="edit_response animated fadeIn">
+	<textarea class="form-control" [(ngModel)]="EditableFeedback"></textarea>
+	<div class="text-right">
+		<a class="simple_btn" (click)="ResolveEditResponse(0)"> {{translation?.myfile_cancel}} </a>
+		<a class="add_reply" (click)="ResolveEditResponse(1)"> {{translation?.myfile_save}} </a>
+	</div>
+</div>
+
+<div class="row cardsmain">
+	
+	<div class="col-sm-4">
+		<div class="card">
+
+			{{Summary?.coach_comments}} <br />
+			<p *ngIf="VideoInfo.h_type==2">{{translation?.myfile_coach_comment_added}} </p>
+			<p *ngIf="VideoInfo.h_type==3"> {{translation?.myfile_assessor_comment_added}} </p>
+
+		</div>
+	</div>
+	<div class="col-sm-4">
+
+		<div class="card">
+			
+		
+		{{Summary?.coachee_comments}} <br/>
+		<p *ngIf="VideoInfo.h_type==2"> {{translation?.myfile_coachee_comment_added}} </p>
+		<p *ngIf="VideoInfo.h_type==3"> {{translation?.myfile_assessee_comment_added}} </p>
+		</div>
+
+	</div>
+	<div class="col-sm-4">
+
+		<div class="card">
+			
+		
+		{{Summary?.resources}} <br/>
+		<p>{{translation?.myfile_resurces_attached}}</p>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="title_gra">
+	<span *ngIf="Summary?.total_ratting"> <label> {{translation?.myfile_averge_performance_level}}</label>: {{Summary?.total_ratting}} </span>
+</div>
+
+<div class="row grap">
+	<div id="chartContainer" [style.height.px]="250" [style.width.%]="100"></div>
+</div>
+
+<div class="title_gra_bottom">
+	<span>*{{translation?.myfile_striped_bars_indicate}}</span>
+</div>

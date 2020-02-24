@@ -1,0 +1,135 @@
+.modal_container{
+	font-family: Roboto !important;
+}
+
+.expand_all:hover, .collapse_all:hover{
+	cursor: pointer;
+}
+
+a.selected_sort{
+    color: #057eff !important;
+    font-weight: bold !important;
+}
+
+@keyframes ngForAnimation {
+  0% {
+    padding-left: 50px;
+  }
+  100% {
+    padding-left: 0px;
+  } 
+}
+
+
+.animate_ngfor {
+  animation: fadeIn 1s;
+}
+
+.hufooter{
+  border-top: none !important;
+}
+
+.nothing_label{
+      padding: 40px 20px;
+}
+
+.align_folder{
+    height: 10px;
+    display: inline-block;
+    width: 12px;
+    float: left;
+}
+
+.hu_search img{
+    position: absolute;
+    zoom: 1.5;
+    opacity: 0.5;
+    margin-left: -14px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .hu_search img{
+
+      margin-left: -20px !important;
+      margin-top: 13px !important;
+
+    }
+}
+
+.participant_details{
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 70%;
+    display: inline-block;
+    top: 7px;
+    position: relative;
+}
+
+.par_email{
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline;
+}
+
+
+
+
+
+
+.ani_wp1{
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+
+
+.wani3{  float:left; width: 25%; height:38px;         margin-right: 2%;}
+.wani4{ float:left; width: 57%; height:38px;         margin-right: 2%;}
+.wani5{float:left; width: 13%; height:38px;     }
+
+.huani1 { display: block; height: 40px; width: 100px; }
+.huani2 {  height: 40px; width: 150px; float: right; margin-left: 10px;}
+
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+
+.hufooter .col-12{ padding-right:7px;}
+
+
+
+
+
+

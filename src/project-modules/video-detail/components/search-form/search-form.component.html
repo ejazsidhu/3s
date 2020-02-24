@@ -1,0 +1,133 @@
+	<div class="comm_search_box">
+	         <div class="search_field">
+	          <input [(ngModel)]="searchData.text" (ngModelChange)="searchTextChanged($event)" type="text" placeholder="{{translation?.vd_search_comments}}">
+	         </div>
+	         <!-- <div class="search_options">
+	           <div class="comm_options">
+	           	<a href="#">
+	           	<img src="assets/img/dots-three-horizontal.png"></a></div>
+	         </div> -->
+	  <div [ngClass]="{'margin_bottom_fixed':!permissions?.AllowCustomMarkers}" class="video_options btn-group" *ngIf="options && (options.export || options.sorting || options.others)" placement="right" dropdown>
+      
+      <div id="button-basic2" dropdownToggle class="comm_options dropdown-toggle"
+              aria-controls="dropdown-basic">
+        <!-- <img src="assets/img/dots-three-horizontal.png"> -->
+        <img src="assets/img/dot.svg">
+      </div>
+      <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic2">
+          <ng-container *ngIf="options.sorting">
+          <li role="menuitem">
+          	<h6 class="dropdown-header">{{translation?.vd_sorting}}</h6>
+          </li>
+        <li role="menuitem" (click)="sortBy(0)">
+          <span class="dropdown-item">{{translation?.vd_newest}}  
+
+          	<span  *ngIf="settings.sortBy==0" class="oi pull-right" data-glyph="check" aria-hidden="true">
+          </span>
+
+          </span>
+        </li>
+        <li role="menuitem" (click)="sortBy(1)">
+          <span class="dropdown-item">{{translation?.vd_oldest}}
+
+          	<span  *ngIf="settings.sortBy==1" class="oi pull-right" data-glyph="check" aria-hidden="true">
+          </span>
+
+          </span>
+        </li>
+
+        <li role="menuitem" (click)="sortBy(2)">
+          <span class="dropdown-item">{{translation?.vd_timestamp}}
+
+            <span  *ngIf="settings.sortBy==2" class="oi pull-right" data-glyph="check" aria-hidden="true">
+          </span>
+
+          </span>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="options.others">
+        <li role="menuitem">
+          	<h6 class="dropdown-header">{{translation?.vd_other_settings}}</h6>
+        </li>
+        <li role="menuitem" (click)="ToggleAutoScroll()">
+          <span class="dropdown-item">{{translation?.vd_autoscroll}}
+          	<span  *ngIf="settings.autoscroll" class="oi pull-right" data-glyph="check" aria-hidden="true">
+          </span>
+          </span>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="options.export">
+      
+        <li class="divider dropdown-divider"></li>
+      
+        <li role="menuitem">
+          	<h6 class="dropdown-header">{{translation?.vd_export}}</h6>
+        </li>
+        <li role="menuitem" (click)="ExportComments('excel')">
+          <span class="dropdown-item">{{translation?.vd_excel}}</span>
+        </li>
+        <li role="menuitem" (click)="ExportComments('pdf')">
+          <span class="dropdown-item">{{translation?.vd_pdf}}</span>
+        </li>
+        <li role="menuitem"  (click)="InitiateEmailDialog(sendEmailDialog)">
+          <span class="dropdown-item">{{translation?.vd_email}}</span>
+        </li>
+      </ng-container>
+      </ul>
+
+
+    </div>
+	</div>
+	<div class="clear"></div>
+	<div class="comm_option comm_option2" *ngIf="permissions?.AllowCustomMarkers">
+        <!-- <span class="q_circle"></span> question
+        <span class="i_circle"></span> idea
+        <span class="b_circle"></span> bright spot -->
+
+        <ng-container *ngFor="let marker of customMarkers; let i = index">
+          <span class="custom_tag" [style.background]="getBg(marker, i)" [style.borderColor]="[classes[i]]" (click)="SelectTag(marker)"></span> <span (click)="SelectTag(marker)">{{marker.tag_title}}</span> 
+        </ng-container>
+
+      </div>
+
+
+
+<ng-template #sendEmailDialog>
+    <div class="modal-header">
+      <h6 class="modal-title pull-left">{{translation?.vd_send_email}}</h6>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body"> 
+      <div class="send_message_dialog">
+        <label class="label" for="subject">{{translation?.vd_subject}}</label><br>
+        <input id="subject" [(ngModel)]="EmailData.subject" type="text" name="subject" class="input-xlarge">
+        <label class="label" for="email">{{translation?.vd_to}}:</label><br>
+        <input id="email" [(ngModel)]="EmailData.email" type="email" name="email" class="input-xlarge">
+
+        <div class="attachment_box">
+            
+            <span id="filename_email_span"></span>
+        </div>
+        <label class="label" for="message">{{translation?.vd_additional_attachments}}</label><br>
+        <input type="file" #file name="additional_attachemnt" (change)="HandleFile($event.target.files, file)"><br>
+
+        <label class="label" for="message">{{translation?.vd_enter_message}}</label><br>
+        <textarea [(ngModel)]="EmailData.message" id="message" name="message" class="input-xlarge" style="height: 80px;"></textarea>
+        
+    </div>
+    </div>
+    <div class="modal-footer text-right">
+       <div>
+        <button class="hu_cancel" (click)="ResolveEmail(0)">
+            {{translation?.vd_cancel}}
+        </button>
+        <button class="hu_primary" (click)="ResolveEmail(1)">
+             {{translation?.vd_ok}}
+        </button>
+      </div>
+
+    </div>
+</ng-template>

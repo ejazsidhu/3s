@@ -1,0 +1,106 @@
+<div class="row list_row">
+    <div class="col-md-5">
+        <a href="{{goToDetailPageHref(artifact)}}">
+        <div *ngIf="artifact.published==1 && artifact?.doc_type==1" class="thumblist" (click)="goToDetailPage(artifact)">
+            <div class="th_img">
+                <img class="thumbnail_i" src="{{artifact.thubnail_url}}">
+            </div>
+            <span class="list_play"> <img src="assets/img/play_gry-sml.svg"> </span>
+            <!-- <span class="video_time">{{artifact.video_duration}}</span> -->
+            <span class="video_time">{{workspaseServise?.FormatSeconds(artifact?.video_duration)}}</span>
+        </div>
+        <ng-container *ngIf="artifact.published==0 && artifact?.doc_type==1">
+            <div class="thumblist">
+                <div class="th_img">
+                    <img class="loader" height="70" src="assets/img/spinner.svg">
+                </div>
+                <span class="list_play"> <img src="assets/img/play_gry-sml.svg"> </span>
+                <!-- <span class="video_time">{{artifact.video_duration}}</span> -->
+                <span class="video_time">{{workspaseServise?.FormatSeconds(artifact?.video_duration)}}</span>
+            </div>
+        </ng-container>
+        <div *ngIf="artifact?.doc_type==3" class="thumblist" (click)="goToDetailPage(artifact)">
+                <ng-container *ngIf="artifact?.published==0 && artifact.video_duration > 0" >
+                    <div class="video_reco">
+                    <span *ngIf="artifact?.upload_progress==0">
+                        {{translation?.workspace_liverecording}}
+                    </span>
+                    <span *ngIf="artifact?.is_paused == 1">
+                        {{translation?.workspace_paused}}
+                    </span>
+                    <span *ngIf="(artifact?.upload_status=='uploading' && (artifact?.upload_progress>0)<100)">
+                        {{translation?.workspace_uploading}} {{artifact?.upload_progress}}%
+                    </span>
+                </div>
+                </ng-container>
+                <div class="th_img">
+                <ng-container *ngIf="artifact?.published==1 || (artifact?.upload_progress==100)">
+                    <img class="thumbnail_i" src="{{artifact.thubnail_url}}">
+                    <span class="list_play"> <img src="assets/img/play_gry-sml.svg"> </span>
+                </ng-container>
+                <!-- <span class="video_time">{{artifact.video_duration}}</span> -->
+                <span class="video_time">{{workspaseServise?.FormatSeconds(artifact?.video_duration)}}</span>
+                <ng-container *ngIf="artifact?.upload_status == 'cancelled' && artifact?.video_duration == 0">
+                        <div class="video_crope">
+                            {{translation?.workspace_cancelleduploadvideo}}  
+                        </div>
+      
+                </ng-container>
+            </div>
+            </div>
+        </a>
+        <div class="detail_list">
+            <p (click)="goToDetailPage(artifact)"><span tooltip="{{artifact.title}}">{{artifact.title}}</span></p>
+            <div class="huddle_option">
+                <a tooltip="{{translation?.workspace_notes}}" class="chat_cls"> <img src="assets/img/comm_icon.svg"> {{artifact.total_comments}}</a>
+                <a tooltip="{{translation?.workspace_attachments}}" class="h_att"> <img src="assets/img/attachment_icon.svg"> {{artifact.total_attachment}} </a>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <label>{{artifact.first_name}} {{artifact.last_name}}</label>
+    </div>
+    <div class="col-md-2">
+        <label>{{headerService?.formateDate(artifact.created_date,"MMM DD,YYYY")}}</label>
+    </div>
+    <div class="col-md-3 list_share">
+
+        <a class="share_icon" data-toggle="modal" (click)="OpenModel(artifact,'share');"> <img
+                src="assets/img/icon_arrow.svg"> {{translation?.workspace_share}} </a>
+
+                <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+                        <button type="button">
+                          <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+                      </div>
+                <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+                    <span (isOpenChange)="isOpen($event)" dropdown>
+                        <button type="button" id="button-basic" dropdownToggle>
+                          <img src="assets/img/dots_dark.svg" width="30">
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" >
+                          
+                      
+                          <a *ngIf="artifact.published!=0" class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.workspace_share}}</a>
+                          <a *ngIf="(artifact?.upload_status != 'cancelled') && (artifact.published!=0)" class="dropdown-item" (click)="OpenModel(artifact,'crop');">{{translation?.workspace_crop}}</a>
+                          <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'email');">Email</a> -->
+                     
+                          <a *ngIf="(artifact?.upload_status != 'cancelled') && (artifact.published!=0)" class="dropdown-item" (click)="DuplicateResource(artifact)">{{translation?.workspace_duplicate}}</a>
+                          <a *ngIf="(artifact?.upload_status != 'cancelled') && (artifact.published!=0)" class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.workspace_download}}</a>
+                          <a class="dropdown-item" (click)="OpenModel(artifact,'delete');">{{translation?.workspace_delete}}</a>
+                        
+        
+                        
+        
+                  
+                        </ul>
+                    </span>    
+                  </div>
+
+    </div>
+</div>

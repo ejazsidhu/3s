@@ -1,0 +1,50 @@
+<button *ngIf="EnablePublish" class="btn btn-success form-control" (click)="PublishFeedback(confirmPublishDialog)"
+  [style.marginBottom.px]="10">
+  {{translation?.vd_publish_feedback}}
+</button>
+
+<search-form [permissions]="permissions" [VideoInfo]="VideoInfo" [customMarkers]="CustomMarkers" [params]="params"
+  (settingsChanged)="ApplySettings($event)" [classes]="colorClasses">
+</search-form>
+
+<div class="comm_outer" size="7px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000" height="600px"
+  id="slimscroll" slimScroll>
+  <ng-container *ngFor="let comment of comments; let i=index;">
+    <comment *ngIf="comment.valid" [VideoInfo]="VideoInfo" [permissions]="permissions" [index]="i"
+      [staticFiles]="staticFiles" [settings]="settings" [isActive]="currentComment == comment" [attr.id]="'comment_'+i"
+      [customMarkers]="CustomMarkers" [classes]="colorClasses" [comment]="comment" [params]="params"
+      >
+      <!-- (onDelete)="onCommentDelete($event)" (onEdit)="onCommentEdit($event)" (onReplyEdit)="onReplyEdit($event)" --> <!-- TODO add listener for comments later-->
+    </comment>
+  </ng-container>
+  <div class="text-center animated fadeIn no-comment-found" *ngIf="getValidCommentCount()==0">
+    {{translation?.vd_no_comments_matched}}
+  </div>
+  <div class="text-center animated fadeIn no-comment-found" *ngIf="comments?.length==0">
+    {{translation?.no_comment_exist}}
+  </div>
+</div>
+
+
+<!-- Modals section start -->
+<ng-template #confirmPublishDialog>
+  <div class="modal-header">
+    <h6 class="modal-title pull-left">{{translation?.vd_confirm}}</h6>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{translation?.vd_your_comments}} </div>
+  <div class="modal-footer text-right">
+    <div>
+      <button class="btn btn-default" (click)="ResolvePublish(0)">
+        {{translation?.vd_cancel}}
+      </button>
+      <button class="btn btn-primary" (click)="ResolvePublish(1)">
+        {{translation?.vd_ok}}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Modals section end -->

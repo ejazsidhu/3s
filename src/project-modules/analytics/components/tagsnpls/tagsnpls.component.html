@@ -1,0 +1,111 @@
+<div class="tags_andiv">
+	<div class="row" [hidden]="current_chart_tab==2">
+		<div class="col-md-6 animated fadeIn">
+			<h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+			<h4 *ngIf="translationLoaded"> {{translation?.analytics_top_five_tagged_standard}}</h4>
+			<span class="dot_m"></span>
+			<div class="clear"></div>
+			<div *ngIf="!chartContainer2Loaded" class="gbox topChart">
+				<div class="analytics-animation gan2">
+				</div>
+			</div>
+			<div [hidden]="!chartContainer2Loaded" class="gbox topChart">
+				<div class="text-center chart-not-found" *ngIf="!top_charts.top_available && !translationLoaded">
+
+				</div>
+				<div class="text-center chart-not-found" *ngIf="!top_charts.top_available && translationLoaded">
+					<label> {{translation?.analytics_no_top_tagged_standard}} </label>
+				</div>
+				<div id="chartContainer2" [style.height.px]="300"></div>
+			</div>
+		</div>
+		<div class="col-md-6 animated fadeIn">
+			<h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+			<h4 *ngIf="translationLoaded">{{translation?.analytics_least_five_tagged_standard}}</h4>
+			<span class="dot_m"></span>
+			<div class="clear"></div>
+			<div *ngIf="!chartContainerLoaded" class="gbox topChart">
+				<div class="analytics-animation gan2">
+				</div>
+			</div>
+			<div [hidden]="!chartContainerLoaded" class="gbox topChart">
+				<div class="text-center chart-not-found" *ngIf="!top_charts.least_available && !translationLoaded">
+
+				</div>
+				<div class="text-center chart-not-found" *ngIf="!top_charts.least_available && translationLoaded">
+					<label> {{translation?.analytics_no_least_tagged_standard}} </label>
+				</div>
+				<div id="chartContainer" [style.height.px]="300"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 animated fadeIn" [hidden]="current_chart_tab==1">
+			<h4 *ngIf="!translationLoaded" class="analytics-animation gan1"></h4>
+			<h4 *ngIf="translationLoaded"> {{translation?.analytics_custom_markers_tags}}</h4>
+			<span class="dot_m" id="pieExport">
+			</span>
+			<div class="clear"></div>
+			<div *ngIf="!pieContainerLoaded" class="gbox topChart">
+				<div class="analytics-animation gan2">
+				</div>
+			</div>
+			<div [hidden]="!pieContainerLoaded" class="gbox topChart">
+				<div class="text-center chart-not-found" *ngIf="!top_charts.pie_available && !translationLoaded">
+
+				</div>
+				<div class="text-center chart-not-found" *ngIf="!top_charts.pie_available && translationLoaded">
+					<label> {{translation?.analytics_no_custom_markers_tags}} </label>
+				</div>
+				<div id="pieContainer" [style.height.px]="400"></div>
+			</div>
+		</div>
+		<div class="text-center chart-not-found pills" [style.width.%]="100">
+			<a (click)="activate_chart_tab(1)"><span [class.activer]="current_chart_tab==1" class="round"> </span></a>
+			<a (click)="activate_chart_tab(2)"><span [class.activer]="current_chart_tab==2" class="round"> </span></a>
+		</div>
+		<div class="row" [style.width.%]="100" [style.margin-left]="0" *ngIf="serialCharts && serialCharts?.length>0">
+			<div class="col-md-12"
+				*ngFor="let chart of serialCharts | paginate: { itemsPerPage: 5, currentPage: p, totalItems: serialChartCount };let i = index">
+				<h4>{{chart.title}}</h4> <span class="dot_m">
+				</span>
+				<div class="clear"></div>
+				<div class="gbox serialbox">
+					<div [attr.id]="'serial_'+i" [style.height.px]="350"> </div>
+				</div>
+			</div>
+			<pagination-controls *ngIf="serialChartCount>5" (pageChange)="getPage($event)"></pagination-controls>
+		</div>
+		<!-- <div class="col-md-12">
+             <h4>Standards and Alignments</h4> <span class="dot_m"><img src="assets/img/dots.svg"></span>
+          <div class="clear"></div>
+          <div class="gbox">
+            <img src="assets/img/g4.jpg">
+          </div>
+        </div> -->
+	</div>
+</div>
+<ng-template #loadingModal>
+	<div class="modal_container">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{translation?.analytics_please_wait}}</h4>
+				<!-- <button type="button" class="close" (click)="HideModal('newFolderModal')">×</button> -->
+			</div>
+			<div class="modal-body container">
+				<div class="row text-center" style="margin-left: 10px;">
+					<img class="animated infinite rotateIn" src="./assets/img/cog.svg"
+						style="width: 27px; height: 20px;">
+					{{translation?.analytics_file_is_pareparing}}
+				</div>
+			</div>
+			<!-- <div class="modal-footer hufooter">
+      <div class="col-12">
+       <a class="fake_link" (click)="HideModal('newFolderModal')">Cancel</a>
+       <button class="green_btn fake_link" (click)="CreateFolder()">Create Folder</button>
+       </div>
+      </div> -->
+		</div>
+	</div>
+</ng-template>

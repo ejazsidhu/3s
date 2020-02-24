@@ -1,0 +1,14 @@
+<div *ngIf="!translationLoaded" style="display: flex">
+    <div class="an_ah3 ana_cl"></div>
+    <div class="an_ah3 ana_cl"></div>
+</div>
+<tabset #pcTabs>
+    <tab heading="{{translation?.analytics_overview}}" (selectTab)="selectTab(0)">
+        <currentuser [user]="data"></currentuser>
+        <overviewbox [config]="data"></overviewbox>
+    </tab>
+    <tab heading="{{translation?.analytics_tp_level}}" (selectTab)="selectTab(1)">
+        <currentuser [user]="data"></currentuser>
+        <usertags></usertags>
+    </tab>
+</tabset>

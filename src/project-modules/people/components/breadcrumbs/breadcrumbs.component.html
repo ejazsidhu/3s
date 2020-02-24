@@ -1,0 +1,27 @@
+<div class="clear"></div>
+<!-- *ngIf="breadcrubms" -->
+<div *ngIf="isLoadingBread" class="container bred_an">
+    <a [routerLink]="['/']">{{translation?.home_breadcrumb_ppl}}</a>
+
+    <ng-container *ngIf="breadcrubms && breadcrubms?.length>0">
+        <img src="assets/img/breadcrumarrow.svg">
+        <a [routerLink]="['/list']">
+            {{translation?.huddle_breadcrumb_huddle}}
+        </a>
+        <ng-container *ngFor="let bc of breadcrubms; let last=last">
+            <img src="assets/img/breadcrumarrow.svg">
+            <a [routerLink]="['/list', bc.folder_id]" [class.disabled]="last">
+                {{bc.folder_name}}
+            </a>
+        </ng-container>
+    </ng-container>
+    <!-- *ngIf="breadcrubms?.length==0" -->
+    <ng-container>
+        <img src="assets/img/breadcrumarrow.svg"> {{translation?.people_people_section}}
+    </ng-container>
+
+</div>
+<div *ngIf="!isLoadingBread" class="container">
+    <div class="p_ani br_anp"></div>
+</div>
+<div class="clear"></div>

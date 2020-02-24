@@ -1,0 +1,13 @@
+.newUserRow{
+	
+	margin: 0;
+    margin-bottom: 20px;
+}
+.new_huser[_ngcontent-c11="test"]{
+	width: 100%;
+}
+
+.new_huser_add .plus_u{        width: 15px;
+    height: 14px;
+    top: 23px;
+    left: 43px;}

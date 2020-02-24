@@ -1,0 +1,83 @@
+<div id="main" class="container box">
+    <div class="skicls" *ngIf="isLoading ">
+        <div class="analy_b">
+            <div class="header_an">
+                <h2 class="aa_ani addani"></h2>
+            </div>
+
+            <div class="new_huddlecls">
+
+                <div class="row">
+
+                    <div class="col-md-4 huddle_type">
+                        <div class="aa_ani addani2">
+                        </div>
+
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani4"></p>
+
+
+
+                    </div>
+
+                    <div class="col-md-4 huddle_type">
+                        <div class="aa_ani addani2">
+                        </div>
+
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani4"></p>
+
+
+
+                    </div>
+
+
+                    <div class="col-md-4 huddle_type">
+                        <div class="aa_ani addani2">
+                        </div>
+
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani3"></p>
+                        <p class="aa_ani addani4"></p>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--skiend--->
+
+
+    <div class="analy_b" *ngIf="!isLoading">
+
+
+
+
+
+        <div class="header_an">
+            <!--  -->
+            <h2>{{huddle_data.title}}</h2>
+
+
+        </div>
+        <div class="new_huddlecls">
+
+            <div class="row">
+                <!--  -->
+                <!-- <huddle-type [hidden]="!isTypeAllowed(type)" (click)="selectType(type)" [isActive]="selectedType==type" class="col-md-4 huddle_type" *ngFor="let type of huddleTypes" [data]="type"></huddle-type> -->
+                <huddle-type [hidden]="!isTypeAllowed(type)" [isActive]="selectedType==type" class="col-md-4 huddle_type" *ngFor="let type of huddleTypes" [data]="type"></huddle-type>
+
+            </div>
+
+        </div>
+    </div>
+</div>

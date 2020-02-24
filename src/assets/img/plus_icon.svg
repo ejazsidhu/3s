@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #28a745;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #28a745;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_2" data-name="Group 2" transform="translate(2 2)">
+    <g id="Oval" class="cls-1">
+      <circle class="cls-3" cx="4.5" cy="4.5" r="4.5"/>
+      <circle class="cls-4" cx="4.5" cy="4.5" r="5.5"/>
+    </g>
+    <path id="Rectangle_3" data-name="Rectangle 3" class="cls-2" d="M2,5V3H0V2H2V0H3V2H5V3H3V5Z" transform="translate(2 2.362)"/>
+  </g>
+</svg>

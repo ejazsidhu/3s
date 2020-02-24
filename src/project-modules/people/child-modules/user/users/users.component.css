@@ -1,0 +1,8 @@
+.pr0 label{
+    display: inline;
+    color: #fff;
+    cursor: pointer;
+     }
+.pr0 input[type="file"] {
+    display: none;
+}

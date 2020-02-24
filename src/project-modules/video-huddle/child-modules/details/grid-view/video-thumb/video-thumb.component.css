@@ -1,0 +1,39 @@
+.processing{
+	background: black;
+	color: #FFF;
+	text-align: center;
+}
+
+.processing p{
+	margin-top: 33px;
+}
+
+.processing img.loader{
+	height: 70px;
+}
+
+ul.disabled{
+	color: grey;
+}
+
+ul.disabled_ul a:not(.available){
+	color: grey;
+}
+.video_crope {
+        height: 149px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 25px 10px 10px 10px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    line-height: 16px;
+    }
+    .video_crope  a {        color: #007bff !important;}
+
+    .live-time{
+    padding: 0px 4px;
+    border-radius: 3px;
+    background-color: #db2e2e;
+    font-size: 12px;
+    }

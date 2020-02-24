@@ -1,0 +1,416 @@
+<div class="container box_outer">
+
+    <div class="row panl_heading">
+        <div class="col-6">
+            <h3>{{translation?.workspace_myworkspace}}</h3>
+
+
+
+        </div>
+
+    </div>
+
+    <div class="tabs_bar workspacecls">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="cont_s row">
+               
+                  <ng-container *ngIf="total_artifacts!=0 && !total_artifactsload">
+                    <ng-container *ngIf="resourceFilter==0">{{translation?.workspace_artifacts}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==1">{{translation?.workspace_videos}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==2">{{translation?.workspace_resources}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==3">{{translation?.workspace_scriptednotes}}</ng-container> ({{total_artifacts}})
+                  </ng-container>
+                  <ng-container *ngIf="total_artifacts==0 && (total_artifactsload || !total_artifactsload)">
+                    <div class="animate_me ar_co"></div>
+                  </ng-container>
+              </div>
+            </div>
+        
+            <div class="col-md-6 hu_ac">
+                <a (click)="shareComponent?.showModal('activity')" class="sepline"> <img
+                        src="assets/img/activity_gry.svg"> {{translation?.workspace_activity}}
+                </a>
+
+
+                <div class="plus_hu">
+                    <div dropdown class="dropdown">
+                      <button type="button" dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/img/plus_white.svg">
+                      </button>
+                      <!-- <div dropdown class="hu_op dropdown"> -->
+                      <div class="dropdown-menu" *dropdownMenu>
+                        <a class="dropdown-item" appFSUploader [selectedConfiguration]="'videoOptions'" [source]="'Upload'"
+                        (onUpload)="onMediaUpload($event)">{{translation?.workspace_uploadvideo}}</a>
+                        <a data-toggle="modal" class="dropdown-item" appFSUploader [selectedConfiguration]="'cameraOptions'"
+                          [source]="'Record'" (onUpload)="onMediaUpload($event)">{{translation?.workspace_recordvideo}}</a>
+                        <a data-toggle="modal" class="dropdown-item" appFSUploader [selectedConfiguration]="'resourceOptions'"
+                          [source]="'Resource'" (onUpload)="onMediaUpload($event)">{{translation?.workspace_uploadresource}}</a>
+                          <ng-container
+                            *ngIf="!(sessionData.user_permissions.UserAccount.permission_start_synced_scripted_notes==0 && sessionData.user_role=='User')">
+                            <a data-toggle="modal" class="dropdown-item" (click)="startScriptedNotes()">{{translation?.workspace_startscriptednotes}}</a>
+                            <a data-toggle="modal" class="dropdown-item" (click)="showModal('sync_notes')">{{translation?.workspace_startsyncednotes}}</a>
+                          </ng-container>
+                      
+                      </div>
+                    </div>
+          
+          
+                  </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="tab-content">
+            <!--Panel 1-->
+            <div class="tab-pane fade in show active" id="artifacts" role="tabpanel">
+
+                <div class="panl_nav">
+
+                    <div class="hu_search">
+                        <input type="text" autocomplete="off" placeholder="{{translation?.workspace_search}}...." [(ngModel)]="searchString"
+                        (ngModelChange)="OnSearchChange($event)">
+                        <img *ngIf="searchString?.length> 0" src="./assets/img/x.svg" (click)="OnSearchChange('');searchString='';">
+                   
+                    </div>
+
+                    <div class="btn-group btn-group-toggle filter_options" data-toggle="buttons">
+                        <label class="btn btn-secondary" [class.active]="resourceFilter==0" [routerLink]="[]"
+                        [queryParams]="{ resource: 0}" queryParamsHandling="merge">
+                        <input type="radio" value="0" name="options" [(ngModel)]="resourceFilter" id="option1" autocomplete="off"
+                          checked=""> {{translation?.workspace_all}}
+                      </label>
+            
+                      <label class="btn btn-secondary" [class.active]="resourceFilter==1" [routerLink]="[]"
+                        [queryParams]="{ resource: 1}" queryParamsHandling="merge">
+                        <input type="radio" value="1" name="options" [(ngModel)]="resourceFilter" id="option2" autocomplete="off">
+                        <img class="ic1" src="assets/img/video_gry_icon.svg">
+                        {{translation?.workspace_videos}}
+                      </label>
+                      <label class="btn btn-secondary" [class.active]="resourceFilter==2" [routerLink]="[]"
+                        [queryParams]="{ resource: 2}" queryParamsHandling="merge">
+                        <input type="radio" value="2" name="options" [(ngModel)]="resourceFilter" id="option2" autocomplete="off">
+                        <img class="ic2" src="assets/img/resource_gry_icon.svg">
+                        {{translation?.workspace_resources}}
+                      </label>
+            
+                      <label class="btn btn-secondary" [class.active]="resourceFilter==3" [routerLink]="[]"
+                        [queryParams]="{ resource: 3}" queryParamsHandling="merge">
+                        <input type="radio" value="3" name="options" [(ngModel)]="resourceFilter" id="option2" autocomplete="off">
+                        <img class="ic3" src="assets/img/notes_gry_icon.svg">
+                        {{translation?.workspace_scriptednotes}}
+                      </label>
+
+                    </div>
+
+                    <div class="filter_cls dropdown" dropdown>
+
+
+
+
+                        <button type="button" dropdownToggle class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/img/filter_icon.svg" width="25">
+                        </button>
+                        <ul class="dropdown-menu" *dropdownMenu>
+                            <a class="dropdown-item" (click)="sort='uploaded_date'"
+                                [class.dropdown-acitve]="sort=='uploaded_date'" [routerLink]="[]"
+                                [queryParams]="{ sort: 'uploaded_date'}" queryParamsHandling="merge">{{translation?.workspace_uploadeddate}}<i
+                                    class="cur_icon"></i>
+                            
+                                <svg *ngIf="sort=='uploaded_date'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                    viewBox="0 0 8 8">
+                                    <path
+                                      d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                      transform="translate(0 1)" />
+                                </svg>
+
+                            </a>
+                            <a class="dropdown-item" (click)="sort='video_title'"
+                                [class.dropdown-acitve]="sort=='video_title'" [routerLink]="[]"
+                                [queryParams]="{ sort: 'video_title'}" queryParamsHandling="merge" href=""><ng-container>
+                                  <ng-container *ngIf="resourceFilter==0">{{translation?.workspace_artifacts}}</ng-container>
+                                  <ng-container *ngIf="resourceFilter==1">{{translation?.workspace_videos}}</ng-container>
+                                  <ng-container *ngIf="resourceFilter==2">{{translation?.workspace_resources}}</ng-container>
+                                  <ng-container *ngIf="resourceFilter==3">{{translation?.workspace_scriptednotes}}</ng-container>
+                                </ng-container>
+                                {{translation?.workspace_title}}
+
+                                <svg *ngIf="sort=='video_title'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                    viewBox="0 0 8 8">
+                                    <path
+                                      d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                      transform="translate(0 1)" />
+                                </svg>
+                            
+                            </a>
+                            <a class="dropdown-item" (click)="sort='uploaded_by'"
+                                [class.dropdown-acitve]="sort=='uploaded_by'" [routerLink]="[]"
+                                [queryParams]="{ sort: 'uploaded_by'}" queryParamsHandling="merge">{{translation?.workspace_uploadedby}}
+                            
+                                <svg *ngIf="sort=='uploaded_by'" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                    viewBox="0 0 8 8">
+                                    <path
+                                      d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z"
+                                      transform="translate(0 1)" />
+                                </svg>
+                            
+                            </a>
+
+
+
+                        </ul>
+
+
+
+                    </div>
+
+                    <div class="huddleHeaderDivider">
+
+                    </div>
+
+                    <div class="switch_op">
+                        <a [routerLink]="['grid']" (click)="toggleStyleView='grid'" queryParamsHandling="merge"
+                            [ngClass]="{'s_current':toggleStyleView=='grid' }"><svg xmlns="http://www.w3.org/2000/svg"
+                                id="noun_grid_887265" viewBox="0 0 16 16">
+                                <defs>
+
+                                </defs>
+                                <g id="Group">
+                                    <path id="Path" class="cls-1"
+                                        d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z" />
+                                    <path id="Path-2" data-name="Path" class="cls-1"
+                                        d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                        transform="translate(9)" />
+                                    <path id="Path-3" data-name="Path" class="cls-1"
+                                        d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                        transform="translate(0 9)" />
+                                    <path id="Path-4" data-name="Path" class="cls-1"
+                                        d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"
+                                        transform="translate(9 9)" />
+                                </g>
+                            </svg></a>
+                        <a [routerLink]="['list']" (click)="toggleStyleView='list'" queryParamsHandling="merge"
+                            [ngClass]="{'s_current':toggleStyleView=='list' }">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+                                <defs>
+
+                                </defs>
+                                <g id="noun_list_view_1544629" data-name="noun_list view_1544629"
+                                    transform="translate(15) rotate(180)">
+                                    <rect id="Rectangle" class="cls-1" width="12" height="3" rx="1"
+                                        transform="translate(12) rotate(180)" />
+                                    <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="15" height="3"
+                                        rx="1" transform="translate(15 -6) rotate(180)" />
+                                    <rect id="Rectangle-3" data-name="Rectangle" class="cls-1" width="15" height="3"
+                                        rx="1" transform="translate(15 -12) rotate(180)" />
+                                </g>
+                            </svg></a>
+
+
+                    </div>
+
+
+
+                    <div class="clear"></div>
+
+                </div>
+                <!-- <div class="cont_s row">
+                  <div class="col-12">
+                    <ng-container *ngIf="total_artifacts>=0 && !Loadings.isNextPageLoading">
+                      <ng-container *ngIf="resourceFilter==0">Artifacts</ng-container>
+                      <ng-container *ngIf="resourceFilter==1">Videos</ng-container>
+                      <ng-container *ngIf="resourceFilter==2">Resources</ng-container>
+                      <ng-container *ngIf="resourceFilter==3">Scripted Notes</ng-container> ({{total_artifacts}})
+                    </ng-container>
+                    <ng-container *ngIf="total_artifacts==0 && Loadings.isNextPageLoading">
+                      <div class="animate_me ar_co"></div>
+                    </ng-container>
+                  </div>
+                </div> -->
+                    <!-- {{toggleStyleView | json}} - {{Loadings.isNextPageLoading}} -->
+
+                  <ng-container *ngIf="toggleStyleView == 'grid' && Loadings.isNextPageLoading && artifacts.length==0">
+                    <div class="row huddlebox new_huddlebox">
+                      <ng-container *ngFor="let arr of [1,1,1,1,1,1,1,1,1,1,1,1]">
+                        <app-pre-loading-grid class="col-md-3"></app-pre-loading-grid>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="toggleStyleView == 'list' && Loadings.isNextPageLoading && artifacts.length==0">
+                      <!-- {{ToggleStyleView | json}} -->
+                    <div class="huddlelist_view">
+                      <ng-container *ngFor="let arr of [1,1,1,1,1,1,1,1,1,1,1,1]">
+                        <app-pre-loading-list></app-pre-loading-list>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+
+                <router-outlet></router-outlet>
+
+                <ng-container *ngIf="artifacts.length==0 && !Loadings.isNextPageLoading && bysearch ">
+                    <div class="no_discussions">
+                      <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+                        <path id="Path_51" data-name="Path 51" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" transform="translate(0)" fill="#616161"/>
+                      </svg>             
+                      <br>
+                      <br>
+                        <b style="font-size:18px">{{translation?.workspace_nomatching}}           
+                          <ng-container *ngIf="resourceFilter==0">{{translation?.workspace_artifacts_s}}</ng-container>
+                          <ng-container *ngIf="resourceFilter==1">{{translation?.workspace_videos_s}}</ng-container>
+                          <ng-container *ngIf="resourceFilter==2">{{translation?.workspace_resources_s}}</ng-container>
+                          <ng-container *ngIf="resourceFilter==3">{{translation?.workspace_scriptednotes_s}}</ng-container> {{translation?.workspace_found}}.</b>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="artifacts.length==0 && !Loadings.isNextPageLoading  && !bysearch">
+                    <div class="no_discussions">
+                      <svg id="Group_332" data-name="Group 332" xmlns="http://www.w3.org/2000/svg" width="90.7" height="90.7" viewBox="0 0 90.7 90.7">
+                        <path id="Path_51" data-name="Path 51" d="M45.35,0A45.29,45.29,0,1,1,13.265,13.265,45.239,45.239,0,0,1,45.35,0Zm0,56.708a6.121,6.121,0,0,1,6.135,6.135,6.192,6.192,0,0,1-6.135,6.218,6.263,6.263,0,0,1-6.218-6.218A6.192,6.192,0,0,1,45.35,56.708Zm0-6.218A4.329,4.329,0,0,1,41.2,46.345L39.132,27.857c-.332-3.233,3.068-6.218,6.218-6.218s6.55,2.985,6.135,6.218L49.5,46.345A4.329,4.329,0,0,1,45.35,50.49Zm26.2-31.422A37.129,37.129,0,1,0,82.409,45.35,37.325,37.325,0,0,0,71.549,19.069Z" transform="translate(0)" fill="#616161"/>
+                      </svg>             
+                      <br>
+                <br>
+                  <b style="font-size:18px">{{translation?.workspace_no}} 
+                    <ng-container *ngIf="resourceFilter==0">{{translation?.workspace_artifacts_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==1">{{translation?.workspace_videos_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==2">{{translation?.workspace_resources_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==3">{{translation?.workspace_scriptednotes_s}}</ng-container> {{translation?.workspace_available}}.<br>
+                    <ng-container> {{translation?.workspace_clickthegreenplusbuttontoadd}} <ng-container *ngIf="resourceFilter==0"> {{translation?.workspace_an}} </ng-container> <ng-container *ngIf="resourceFilter!=0"> {{translation?.workspace_a}} </ng-container> <ng-container *ngIf="resourceFilter==0">{{translation?.workspace_artifacts_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==1">{{translation?.workspace_videos_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==2">{{translation?.workspace_resources_s}}</ng-container>
+                    <ng-container *ngIf="resourceFilter==3">{{translation?.workspace_scriptednote}}</ng-container>.</ng-container></b>
+                    </div>
+                  </ng-container>
+
+            </div>
+            <!--/.Panel 1-->
+
+
+        </div>
+
+    </div>
+
+
+</div>
+<!--sync notes modal start-->
+<ng-container *ngIf="sessionData.site_id==1">
+  <div bsModal #syncnotes="bs-modal" id="syncedNotes1" class="modal fade sharepopup" role="dialog">
+    <div class="modal-dialog" style="max-width:1000px;">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{translation?.workspace_syncednotes}}</h4>
+          <button type="button" class="close" data-dismiss="modal" (click)="hideModal('sync_notes')">&times;</button>
+
+        </div>
+        <div class="modal-body snotes">
+
+          <div class="row snoteinner">
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img1.png">
+              </div>
+              <h4>{{translation?.workspace_startsynednotesonmobile}}</h4>
+              <p>{{translation?.workspace_startsynednotesonmobiledesc}}</p>
+            </div>
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img2.png">
+              </div>
+
+              <h4>{{translation?.workspace_getalertondesktopapp}}</h4>
+              <p>{{translation?.workspace_getalertondesktopappdesc}} </p>
+
+
+            </div>
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img3.png">
+              </div>
+
+              <h4>{{translation?.workspace_starttypingnotes}}</h4>
+              <p>{{translation?.workspace_starttypingnotesdesc}}</p>
+
+
+            </div>
+
+            <div class="col-12 synced_link">
+              <a
+                href="https://help.sibme.com/coaching-huddle-observations/what-are-synced-video-observation-notes-and-how-do-i-use-it" target="_blank">See
+                {{translation?.workspace_seemoredetailedinstructions}} <img src="assets/img/arrow_sky.png"> </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+<!--sync notes modal end-->
+<!-- HMH Sync Notes -->
+<ng-container *ngIf="sessionData.site_id!=1">
+  <div bsModal #syncnotes="bs-modal" id="syncedNotes2" class="modal fade sharepopup" role="dialog">
+    <div class="modal-dialog" style="max-width:1000px;">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{translation?.workspace_syncednotes}}</h4>
+          <button type="button" class="close" data-dismiss="modal" (click)="hideModal('sync_notes')">&times;</button>
+
+        </div>
+        <div class="modal-body snotes">
+
+          <div class="row snoteinner">
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img4.png">
+              </div>
+              <h4>{{translation?.workspace_startsynednotesonmobile}}</h4>
+              <p>{{translation?.workspace_startsynednotesonmobiledesc}}</p>
+            </div>
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img5.png">
+              </div>
+
+              <h4>{{translation?.workspace_getalertondesktopapp}}</h4>
+              <p>{{translation?.workspace_getalertondesktopappdesc}} </p>
+
+
+            </div>
+            <div class="col-md-4">
+              <div class="simgbox">
+                <img src="assets/img/img6.png">
+              </div>
+
+              <h4>{{translation?.workspace_starttypingnotes}}</h4>
+              <p>{{translation?.workspace_starttypingnotesdesc}}</p>
+
+
+            </div>
+
+            <div class="col-12 synced_link hlink2">
+              <a href="https://help.sibme.com/coaching-huddle-observations/what-are-synced-video-observation-notes-and-how-do-i-use-it">{{translation?.workspace_seemoredetailedinstructions}} <img src="assets/img/arrowgolden.png"> </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+<!-- HMH Sync Notes End-->
+<sharepopup #share></sharepopup>

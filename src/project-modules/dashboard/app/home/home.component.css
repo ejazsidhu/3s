@@ -1,0 +1,690 @@
+body {
+    background: #f3f2ea;
+    font-family: 'Roboto', sans-serif;
+}
+
+.box_outer {
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 15px !important;
+    max-width: 1024px !important;
+    margin-bottom: 20px !important;
+}
+
+.topheader {
+    text-align: center;
+    /* background: url(../img/bgrep.png) repeat-x; */
+}
+
+.pan_heading {
+    border-bottom: 1px solid #ddd;
+    padding: 18px 10px;
+    background: #f9f9f9;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.pan_heading h3 {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+    color: #484848;
+}
+
+.homebody h3 {
+    color: #282828;
+    font-size: 18px;
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #E4E4E4;
+    padding-bottom: 10px;
+}
+
+.homebody {
+    padding: 30px 0;
+    padding-bottom: 10px;
+}
+
+.bodyleft {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-right: 5%;
+    word-break: break-all;
+}
+
+.bodyright {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 45%;
+    flex: 0 0 45%;
+    max-width: 45%;
+}
+
+.intdiv a:last-child {
+    position: relative;
+    top: 5px;
+}
+
+.home_heading {}
+
+.ac_rowcls {
+    border-bottom: 1px solid #E4E4E4;
+    margin: 0;
+    padding: 7px 0 7px 0;
+}
+
+.bodyleft .col-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 17%;
+    flex: 0 0 17%;
+    max-width: 17%;
+    margin-right: 2%;
+    color: #616161;
+    text-align: center;
+    padding-left: 0;
+}
+
+.bodyleft .col-3 strong {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3D3D3D;
+    display: block;
+}
+
+.bodyleft .col-9 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 81%;
+    flex: 0 0 81%;
+    max-width: 81%;
+    color: #616161;
+    padding-right: 0;
+    font-size: 13.5px;
+}
+
+.bodyleft .col-9 a {
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 2px dotted #0F83FF;
+    color: #010101;
+    text-decoration: none;
+}
+
+.settingleft {
+    float: left;
+    width: 55%;
+    margin-right: 5%;
+}
+
+.settingleft span {
+    display: inline-block;
+    width: 25px;
+    position: relative;
+    top: -2px;
+}
+
+.pan_heading {
+    padding-left: 0;
+}
+
+.settingleft p {
+    margin: 8px 0 25px 0;
+}
+
+.settingleft a {
+    color: #1C7CD5;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.settingright {
+    float: left;
+    width: 40%;
+    position: relative;
+    top: -2px;
+}
+
+.settingright span {
+    display: inline-block;
+    width: 25px;
+    position: relative;
+    top: -2px;
+}
+
+.settingright p {
+    margin: 8px 0 25px 0;
+}
+
+.settingright a {
+    color: #1C7CD5;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.insite_left {
+    padding: 21px;
+    border: 1px solid #E4E4E4;
+    float: left;
+    margin-right: 7%;
+    margin-top: 16px;
+    border-radius: 5px;
+    width: 153px;
+    text-align: center;
+    margin-bottom: 45px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1C7CD5;
+}
+
+.insite_left_old {
+    padding: 21px 2px;
+    border: 1px solid #E4E4E4;
+    float: left;
+    margin-right: 3%;
+    margin-top: 16px;
+    border-radius: 5px;
+    width: 130px;
+    text-align: center;
+    margin-bottom: 45px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1C7CD5;
+}
+
+.insite_left span {
+    display: block;
+    height: 52px;
+    text-align: center;
+}
+
+.insite_left a {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1C7CD5;
+    position: relative;
+    top: 5px;
+}
+
+.insite_right {
+    padding: 21px;
+    border: 1px solid #E4E4E4;
+    float: left;
+    margin-top: 16px;
+    border-radius: 5px;
+    width: 153px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1C7CD5;
+}
+
+.insite_right a {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1C7CD5;
+    position: relative;
+    top: 5px;
+}
+
+.insite_right span {
+    display: block;
+    height: 52px;
+    text-align: center;
+}
+
+.intdiv {
+    margin-bottom: 40px;
+}
+
+.intdiv a {
+    display: inline-block;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.can1 {
+    position: relative;
+    left: 10px;
+}
+
+.gomobile {
+    padding-bottom: 50px;
+}
+
+.gomobile a {
+    display: inline-block;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.linksallcls {
+    text-decoration: none !important;
+}
+
+.linksallcls p {
+    color: #757575;
+}
+
+.geheadercl button {
+    outline: none !important;
+}
+
+.checkboxcls {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin: 13px 0;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #616161;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.checkboxcls input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #B4BAC3;
+    border-radius: 3px;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.checkboxcls:hover input~.checkmark {
+    background-color: #fff;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.checkboxcls input:checked~.checkmark {
+    background-color: #fff;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.checkboxcls input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.checkboxcls .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid #B4BAC3;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    transform: rotate(40deg);
+}
+
+.get_sfooter .btn-default {
+    background: none;
+}
+
+.get_sfooter button {
+    outline: 0;
+    box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25) !important;
+    padding: 7px 19px;
+}
+
+.get_sfooter .row {
+    width: 100%;
+    margin: 0 0px 0 -4px !important;
+}
+
+.tright {
+    text-align: right;
+}
+
+.modal-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    display: block;
+    color: #484848;
+    text-align: center;
+    width: 95%;
+}
+
+.gets_rowcls .col-2 {
+    text-align: center;
+    padding: 0;
+}
+
+.gets_rowcls {
+    padding: 0 0 15px 0;
+    margin: 0;
+}
+
+.gets_rowcls h4 {
+    color: #1C7CD5;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+.get_text {
+    text-align: center;
+    padding: 19px 50px 45px 50px;
+    color: #636363;
+}
+
+.get_text a {
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+}
+
+.gets_rowcls .col-10 {
+    padding: 0;
+    position: relative;
+    left: -11px;
+}
+
+.get_sfooter {
+    margin: 0 20px;
+    padding: 11px 0;
+}
+
+.get_sfooter .col-6 {
+    padding: 0;
+}
+
+.no_recent_activity {
+    display: block;
+    text-align: center;
+    padding: 50px 10px;
+    font-size: 18px;
+    color: #101010;
+}
+
+.home_ski {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+    background-size: 800px 104px;
+    position: relative;
+}
+
+.home_ski2 {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #F6F6F6;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 800px 104px;
+    position: relative;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.ski1 {
+    height: 40px;
+}
+
+.ski2 {
+    height: 20px;
+    display: inline-block;
+    width: 40%;
+}
+
+.ski3 {
+    display: inline-block;
+    width: 100%;
+    height: 12px;
+}
+
+.ski4 {
+    display: inline-block;
+    width: 100%;
+    height: 12px;
+}
+
+.ski5 {
+    display: block;
+    width: 100%;
+    height: 12px;
+    margin-top: 18px;
+}
+
+.ski6 {
+    display: block;
+    width: 80% !important;
+    height: 12px;
+}
+
+.ski7 {
+    display: block;
+    width: 100% !important;
+    height: 76px !important;
+}
+
+.ski8 {
+    display: inline-block;
+    width: 25% !important;
+    height: 25px !important;
+    margin-right: 15px;
+}
+
+.ski9 {
+    display: inline-block;
+    width: 40% !important;
+    height: 40px !important;
+    margin-right: 15px;
+}
+
+.modal-header {
+    background: #f9f9f9;
+}
+
+.modal-header .close {
+    outline: 0;
+    float: right;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+    line-height: 18px !important;
+    font-family: initial;
+}
+/**
+* Confirm Password on Learning Center Popup
+*/
+.forget_container {
+    margin: 0 auto;
+    margin-top: 0px;
+}
+
+.f_box {
+    max-width: 368px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.forget_container h4 {
+    color: #010101;
+    font-size: 24px;
+    padding-bottom: 30px;
+}
+
+.forget_container input[type=password],
+.forget_container input[type=text] {
+    display: block;
+    width: 100%;
+    height: 45px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.forget_container label {
+    text-align: right;
+    display: block;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.forget_container button {
+    background: #28A745;
+    padding: 12px 10px;
+    border: 0;
+    color: #fff;
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.forget_container .f_field {
+    position: relative;
+}
+
+.fa-eye-slash {}
+
+.forget_container .f_field .svg-inline--fa {
+    position: absolute;
+    top: 16px;
+    right: 9px;
+    width: 16px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.forget_container .f_field svg path {
+    fill: #afafaf;
+}
+
+.login_logo img {
+    /* width: 368px !important; */
+}
+
+.logocl {
+    height: 81px
+}
+
+.forget_container .text_ani {
+    height: 28px;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.forget_container .fieldani {
+    height: 45px;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.skicls {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #F6F6F6;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 800px 104px;
+    position: relative;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}

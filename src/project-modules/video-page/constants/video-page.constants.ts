@@ -1,0 +1,1 @@
+export const MARKER_COLORS = ["#5db85b", "#38a0ff", "#ff5800", "#df0a00"]; //["q_circle", "i_circle", "b_circle", "r_circle"];

@@ -1,0 +1,20 @@
+<div class="row">
+	<ng-container *ngIf="details.length > 0; then dataSection; else loadingSection"></ng-container>
+	<ng-template #loadingSection>
+		<div class="col-md-3" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]">
+			<div class="an_box">
+				<div class="ana_cl an_ah4"> </div>
+				<div class="ana_cl an_ah5"> </div>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template #dataSection>
+		<div class="col-md-3" *ngFor="let config of details">
+			<div class="an_box">
+				<div class="an_img"><img [attr.src]="config?.iconUrl"></div>
+				<label>{{config?.value}}</label>
+				<div class="an_boxb"> {{config?.title}} </div>
+			</div>
+		</div>
+	</ng-template>
+</div>

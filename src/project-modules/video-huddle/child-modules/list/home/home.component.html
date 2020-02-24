@@ -1,0 +1,788 @@
+<ng-container #skeletonw *ngIf="showSkeleton">
+
+    <div class="row panl_heading mainpan">
+        <div class="col-6">
+            <h3 class="ani_wp1 huani1"></h3>
+        </div>
+        <div class="col-6 pan_right">
+            <span class="ani_wp1 huani2"></span>
+            <span class="ani_wp1 huani2"></span>
+
+        </div>
+    </div>
+</ng-container>
+
+
+
+<div class="row panl_heading mainpan" *ngIf="!showSkeleton">
+    <div class="col-6">
+        <h3>{{translation?.huddle_breadcrumb_huddle}}</h3>
+    </div>
+    <div class="col-6 pan_right">
+
+        <a *ngIf="HuddlesAndFolders?.folder_create_permission && userAccountLevelRoleId !='125'" class="new_fol fake_link" 
+		(click)="ShowNewFolderModal(NewFolderModal)">
+            <img src="./assets/img/folder_icon.svg" width="26"> {{translation?.huddle_new_folder}}
+        </a>
+        <a [style.backgroundColor]="colors?.primery_button_color" 
+		*ngIf="HuddlesAndFolders?.huddle_create_permission && userAccountLevelRoleId !='125'" 
+		[routerLink]="['/add_huddle_angular/home']" [queryParams]="queryParamsObj" class="new_hud fake_link">
+            <img src="./assets/img/new_hundle_icon.svg" width="24">
+            <img class="plus_sign" src="./assets/img/plus_icon.svg" width="16"> {{translation?.huddle_new_huddle}}
+        </a>
+
+        <!-- <button (click)="LoadNextPage(false,false)">Load</button> -->
+
+    </div>
+</div>
+
+
+<ng-container #skeleton *ngIf="showSkeleton">
+    <div class="panl_nav">
+        <span class="ani_wp1 wani3"></span>
+        <span class="ani_wp1 wani4"></span>
+        <span class="ani_wp1 wani5"></span>
+        <div class="clear"></div>
+    </div>
+</ng-container>
+
+
+<div class="panl_nav list_nav2" *ngIf="!showSkeleton">
+
+    <div class="hu_search">
+        <input type="text" autocomplete="off" id="searchString" 
+		placeholder="{{translation?.huddle_search_plcholder}}..." [(ngModel)]="SearchString" 
+		(ngModelChange)="OnSearchChange($event)" #searchString>
+        <img class="x_hu_cross" *ngIf="SearchString?.length>0" src="./assets/img/x.svg" 
+		(click)="SearchString='';OnSearchChange('')">
+    </div>
+
+    <div class="btn-group btn-group-toggle filter_options" data-toggle="buttons">
+        <label class="btn btn-secondary" [class.active]="Filters.type==0">    
+		<input type="radio" value="0" name="options" [(ngModel)]="Filters.type" id="option1" autocomplete="off" 	
+		checked="" (ngModelChange)="DigestFilters('huddle_type',$event)"> {{translation?.huddle_all_button}}
+  </label>
+        <label class="btn btn-secondary" [class.active]="Filters.type==2">
+    <input type="radio" value="2" name="options" [(ngModel)]="Filters.type" id="option2" autocomplete="off" 
+	(ngModelChange)="DigestFilters('huddle_type',$event)">
+    <img class="ic1" src="./assets/img/coaching_icon.svg">
+     {{translation?.coaching_list_coaching}}
+  </label>
+        <label class="btn btn-secondary" [class.active]="Filters.type==1">
+    <input type="radio" value="1" [(ngModel)]="Filters.type" name="options" id="option3" autocomplete="off" 
+	(ngModelChange)="DigestFilters('huddle_type',$event)"> 
+    <img class="ic2" src="./assets/img/collaboration_icon.svg">
+    {{translation?.huddle_list_collaboration}}
+  </label>
+           
+        <label *ngIf="(assessment_permissions  || assessment_huddle_active)" class="btn btn-secondary"
+            [class.active]="Filters.type==3">
+            <input type="radio" value="3" [(ngModel)]="Filters.type" name="options" id="option2" autocomplete="off"
+                (ngModelChange)="DigestFilters('huddle_type',$event)">
+            <img class="ic3" src="./assets/img/assessment_icon.svg">
+            {{translation?.huddle_list_assessment}}
+        </label>
+
+
+    </div>
+
+
+
+
+    <!-- <div class="filter_cls">
+       <img src="./assets/img/filter_icon.svg" width="25">
+     </div> -->
+
+    <div tooltip="{{translation?.huddle_sort_by}}" class="filter_cls dropdown">
+
+        <span dropdown>
+              <button dropdownToggle id="basic-link" type="button" aria-controls="basic-link-dropdown" class="noOutline">
+                  <img src="./assets/img/filter_icon.svg" width="25" height="25">
+              </button>
+                <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="basic-link" style="width: 140px">
+                  <li>
+                    <a class="dropdown-item fake_link" (click)="DigestFilters('huddle_sort', 0);Filters.sort_by=0" [class.selected_sort]="Filters.sort_by==0"> {{translation?.huddle_title_list}} </a>
+
+                    <a class="dropdown-item fake_link" (click)="DigestFilters('huddle_sort', 1);Filters.sort_by=1" [class.selected_sort]="Filters.sort_by==1">{{translation?.huddle_created_by}}</a>
+
+                    <a class="dropdown-item fake_link" (click)="DigestFilters('huddle_sort', 2);Filters.sort_by=2" [class.selected_sort]="Filters.sort_by==2">{{translation?.huddle_date_created}} </a>
+
+                    <a class="dropdown-item fake_link" (click)="DigestFilters('huddle_sort', 3);Filters.sort_by=3" [class.selected_sort]="Filters.sort_by==3">{{translation?.huddle_last_modified}}  </a>
+
+                  </li>
+                </ul>
+            </span>
+    </div>
+
+    <div class="huddleHeaderDivider"></div>
+    <div class="switch_op">
+        <a tooltip="{{translation?.huddle_grid_view_btn}}" [class.s_current]="Filters.layout==0" (click)="Filters.layout=0;DigestFilters('huddle_layout', 0)">
+            <svg xmlns="http://www.w3.org/2000/svg" id="noun_grid_887265" viewBox="0 0 16 16">
+  <defs>
+   
+  </defs>
+  <g id="Group">
+    <path id="Path" class="cls-1" d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z"></path>
+    <path id="Path-2" data-name="Path" class="cls-1" d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z" transform="translate(9)"></path>
+    <path id="Path-3" data-name="Path" class="cls-1" d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z" transform="translate(0 9)"></path>
+    <path id="Path-4" data-name="Path" class="cls-1" d="M7,1.261A1.261,1.261,0,0,0,5.739,0H1.261A1.261,1.261,0,0,0,0,1.261V5.739A1.261,1.261,0,0,0,1.261,7H5.739A1.261,1.261,0,0,0,7,5.739Z" transform="translate(9 9)"></path>
+  </g>
+</svg>
+        </a>
+        <a tooltip="{{translation?.huddle_list_view}}" [class.s_current]="Filters.layout==1" (click)="Filters.layout=1;DigestFilters('huddle_layout', 1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+  <defs>
+    
+  </defs>
+  <g tooltip="asdasdasdsa" id="noun_list_view_1544629" data-name="noun_list view_1544629" transform="translate(15) rotate(180)">
+    <rect id="Rectangle" class="cls-1" width="12" height="3" rx="1" transform="translate(12) rotate(180)"></rect>
+    <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="15" height="3" rx="1" transform="translate(15 -6) rotate(180)"></rect>
+    <rect id="Rectangle-3" data-name="Rectangle" class="cls-1" width="15" height="3" rx="1" transform="translate(15 -12) rotate(180)"></rect>
+  </g>
+</svg></a>
+    </div>
+
+
+
+    <div class="clear"></div>
+
+</div>
+
+<div *ngIf="!Loadings?.isSearchEmpty && SearchString=='' && (HuddlesAndFolders?.huddles?.length==0 && (HuddlesAndFolders?.folders?.length==0 || !HuddlesAndFolders?.folders))"
+    class="row text-center">
+    <h6 class="col-sm-12 nothing_label">
+        <ng-container *ngIf="objHuddleType==0">{{translation?.you_are_not_participating_in_anyhuddle}}</ng-container>
+        <ng-container *ngIf="objHuddleType==1">{{translation?.you_are_not_participating_in_collabhuddle}}</ng-container>
+        <ng-container *ngIf="objHuddleType==2">{{translation?.you_are_not_participating_in_coachinghuddle}}</ng-container>
+        <ng-container *ngIf="objHuddleType==3">{{translation?.you_are_not_participating_in_assessmenthuddle}}</ng-container>
+        <ng-container *ngIf="params.folder_id"> {{translation?.huddle_in_folder}}</ng-container>
+        <a *ngIf="params.folder_id" [routerLink]="['/video_huddles/list']"> {{translation?.huddle_back_to_all_huddles}}</a> </h6>
+</div>
+<div *ngIf="SearchString!='' && HuddlesAndFolders?.huddles?.length==0 && (HuddlesAndFolders?.folders?.length==0 || !HuddlesAndFolders?.folders)"
+    class="row text-center">
+    <h6 class="col-sm-12 nothing_label">{{translation?.No_Huddle_or_Folder_found_in_folder}}</h6>
+</div>
+
+<ng-container *ngIf="Filters.layout==0">
+
+    <div>
+
+
+
+        <div class="cont_s row count2" *ngIf="!Loadings.isNextPageLoading && HuddlesAndFolders?.folders?.length>0">
+
+            <div class="col-6">
+                {{translation?.huddle_folder_count}} ({{HuddlesAndFolders.folders.length}})
+            </div>
+            <div class="col-6 exp">
+
+                <span class="collapse_all" *ngIf="foldersExpanded" (click)="ToggleFoldersExpand(false)"> 
+          {{translation?.huddle_collapse_all}}  
+          <i>
+            <img src="./assets/img/arrow_up.svg" width="15">
+          </i>
+        </span>
+
+                <span class="expand_all" *ngIf="!foldersExpanded" (click)="ToggleFoldersExpand(true)">
+          {{translation?.huddle_expan_all}}  
+          <i>
+            <img src="./assets/img/arrowndown.svg" width="15">
+          </i>
+          
+        </span>
+
+            </div>
+
+        </div>
+        <!--  -->
+
+        <div class="row huddlebox" *ngIf="!Loadings?.is_loading_huddles || page>1">
+            <!-- [routerLink]="['/video_huddles/list', folder.folder_id]" -->
+            <!-- <folder-thumb-view [isExpanded]="foldersExpanded" class="col-md-4 noOutline animated fadeIn animate_ngfor" *ngFor="let folder of HuddlesAndFolders?.folders |search:'':'title':Filters.type:Filters.sort_by:PipeTrigger" [data]="folder" (OnEdit)="OnFolderEdit($event, RenameFolderModal)" -->
+            <folder-thumb-view [isExpanded]="foldersExpanded" class="col-md-4 noOutline animated fadeIn animate_ngfor" *ngFor="let folder of HuddlesAndFolders?.folders" [data]="folder" (OnEdit)="OnFolderEdit($event, RenameFolderModal)"
+                dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, folder)" (OnDelete)="OnFolderDelete(confirmationDialog, $event, true)" (OnMove)="OnFolderMove(TreeViewDialog, $event, false, 'folders')" (mouseenter)="folder.mouseEntered=true"
+                (mouseleave)="folder.mouseEntered=false" [dndDisableIf]="HuddlesAndFolders?.folders?.length==0 || !permissions?.allow_move" [block_move]="(HuddlesAndFolders?.folders_count_for_move <= 1 && !params.folder_id) || !permissions?.allow_move">
+            </folder-thumb-view>
+        </div>
+
+        <!--  -->
+        <div class="row box_container" *ngIf="Loadings?.is_loading_huddles">
+            <folder-thumb-loading class="col-sm-4" *ngFor="let item of [1,2,3]"></folder-thumb-loading>
+        </div>
+
+        <div *ngIf="HuddlesAndFolders?.huddles?.length>0 && HuddlesAndFolders?.total_huddles>0" class="cont_s row">
+
+            <div class="col-6">
+                {{translation?.huddle_delete_btn_list}} ({{HuddlesAndFolders?.total_huddles}})
+            </div>
+
+
+        </div>
+
+        <!-- <ul class="list">
+  <cdk-virtual-scroll-viewport  style="height: 500px" itemSize="90" >
+    <ng-container *cdkVirtualFor="let n of numbers">
+      <li class="list-item"> {{n}} </li>
+    </ng-container>
+  </cdk-virtual-scroll-viewport>
+</ul> -->
+
+        <div class="row huddlebox" *ngIf="!Loadings?.is_loading_huddles || page>1">
+
+            <!-- <cdk-virtual-scroll-viewport  style="height: 1000px;width: 100% !important;"  itemSize="90" 
+      height="1200px" width="100%"
+      size="7px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000" id="slimscroll" slimScroll> -->
+            <!--       height="1200px" width="100%"
+      size="7px" transition="0.2" railVisible="true" railOpacity="0.2" railColor="#000" id="slimscroll" slimScroll -->
+            <ng-container *ngFor="let huddle of HuddlesAndFolders?.huddles trackBy:huddle?.huddle_id ">
+                <!-- {{HuddlesAndFolders?.folders_count_for_move}} -->
+                <huddle-thumb-view class="col-md-4 animated fadeIn animate_ngfor" (OnDetailsClick)="OnHuddleParticipentsClick($event)" [data]="huddle" [dndDraggable]="huddle" dndEffectAllowed="move" (dndMoved)="onDragged(huddle, HuddlesAndFolders.huddles)" (OnMove)="OnFolderMove(TreeViewDialog, $event, true, huddle.type)"
+                    *ngIf="!huddle.is_fake" (OnDelete)="OnFolderDelete(confirmationDialog, $event, false)" (RequestDetails)="OnHuddleClick(huddle)" (OnEdit)="OnHuddleEdit($event)" (mouseenter)="huddle.mouseEntered=true" (mouseleave)="huddle.mouseEntered=false"
+                    [dndDisableIf]="HuddlesAndFolders?.folders?.length==0 || !permissions?.allow_move" [block_move]="(HuddlesAndFolders?.folders_count_for_move?.length==0 && !params.folder_id) || !permissions?.allow_move">
+                    <!--  -->
+                </huddle-thumb-view>
+
+                <huddle-thumb-loading class="col-4" *ngIf="huddle.is_fake">
+                </huddle-thumb-loading>
+
+            </ng-container>
+            <!-- </cdk-virtual-scroll-viewport> -->
+
+        </div>
+
+        <div class="box_container row" *ngIf="Loadings?.is_loading_huddles && page==1">
+            <huddle-thumb-loading class="col-4" *ngFor="let item of [1,2,3]"></huddle-thumb-loading>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-container *ngIf="Filters.layout==1">
+
+    <div class="hu_gridview animated fadeIn">
+
+        <div class="row grid_heading" *ngIf="HuddlesAndFolders?.huddles?.length>0 || HuddlesAndFolders?.folders?.length>0">
+            <div class="col-3">{{translation?.huddle_resource_name}}</div>
+            <div class="col-1">{{translation?.huddle_resource_type}}</div>
+            <div class="col-1">{{translation?.huddles_details_videos}}</div>
+            <div class="col-1">{{translation?.huddles_details_resources}}</div>
+            <div class="col-1 lgcell">{{translation?.huddle_date_created}}</div>
+            <div class="col-1 lgcell">{{translation?.huddle_last_modified}}</div>
+            <div class="col-1">{{translation?.huddle_breadcrumb_huddle}}</div>
+            <div class="col-1">{{translation?.huddles_details_participants}}</div>
+            <div class="col-1"></div>
+        </div>
+
+
+        <ng-container *ngIf="!Loadings.is_loading_huddles">
+            <!-- <folder-list-view *ngFor="let folder of HuddlesAndFolders?.folders | search:'':'title':Filters.type:Filters.sort_by:PipeTrigger" [data]="folder" (OnEdit)="OnFolderEdit($event, RenameFolderModal)" dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, folder)" -->
+            <folder-list-view *ngFor="let folder of HuddlesAndFolders?.folders" [data]="folder" (OnEdit)="OnFolderEdit($event, RenameFolderModal)" dndDropzone dndEffectAllowed="move" (dndDrop)="onDrop($event, folder)"
+                (OnMove)="OnFolderMove(TreeViewDialog, $event, false, 'folders')" (OnDelete)="OnFolderDelete(confirmationDialog, $event, true)" class="animate_ngfor noOutline" [block_move]="(HuddlesAndFolders?.folders?.length==0 && !params.folder_id) || !permissions?.allow_move">
+            </folder-list-view>
+        </ng-container>
+
+        <!-- Loadings.is_loading_huddles -->
+        <div *ngIf="Loadings.is_loading_huddles && page==1">
+            <folder-list-loading *ngFor="let item of [1,2,3,4]"> </folder-list-loading>
+        </div>
+
+        <ng-container *ngIf="!Loadings.is_loading_huddles || page>1">
+
+            <ng-container *ngFor="let huddle of HuddlesAndFolders?.huddles">
+
+                <huddle-list-view [data]="huddle" class="animate_ngfor" (OnMove)="OnFolderMove(TreeViewDialog, $event, false, huddle.type)" *ngIf="!huddle.is_fake" (OnDelete)="OnFolderDelete(confirmationDialog, $event, false)" (OnEdit)="OnHuddleEdit($event)" (mouseenter)="huddle.mouseEntered=true"
+                    (mouseleave)="huddle.mouseEntered=false" (RequestDetails)="OnHuddleClick(huddle)" [block_move]="(HuddlesAndFolders?.folders_count_for_move?.length==0 && !params.folder_id) || !permissions?.allow_move">
+
+                </huddle-list-view>
+
+                <huddle-list-loading *ngIf="huddle.is_fake"> </huddle-list-loading>
+
+            </ng-container>
+        </ng-container>
+
+
+        <div *ngIf="Loadings.is_loading_huddles">
+            <huddle-list-loading *ngFor="let item of [1,2,3,4]"> </huddle-list-loading>
+        </div>
+    </div>
+
+
+
+</ng-container>
+
+<ng-template #NewFolderModal>
+
+    <div class="modal_container">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.huddle_list_new_huddle_folder}}</h4>
+                <button type="button" class="close" (click)="HideModal('newFolderModal')">×</button>
+
+            </div>
+            <form name="NewFolderForm">
+                <div class="modal-body">
+                    <div class="f_name">
+                        <p>{{translation?.huddle_list_folder_name}}</p>
+                        <input autocomplete="off" name="title" type="text" (keyUp)="OnNameTextChange($event, 'create')" [(ngModel)]="Inputs.NewFolderName" class="form-control">
+                    </div>
+
+                </div>
+                <div class="modal-footer hufooter">
+                    <div class="col-12">
+                        <a class="fake_link" (click)="HideModal('newFolderModal')">{{translation?.huddles_details_cancel}}</a>
+                        <button [style.backgroundColor]="colors?.primery_button_color" class="green_btn fake_link" (click)="CreateFolder()">{{translation?.huddle_list_create_folder}}</button>
+
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</ng-template>
+
+<ng-template #confirmationDialog>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{translation?.huddle_list_confirmation_required}}</h4>
+            <button type="button" class="close" (click)="ModalRefs.confirmationDialog.hide()">×</button>
+
+        </div>
+        <div class="modal-body">
+            <div class="alert_bg singleline row">
+                <div class="col-2">
+                    <img src="./assets/img/alert_i.svg">
+                </div>
+                <div class="col-10">
+                    <h6>{{translation?.huddle_list_delete_alert}} {{DeletableItem.isFolder?translation.huddle_folder:translation.huddle}}: {{DeletableItem.title}}</h6>
+                    <p>{{translation?.huddle_list_cnf_delete_alert}}</p>
+                </div>
+            </div>
+            <div class="f_name">
+                <p>{{translation?.huddle_resource_type}} {{Inputs.ConfirmationKey}} {{translation?.huddle_list_to_confrim}}</p>
+                <input type="text" class="form-control" [(ngModel)]="Inputs.Confirmation" (keydown)="TriggerTextChange($event)">
+            </div>
+
+        </div>
+        <div class="modal-footer hufooter">
+            <div class="col-12">
+                <a class="fake_link" (click)="ModalRefs.confirmationDialog.hide()">{{translation?.huddles_details_cancel}}</a>
+                <a class="conf_delete fake_link" (click)="ConfirmDelete()">{{translation?.huddle_delete_btn}}</a>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</ng-template>
+
+
+<ng-template #RenameFolderModal>
+
+    <div class="modal_container">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{translation?.huddle_list_edit_folder}}</h4>
+                <button type="button" class="close" (click)="HideModal('RenameFolderModal')">×</button>
+
+            </div>
+            <form name="EditForm">
+                <div class="modal-body">
+                    <div class="f_name">
+                        <p>{{translation?.huddle_list_folder_name}}</p>
+
+                        <input autocomplete="off" type="text" name="title" class="form-control" [(ngModel)]="EditableFolder.title">
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer hufooter">
+                    <div class="col-12">
+                        <a class="fake_link" (click)="HideModal('RenameFolderModal')">{{translation?.huddles_details_cancel}}</a>
+                        <button type="submit" [style.backgroundColor]="colors?.primery_button_color" class="green_btn fake_link" (click)="EditFolder()">{{translation?.huddle_list_submit}}</button>
+
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</ng-template>
+
+<ng-template #TreeViewDialog>
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{translation?.huddle_list_destination_folder}}</h4>
+            <button type="button" class="close" (click)="ModalRefs.TreeViewDialog.hide()">×</button>
+
+        </div>
+        <div class="modal-body">
+            <div class="move_cls">
+                <h6>
+                    <!-- Huddles  -->
+                    <ng-container *ngIf="tree.treeModel.getActiveNode() && tree.treeModel.getActiveNode().data">
+
+                        <ng-container *ngFor="let item of getMovePath(tree) let i=index">
+
+                            <img *ngIf="i!=0" src="./assets/img/right_arrow.svg" width="10" /> {{item.name}}
+
+                        </ng-container>
+
+                    </ng-container>
+
+
+                </h6>
+                <div class="row folder_row">
+                    <tree-root #tree [nodes]="FoldersTreeData" [options]="{animateExpand:true}" (click)="OnFolderClick($event, tree)">
+
+                        <ng-template #treeNodeTemplate let-node let-index="index">
+                            <span [class.align_folder]="(!node.children || node.children.length==0)">
+                
+              </span>
+                            <img [hidden]="node.data.name=='Huddles1'" src="./assets/img/folder_gry.svg" width="20" />
+                            <span>{{ node.data.name }}</span>
+                            <!-- <button (click)="go($event)">Custom Action</button> -->
+                        </ng-template>
+
+                    </tree-root>
+                    <!-- <div class="col-12">
+               <img src="./assets/img/folder_gry.svg" width="20">
+               <label> Online Trial Account - Sample Huddles</label>
+               <span><img src="./assets/img/right_arrow.svg" width="20"></span>
+            </div> -->
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer hufooter">
+            <div class="col-12">
+                <div class="border_bottom">
+
+                    <a class="fake_link" (click)="ModalRefs.TreeViewDialog.hide()">{{translation?.huddles_details_cancel}}</a>
+                    <a class="green_btn fake_link" [style.backgroundColor]="colors?.primery_button_color" (click)="MoveItem(tree)">{{translation?.huddle_move_btn}}</a>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</ng-template>
+
+<!-- <ng-template #participentsModal>
+
+    <div id="participants_poupup" class="modal" role="dialog" style="padding-right: 17px; display: block;">
+  <div class="modal-dialog" style="max-width:550px;">
+    
+    <div class="modal-content">
+      <div class="modal-header">
+       <h4 class="modal-title">Aivanne Sales</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+       
+      </div>
+      <div class="modal-body">
+       <div class="parti_list">
+         <h6> Participants in the Huddle</h6>
+        
+         <div class="row par_heading">
+            <div class="col-6">
+              Name
+            </div>
+            
+            <div class="col-6">
+              Email
+            </div>
+            </div>
+         
+       <div class="listing_scroll">
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       <div class="row par_listing">
+       
+         <div class="col-6">
+         <img src="./assets/img/c1.png"> <span>Gavin McKenzie</span>
+         </div>
+         <div class="col-6 par_email">
+           mariana_altenwerth@audrey.name
+         </div>
+         
+         
+       </div>
+       
+       </div>
+       </div>
+      </div>
+      <div class="modal-footer hufooter">
+      <div class="col-12">
+      <div class="border_bottom">
+       <a class="okbtn" href="#">Ok</a>
+     </div>
+       </div>
+       
+       
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  </ng-template> -->
+
+<ng-template #participentsDetailsModal>
+
+    <div class="modal_container">
+        <!-- Modal content-->
+        <div class="modal-header">
+            <h4 class="modal-title">{{DetailedHuddle.title}}</h4>
+            <button type="button" class="close" (click)="ModalRefs.participentsModal.hide()">×</button>
+
+        </div>
+        <div class="modal-body">
+            <div class="parti_list" *ngIf="DetailedHuddle.type=='collaboration'">
+                <h6> {{translation?.huddle_list_participants_in_huddle}}</h6>
+
+                <div class="row par_heading">
+                    <div class="col-4">
+                        {{translation?.huddle_resource_name}}
+                    </div>
+
+                    <div class="col-6">
+                        {{translation?.huddle_list_email}}
+                    </div>
+                    <div class="col-2">
+                        {{translation?.huddle_list_role}}
+                    </div>
+                </div>
+
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                    <div class="row par_listing" *ngFor="let user of DetailedHuddle.participants.collaboration_participants">
+
+                        <div class="col-4">
+                            <img [src]="getImgSrc(user)">
+                            <span class="participant_details">{{user.user_name}}</span>
+                        </div>
+                        <div class="col-6 par_email">
+                            {{user.user_email}}
+                        </div>
+                        <div class="col-2">
+                            {{user.role_name}}
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="parti_list" *ngIf="DetailedHuddle.type=='coaching'">
+
+                <!-- <h6>Coach</h6> -->
+                <div class="row par_heading">
+                    <div class="col-4">
+                        {{translation?.huddle_resource_name}}
+                    </div>
+
+                    <div class="col-6">
+                        {{translation?.huddle_list_email}}
+                    </div>
+                    <div class="col-2">
+                        {{translation?.huddle_list_role}}
+                    </div>
+                </div>
+
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+
+                    <ng-container *ngFor="let user of DetailedHuddle.participants.coach">
+                        <div class="row par_listing">
+
+                            <div class="col-4">
+                                <img [src]="getImgSrc(user)">
+                                <span class="participant_details">{{user.user_name}}</span>
+                            </div>
+                            <div class="col-6 par_email">
+                                {{user.user_email}}
+                            </div>
+                            <div class="col-2">
+                                {{translation?.huddle_list_coach}}
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngFor="let user of DetailedHuddle.participants.coachee">
+                        <div class="row par_listing">
+
+                            <div class="col-4">
+                                <img [src]="getImgSrc(user)">
+                                <span class="participant_details">{{user.user_name}}</span>
+                            </div>
+                            <div class="col-6 par_email">
+                                {{user.user_email}}
+                            </div>
+                            <div class="col-2">
+                                {{translation?.huddle_coachee}}
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+                </div>
+
+                <!-- <h5 *ngIf="DetailedHuddle.participants.coachee && DetailedHuddle.participants.coachee.length>0">Coachee</h5>
+
+        <div class="listing_scroll">
+          
+          <div>
+            
+          
+
+        </div>
+
+        </div> -->
+
+            </div>
+
+            <div class="parti_list" *ngIf="DetailedHuddle.type=='assessment'">
+
+                <!-- <h6> Assessor </h6> -->
+                <div class="row par_heading">
+                    <div class="col-4">
+                        {{translation?.huddle_resource_name}}
+                    </div>
+
+                    <div class="col-6">
+                        {{translation?.huddle_list_email}}
+                    </div>
+                    <div class="col-2">
+                        {{translation?.huddle_list_role}}
+                    </div>
+                </div>
+                <div class="listing_scroll" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+
+                    <ng-container *ngFor="let user of DetailedHuddle.participants.assessor">
+                        <div class="row par_listing">
+
+                            <div class="col-4">
+                                <img [src]="getImgSrc(user)">
+                                <span class="participant_details">{{user.user_name}}</span>
+                            </div>
+                            <div class="col-6 par_email">
+                                {{user.user_email}}
+                            </div>
+                            <div class="col-2">
+                                {{translation?.huddle_list_assessors}}
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="DetailedHuddle.role_id==200">
+                        <ng-container *ngFor="let user of DetailedHuddle.participants.assessed_participants">
+                            <div class="row par_listing">
+
+                                <div class="col-4">
+                                    <img [src]="getImgSrc(user)">
+                                    <span class="participant_details">{{user.user_name}}</span>
+                                </div>
+                                <div class="col-6 par_email" [tooltip]="user.user_email">
+                                    {{user.user_email}}
+                                </div>
+                                <div class="col-2">
+                                    {{translation?.huddle_list_assessees}}
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                </div>
+
+                <!-- <h6> Assessee </h6> -->
+                <!-- <div class="listing_scroll">
+          
+          
+
+        </div> -->
+
+            </div>
+
+        </div>
+        <div class="modal-footer hufooter par_foo">
+            <div class="col-12">
+                <div class="border_bottom">
+                    <a class="okbtn fake_link" (click)="ModalRefs.participentsModal.hide()"> {{translation?.huddle_list_ok}}</a>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</ng-template>

@@ -1,0 +1,31 @@
+
+<div *ngIf="!translationLoaded" style="display: flex">
+    <div class="an_ah3 ana_cl"></div>
+    <div class="an_ah3 ana_cl"></div>
+    <div class="an_ah3 ana_cl"></div>
+</div>
+<!-- <tabset #navTabs *ngIf="translationLoaded"> -->
+<tabset [hidden]="!translationLoaded" #navTabs>
+    <tab heading="{{translation?.analytics_overview}}" id="tab1" class="animated fadeIn" (selectTab)="selectTab(0)">
+    	<overview *ngIf="navTabsLoaded"></overview>
+    	<!-- <overview *ngIf="selectedTab == 0"> </overview> -->
+    </tab>
+    <tab heading="{{translation?.analytics_tp_level}}"  class="animated fadeIn" (selectTab)="selectTab(1)">
+        
+    	<tagsnpls [hidden]="filters?.subAccount =='' || !filters?.subAccount"> </tagsnpls>
+    	<!-- <tagsnpls *ngIf="selectedTab == 1" [hidden]="filters?.subAccount =='' || !filters?.subAccount"> </tagsnpls> -->
+    	
+        <div class="gbox" *ngIf="filters?.subAccount =='' || !filters?.subAccount"> <h6> {{translation?.analytics_huddle_video_session}}</h6>
+            <label style="font-style: italic;">
+                {{translation?.analytics_please_select_an_account_at}}
+               
+        </label>
+        </div>
+
+    </tab>
+   
+    <tab heading="{{translation?.analytics_user_summary}}"  class="animated fadeIn" (selectTab)="selectTab(2)">
+    	<user-summary *ngIf="navTabsLoaded"></user-summary>
+    	<!-- <user-summary *ngIf="selectedTab == 2"></user-summary> -->
+	</tab>
+</tabset>

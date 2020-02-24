@@ -1,0 +1,174 @@
+.tr_inner {     margin: 0 0px;
+    width: 100%;}
+.gotocls a { display:inline-block; color:#057EFF; text-decoration:none;}
+.gotocls img{ margin-left:2px;    position: relative;
+    top: -1px;}
+.tracker_detail{ background:#F9F9F9;     padding: 15px 17px 13px 13px; border-bottom:1px solid #dcdcdc;}
+.gotocls {     padding: 4px 0 9px 0;}
+.tracker_detail span{ color:#616161; font-weight:400;}
+.tracker_detail p{ color:#010101; margin:0;font-weight: 500;}
+.tracker_detail img { display:inline-block; margin-right:4px; position:relative; top:-2px;}
+.tra_subdetail {    float: left;width: 37%;}
+.tra_videoallow {float: left;width: 21%;}
+.tra_reallow {float: left;width: 21%;}
+.tra_publish {float: left;width:21%; text-align: right;}
+
+.tra_heading{    border-bottom: 1px solid #ddd;
+    padding: 16px 0;
+    margin-bottom: 8px; width:100%; margin:0 0px;}
+
+.tra_heading .col-md-4{ padding-left:0;  -webkit-box-flex: 0;
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;}
+.tra_heading .col-md-2 {    -webkit-box-flex: 0;
+    -ms-flex: 0 0 16%;
+    flex: 0 0 16%;
+    max-width: 16%;}
+	
+	.tra_heading .col-md-1 {-webkit-box-flex: 0;
+    -ms-flex: 0 0 9%;
+    flex: 0 0 9%;
+    max-width: 9%; padding:0;}
+	
+.tracker_par_list {width:100%; margin:0 0px;         padding: 9px 0 9px 0;}
+.trac_img {
+    float: left;
+    width:18%;
+}
+
+.trac_img img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;    object-fit: cover;
+}
+
+.trc_row .col-8{    padding-left: 0;}
+
+.trac_name {    float: left;width:82%;}
+
+.trac_name label{    margin: 0;
+    color: #616161;
+    font-weight: 600;
+    font-size: 16px;}
+	.trac_name p { margin:0;}
+	
+	.tracker_par_list .col-md-4 { padding-left:0;    -webkit-box-flex: 0;
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;}
+	
+	.tracker_par_list .col-md-2 {    -webkit-box-flex: 0;
+    -ms-flex: 0 0 16%;
+    flex: 0 0 16%;
+    max-width: 16%;     margin-top: auto;
+    margin-bottom: auto;}
+	
+	.tracker_par_list .col-md-1 {  -webkit-box-flex: 0;
+    -ms-flex: 0 0 9%;
+    flex: 0 0 9%;
+    max-width: 9%;     margin-top: auto;padding:0;
+    margin-bottom: auto;}
+
+.trac_cls1 {     display: inline-block;
+    background: #F1EFFF;
+    border-radius: 50px;
+    padding: 2px 13px;
+    color: #935AFF; }
+	
+	.trac_cls1 svg{    position: relative;top: -1px;margin-right: 1px;}
+	.trac_cls2 {     display: inline-block;
+    background: #EAF3EB;
+    border-radius: 50px;
+    padding: 2px 13px;
+    color: #28A745;}
+	
+	.trac_cls2 svg{    position: relative;top: -1px;margin-right: 1px;}
+	
+	.trac_cls3 {     display: inline-block;
+    background: #EAEEF3;
+    border-radius: 50px;
+    padding: 2px 13px;
+    color: #057EFF;}
+	.trac_cls3 svg{    position: relative;top: -1px;margin-right: 1px;}
+		.trac_cls4 {     display: inline-block;
+    background: #28A745;
+    border-radius: 50px;
+    padding: 2px 18px;
+    color: #057EFF;}
+	
+	.trac_cls4 svg{    position: relative;top: -1px;margin-right: 1px;}
+	.trac_cls2 svg path {fill:#28A745;}
+	
+	
+	.non_accessed .trac_cls1, .non_accessed .trac_cls2, .non_accessed .trac_cls3 { background:#E0E0E0; color:#626262;}
+	.non_accessed .trac_cls1 path, .non_accessed .trac_cls2 path, .non_accessed .trac_cls3 path { fill:#626262;}
+	.non_accessed .trac_cls4{ background:#626262;}
+    .non_accessed .trac_cls4 path{ }
+    .no_recent_activity {
+           display: block;
+    text-align: center;
+    padding: 50px 50px 40px 50px;
+    font-size: 18px;
+    color: #101010;
+    width: 100%;
+    }
+	
+	.no_recent_activity svg{ width:30px;    margin-right: 5px;     position: relative;
+    top: -3px;}
+	
+
+	
+.tran{
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+
+
+
+
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+	
+
+.trac7{ width:128px; height:21px; margin-bottom:5px;}
+.trac8{ width:80%; height:22px;}
+.trac9{ width:100px; height:21px;}
+.trac10{ width:110px; height:21px;}
+.trac11{ width:40px; height:21px;}
+
+.trac12{ width:38px; height:38px; border-radius:50%;}
+
+.trac13{ width:50%; height:18px;}
+.trac14{ width:80%; height:14px;}
+
+	

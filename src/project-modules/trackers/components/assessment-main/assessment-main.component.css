@@ -1,0 +1,249 @@
+body{background:#f3f2ea; font-family: 'Roboto', sans-serif; }
+.box_outer{ background:#fff;  border-radius:5px;     margin-top: 15px !important;     max-width: 1024px !important; margin-bottom: 20px !important;min-height: 700px}
+ .topheader{text-align: center; background:url(../../../../assets/trackers/img/bgrep.png) repeat-x;}
+.pan_heading { border-bottom:1px solid #ddd; padding:18px 10px;     background: #f9f9f9;     border-top-right-radius: 5px;     border-top-left-radius: 5px;}
+img{ max-width:100%;}
+.pan_heading  h3{    font-family: 'Roboto', sans-serif; margin: 0; font-weight: 400;font-size: 24px;     line-height: 40px; color:#484848;}
+
+.tabs_barcls {
+        padding: 15px 0 0 0;
+    height: 55px;
+}
+
+.tabs_barcls .nav-tabs {
+    border: 0;
+    position: relative;
+    top: 4px;
+}
+
+.tabs_barcls .nav-tabs .nav-item {
+    margin-bottom: -1px;
+    border: 1px solid #ddd;
+    padding: 6px 26px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-left: 0;height: 37px;
+}
+.tabs_barcls .nav-tabs .nav-item a {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-size: 15px;
+}
+.tabs_barcls .nav-tabs .nav-item a.active{ color:#1C7CD5;}
+
+.tracker_as { border-top:1px solid #ddd;     padding-top:15px;  }
+.onlyborder{ border-bottom: 1px solid #ddd;
+    margin: 0 15px;
+    display: block;
+    flex: auto; padding-top:15px;}
+
+
+.tracker_opt button {
+    border: 0;
+    padding: 0;
+    background: none;
+    outline: none !important;
+    cursor: pointer !important;
+}
+.trc_row .col-8{    padding-left: 0;}
+
+.tracker_as { position:relative;}
+.tracker_as {}
+.tracker_opt{    position: relative; padding-left:0;}
+.tracker_opt button img { max-width:25px;}
+.tracker_opt .dropdown-toggle::after { display:none;}
+  .tracker_opt .dropdown-menu{       right: 0 !important;
+    left: inherit !important;}
+  .tracker_opt .dropdown-menu a {  font-size:14px !important; background: none !important; color:#484848; margin-bottom:5px; cursor:pointer !important;     position: relative;}
+
+.tracker_serch input[type=text]{ width:65%; height:40px; border-radius:4px; border:1px solid #ddd; padding:4px 25px 4px 35px;  
+background: url(../../../../assets/trackers/img/search_icon.svg) no-repeat center left 11px; background-size: 19px;}
+.tracker_opt { text-align:right; position:relative;}
+.trc_row  {    padding: 15px 0 15px 0;border-bottom: 1px solid #ddd; margin:0;}
+.trc_row p{ margin:0;    color: #010101;}
+.trc_row p span{ color:#616161;}
+.trc_row h3{    color: #000; font-size: 16px; margin: 0;}
+.trc_row .col-1{ text-align:right;}
+.trc_row .col-11 p{ color:#010101; margin:0;}
+.trc_row .col-11 p span{ color:#616161;}
+.tracker_serch { position:relative;}
+.tracker_serch  .x_hu_cross{ cursor:pointer;    position: absolute;
+    right: 38%;
+    opacity: 0.6;
+    top: 16px;}
+.modal-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    display: block;
+    color: #484848;
+    text-align: center;
+    width: 95%;
+}
+.modal-body {
+    padding: 1rem 20px!important;
+}
+.par_titles {
+    border-bottom: 2px solid #d8d8d8;
+    margin: 0 0 7px!important;
+    padding-top: 11px;
+    padding-bottom: 3px;
+}
+.par_titles .col-4 {
+    padding-left: 0;
+}
+.par_titles .col-6 {
+    flex: 0 0 49%;
+    max-width: 49%;
+    padding-left: 0;
+}
+
+.par_titles .col-2 {
+    padding-top: 0;
+    padding-left: 16px;
+}
+
+.listing_scroll {
+    max-height: 300px;
+    min-height: 165px;
+    overflow: auto;
+    max-height: 350px;
+    overflow-x: hidden;
+    padding-top: 10px;
+}
+.par_rwcls {
+   
+    font-size: 14px;
+    padding: 12px 0 0;
+}
+
+.par_rwcls img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    background: #e5e5e5;
+}
+
+
+.par_rwcls .col-4 .g_name {
+    display: block;
+    width: 140px;
+    float: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 9px;
+    white-space: nowrap;
+}
+
+.par_rwcls .par_email {
+    padding-left: 5px;    margin-top: auto;
+    margin-bottom: auto;
+}
+.par_rwcls .col-2 {
+    
+    padding-left: 0;     margin-top: auto;
+    margin-bottom: auto;
+}
+.par_rwcls .col-4 {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.due_pub_date
+{
+    text-align: right;    padding-right: 4px;    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+
+.due_pub_date span{
+    display:inline-block;
+    margin-right: 20px;
+}
+.due_pub_date img{
+    max-width: 18px; position: relative; top: -2px;
+}
+
+.no_recent_activity {
+      display: block;
+    text-align: center;
+    padding: 50px 50px 40px 50px;
+    font-size: 18px;
+    color: #101010;
+    width: 100%;
+}
+
+.no_recent_activity svg{ width:30px;     margin-right: 5px;    position: relative;
+    top: -3px;}
+	
+.tran{
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+    background: #d9d9d9;
+    background: linear-gradient(to right, #e9e9e9 8%, #F0F0F0 18%, #efefef 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+.tracker_opt  .activecls {font-weight:600;color: #057eff!important;}
+.tracker_opt  .activecls svg{float: right;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 6px;
+    right: 6px;}
+.tracker_opt a svg path {
+    fill: #057eff;
+}
+.due_pub_date b { font-weight:400; color:#010101;}
+.due_pub_date { color:#616161;}
+
+
+.modal-header .close { outline:none;}
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.trac1{ height:20px; width:200px; margin-bottom:10px !important;}
+.trac2{ height:15px; width:430px;}
+.trac3{ height:20px; width:20px; float:right;}
+
+.trac4{    width:100px;height: 16.2px; display: block; margin: 3px 0px;}
+.trac5 { height:40px; width:60%;}
+
+.trac6 { height:22px; width:22px; float:right; position:relative; top:5px;     margin-right: 15px;} 
+.trc_row .col-11 { padding-left:0;}
+.trc_row .col-9 { padding-left:0;}
+
+
+
+
+
+
+
+
+
+

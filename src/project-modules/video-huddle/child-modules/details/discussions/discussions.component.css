@@ -1,0 +1,22 @@
+.aniimg {
+    display: inline-block;
+    width: 50px;
+    height: 50px !important;
+    border-radius: 50%;
+}
+.linecls {
+    height: 12px !important;
+    margin-bottom: 10px !important;
+    width: 100%;
+    display: inline-block;
+}
+
+.ql-container{
+    height: 250px !important;
+}
+
+.add-btn-loader {
+    height: 100%;
+    width: 220px;
+    float: right;
+}

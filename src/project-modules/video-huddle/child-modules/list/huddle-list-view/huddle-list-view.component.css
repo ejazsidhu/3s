@@ -1,0 +1,53 @@
+div.dndDraggingSource{
+	background: #cccbcb !important;
+    /* border-radius: 7px; */
+    padding-left: 6px;
+}
+
+.dndDraggingSource > div{
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+.type_container{
+
+    border-radius: 50%;
+    padding: 2px;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+
+.coaching_icon{
+	border: 1px solid #29a746
+}
+.collaboration_icon{
+	border: 1px solid #f69d28
+}
+.assessment_icon{
+	border: 1px solid #067fff
+}
+
+.huddle_title{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    color: #000;
+    font-weight: 500;
+        padding-top: 5px;
+}
+.paddingTop{
+    padding-top: 5px;
+}
+
+div[dndHandle]{
+    padding-left: 0;
+    left: 15px;
+}
+
+.lastcell{
+    left: 0;
+}

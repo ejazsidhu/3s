@@ -1,0 +1,56 @@
+<div id="main" class="container box">
+	<div class="analy_b">
+		<div class="header_an">
+			<h2 *ngIf="!detailsLoaded" class="ani_brcls an_ah1"></h2>
+			<h2 *ngIf="detailsLoaded"> {{details?.user_name+"'s "+translation?.analytics_activities}} </h2>
+		</div>
+		<div class="filter_an">
+			<div class="row">
+				<div *ngIf="!translationLoaded" class="selec_opt4 ana_cl an_ah2c6"></div>
+				<div *ngIf="translationLoaded" class="selec_opt4">
+					<ng-multiselect-dropdown name="standards" [placeholder]=translation.analytics_select_filters
+						[data]="filtersList" [settings]="filters_settings" [(ngModel)]="filters.standards">
+					</ng-multiselect-dropdown>
+				</div>
+				<div *ngIf="!translationLoaded" class="an_date ana_cl an_ah2c3"></div>
+				<div *ngIf="translationLoaded" class="an_date">
+					<input type="text" [bsConfig]="{containerClass: 'theme-default'}" bsDaterangepicker
+						[(ngModel)]="filters.date_range" placement="bottom" placeholder="Select Date Range"
+						(ngModelChange)="modelChanged(filters.date_range)" #dp>
+					<img class="an_cal" (click)="showdp()" src="assets/img/calendar.svg">
+				</div>
+				<div *ngIf="!translationLoaded" class="an_date2 ana_cl an_ah2c7"></div>
+				<input *ngIf="translationLoaded" type="submit" [value]="translation?.analytics_update"
+					[style.backgroundColor]="primery_button_color" (click)="Updatevalues()">
+			</div>
+		</div>
+		<div class="ana_body">
+			<p-dataTable emptyMessage="{{translation?.analytics_no_record_found}}" [value]="details?.user_detail"
+				[rows]="10" [paginator]="true" [totalRecords]="details?.user_detail.length"
+				[rowStyleClass]="isRowSelected" #dt>
+				<p-header>
+					<div class="ui-helper-clearfix">
+						<div dropdown class="offset-md-10 text-right">
+							<a dropdownToggle aria-controls="dropdown-basic">
+								<img class="dd_toggle" src="assets/img/dots.svg" />
+							</a>
+							<ul id="tagged" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+								aria-labelledby="button-basic">
+								<li role="menuitem"><a class="dropdown-item"
+										(click)="dt.exportCSV()">{{translation?.analytics_export}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</p-header>
+				<p-column [style]="{'width':'150px','word-wrap': 'break-word'}" *ngFor="let col of cols"
+					[field]="col.field" [header]="col.header">
+					<ng-template let-col let-row="rowData" pTemplate="body">
+						<div (click)="selectRow(col)">
+							{{row[col.field]}}
+						</div>
+					</ng-template>
+				</p-column>
+			</p-dataTable>
+		</div>
+	</div>
+</div>

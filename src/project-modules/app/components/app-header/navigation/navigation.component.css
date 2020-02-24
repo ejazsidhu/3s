@@ -1,0 +1,49 @@
+.nav-header {
+    float: right;
+    clear: right;
+    margin-top: 22px;
+    line-height: 32px;
+    clear: inherit;
+    margin-bottom: 5px;
+    position: relative;
+    top: -3px;
+}
+
+
+nav ul, nav ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    list-style-image: none;
+}
+
+.nav li {
+    float: left;
+    margin-left: 3px;
+    position: relative;
+}
+
+.nav-header a {
+    display: block;
+    padding: 8px 11px;
+    background: none;
+    color: #cccccc;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 15px;
+    margin-top: -9px;
+    top: -2px;
+    position: relative;
+}
+
+a{
+	transition: all .1s linear;
+}
+.nav-header a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-header ul li.active a {
+    color: #fff !important;
+}

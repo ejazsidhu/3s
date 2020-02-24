@@ -1,0 +1,16 @@
+<div class="clear"></div>
+<div class="container bred_an">
+  <ng-container *ngIf="loaded; else Animation">
+    <ng-container *ngFor="let breadCrumb of breadCrumbs; let last = last">
+      <a *ngIf="breadCrumb.link; else SimpleBreadCrumb" [routerLink]="[breadCrumb.link]">{{breadCrumb.title}}</a>
+      <ng-template #SimpleBreadCrumb>
+        <span>{{breadCrumb.title}}</span>
+      </ng-template>
+      <img *ngIf="!last" src="assets/img/breadcrumarrow.svg">
+    </ng-container>
+  </ng-container>
+  <ng-template #Animation>
+    <div class="breadcrumb-animate"></div>
+  </ng-template>
+</div>
+<div class="clear"></div>

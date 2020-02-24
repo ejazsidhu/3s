@@ -1,0 +1,5 @@
+<div class="trial_message" *ngIf="details?.user_current_account?.accounts
+?.in_trial">
+	<span class="trial_message_quote">{{translation?.huddle_list_trial_expires}} {{details?.expiry_date}} </span> <a href="" [attr.href]="details.base_url+'/accounts/account_settings_all/'+details?.user_current_account?.accounts?.account_id+'/4'" class="upgrade_link"> {{translation?.huddle_list_upgrade}} </a>
+</div>
+  

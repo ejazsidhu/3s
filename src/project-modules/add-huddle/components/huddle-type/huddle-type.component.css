@@ -1,0 +1,32 @@
+.huddle_boxcls {
+-webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 8px rgba(229,229,229,.7);
+    box-shadow: 0 0 8px rgba(229,229,229,.7);
+    margin-bottom: 20px;
+    font-family: Conv_Roboto-Light, Roboto, Roboto-Light, "Segoe UI",Frutiger,"Frutiger Linotype";
+    color: #555658;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 30px 20px;
+    background: rgba(255,255,255,1);
+    background: -webkit-gradient(linear,left top,right top,from(rgba(255,255,255,1)),to(rgba(248,248,248,1)));
+    background: linear-gradient(to right,rgba(255,255,255,1) 0,rgba(248,248,248,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8', GradientType=1 );
+}
+.huddle_boxcls:hover{
+    cursor: pointer;
+}
+.huddle_boxcls.selected{
+
+    border: 2px solid #969696;
+}
+p {
+    /*font-family: Myriad Pro;*/
+    font-size: 14px;
+    color: #545557;
+}

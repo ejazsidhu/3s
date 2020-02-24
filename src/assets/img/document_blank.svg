@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="39.001" viewBox="0 0 30 39.001">
+  <g id="Group_533" data-name="Group 533" transform="translate(-979 -411.999)">
+    <g id="Path_94" data-name="Path 94" transform="translate(979 412)" fill="#fff">
+      <path d="M 28.9990234375 38 L 1 38 L 1 1 L 22.74832916259766 1 L 22.74914932250977 6.192540168762207 L 22.74930953979492 7.192379951477051 L 23.74914932250977 7.192379951477051 L 28.968994140625 7.192379951477051 L 28.9990234375 38 Z" stroke="none"/>
+      <path d="M 2 2 L 2 37 L 27.99804878234863 37 L 27.96996688842773 8.192380905151367 L 23.74914932250977 8.192380905151367 L 21.74946975708008 8.192380905151367 L 21.74914932250977 6.192699432373047 L 21.74848556518555 2 L 2 2 M 0 0 L 23.7481689453125 0 L 23.74914932250977 6.192378997802734 L 29.96801948547363 6.192378997802734 L 30 39 L 0 39 L 0 0 Z" stroke="none" fill="#626262"/>
+    </g>
+    <path id="Path_98" data-name="Path 98" d="M-1441.248-10407l6.2,6.2h-6.2Z" transform="translate(2443.988 10819)" fill="#626262"/>
+    <g id="Rectangle_56" data-name="Rectangle 56" transform="translate(986 427)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="14" height="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="13" height="1" fill="none"/>
+    </g>
+    <g id="Rectangle_57" data-name="Rectangle 57" transform="translate(986 433)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="9" height="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="8" height="1" fill="none"/>
+    </g>
+    <g id="Rectangle_58" data-name="Rectangle 58" transform="translate(986 439)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="12" height="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="11" height="1" fill="none"/>
+    </g>
+  </g>
+</svg>

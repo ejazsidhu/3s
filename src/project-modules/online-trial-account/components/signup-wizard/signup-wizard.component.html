@@ -1,0 +1,211 @@
+<custom-progress-bar *ngIf="progress!=2" [successClass]="'done'" [currentProgress]="bar_progress" [defaultClass]="'default'" [total]="5"> </custom-progress-bar>
+<aw-wizard *ngIf="progress!=2" #wizard>
+  <aw-wizard-step (stepEnter)="getProgress(0)">
+    <ng-container *ngIf="progress==1">
+       <div class="screen1 animated fadeIn">
+        <h3><!-- Let’s setup your account. --> {{translations?.signup_wizard_title}}</h3>
+
+      <label> <!-- What is your current role? --> {{translations?.signup_wizard_role_text}}</label>
+      <select [(ngModel)]="userInfo.current_role" class="form-control">
+        <option value="">{{translations?.singup_wizard_select_role_label}}</option>
+        <option *ngFor="let role of Roles" [value]="role.role_id">{{role.role_name}}</option>
+      </select>
+
+      <button class="green_btn" (click)="AlertError(translations?.singup_wizard_select_role_label)" *ngIf="!userInfo.current_role"> <!-- Next -->{{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+
+      <button class="green_btn" (click)="MoveProgress('1.0')" *ngIf="userInfo.current_role"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+       </div>
+
+  </ng-container>
+  <ng-container *ngIf="progress==1.1">
+
+    <div class="why_sign animated fadeIn">
+      <label class="heading"><!-- Why are you signing up for a Sibme trial? --> {{translations?.signup_wizard_heading_text}}</label>
+
+      <!-- <p><input type="checkbox">I want to try Sibme for my school or team</p>
+      <p><input type="checkbox">My school signed up for Sibme and I want access</p>
+      <p><input type="checkbox">I was asked to create a Sibme account</p> -->
+      <span *ngFor="let reason of currentReasons; let i=index">
+        <!-- <input type="checkbox" [(ngModel)]="reasons[i]"> {{reason}}  -->
+            <!-- <div class="checkbox_element">
+              <label class="checkboxrow"> {{reason}}
+                <input type="checkbox" [(ngModel)]="reasons[i]">
+                <span class="checkmark"></span>
+              </label>
+            </div> -->
+
+            <input type="radio" [(ngModel)]="reasonToJoin" name="reason_radio" [id]="'reason_'+i" [value]="reason"> <label [for]="'reason_'+i"> {{reason}} </label> <br/>
+
+      </span>
+
+     <span>
+      <!-- <input type="checkbox" [(ngModel)]="userInfo.other_reason">Other -->
+      <!-- <div class="checkbox_element">
+        <label class="checkboxrow"> Other
+          <input type="checkbox" [(ngModel)]="userInfo.other_reason">
+          <span class="checkmark"></span>
+        </label>
+      </div> -->
+    </span>
+    <input *ngIf="false" type="text" class="form-control" [(ngModel)]="userInfo.other_reason_text" placeholder="Provide Details" [disabled]="!userInfo.other_reason">
+     <button class="green_btn" (click)="MoveProgress('1.1')"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+
+ </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="progress==1.2">
+
+    <div class="sure_you animated fadeIn">
+    <label><!-- Are you sure you want to sign up a trial? --> {{translations?.signup_wizard_sure_text}}</label>
+    <p><!-- If your school or institution already has a Sibme account, you should ask your administrator for access. Any activity taken in a trial account  will not be visible by anyone else at your school or institution in their Sibme account. --> {{translations?.signup_wizard_sure_description}}</p>
+
+     <p class="alredy"><!-- Already a Sibme User? --> {{translations?.signup_wizard_already_text}}</p>
+      <button class="logincls" (click)="MoveToLogin()"> <!-- Login --> {{translations?.singup_wizard_login_btn}}</button>
+    <button class="green_btn" awNextStep> <!-- I still want to sign-up for a trial -->{{translations?.signup_wizard_next_step_text}} <i class="fa fa-angle-right"></i>
+    </button>
+    <!-- <button type="button" awPreviousStep>Previous Step</button>
+    <button type="button" (click)="finishFunction()">Finish</button> -->
+  </div>
+
+  </ng-container>
+
+     <!-- <button type="button" awNextStep>Next Step</button> -->
+    <!--<button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
+
+
+  </aw-wizard-step>
+
+
+  <aw-wizard-step (stepEnter)="getProgress(1)">
+
+    <div class="screen_4 animated fadeIn">
+      <h3><!-- Next, tell us a little about yourself and your workplace. -->{{translations?.signup_wizard_tell_us_text}}</h3>
+
+      <form #aboutForm="ngForm" name="aboutForm">
+
+      <input type="text" InputValidator [for]="'name'" name="company" class="form-control" [(ngModel)]="userInfo.about.company" placeholder="{{translations?.signup_wizard_company_plc_holder}}" required>
+
+      <input type="text" InputValidator [for]="'name'" name="name" class="form-control" [(ngModel)]="userInfo.about.full_name" placeholder="{{translations?.signup_wizard_your_name_plc_holder}}" required>
+
+      <input type="text" name="jobtitle" class="form-control" [(ngModel)]="userInfo.about.jobtitle" placeholder="{{translations?.signup_wizard_job_title_plc_holder}}">
+
+      <input type="text" name="phone" class="form-control" [(ngModel)]="userInfo.about.phone"  placeholder="{{translations?.signup_wizard_phn_plc_holder}}">
+
+       </form>
+
+      <button class="green_btn" *ngIf="aboutForm.invalid" (click)="AlertError()"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+
+      <button class="green_btn" *ngIf="!aboutForm.invalid" (click)="MoveProgress(2)"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+      <button class="btn btn-link form-control back_btn" (click)="GoBackHome()">
+      {{translations?.signup_wizard_back_btn}}
+    </button>
+
+      </div>
+
+  </aw-wizard-step>
+
+
+  <aw-wizard-step (stepEnter)="getProgress(2)">
+
+        <div class="screen_4 animated fadeIn">
+      <h3><!-- Next, let’s set your password. --> {{translations?.signup_wizard_tell_password}}</h3>
+
+      <form #passwordForm="ngForm" name="aboutForm">
+
+      <input type="password" name="company" class="form-control" [(ngModel)]="userInfo.password.password" placeholder="{{translations?.signup_wizard_password_plc_holder}}" required>
+      <p class="minchar">{{translations?.signup_wizard_password_min_text}}</p>
+
+      <input type="password" name="name" class="form-control" [(ngModel)]="userInfo.password.password_confirmation" placeholder="{{translations?.signup_wizard_cnf_password_text}}" required>
+       </form>
+      <button class="green_btn" *ngIf="passwordForm.invalid" (click)="AlertError(translations?.signup_wizard_alert_cnf_text)"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+
+      <button class="green_btn" *ngIf="!passwordForm.invalid" (click)="MoveProgress(3)"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+
+      <button class="btn btn-link form-control back_btn" awPreviousStep>
+      {{translations?.signup_wizard_back_btn}}
+    </button>
+
+      </div>
+
+  </aw-wizard-step>
+
+  <aw-wizard-step (stepEnter)="getProgress(3)">
+    <div class="insted_use animated fadeIn">
+
+      <h4><!-- How do you primarily intend to use Sibme? -->{{translations?.signup_wizard_primarily_text}}</h4>
+
+
+   <!-- <p *ngIf="get_selected_intentions_count() < intentions_array.length" (click)="check_all_intentions(1)"><span class="ckall">Check All</span></p>
+
+   <p *ngIf="get_selected_intentions_count() >= intentions_array.length" (click)="check_all_intentions(0)"><span class="ckall">Uncheck All</span></p> -->
+
+    <div class="checkbox_element" *ngFor="let intention of intentions_array; let i=index;">
+      <!-- <label class="checkboxrow"> {{intention}}
+        <input type="checkbox" [(ngModel)]="intentions[i]" (ngModelChange)="onIntentionChange($event, i)">
+        <span class="checkmark"></span>
+      </label> -->
+      <input type="radio" [(ngModel)]="intentionToJoin" name="intention_radio" [id]="'intention_'+i" [value]="intention"> <label [for]="'intention_'+i"> {{intention}} </label> <br/>
+      
+    </div>
+
+    <!-- <div class="checkbox_element">
+    <label class="checkboxrow"> Other
+      <input type="checkbox" checked="checked" [(ngModel)]="userInfo.other_intention">
+      <span class="checkmark"></span>
+    </label>
+    </div> -->
+
+
+ <input *ngIf="false" [disabled]="!userInfo.other_intention" type="text" name="name" class="form-control" placeholder="<!-- Provide Details -->{{translations?.signup_wizard_provide_details_plc_holder}}" [(ngModel)]="intentions[7]" required>
+ <button class="green_btn" (click)="MoveProgress(4)"> {{translations?.signup_wizard_next_button}} <i class="fa fa-angle-right"></i> </button>
+ <button class="btn btn-link form-control back_btn" awPreviousStep>
+       {{translations?.signup_wizard_back_btn}}
+    </button>
+
+ </div>
+  </aw-wizard-step>
+
+
+<aw-wizard-step (stepEnter)="getProgress(4)">
+
+   <div class="who_invite animated fadeIn">
+
+      <h4><!-- Want to invite a colleague to join you in your trial account? -->  {{translations?.signup_wizard_invite_colg_text}}</h4>
+
+      <input type="text" [(ngModel)]="userInfo.colleague_name" name="name" class="form-control" placeholder="{{translations?.signup_wizard_colg_name_plc_holder}}" >
+
+      <input type="email" [(ngModel)]="userInfo.colleague_email" name="name" class="form-control" placeholder="{{translations?.signup_wizard_colg_email_plc_holder}}">
+
+  <button *ngIf="!userInfo.policy_accepted" (click)="AlertError(translations?.signup_wizard_tc_alert_text)" class="green_btn"> {{translations?.signup_wizard_strt_trial}} </button>
+
+ <button *ngIf="userInfo.policy_accepted" class="green_btn" (click)="StartTrial()" [disabled]="!allow_trial"> {{translations?.signup_wizard_strt_trial}} </button>
+ <button class="btn btn-link form-control back_btn" awPreviousStep>
+       {{translations?.signup_wizard_back_btn}}
+  </button>
+ <div class="checkbox_element agreement_checkbox">
+<label class="checkboxrow"> {{translations?.signup_wizard_agree_text}}  <a target="_blank" [attr.href]="links?.terms">{{translations?.signup_wizard_tc_use_text}}</a> {{translations?.signup_wizard_and_text}} <a target="_blank" [attr.href]="links?.privacy_policy"> {{translations?.signup_wizard_ppolicy_text}}</a>
+  <input type="checkbox" [(ngModel)]="userInfo.policy_accepted">
+  <span class="checkmark"></span>
+</label>
+</div>
+
+    </div>
+</aw-wizard-step>
+
+</aw-wizard>
+
+<div *ngIf="progress==2" class="final_step text-center animated fadeIn">
+
+  <span class="oi" data-glyph="circle-check"></span>
+
+  <div class="thanks">
+
+    <h4>{{translations?.signup_wizard_thanks_text}}</h4>
+  </div>
+
+  <label> {{translations?.signup_wizard_activation_text}} </label>
+
+  <button class="green_btn" (click)="ResendActivationLink()"> {{translations?.singup_wizard_resend_text}} <i class="fa fa-angle-right"></i> </button>
+
+</div>

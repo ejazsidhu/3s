@@ -1,0 +1,156 @@
+<div class="row">
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/total_users.svg"></div>
+      <label>{{overview_data?.total_account_users}}</label>
+      <div class="an_boxb"> {{translation?.analytics_total_user}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/active_user.svg"></div>
+      <label>{{overview_data?.active_users}}</label>
+      <div class="an_boxb"> {{translation?.analytics_active_users}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/huddles.svg"></div>
+      <label>{{overview_data?.total_account_huddles}}</label>
+      <div class="an_boxb">
+        {{translation?.analytics_huddles}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/total_video_uploaded.svg">
+      </div>
+      <label>{{overview_data?.total_account_videos}}</label>
+      <div class="an_boxb"> {{translation?.analytics_total_videos_upload}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/comments_added.svg">
+      </div>
+      <label>{{overview_data?.total_comments_added}}</label>
+      <div class="an_boxb"> {{translation?.analytics_comment_added}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/video_view.svg">
+      </div>
+      <label>{{overview_data?.total_viewed_videos}}</label>
+      <div class="an_boxb"> {{translation?.analytics_video_views}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/total_video_uploaded.svg">
+      </div>
+      <label>{{overview_data?.total_video_duration | number : '1.2-2'}}</label>
+      <div class="an_boxb"> {{translation?.analytics_video_hours_uploaded}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/video_view.svg">
+      </div>
+      <label>{{overview_data?.total_min_watched}}</label>
+      <div class="an_boxb"> {{translation?.analytics_video_hours_viewed}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLiveStreamingEnabled.enable_live_rec==1" class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/live_session.svg">
+      </div>
+      <label>{{overview_data?.total_live_sessions}}</label>
+      <div class="an_boxb"> {{translation?.analytics_live_session}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLiveStreamingEnabled.enable_live_rec==1" class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/live_hour.svg">
+      </div>
+      <label>{{overview_data?.total_live_vide_duration}}</label>
+      <div class="an_boxb"> {{translation?.analytics_live_hours_streamed}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLiveStreamingEnabled.enable_live_rec==1" class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/liveHourView.svg">
+      </div>
+      <label>{{overview_data?.total_live_min_watched}}</label>
+      <div class="an_boxb"> {{translation?.analytics_live_hours_viewed}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLiveStreamingEnabled.enable_live_rec==1" class="col-md-3">
+    <div *ngIf="!dataLoaded" class="an_box">
+      <div class="ana_cl an_ah4"> </div>
+      <div class="ana_cl an_ah5"> </div>
+    </div>
+    <div *ngIf="dataLoaded" class="an_box">
+      <div class="an_img"><img src="assets/img/total_users.svg">
+      </div>
+      <label>{{overview_data?.total_viewers}}</label>
+      <div class="an_boxb"> {{translation?.analytics_total_live_viewers}}
+      </div>
+    </div>
+  </div>
+</div>

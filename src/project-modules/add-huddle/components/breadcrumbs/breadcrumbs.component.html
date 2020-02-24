@@ -1,0 +1,8 @@
+<div class="container bred_an mb-3 pb16">
+    <a [routerLink]="['/']">{{translation?.huddle_breadcrumbs_home}}</a>
+    <img src="assets/img/breadcrumarrow.svg">
+    <a [routerLink]="['/video_huddles/list']">{{translation?.huddle_breadcrumbs_huddle}}</a>
+    <img src="assets/img/breadcrumarrow.svg">
+    <ng-container *ngIf="!EditMode"> {{translation?.huddle_breadcrumbs_add_huddle}} </ng-container>
+    <ng-container *ngIf="EditMode"> {{translation?.huddle_breadcrumbs_edit_huddle}} </ng-container>
+</div>

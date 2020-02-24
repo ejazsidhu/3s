@@ -1,0 +1,66 @@
+<div class="inner_h">
+            <!-- <a target="_blank" href="{{openResourceHref(artifact)}}"> -->
+            <a (click)="openResource(artifact)">
+              <!-- <div class="thumb_hu" (click)="openResource(artifact)"> -->
+              <div class="thumb_hu">
+                <div class="icontype">
+                  <img src="{{artifact.thubnail_url}}">
+                </div>
+              </div>
+            </a>
+
+        <div class="huddle_detail">
+
+            <div class="hu_video">
+                <a (click)="openResource(artifact)">
+                  <!-- <label (click)="openResource(artifact)" tooltip="{{artifact.title}}">{{artifact.title | slice:0:20}}<span *ngIf="artifact.title.length>20">...</span></label> -->
+                  <label tooltip="{{artifact.title}}">{{artifact.title | slice:0:20}}<span *ngIf="artifact.title.length>20">...</span></label>
+                </a>
+            </div>
+            <ng-container *ngIf="userAccountLevelRoleId != '125'">
+            <div class="hu_op dropdown" *ngIf="!(artifact?.mouseEntered || isDropdownOpen)">
+                    <button type="button">
+                      <img src="assets/img/dots_dark.svg" width="30">
+                    </button>
+            </div>
+            <div class="hu_op dropdown" dropdown *ngIf="artifact?.mouseEntered || isDropdownOpen">
+              <span (isOpenChange)="isOpen($event)" dropdown>
+                    <button type="button" id="button-basic" dropdownToggle>
+                      <img src="assets/img/dots_dark.svg" width="30">
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" >
+                      
+                  
+                      <a class="dropdown-item" (click)="OpenModel(artifact,'rename');">{{translation?.workspace_rename}}</a>
+                      <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'crop');">Crop</a> -->
+                      <!-- <a class="dropdown-item" (click)="OpenModel(artifact,'email');">Email</a> -->
+                 
+                      <!-- <a class="dropdown-item" (click)="DuplicateResource(artifact)">Duplicate</a> -->
+                      <a class="dropdown-item" (click)="DownloadResource(artifact)">{{translation?.workspace_download}}</a>
+                      <a class="dropdown-item" (click)="OpenModel(artifact,'delete');">{{translation?.workspace_delete}}</a>
+                    
+    
+                    
+    
+              
+                    </ul>
+              </span>      
+            </div>
+          </ng-container>
+            <div class="clear"></div>
+            <p class="h_by">{{translation?.workspace_by}}: <b>{{artifact.first_name}} {{artifact.last_name}}</b></p>
+            <p class="h_date">{{translation?.workspace_uploaded}} {{headerService?.formateDate(artifact.created_date,"MMM DD, YYYY")}}</p>
+
+            <div class="huddle_option">
+                    <!-- <a tooltip="Comments" class="chat_cls" href=""> <img src="assets/img/comm_icon.svg"> {{artifact.total_comments}}</a> -->
+                    <!-- <a class="h_att" href=""> <img src="assets/img/attachment_icon.svg"> {{artifact.total_attachment}} </a> -->
+    
+                <a *ngIf="userAccountLevelRoleId != '125'" tooltip="{{translation?.workspace_share}}" class="arrow_cls" (click)="OpenModel(artifact,'share')"> <img src="assets/img/icon_arrow.svg"> </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>

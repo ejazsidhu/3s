@@ -1,0 +1,91 @@
+<div dndHandle>
+
+    <div class="inner_h">
+
+        <!-- <span class="fake_link" *ngFor="let participent of data?.participants?.coach | slice:0:6"> </span>
+        <span class="fake_link" *ngFor="let participent of data?.participants?.coachee | slice:0:6"> </span> -->
+
+
+
+        <div class="top_hu">
+
+            <div class="h_title">
+                <!-- href="{{baseUrl}}/video_huddles/assessment/{{data.huddle_id}}/huddle/details" -->
+                <a *ngIf="data.huddle_id && data.type=='assessment'" class="external_link_container" [routerLink]="['/video_huddles/assessment/',data.huddle_id]"><label class="fake_link"
+            tooltip="{{data?.title}}">
+            {{data?.title}}</label>
+          <label [hidden]="true">{{data.huddle_id}}</label>
+        </a>
+                <!-- *ngIf="data.huddle_id && data.huddle_type!='Assessment'" -->
+                <a *ngIf="data.huddle_id && data.type!='assessment'" class="external_link_container" [routerLink]="['/video_huddles/huddle/details/',data.huddle_id]">
+                    <label class="fake_link" tooltip="{{data?.title}}">
+            {{data?.title}}</label>
+                    <label [hidden]="true">{{data.huddle_id}}</label>
+                </a>
+            </div>
+
+            <!-- {{data |json}} -->
+            <ng-container *ngIf="data?.huddle_permissions  && userAccountLevelRoleId !='125'">
+                <div *ngIf="!(data?.mouseEntered || isDropdownOpen)" class="h_option">
+                    <a (click)="false"><img src="./assets/img/doted.svg" width="30"></a>
+                </div>
+
+                <div *ngIf="data?.mouseEntered || isDropdownOpen" class="h_option">
+                    <span (isOpenChange)="isOpen($event)" dropdown>
+            <a href id="basic-link" dropdownToggle (click)="false" aria-controls="basic-link-dropdown"><img
+                src="./assets/img/doted.svg" width="30"></a>
+            <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="basic-link">
+              <li> <a class="dropdown-item fake_link"
+                  (click)="OnEdit.emit({huddle_id: data.huddle_id, type: data.type})">{{translation?.huddle_edit_btn}}
+                </a> </li>
+              <li> <a class="dropdown-item fake_link" (click)="OnDelete.emit(data)"> {{translation?.huddle_delete_btn}}
+                </a> </li>
+              <li *ngIf="!block_move"> <a class="dropdown-item fake_link" (click)="OnHuddleMove(data.huddle_id)">
+                  {{translation?.huddle_move_btn}} </a> </li>
+
+            </ul>
+          </span>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!data?.huddle_permissions">
+                <div class="h_option">
+                    <a>
+                        <img src="./assets/img/doted.svg" width="30" [style.opacity]="0">
+                    </a>
+                </div>
+            </ng-container>
+            <div class="clear"></div>
+            <div class="hu_detail">
+                <div class="created_date">
+                    <p>{{translation?.huddle_created_by}}: {{data?.created_by_name}}</p>
+                    <span>{{data?.created_on}}</span>
+                    <span class="video_count"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" viewBox="0 0 8 8"
+              style="margin-top:-2px;">
+              <path style="fill:#057EFF;" d="M0 0v6l6-3-6-3z" transform="translate(1 1)" />
+            </svg> {{data?.stats?.videos}} </span>
+                    <span class="file_count"><img src="./assets/img/file_icon.svg"> {{data?.stats?.attachments}} </span>
+
+                    <div class="clear"></div>
+
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="hu_bottom">
+
+            <huddle-thumb-participants (OnDetailsClick)="RequestParticipentsDetails($event)" [data]="{type: data.type, participants: data.participants, role_id: data.role_id}"> </huddle-thumb-participants>
+
+
+        </div>
+        <div [class]="getTypeClass(data)">
+            {{data?.huddle_type}}
+            <span class="coa_icon">
+        <img [src]="getSrc(data)" width="25">
+      </span>
+        </div>
+    </div>
+
+
+
+</div>

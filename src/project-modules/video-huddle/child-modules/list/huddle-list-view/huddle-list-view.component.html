@@ -1,0 +1,63 @@
+<div class="row grid_row" [dndDraggable]="data" dndEffectAllowed="move" [dndDisableIf]="block_move">
+    <div class="row col-12" dndHandle>
+        <!-- RequestDetails.emit(data) -->
+        <div (click)="RequestDetails.emit(data)" class="col-3">
+            <!-- [href]="getHuddleLink(data)" -->
+            <a class="fake_link external_link_container">
+                <div class="huddle_title" tooltip="{{data?.title}}">
+                    {{data?.title}}
+                </div>
+            </a>
+        </div>
+
+        <div (click)="RequestDetails.emit(data)" class="col-1">
+            <span [class]="getClass(data?.type)">
+            <img [src]="getSrc(data?.type)" width="18">
+          </span>
+        </div>
+        <div class="col-1 paddingTop">{{data?.total_videos}}</div>
+        <div class="col-1 paddingTop">{{data?.total_docs}}</div>
+        <div class="col-1 lgcell paddingTop">{{data?.created_on}}</div>
+        <div class="col-1 lgcell paddingTop">{{data?.last_edit_date}}</div>
+        <div class="col-1 paddingTop"> </div>
+        <div class="col-1 paddingTop">{{getParticipentCount(data?.participants, data?.type)}}</div>
+        <div class="col-1 lastcell paddingTop">
+            <ng-container *ngIf="data?.huddle_permissions  && userAccountLevelRoleId !='125'">
+                <div *ngIf="!(data?.mouseEntered || isDropdownOpen)" class="hu_grid dropdown">
+                    <a>
+                        <img src="./assets/img/doted.svg" width="22">
+                    </a>
+                </div>
+
+                <div *ngIf="data?.mouseEntered || isDropdownOpen" class="hu_grid dropdown">
+
+                    <span (isOpenChange)="isOpen($event)" dropdown>
+              <button dropdownToggle id="basic-link" type="button" aria-controls="basic-link-dropdown" class="noOutline">
+                  <img src="./assets/img/doted.svg" width="22">
+              </button>
+                <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="basic-link" style="width: 20px">
+                  <li>
+                    <a class="dropdown-item fake_link" (click)="OnEdit.emit({huddle_id: data.huddle_id, type: data.type})">{{translation?.huddle_edit_btn}}</a>
+                    
+                    <a class="dropdown-item fake_link" (click)="OnDelete.emit(data)">{{translation?.huddle_delete_btn}}</a>
+                    <a *ngIf="!block_move" class="dropdown-item fake_link" (click)="OnMove.emit(data.huddle_id)">{{translation?.huddle_move_btn}}</a>
+                  </li>
+                </ul>
+            </span>
+
+                    <!-- <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+   <img src="../assets/img/doted.svg" width="22">
+  </button> -->
+                    <!-- <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit</a>
+    <a data-toggle="modal" class="dropdown-item" href="#move_folder">Move</a>
+    <a data-toggle="modal" class="dropdown-item" href="#delete_folder">Delete</a>
+   
+  
+</div> -->
+
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

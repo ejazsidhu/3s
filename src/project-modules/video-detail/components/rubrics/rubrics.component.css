@@ -1,0 +1,42 @@
+.level_1{
+	padding-left: 0% !important;    font-family: 'Roboto-Regular';margin-bottom: 10px;color: #464646;font-size: 14px;
+}
+
+.level_2{
+	padding-left: 8% !important;    font-family: 'Roboto-Regular';margin-bottom: 10px;color: #464646;font-size: 14px;
+}
+.level_3{
+	padding-left: 16% !important;    font-family: 'Roboto-Regular';margin-bottom: 10px;color: #464646;font-size: 14px;
+}
+.level_4{
+	padding-left: 24% !important;    font-family: 'Roboto-Regular';margin-bottom: 10px;color: #464646;font-size: 14px;
+}
+h6{font-size: 20px; font-family: 'Roboto-Regular';     margin-top: 6px;} 
+.rub_nu {    display: inline-block; padding-right: 15px;}
+
+.ActiveRubric{
+
+	background: #e9e9e9;
+    
+}
+
+.paddedRubric{
+	padding: 5px;
+	cursor: pointer;
+}
+.rubric_table td:first-child{ min-width: 6px; padding-right: 10px;}
+
+.rubric_table td{    vertical-align: top;  }
+.rubric_table input[type=checkbox]{    position: relative; top: 2px; margin-right: 2px;}
+.rubric_table span{       padding-right: 4px;}
+
+.info_holder{
+	display: inline-block;
+	white-space: nowrap;
+}
+.nothing_found{
+	font-size: 12pt;
+	
+}
+
+

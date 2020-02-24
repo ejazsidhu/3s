@@ -1,0 +1,18 @@
+<nav class="nav nav-header">
+    <ul>
+        <!-- <li class="active"><a [attr.href]="details?.base_url+'/Dashboard/home'">Dashboard</a></li> -->
+         <li *ngIf="details.user_current_account.users_accounts.parmission_access_my_workspace=='1' ">           
+            <a [attr.href]="details?.base_url+'/workspace/workspace/home'">{{translation?.hp_workspace}}</a>
+        </li>
+                                    
+        <li [class.active]="currentProject=='huddle'"><a [attr.href]="details?.base_url+'/video_huddles/list'">{{translation?.hp_huddle}}</a></li>
+                                    
+        <li *ngIf="details?.library_permission==1"><a [attr.href]="details?.base_url+'/VideoLibrary/'">{{translation?.hp_library}}</a></li>
+
+        <li [class.active]="currentProject=='analytics'" *ngIf="(details?.user_permissions?.UserAccount?.permission_view_analytics==1  || details?.user_current_account?.roles?.role_id==115) && !details?.user_current_account?.accounts?.in_trial"><a [attr.href]="details?.base_url+'/analytics_angular/'">{{translation?.hp_analytics}}</a></li>
+
+        <li *ngIf="isAllowedPeople()">
+            <a [attr.href]="details?.base_url+'/users/administrators_groups'">{{translation?.hp_people}}</a>
+        </li>
+        </ul>
+</nav>
